@@ -1,0 +1,20 @@
+# datos crudos e intermedios: se regeneran con el pipeline
+data/raw/*.xlsx
+data/raw/*.xls
+data/raw/*.zip
+data/staging/
+data/warehouse.duckdb*
+# los geojson crudos se descargan con scripts/build_geo.sh
+data/raw/geo/
+
+dbt/target/
+dbt/logs/
+dbt/dbt_packages/
+logs/
+.user.yml
+
+node_modules/
+__pycache__/
+.pytest_cache/
+.venv/
+.DS_Store

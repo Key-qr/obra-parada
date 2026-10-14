@@ -1,0 +1,67 @@
+# Revisa cada semana si la Contraloría publicó un informe nuevo de obras paralizadas.
+# Si el Excel cambió (otro SHA-256), corre el pipeline completo y commitea web/data.
+# Netlify despliega solo al ver el commit.
+name: pipeline
+
+on:
+  schedule:
+    - cron: "0 11 * * 1"   # lunes 06:00 en Lima
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Enlace directo al Excel del Anexo 02 (opcional, si gob.pe cambió su HTML)"
+        required: false
+      corte:
+        description: "Fecha de corte AAAA-MM (obligatoria si pasas url)"
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Descargar y leer el Anexo 02
+        run: |
+          if [ -n "${{ inputs.url }}" ]; then
+            python -m pipeline.cli ingest --url "${{ inputs.url }}" --corte "${{ inputs.corte }}"
+          else
+            python -m pipeline.cli ingest
+          fi
+
+      - name: ¿Hay un archivo nuevo?
+        id: diff
+        run: |
+          nuevo=$(python -c "import json;print(json.load(open('data/staging/meta.json'))['sha256'])")
+          actual=$(python -c "import json;print(json.load(open('web/data/meta.json')).get('sha256',''))" 2>/dev/null || echo "")
+          echo "nuevo=$nuevo actual=$actual"
+          if [ "$nuevo" = "$actual" ]; then echo "cambio=no" >> "$GITHUB_OUTPUT"; else echo "cambio=si" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Transformar y validar con dbt
+        if: steps.diff.outputs.cambio == 'si'
+        run: make transform
+
+      - name: Exportar JSON para la web
+        if: steps.diff.outputs.cambio == 'si'
+        run: make export
+
+      - name: Commit de los datos
+        if: steps.diff.outputs.cambio == 'si'
+        run: |
+          git config user.name "obra-parada-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add web/data
+          corte=$(python -c "import json;print(json.load(open('web/data/meta.json'))['corte'])")
+          git commit -m "datos: informe de obras paralizadas con corte $corte" || echo "Sin cambios"
+          git push

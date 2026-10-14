@@ -1,0 +1,29 @@
+# Tests del parser + pipeline completo de punta a punta con datos sintéticos.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Tests del parser
+        run: make test
+      - name: Pipeline con datos sintéticos (ingest + dbt build + export)
+        run: |
+          python scripts/make_fixture.py data/raw/fixture_anexo02.xlsx --rows 900
+          python -m pipeline.cli ingest --file data/raw/fixture_anexo02.xlsx --corte 2026-06 --sample
+          make transform
+          python -c "
+          import duckdb; c = duckdb.connect('data/warehouse.duckdb', read_only=True)
+          print(c.sql('select * from agg_resumen'))"

@@ -1,0 +1,39 @@
+name: obra_parada
+version: "1.0.0"
+config-version: 2
+profile: obra_parada
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+vars:
+  # Fecha de corte del informe de la Contraloría (último día del mes). La pasa el Makefile.
+  fecha_corte: "2026-06-30"
+  staging_parquet: "../data/staging/obras.parquet"
+
+models:
+  obra_parada:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table
+
+seeds:
+  obra_parada:
+    dim_departamento:
+      +column_types:
+        ubigeo_dep: varchar
+    dim_ubigeo:
+      +column_types:
+        ubigeo: varchar
+        ubigeo_prov: varchar
+        ubigeo_dep: varchar
+
+on-run-start:
+  - "{{ create_norm_macros() }}"

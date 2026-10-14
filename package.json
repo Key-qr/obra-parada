@@ -1,0 +1,14 @@
+{
+  "name": "obra-parada-web",
+  "private": true,
+  "description": "Dependencias de la web. Se copian a web/vendor para servir todo desde el mismo dominio (sin CDNs de terceros).",
+  "scripts": {
+    "vendor": "node scripts/vendor.mjs"
+  },
+  "devDependencies": {
+    "@fontsource/barlow": "5.1.0",
+    "@fontsource/barlow-condensed": "5.1.0",
+    "maplibre-gl": "4.7.1",
+    "topojson-client": "3.1.0"
+  }
+}

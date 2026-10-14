@@ -1,0 +1,10 @@
+# Versiones con las que se probó el pipeline completo.
+pandas==3.0.5
+openpyxl==3.1.5
+pyarrow==26.0.0
+duckdb==1.5.6
+dbt-core==1.12.6
+dbt-duckdb==1.11.0
+requests==2.34.2
+beautifulsoup4==4.15.0
+pytest==9.1.1

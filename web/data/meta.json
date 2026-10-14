@@ -1,0 +1,34 @@
+{
+  "corte": "2026-06",
+  "fuente": "Contraloría General de la República - Informe de obras paralizadas en el territorio nacional, Anexo N.° 02",
+  "publicacion": null,
+  "url": null,
+  "archivo": "fixture_anexo02.xlsx",
+  "sha256": "e4ef7fa7b9990ba84508a570898e11f2bc4fceb96d52fea49fdd174612ede145",
+  "hoja": "BD Obras paralizadas",
+  "fila_cabecera": 3,
+  "columnas": {
+    "CÓDIGO INFOBRAS": "codigo_infobras",
+    "CUI": "cui",
+    "DEPARTAMENTO": "departamento",
+    "PROVINCIA": "provincia",
+    "DISTRITO": "distrito",
+    "NIVEL DE GOBIERNO": "nivel_gobierno",
+    "ENTIDAD": "entidad",
+    "SECTOR": "sector",
+    "NOMBRE DE LA OBRA": "nombre_obra",
+    "MODALIDAD DE EJECUCIÓN": "modalidad_ejecucion",
+    "COSTO ACTUALIZADO (S/)": "costo_actualizado",
+    "MONTO EJECUTADO (S/)": "monto_ejecutado",
+    "SALDO POR EJECUTAR (S/)": "saldo_por_ejecutar",
+    "% AVANCE FÍSICO": "avance_fisico",
+    "FECHA DE PARALIZACIÓN": "fecha_paralizacion",
+    "CAUSAL DE PARALIZACIÓN": "causal_paralizacion"
+  },
+  "columnas_no_mapeadas": [
+    "N°"
+  ],
+  "filas": 900,
+  "es_muestra": true,
+  "procesado": "2026-10-14T16:58:15+00:00"
+}

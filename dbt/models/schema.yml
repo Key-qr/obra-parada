@@ -1,0 +1,68 @@
+version: 2
+
+seeds:
+  - name: dim_ubigeo
+    description: Distritos del Perú con ubigeo INEI (límites 2007) y llaves normalizadas para el cruce.
+    columns:
+      - name: ubigeo
+        data_tests: [unique, not_null]
+
+models:
+  - name: stg_obras
+    description: Base del Anexo N.° 02 de la Contraloría tipada y con llaves normalizadas.
+    columns:
+      - name: nombre_obra
+        data_tests: [not_null]
+      - name: departamento_key
+        data_tests: [not_null]
+
+  - name: int_obras_geo
+    description: Obras con el ubigeo más fino que se pudo determinar y el método usado.
+
+  - name: fct_obras
+    description: Una fila por obra paralizada. Fuente de verdad de la web.
+    columns:
+      - name: obra_sk
+        data_tests: [unique, not_null]
+      - name: codigo_infobras
+        description: Código de Infobras. Si se repite, la base trae duplicados.
+        data_tests:
+          - unique:
+              config:
+                severity: warn
+      - name: avance_fisico
+        data_tests:
+          - between:
+              arguments: {min_value: 0, max_value: 100}
+      - name: costo_actualizado
+        data_tests:
+          - between:
+              arguments: {min_value: 0, max_value: 50000000000}
+      - name: saldo_por_ejecutar
+        data_tests:
+          - between:
+              arguments: {min_value: 0, max_value: 50000000000}
+      - name: anios_paralizada
+        data_tests:
+          - between:
+              arguments: {min_value: 0, max_value: 40}
+              config:
+                severity: warn
+      - name: ubigeo_distrito
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_ubigeo')
+                field: ubigeo
+      - name: geo_metodo
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [ubigeo_fuente, dep_prov_dist, dep_dist, provincia, departamento, sin_match]
+
+  - name: agg_zona
+    description: Totales por departamento, provincia y distrito.
+  - name: agg_entidad
+    description: Totales por entidad ejecutora.
+  - name: agg_resumen
+    description: Cifras de portada.

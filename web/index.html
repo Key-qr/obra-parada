@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Obra Parada · obras públicas paralizadas en el Perú</title>
+  <meta name="description" content="Mapa de las obras públicas paralizadas en el Perú según la Contraloría: dónde están, cuánto falta por ejecutar y por qué se detuvieron.">
+  <meta property="og:title" content="Obra Parada">
+  <meta property="og:description" content="Busca tu distrito y mira qué obras públicas están paralizadas, cuánto costaron y por qué se detuvieron.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="vendor/fonts.css" rel="stylesheet">
+  <link href="vendor/maplibre-gl.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+  <div class="sample-bar" id="sample-bar" hidden>
+    Estás viendo <strong>datos sintéticos de prueba</strong>. Las obras, entidades y montos de esta versión son inventados.
+  </div>
+
+  <header class="site-head">
+    <a class="brand" href="#top" aria-label="Obra Parada, inicio">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="26" height="17" rx="1.5"/><path d="M9 22v7M23 22v7"/><path d="M8 13h16" class="brand-bar"/></svg>
+      Obra Parada
+    </a>
+    <nav aria-label="Secciones">
+      <a href="#mapa">Mapa</a>
+      <a href="#causas">Causas</a>
+      <a href="#entidades">Entidades</a>
+      <a href="#metodo">Cómo se hizo</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="cartel" role="group" aria-labelledby="hero-title">
+        <span class="bolt tl"></span><span class="bolt tr"></span><span class="bolt bl"></span><span class="bolt br"></span>
+        <p class="cartel-entidad">Fuente: Contraloría General de la República, informe con corte a <span data-k="corte_largo">…</span></p>
+        <dl class="cartel-grid">
+          <div class="cartel-row cartel-obra">
+            <dt>OBRA</dt>
+            <dd id="hero-title"><span data-k="obras">…</span> obras públicas paralizadas en el Perú</dd>
+          </div>
+          <div class="cartel-row">
+            <dt>COSTO ACTUALIZADO</dt>
+            <dd data-k="costo">…</dd>
+          </div>
+          <div class="cartel-row">
+            <dt>FALTA EJECUTAR</dt>
+            <dd data-k="saldo">…</dd>
+          </div>
+          <div class="cartel-row">
+            <dt>AVANCE</dt>
+            <dd><span data-k="mitad">…</span> obras se quedaron con más de la mitad construida</dd>
+          </div>
+          <div class="cartel-row">
+            <dt>PLAZO</dt>
+            <dd class="plazo">Vencido</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="hero-side">
+        <h1>¿Qué obra está parada en tu distrito?</h1>
+        <p class="lede">Cada trimestre la Contraloría publica la lista de obras públicas que llevan seis meses o más sin avance. Aquí la puedes buscar por lugar, ver cuánto se gastó y por qué se detuvo.</p>
+        <div class="search" role="search">
+          <label for="q">Busca un distrito, provincia o departamento</label>
+          <div class="search-box">
+            <input id="q" type="search" autocomplete="off" placeholder="Ej. Santiago, Cusco" aria-controls="q-list" aria-expanded="false" aria-autocomplete="list" role="combobox">
+            <ul id="q-list" role="listbox" hidden></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="map-section" id="mapa" aria-labelledby="mapa-title">
+      <div class="section-head">
+        <h2 id="mapa-title">Mapa de obras paralizadas</h2>
+        <p class="section-note">Haz clic en una zona para ver sus obras. Los filtros afectan el mapa y todo lo que está debajo.</p>
+      </div>
+
+      <form class="controls" id="controls" aria-label="Filtros">
+        <fieldset class="seg">
+          <legend>Ver por</legend>
+          <div class="seg-opts">
+          <label><input type="radio" name="nivel" value="departamento" checked><span>Departamento</span></label>
+          <label><input type="radio" name="nivel" value="provincia"><span>Provincia</span></label>
+          <label><input type="radio" name="nivel" value="distrito"><span>Distrito</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="seg">
+          <legend>Colorear por</legend>
+          <div class="seg-opts">
+          <label><input type="radio" name="metrica" value="saldo" checked><span>Falta ejecutar</span></label>
+          <label><input type="radio" name="metrica" value="obras"><span>Número de obras</span></label>
+          </div>
+        </fieldset>
+        <label class="field">
+          <span>Nivel de gobierno</span>
+          <select name="gob">
+            <option value="">Todos</option>
+            <option value="Local">Municipalidades</option>
+            <option value="Regional">Gobiernos regionales</option>
+            <option value="Nacional">Gobierno nacional</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Causa</span>
+          <select name="causal" id="f-causal"><option value="">Todas</option></select>
+        </label>
+        <label class="field">
+          <span>Sector</span>
+          <select name="sector" id="f-sector"><option value="">Todos</option></select>
+        </label>
+        <label class="check">
+          <input type="checkbox" name="mitad">
+          <span>Solo con más de 50% de avance</span>
+        </label>
+      </form>
+
+      <div class="map-layout">
+        <div class="map-wrap">
+          <div id="map" role="img" aria-label="Mapa del Perú coloreado según las obras paralizadas de cada zona"></div>
+          <div class="legend" id="legend" aria-hidden="true"></div>
+          <p class="map-status" id="map-status" role="status"></p>
+        </div>
+
+        <aside class="zone" id="zone" aria-live="polite">
+          <div class="zone-head">
+            <p class="zone-path" id="zone-path">Todo el Perú</p>
+            <h3 id="zone-name">Perú</h3>
+            <button type="button" class="link-btn" id="zone-clear" hidden>Volver a todo el Perú</button>
+          </div>
+          <dl class="zone-stats">
+            <div><dt>Obras</dt><dd id="z-obras">–</dd></div>
+            <div><dt>Falta ejecutar</dt><dd id="z-saldo">–</dd></div>
+            <div><dt>Costo actualizado</dt><dd id="z-costo">–</dd></div>
+            <div><dt>Mediana sin avance</dt><dd id="z-anios">–</dd></div>
+          </dl>
+          <h4 class="zone-list-title">Obras con más dinero pendiente</h4>
+          <ol class="obra-list" id="zone-list"></ol>
+          <button type="button" class="more-btn" id="zone-more" hidden>Ver más obras</button>
+        </aside>
+      </div>
+    </section>
+
+    <section class="band" aria-labelledby="causas-title" id="causas">
+      <div class="col">
+        <div class="section-head">
+          <h2 id="causas-title">Por qué se paralizaron</h2>
+          <p class="section-note" id="causas-note">Causa declarada por la entidad ante la Contraloría.</p>
+        </div>
+        <div class="bars" id="bars-causal"></div>
+      </div>
+      <div class="col">
+        <div class="section-head">
+          <h2>A un paso de terminar</h2>
+          <p class="section-note">Obras con 90% o más de avance físico. Son las más baratas de destrabar.</p>
+        </div>
+        <ol class="obra-list compact" id="casi-list"></ol>
+      </div>
+    </section>
+
+    <section class="entities" id="entidades" aria-labelledby="ent-title">
+      <div class="section-head">
+        <h2 id="ent-title">Entidades con más dinero pendiente</h2>
+        <p class="section-note">Tener obras paralizadas no prueba una mala gestión actual: muchas vienen de gestiones anteriores.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="ent-table">
+          <thead>
+            <tr><th scope="col">Entidad</th><th scope="col">Nivel</th><th scope="col" class="num">Obras</th><th scope="col" class="num">Falta ejecutar</th><th scope="col" class="num">Con 90%+ de avance</th></tr>
+          </thead>
+          <tbody id="ent-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="method" id="metodo" aria-labelledby="metodo-title">
+      <h2 id="metodo-title">Cómo se hizo</h2>
+      <div class="method-grid">
+        <div>
+          <h3>De dónde salen los datos</h3>
+          <p>Del <a id="src-link" href="https://www.gob.pe/institucion/contraloria/informes-publicaciones" rel="noopener">Informe de obras paralizadas en el territorio nacional</a> de la Contraloría, Anexo N.° 02. La Contraloría considera paralizada una obra que no registra avance físico por seis meses o más en Infobras.</p>
+          <p class="fine" id="src-meta"></p>
+        </div>
+        <div>
+          <h3>Cómo se procesan</h3>
+          <p>Un pipeline en Python descarga el Excel, reconoce sus columnas aunque cambien de nombre entre informes y lo carga en DuckDB. Los modelos de dbt limpian, ubican cada obra en su distrito con el ubigeo del INEI y validan que los totales cuadren antes de publicar.</p>
+          <p class="fine" id="geo-meta"></p>
+        </div>
+        <div>
+          <h3>Lo que esta página no dice</h3>
+          <p>No acusa a nadie. Una obra puede pararse por un arbitraje, un huaico o falta de presupuesto. Los montos son los que reportan las propias entidades y pueden tener errores; ante una duda, manda la fuente oficial.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <p>Proyecto abierto de <a href="https://github.com/Key-qr">Keysi Quiñe</a>. Código en <a href="https://github.com/Key-qr/obra-parada">GitHub</a>, licencia MIT. Límites distritales: INEI.</p>
+  </footer>
+
+  <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+
+  <dialog class="obra-dialog" id="obra-dialog" aria-labelledby="d-nombre">
+    <form method="dialog"><button class="close" aria-label="Cerrar">×</button></form>
+    <div class="cartel cartel-sm">
+      <span class="bolt tl"></span><span class="bolt tr"></span><span class="bolt bl"></span><span class="bolt br"></span>
+      <p class="cartel-entidad" id="d-entidad"></p>
+      <dl class="cartel-grid">
+        <div class="cartel-row cartel-obra"><dt>OBRA</dt><dd id="d-nombre"></dd></div>
+        <div class="cartel-row"><dt>UBICACIÓN</dt><dd id="d-lugar"></dd></div>
+        <div class="cartel-row"><dt>COSTO ACTUALIZADO</dt><dd id="d-costo"></dd></div>
+        <div class="cartel-row"><dt>FALTA EJECUTAR</dt><dd id="d-saldo"></dd></div>
+        <div class="cartel-row"><dt>AVANCE FÍSICO</dt><dd><span id="d-avance"></span><span class="meter"><span id="d-meter"></span></span></dd></div>
+      </dl>
+    </div>
+    <dl class="d-facts">
+      <div><dt>Paralizada desde</dt><dd id="d-fecha"></dd></div>
+      <div><dt>Causa declarada</dt><dd id="d-causal"></dd></div>
+      <div><dt>Modalidad</dt><dd id="d-modalidad"></dd></div>
+      <div><dt>Sector</dt><dd id="d-sector"></dd></div>
+      <div><dt>Código Infobras</dt><dd id="d-id"></dd></div>
+      <div><dt>CUI (Invierte.pe)</dt><dd id="d-cui"></dd></div>
+    </dl>
+    <p class="fine">Con el CUI puedes buscar la inversión en el Seguimiento de Inversiones (SSI) del MEF, y con el código en Infobras.</p>
+  </dialog>
+
+  <script src="vendor/maplibre-gl.js"></script>
+  <script src="vendor/topojson-client.min.js"></script>
+  <script src="app.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,1835 @@
+ubigeo,ubigeo_prov,ubigeo_dep,distrito,provincia,departamento,distrito_key,provincia_key,departamento_key
+010101,0101,01,Chachapoyas,Chachapoyas,Amazonas,chachapoyas,chachapoyas,amazonas
+010102,0101,01,Asuncion,Chachapoyas,Amazonas,asuncion,chachapoyas,amazonas
+010103,0101,01,Balsas,Chachapoyas,Amazonas,balsas,chachapoyas,amazonas
+010104,0101,01,Cheto,Chachapoyas,Amazonas,cheto,chachapoyas,amazonas
+010105,0101,01,Chiliquin,Chachapoyas,Amazonas,chiliquin,chachapoyas,amazonas
+010106,0101,01,Chuquibamba,Chachapoyas,Amazonas,chuquibamba,chachapoyas,amazonas
+010107,0101,01,Granada,Chachapoyas,Amazonas,granada,chachapoyas,amazonas
+010108,0101,01,Huancas,Chachapoyas,Amazonas,huancas,chachapoyas,amazonas
+010109,0101,01,La Jalca,Chachapoyas,Amazonas,la jalca,chachapoyas,amazonas
+010110,0101,01,Leimebamba,Chachapoyas,Amazonas,leimebamba,chachapoyas,amazonas
+010111,0101,01,Levanto,Chachapoyas,Amazonas,levanto,chachapoyas,amazonas
+010112,0101,01,Magdalena,Chachapoyas,Amazonas,magdalena,chachapoyas,amazonas
+010113,0101,01,Mariscal Castilla,Chachapoyas,Amazonas,mariscal castilla,chachapoyas,amazonas
+010114,0101,01,Molinopampa,Chachapoyas,Amazonas,molinopampa,chachapoyas,amazonas
+010115,0101,01,Montevideo,Chachapoyas,Amazonas,montevideo,chachapoyas,amazonas
+010116,0101,01,Olleros,Chachapoyas,Amazonas,olleros,chachapoyas,amazonas
+010117,0101,01,Quinjalca,Chachapoyas,Amazonas,quinjalca,chachapoyas,amazonas
+010118,0101,01,San Francisco de Daguas,Chachapoyas,Amazonas,san francisco de daguas,chachapoyas,amazonas
+010119,0101,01,San Isidro de Maino,Chachapoyas,Amazonas,san isidro de maino,chachapoyas,amazonas
+010120,0101,01,Soloco,Chachapoyas,Amazonas,soloco,chachapoyas,amazonas
+010121,0101,01,Sonche,Chachapoyas,Amazonas,sonche,chachapoyas,amazonas
+010201,0102,01,Bagua,Bagua,Amazonas,bagua,bagua,amazonas
+010202,0102,01,Aramango,Bagua,Amazonas,aramango,bagua,amazonas
+010203,0102,01,Copallin,Bagua,Amazonas,copallin,bagua,amazonas
+010204,0102,01,El Parco,Bagua,Amazonas,el parco,bagua,amazonas
+010205,0102,01,Imaza,Bagua,Amazonas,imaza,bagua,amazonas
+010206,0102,01,La Peca,Bagua,Amazonas,la peca,bagua,amazonas
+010301,0103,01,Jumbilla,Bongara,Amazonas,jumbilla,bongara,amazonas
+010302,0103,01,Chisquilla,Bongara,Amazonas,chisquilla,bongara,amazonas
+010303,0103,01,Churuja,Bongara,Amazonas,churuja,bongara,amazonas
+010304,0103,01,Corosha,Bongara,Amazonas,corosha,bongara,amazonas
+010305,0103,01,Cuispes,Bongara,Amazonas,cuispes,bongara,amazonas
+010306,0103,01,Florida,Bongara,Amazonas,florida,bongara,amazonas
+010307,0103,01,Jazan,Bongara,Amazonas,jazan,bongara,amazonas
+010308,0103,01,Recta,Bongara,Amazonas,recta,bongara,amazonas
+010309,0103,01,San Carlos,Bongara,Amazonas,san carlos,bongara,amazonas
+010310,0103,01,Shipasbamba,Bongara,Amazonas,shipasbamba,bongara,amazonas
+010311,0103,01,Valera,Bongara,Amazonas,valera,bongara,amazonas
+010312,0103,01,Yambrasbamba,Bongara,Amazonas,yambrasbamba,bongara,amazonas
+010401,0104,01,Nieva,Condorcanqui,Amazonas,nieva,condorcanqui,amazonas
+010402,0104,01,El Cenepa,Condorcanqui,Amazonas,el cenepa,condorcanqui,amazonas
+010403,0104,01,Rio Santiago,Condorcanqui,Amazonas,rio santiago,condorcanqui,amazonas
+010501,0105,01,Lamud,Luya,Amazonas,lamud,luya,amazonas
+010502,0105,01,Camporredondo,Luya,Amazonas,camporredondo,luya,amazonas
+010503,0105,01,Cocabamba,Luya,Amazonas,cocabamba,luya,amazonas
+010504,0105,01,Colcamar,Luya,Amazonas,colcamar,luya,amazonas
+010505,0105,01,Conila,Luya,Amazonas,conila,luya,amazonas
+010506,0105,01,Inguilpata,Luya,Amazonas,inguilpata,luya,amazonas
+010507,0105,01,Longuita,Luya,Amazonas,longuita,luya,amazonas
+010508,0105,01,Lonya Chico,Luya,Amazonas,lonya chico,luya,amazonas
+010509,0105,01,Luya,Luya,Amazonas,luya,luya,amazonas
+010510,0105,01,Luya Viejo,Luya,Amazonas,luya viejo,luya,amazonas
+010511,0105,01,Maria,Luya,Amazonas,maria,luya,amazonas
+010512,0105,01,Ocalli,Luya,Amazonas,ocalli,luya,amazonas
+010513,0105,01,Ocumal,Luya,Amazonas,ocumal,luya,amazonas
+010514,0105,01,Pisuquia,Luya,Amazonas,pisuquia,luya,amazonas
+010515,0105,01,Providencia,Luya,Amazonas,providencia,luya,amazonas
+010516,0105,01,San Cristobal,Luya,Amazonas,san cristobal,luya,amazonas
+010517,0105,01,San Francisco del Yeso,Luya,Amazonas,san francisco del yeso,luya,amazonas
+010518,0105,01,San Jeronimo,Luya,Amazonas,san jeronimo,luya,amazonas
+010519,0105,01,San Juan de Lopecancha,Luya,Amazonas,san juan de lopecancha,luya,amazonas
+010520,0105,01,Santa Catalina,Luya,Amazonas,santa catalina,luya,amazonas
+010521,0105,01,Santo Tomas,Luya,Amazonas,santo tomas,luya,amazonas
+010522,0105,01,Tingo,Luya,Amazonas,tingo,luya,amazonas
+010523,0105,01,Trita,Luya,Amazonas,trita,luya,amazonas
+010601,0106,01,San Nicolas,Rodriguez de Mendoza,Amazonas,san nicolas,rodriguez de mendoza,amazonas
+010602,0106,01,Chirimoto,Rodriguez de Mendoza,Amazonas,chirimoto,rodriguez de mendoza,amazonas
+010603,0106,01,Cochamal,Rodriguez de Mendoza,Amazonas,cochamal,rodriguez de mendoza,amazonas
+010604,0106,01,Huambo,Rodriguez de Mendoza,Amazonas,huambo,rodriguez de mendoza,amazonas
+010605,0106,01,Limabamba,Rodriguez de Mendoza,Amazonas,limabamba,rodriguez de mendoza,amazonas
+010606,0106,01,Longar,Rodriguez de Mendoza,Amazonas,longar,rodriguez de mendoza,amazonas
+010607,0106,01,Mariscal Benavides,Rodriguez de Mendoza,Amazonas,mariscal benavides,rodriguez de mendoza,amazonas
+010608,0106,01,Milpuc,Rodriguez de Mendoza,Amazonas,milpuc,rodriguez de mendoza,amazonas
+010609,0106,01,Omia,Rodriguez de Mendoza,Amazonas,omia,rodriguez de mendoza,amazonas
+010610,0106,01,Santa Rosa,Rodriguez de Mendoza,Amazonas,santa rosa,rodriguez de mendoza,amazonas
+010611,0106,01,Totora,Rodriguez de Mendoza,Amazonas,totora,rodriguez de mendoza,amazonas
+010612,0106,01,Vista Alegre,Rodriguez de Mendoza,Amazonas,vista alegre,rodriguez de mendoza,amazonas
+010701,0107,01,Bagua Grande,Utcubamba,Amazonas,bagua grande,utcubamba,amazonas
+010702,0107,01,Cajaruro,Utcubamba,Amazonas,cajaruro,utcubamba,amazonas
+010703,0107,01,Cumba,Utcubamba,Amazonas,cumba,utcubamba,amazonas
+010704,0107,01,El Milagro,Utcubamba,Amazonas,el milagro,utcubamba,amazonas
+010705,0107,01,Jamalca,Utcubamba,Amazonas,jamalca,utcubamba,amazonas
+010706,0107,01,Lonya Grande,Utcubamba,Amazonas,lonya grande,utcubamba,amazonas
+010707,0107,01,Yamon,Utcubamba,Amazonas,yamon,utcubamba,amazonas
+020101,0201,02,Huaraz,Huaraz,Ancash,huaraz,huaraz,ancash
+020102,0201,02,Cochabamba,Huaraz,Ancash,cochabamba,huaraz,ancash
+020103,0201,02,Colcabamba,Huaraz,Ancash,colcabamba,huaraz,ancash
+020104,0201,02,Huanchay,Huaraz,Ancash,huanchay,huaraz,ancash
+020105,0201,02,Independencia,Huaraz,Ancash,independencia,huaraz,ancash
+020106,0201,02,Jangas,Huaraz,Ancash,jangas,huaraz,ancash
+020107,0201,02,La Libertad,Huaraz,Ancash,la libertad,huaraz,ancash
+020108,0201,02,Olleros,Huaraz,Ancash,olleros,huaraz,ancash
+020109,0201,02,Pampas,Huaraz,Ancash,pampas,huaraz,ancash
+020110,0201,02,Pariacoto,Huaraz,Ancash,pariacoto,huaraz,ancash
+020111,0201,02,Pira,Huaraz,Ancash,pira,huaraz,ancash
+020112,0201,02,Tarica,Huaraz,Ancash,tarica,huaraz,ancash
+020201,0202,02,Aija,Aija,Ancash,aija,aija,ancash
+020202,0202,02,Coris,Aija,Ancash,coris,aija,ancash
+020203,0202,02,Huacllan,Aija,Ancash,huacllan,aija,ancash
+020204,0202,02,La Merced,Aija,Ancash,la merced,aija,ancash
+020205,0202,02,Succha,Aija,Ancash,succha,aija,ancash
+020301,0203,02,Llamellin,Antonio Raymondi,Ancash,llamellin,antonio raymondi,ancash
+020302,0203,02,Aczo,Antonio Raymondi,Ancash,aczo,antonio raymondi,ancash
+020303,0203,02,Chaccho,Antonio Raymondi,Ancash,chaccho,antonio raymondi,ancash
+020304,0203,02,Chingas,Antonio Raymondi,Ancash,chingas,antonio raymondi,ancash
+020305,0203,02,Mirgas,Antonio Raymondi,Ancash,mirgas,antonio raymondi,ancash
+020306,0203,02,San Juan de Rontoy,Antonio Raymondi,Ancash,san juan de rontoy,antonio raymondi,ancash
+020401,0204,02,Chacas,Asuncion,Ancash,chacas,asuncion,ancash
+020402,0204,02,Acochaca,Asuncion,Ancash,acochaca,asuncion,ancash
+020501,0205,02,Chiquian,Bolognesi,Ancash,chiquian,bolognesi,ancash
+020502,0205,02,Abelardo Pardo Lezameta,Bolognesi,Ancash,abelardo pardo lezameta,bolognesi,ancash
+020503,0205,02,Antonio Raymondi,Bolognesi,Ancash,antonio raymondi,bolognesi,ancash
+020504,0205,02,Aquia,Bolognesi,Ancash,aquia,bolognesi,ancash
+020505,0205,02,Cajacay,Bolognesi,Ancash,cajacay,bolognesi,ancash
+020506,0205,02,Canis,Bolognesi,Ancash,canis,bolognesi,ancash
+020507,0205,02,Colquioc,Bolognesi,Ancash,colquioc,bolognesi,ancash
+020508,0205,02,Huallanca,Bolognesi,Ancash,huallanca,bolognesi,ancash
+020509,0205,02,Huasta,Bolognesi,Ancash,huasta,bolognesi,ancash
+020510,0205,02,Huayllacayan,Bolognesi,Ancash,huayllacayan,bolognesi,ancash
+020511,0205,02,La Primavera,Bolognesi,Ancash,la primavera,bolognesi,ancash
+020512,0205,02,Mangas,Bolognesi,Ancash,mangas,bolognesi,ancash
+020513,0205,02,Pacllon,Bolognesi,Ancash,pacllon,bolognesi,ancash
+020514,0205,02,San Miguel de Corpanqui,Bolognesi,Ancash,san miguel de corpanqui,bolognesi,ancash
+020515,0205,02,Ticllos,Bolognesi,Ancash,ticllos,bolognesi,ancash
+020601,0206,02,Carhuaz,Carhuaz,Ancash,carhuaz,carhuaz,ancash
+020602,0206,02,Acopampa,Carhuaz,Ancash,acopampa,carhuaz,ancash
+020603,0206,02,Amashca,Carhuaz,Ancash,amashca,carhuaz,ancash
+020604,0206,02,Anta,Carhuaz,Ancash,anta,carhuaz,ancash
+020605,0206,02,Ataquero,Carhuaz,Ancash,ataquero,carhuaz,ancash
+020606,0206,02,Marcara,Carhuaz,Ancash,marcara,carhuaz,ancash
+020607,0206,02,Pariahuanca,Carhuaz,Ancash,pariahuanca,carhuaz,ancash
+020608,0206,02,San Miguel de Aco,Carhuaz,Ancash,san miguel de aco,carhuaz,ancash
+020609,0206,02,Shilla,Carhuaz,Ancash,shilla,carhuaz,ancash
+020610,0206,02,Tinco,Carhuaz,Ancash,tinco,carhuaz,ancash
+020611,0206,02,Yungar,Carhuaz,Ancash,yungar,carhuaz,ancash
+020701,0207,02,San Luis,Carlos Fermin Fitzcarrald,Ancash,san luis,carlos fermin fitzcarrald,ancash
+020702,0207,02,San Nicolas,Carlos Fermin Fitzcarrald,Ancash,san nicolas,carlos fermin fitzcarrald,ancash
+020703,0207,02,Yauya,Carlos Fermin Fitzcarrald,Ancash,yauya,carlos fermin fitzcarrald,ancash
+020801,0208,02,Casma,Casma,Ancash,casma,casma,ancash
+020802,0208,02,Buena Vista Alta,Casma,Ancash,buena vista alta,casma,ancash
+020803,0208,02,Comandante Noel,Casma,Ancash,comandante noel,casma,ancash
+020804,0208,02,Yautan,Casma,Ancash,yautan,casma,ancash
+020901,0209,02,Corongo,Corongo,Ancash,corongo,corongo,ancash
+020902,0209,02,Aco,Corongo,Ancash,aco,corongo,ancash
+020903,0209,02,Bambas,Corongo,Ancash,bambas,corongo,ancash
+020904,0209,02,Cusca,Corongo,Ancash,cusca,corongo,ancash
+020905,0209,02,La Pampa,Corongo,Ancash,la pampa,corongo,ancash
+020906,0209,02,Yanac,Corongo,Ancash,yanac,corongo,ancash
+020907,0209,02,Yupan,Corongo,Ancash,yupan,corongo,ancash
+021001,0210,02,Huari,Huari,Ancash,huari,huari,ancash
+021002,0210,02,Anra,Huari,Ancash,anra,huari,ancash
+021003,0210,02,Cajay,Huari,Ancash,cajay,huari,ancash
+021004,0210,02,Chavin de Huantar,Huari,Ancash,chavin de huantar,huari,ancash
+021005,0210,02,Huacachi,Huari,Ancash,huacachi,huari,ancash
+021006,0210,02,Huacchis,Huari,Ancash,huacchis,huari,ancash
+021007,0210,02,Huachis,Huari,Ancash,huachis,huari,ancash
+021008,0210,02,Huantar,Huari,Ancash,huantar,huari,ancash
+021009,0210,02,Masin,Huari,Ancash,masin,huari,ancash
+021010,0210,02,Paucas,Huari,Ancash,paucas,huari,ancash
+021011,0210,02,Ponto,Huari,Ancash,ponto,huari,ancash
+021012,0210,02,Rahuapampa,Huari,Ancash,rahuapampa,huari,ancash
+021013,0210,02,Rapayan,Huari,Ancash,rapayan,huari,ancash
+021014,0210,02,San Marcos,Huari,Ancash,san marcos,huari,ancash
+021015,0210,02,San Pedro de Chana,Huari,Ancash,san pedro de chana,huari,ancash
+021016,0210,02,Uco,Huari,Ancash,uco,huari,ancash
+021101,0211,02,Huarmey,Huarmey,Ancash,huarmey,huarmey,ancash
+021102,0211,02,Cochapeti,Huarmey,Ancash,cochapeti,huarmey,ancash
+021103,0211,02,Culebras,Huarmey,Ancash,culebras,huarmey,ancash
+021104,0211,02,Huayan,Huarmey,Ancash,huayan,huarmey,ancash
+021105,0211,02,Malvas,Huarmey,Ancash,malvas,huarmey,ancash
+021201,0212,02,Caraz,Huaylas,Ancash,caraz,huaylas,ancash
+021202,0212,02,Huallanca,Huaylas,Ancash,huallanca,huaylas,ancash
+021203,0212,02,Huata,Huaylas,Ancash,huata,huaylas,ancash
+021204,0212,02,Huaylas,Huaylas,Ancash,huaylas,huaylas,ancash
+021205,0212,02,Mato,Huaylas,Ancash,mato,huaylas,ancash
+021206,0212,02,Pamparomas,Huaylas,Ancash,pamparomas,huaylas,ancash
+021207,0212,02,Pueblo Libre,Huaylas,Ancash,pueblo libre,huaylas,ancash
+021208,0212,02,Santa Cruz,Huaylas,Ancash,santa cruz,huaylas,ancash
+021209,0212,02,Santo Toribio,Huaylas,Ancash,santo toribio,huaylas,ancash
+021210,0212,02,Yuracmarca,Huaylas,Ancash,yuracmarca,huaylas,ancash
+021301,0213,02,Piscobamba,Mariscal Luzuriaga,Ancash,piscobamba,mariscal luzuriaga,ancash
+021302,0213,02,Casca,Mariscal Luzuriaga,Ancash,casca,mariscal luzuriaga,ancash
+021303,0213,02,Eleazar Guzman Barron,Mariscal Luzuriaga,Ancash,eleazar guzman barron,mariscal luzuriaga,ancash
+021304,0213,02,Fidel Olivas Escudero,Mariscal Luzuriaga,Ancash,fidel olivas escudero,mariscal luzuriaga,ancash
+021305,0213,02,Llama,Mariscal Luzuriaga,Ancash,llama,mariscal luzuriaga,ancash
+021306,0213,02,Llumpa,Mariscal Luzuriaga,Ancash,llumpa,mariscal luzuriaga,ancash
+021307,0213,02,Lucma,Mariscal Luzuriaga,Ancash,lucma,mariscal luzuriaga,ancash
+021308,0213,02,Musga,Mariscal Luzuriaga,Ancash,musga,mariscal luzuriaga,ancash
+021401,0214,02,Ocros,Ocros,Ancash,ocros,ocros,ancash
+021402,0214,02,Acas,Ocros,Ancash,acas,ocros,ancash
+021403,0214,02,Cajamarquilla,Ocros,Ancash,cajamarquilla,ocros,ancash
+021404,0214,02,Carhuapampa,Ocros,Ancash,carhuapampa,ocros,ancash
+021405,0214,02,Cochas,Ocros,Ancash,cochas,ocros,ancash
+021406,0214,02,Congas,Ocros,Ancash,congas,ocros,ancash
+021407,0214,02,Llipa,Ocros,Ancash,llipa,ocros,ancash
+021408,0214,02,San Cristobal de Rajan,Ocros,Ancash,san cristobal de rajan,ocros,ancash
+021409,0214,02,San Pedro,Ocros,Ancash,san pedro,ocros,ancash
+021410,0214,02,Santiago de Chilcas,Ocros,Ancash,santiago de chilcas,ocros,ancash
+021501,0215,02,Cabana,Pallasca,Ancash,cabana,pallasca,ancash
+021502,0215,02,Bolognesi,Pallasca,Ancash,bolognesi,pallasca,ancash
+021503,0215,02,Conchucos,Pallasca,Ancash,conchucos,pallasca,ancash
+021504,0215,02,Huacaschuque,Pallasca,Ancash,huacaschuque,pallasca,ancash
+021505,0215,02,Huandoval,Pallasca,Ancash,huandoval,pallasca,ancash
+021506,0215,02,Lacabamba,Pallasca,Ancash,lacabamba,pallasca,ancash
+021507,0215,02,Llapo,Pallasca,Ancash,llapo,pallasca,ancash
+021508,0215,02,Pallasca,Pallasca,Ancash,pallasca,pallasca,ancash
+021509,0215,02,Pampas,Pallasca,Ancash,pampas,pallasca,ancash
+021510,0215,02,Santa Rosa,Pallasca,Ancash,santa rosa,pallasca,ancash
+021511,0215,02,Tauca,Pallasca,Ancash,tauca,pallasca,ancash
+021601,0216,02,Pomabamba,Pomabamba,Ancash,pomabamba,pomabamba,ancash
+021602,0216,02,Huayllan,Pomabamba,Ancash,huayllan,pomabamba,ancash
+021603,0216,02,Parobamba,Pomabamba,Ancash,parobamba,pomabamba,ancash
+021604,0216,02,Quinuabamba,Pomabamba,Ancash,quinuabamba,pomabamba,ancash
+021701,0217,02,Recuay,Recuay,Ancash,recuay,recuay,ancash
+021702,0217,02,Catac,Recuay,Ancash,catac,recuay,ancash
+021703,0217,02,Cotaparaco,Recuay,Ancash,cotaparaco,recuay,ancash
+021704,0217,02,Huayllapampa,Recuay,Ancash,huayllapampa,recuay,ancash
+021705,0217,02,Llacllin,Recuay,Ancash,llacllin,recuay,ancash
+021706,0217,02,Marca,Recuay,Ancash,marca,recuay,ancash
+021707,0217,02,Pampas Chico,Recuay,Ancash,pampas chico,recuay,ancash
+021708,0217,02,Pararin,Recuay,Ancash,pararin,recuay,ancash
+021709,0217,02,Tapacocha,Recuay,Ancash,tapacocha,recuay,ancash
+021710,0217,02,Ticapampa,Recuay,Ancash,ticapampa,recuay,ancash
+021801,0218,02,Chimbote,Santa,Ancash,chimbote,santa,ancash
+021802,0218,02,Caceres del Peru,Santa,Ancash,caceres del peru,santa,ancash
+021803,0218,02,Coishco,Santa,Ancash,coishco,santa,ancash
+021804,0218,02,Macate,Santa,Ancash,macate,santa,ancash
+021805,0218,02,Moro,Santa,Ancash,moro,santa,ancash
+021806,0218,02,Nepeña,Santa,Ancash,nepena,santa,ancash
+021807,0218,02,Samanco,Santa,Ancash,samanco,santa,ancash
+021808,0218,02,Santa,Santa,Ancash,santa,santa,ancash
+021809,0218,02,Nuevo Chimbote,Santa,Ancash,nuevo chimbote,santa,ancash
+021901,0219,02,Sihuas,Sihuas,Ancash,sihuas,sihuas,ancash
+021902,0219,02,Acobamba,Sihuas,Ancash,acobamba,sihuas,ancash
+021903,0219,02,Alfonso Ugarte,Sihuas,Ancash,alfonso ugarte,sihuas,ancash
+021904,0219,02,Cashapampa,Sihuas,Ancash,cashapampa,sihuas,ancash
+021905,0219,02,Chingalpo,Sihuas,Ancash,chingalpo,sihuas,ancash
+021906,0219,02,Huayllabamba,Sihuas,Ancash,huayllabamba,sihuas,ancash
+021907,0219,02,Quiches,Sihuas,Ancash,quiches,sihuas,ancash
+021908,0219,02,Ragash,Sihuas,Ancash,ragash,sihuas,ancash
+021909,0219,02,San Juan,Sihuas,Ancash,san juan,sihuas,ancash
+021910,0219,02,Sicsibamba,Sihuas,Ancash,sicsibamba,sihuas,ancash
+022001,0220,02,Yungay,Yungay,Ancash,yungay,yungay,ancash
+022002,0220,02,Cascapara,Yungay,Ancash,cascapara,yungay,ancash
+022003,0220,02,Mancos,Yungay,Ancash,mancos,yungay,ancash
+022004,0220,02,Matacoto,Yungay,Ancash,matacoto,yungay,ancash
+022005,0220,02,Quillo,Yungay,Ancash,quillo,yungay,ancash
+022006,0220,02,Ranrahirca,Yungay,Ancash,ranrahirca,yungay,ancash
+022007,0220,02,Shupluy,Yungay,Ancash,shupluy,yungay,ancash
+022008,0220,02,Yanama,Yungay,Ancash,yanama,yungay,ancash
+030101,0301,03,Abancay,Abancay,Apurimac,abancay,abancay,apurimac
+030102,0301,03,Chacoche,Abancay,Apurimac,chacoche,abancay,apurimac
+030103,0301,03,Circa,Abancay,Apurimac,circa,abancay,apurimac
+030104,0301,03,Curahuasi,Abancay,Apurimac,curahuasi,abancay,apurimac
+030105,0301,03,Huanipaca,Abancay,Apurimac,huanipaca,abancay,apurimac
+030106,0301,03,Lambrama,Abancay,Apurimac,lambrama,abancay,apurimac
+030107,0301,03,Pichirhua,Abancay,Apurimac,pichirhua,abancay,apurimac
+030108,0301,03,San Pedro de Cachora,Abancay,Apurimac,san pedro de cachora,abancay,apurimac
+030109,0301,03,Tamburco,Abancay,Apurimac,tamburco,abancay,apurimac
+030201,0302,03,Andahuaylas,Andahuaylas,Apurimac,andahuaylas,andahuaylas,apurimac
+030202,0302,03,Andarapa,Andahuaylas,Apurimac,andarapa,andahuaylas,apurimac
+030203,0302,03,Chiara,Andahuaylas,Apurimac,chiara,andahuaylas,apurimac
+030204,0302,03,Huancarama,Andahuaylas,Apurimac,huancarama,andahuaylas,apurimac
+030205,0302,03,Huancaray,Andahuaylas,Apurimac,huancaray,andahuaylas,apurimac
+030206,0302,03,Huayana,Andahuaylas,Apurimac,huayana,andahuaylas,apurimac
+030207,0302,03,Kishuara,Andahuaylas,Apurimac,kishuara,andahuaylas,apurimac
+030208,0302,03,Pacobamba,Andahuaylas,Apurimac,pacobamba,andahuaylas,apurimac
+030209,0302,03,Pacucha,Andahuaylas,Apurimac,pacucha,andahuaylas,apurimac
+030210,0302,03,Pampachiri,Andahuaylas,Apurimac,pampachiri,andahuaylas,apurimac
+030211,0302,03,Pomacocha,Andahuaylas,Apurimac,pomacocha,andahuaylas,apurimac
+030212,0302,03,San Antonio de Cachi,Andahuaylas,Apurimac,san antonio de cachi,andahuaylas,apurimac
+030213,0302,03,San Jeronimo,Andahuaylas,Apurimac,san jeronimo,andahuaylas,apurimac
+030214,0302,03,San Miguel de Chaccrampa,Andahuaylas,Apurimac,san miguel de chaccrampa,andahuaylas,apurimac
+030215,0302,03,Santa Maria de Chicmo,Andahuaylas,Apurimac,santa maria de chicmo,andahuaylas,apurimac
+030216,0302,03,Talavera,Andahuaylas,Apurimac,talavera,andahuaylas,apurimac
+030217,0302,03,Tumay Huaraca,Andahuaylas,Apurimac,tumay huaraca,andahuaylas,apurimac
+030218,0302,03,Turpo,Andahuaylas,Apurimac,turpo,andahuaylas,apurimac
+030219,0302,03,Kaquiabamba,Andahuaylas,Apurimac,kaquiabamba,andahuaylas,apurimac
+030301,0303,03,Antabamba,Antabamba,Apurimac,antabamba,antabamba,apurimac
+030302,0303,03,El Oro,Antabamba,Apurimac,el oro,antabamba,apurimac
+030303,0303,03,Huaquirca,Antabamba,Apurimac,huaquirca,antabamba,apurimac
+030304,0303,03,Juan Espinoza Medrano,Antabamba,Apurimac,juan espinoza medrano,antabamba,apurimac
+030305,0303,03,Oropesa,Antabamba,Apurimac,oropesa,antabamba,apurimac
+030306,0303,03,Pachaconas,Antabamba,Apurimac,pachaconas,antabamba,apurimac
+030307,0303,03,Sabaino,Antabamba,Apurimac,sabaino,antabamba,apurimac
+030401,0304,03,Chalhuanca,Aymaraes,Apurimac,chalhuanca,aymaraes,apurimac
+030402,0304,03,Capaya,Aymaraes,Apurimac,capaya,aymaraes,apurimac
+030403,0304,03,Caraybamba,Aymaraes,Apurimac,caraybamba,aymaraes,apurimac
+030404,0304,03,Chapimarca,Aymaraes,Apurimac,chapimarca,aymaraes,apurimac
+030405,0304,03,Colcabamba,Aymaraes,Apurimac,colcabamba,aymaraes,apurimac
+030406,0304,03,Cotaruse,Aymaraes,Apurimac,cotaruse,aymaraes,apurimac
+030407,0304,03,Huayllo,Aymaraes,Apurimac,huayllo,aymaraes,apurimac
+030408,0304,03,Justo Apu Sahuaraura,Aymaraes,Apurimac,justo apu sahuaraura,aymaraes,apurimac
+030409,0304,03,Lucre,Aymaraes,Apurimac,lucre,aymaraes,apurimac
+030410,0304,03,Pocohuanca,Aymaraes,Apurimac,pocohuanca,aymaraes,apurimac
+030411,0304,03,San Juan de Chacña,Aymaraes,Apurimac,san juan de chacna,aymaraes,apurimac
+030412,0304,03,Sañayca,Aymaraes,Apurimac,sanayca,aymaraes,apurimac
+030413,0304,03,Soraya,Aymaraes,Apurimac,soraya,aymaraes,apurimac
+030414,0304,03,Tapairihua,Aymaraes,Apurimac,tapairihua,aymaraes,apurimac
+030415,0304,03,Tintay,Aymaraes,Apurimac,tintay,aymaraes,apurimac
+030416,0304,03,Toraya,Aymaraes,Apurimac,toraya,aymaraes,apurimac
+030417,0304,03,Yanaca,Aymaraes,Apurimac,yanaca,aymaraes,apurimac
+030501,0305,03,Tambobamba,Cotabambas,Apurimac,tambobamba,cotabambas,apurimac
+030502,0305,03,Cotabambas,Cotabambas,Apurimac,cotabambas,cotabambas,apurimac
+030503,0305,03,Coyllurqui,Cotabambas,Apurimac,coyllurqui,cotabambas,apurimac
+030504,0305,03,Haquira,Cotabambas,Apurimac,haquira,cotabambas,apurimac
+030505,0305,03,Mara,Cotabambas,Apurimac,mara,cotabambas,apurimac
+030506,0305,03,Challhuahuacho,Cotabambas,Apurimac,challhuahuacho,cotabambas,apurimac
+030601,0306,03,Chincheros,Chincheros,Apurimac,chincheros,chincheros,apurimac
+030602,0306,03,Anco_huallo,Chincheros,Apurimac,anco huallo,chincheros,apurimac
+030603,0306,03,Cocharcas,Chincheros,Apurimac,cocharcas,chincheros,apurimac
+030604,0306,03,Huaccana,Chincheros,Apurimac,huaccana,chincheros,apurimac
+030605,0306,03,Ocobamba,Chincheros,Apurimac,ocobamba,chincheros,apurimac
+030606,0306,03,Ongoy,Chincheros,Apurimac,ongoy,chincheros,apurimac
+030607,0306,03,Uranmarca,Chincheros,Apurimac,uranmarca,chincheros,apurimac
+030608,0306,03,Ranracancha,Chincheros,Apurimac,ranracancha,chincheros,apurimac
+030701,0307,03,Chuquibambilla,Grau,Apurimac,chuquibambilla,grau,apurimac
+030702,0307,03,Curpahuasi,Grau,Apurimac,curpahuasi,grau,apurimac
+030703,0307,03,Gamarra,Grau,Apurimac,gamarra,grau,apurimac
+030704,0307,03,Huayllati,Grau,Apurimac,huayllati,grau,apurimac
+030705,0307,03,Mamara,Grau,Apurimac,mamara,grau,apurimac
+030706,0307,03,Micaela Bastidas,Grau,Apurimac,micaela bastidas,grau,apurimac
+030707,0307,03,Pataypampa,Grau,Apurimac,pataypampa,grau,apurimac
+030708,0307,03,Progreso,Grau,Apurimac,progreso,grau,apurimac
+030709,0307,03,San Antonio,Grau,Apurimac,san antonio,grau,apurimac
+030710,0307,03,Santa Rosa,Grau,Apurimac,santa rosa,grau,apurimac
+030711,0307,03,Turpay,Grau,Apurimac,turpay,grau,apurimac
+030712,0307,03,Vilcabamba,Grau,Apurimac,vilcabamba,grau,apurimac
+030713,0307,03,Virundo,Grau,Apurimac,virundo,grau,apurimac
+030714,0307,03,Curasco,Grau,Apurimac,curasco,grau,apurimac
+040101,0401,04,Arequipa,Arequipa,Arequipa,arequipa,arequipa,arequipa
+040102,0401,04,Alto Selva Alegre,Arequipa,Arequipa,alto selva alegre,arequipa,arequipa
+040103,0401,04,Cayma,Arequipa,Arequipa,cayma,arequipa,arequipa
+040104,0401,04,Cerro Colorado,Arequipa,Arequipa,cerro colorado,arequipa,arequipa
+040105,0401,04,Characato,Arequipa,Arequipa,characato,arequipa,arequipa
+040106,0401,04,Chiguata,Arequipa,Arequipa,chiguata,arequipa,arequipa
+040107,0401,04,Jacobo Hunter,Arequipa,Arequipa,jacobo hunter,arequipa,arequipa
+040108,0401,04,La Joya,Arequipa,Arequipa,la joya,arequipa,arequipa
+040109,0401,04,Mariano Melgar,Arequipa,Arequipa,mariano melgar,arequipa,arequipa
+040110,0401,04,Miraflores,Arequipa,Arequipa,miraflores,arequipa,arequipa
+040111,0401,04,Mollebaya,Arequipa,Arequipa,mollebaya,arequipa,arequipa
+040112,0401,04,Paucarpata,Arequipa,Arequipa,paucarpata,arequipa,arequipa
+040113,0401,04,Pocsi,Arequipa,Arequipa,pocsi,arequipa,arequipa
+040114,0401,04,Polobaya,Arequipa,Arequipa,polobaya,arequipa,arequipa
+040115,0401,04,Quequeña,Arequipa,Arequipa,quequena,arequipa,arequipa
+040116,0401,04,Sabandia,Arequipa,Arequipa,sabandia,arequipa,arequipa
+040117,0401,04,Sachaca,Arequipa,Arequipa,sachaca,arequipa,arequipa
+040118,0401,04,San Juan de Siguas,Arequipa,Arequipa,san juan de siguas,arequipa,arequipa
+040119,0401,04,San Juan de Tarucani,Arequipa,Arequipa,san juan de tarucani,arequipa,arequipa
+040120,0401,04,Santa Isabel de Siguas,Arequipa,Arequipa,santa isabel de siguas,arequipa,arequipa
+040121,0401,04,Santa Rita de Siguas,Arequipa,Arequipa,santa rita de siguas,arequipa,arequipa
+040122,0401,04,Socabaya,Arequipa,Arequipa,socabaya,arequipa,arequipa
+040123,0401,04,Tiabaya,Arequipa,Arequipa,tiabaya,arequipa,arequipa
+040124,0401,04,Uchumayo,Arequipa,Arequipa,uchumayo,arequipa,arequipa
+040125,0401,04,Vitor,Arequipa,Arequipa,vitor,arequipa,arequipa
+040126,0401,04,Yanahuara,Arequipa,Arequipa,yanahuara,arequipa,arequipa
+040127,0401,04,Yarabamba,Arequipa,Arequipa,yarabamba,arequipa,arequipa
+040128,0401,04,Yura,Arequipa,Arequipa,yura,arequipa,arequipa
+040129,0401,04,Jose Luis Bustamante y Rivero,Arequipa,Arequipa,jose luis bustamante y rivero,arequipa,arequipa
+040201,0402,04,Camana,Camana,Arequipa,camana,camana,arequipa
+040202,0402,04,Jose Maria Quimper,Camana,Arequipa,jose maria quimper,camana,arequipa
+040203,0402,04,Mariano Nicolas Valcarcel,Camana,Arequipa,mariano nicolas valcarcel,camana,arequipa
+040204,0402,04,Mariscal Caceres,Camana,Arequipa,mariscal caceres,camana,arequipa
+040205,0402,04,Nicolas de Pierola,Camana,Arequipa,nicolas de pierola,camana,arequipa
+040206,0402,04,Ocoña,Camana,Arequipa,ocona,camana,arequipa
+040207,0402,04,Quilca,Camana,Arequipa,quilca,camana,arequipa
+040208,0402,04,Samuel Pastor,Camana,Arequipa,samuel pastor,camana,arequipa
+040301,0403,04,Caraveli,Caraveli,Arequipa,caraveli,caraveli,arequipa
+040302,0403,04,Acari,Caraveli,Arequipa,acari,caraveli,arequipa
+040303,0403,04,Atico,Caraveli,Arequipa,atico,caraveli,arequipa
+040304,0403,04,Atiquipa,Caraveli,Arequipa,atiquipa,caraveli,arequipa
+040305,0403,04,Bella Union,Caraveli,Arequipa,bella union,caraveli,arequipa
+040306,0403,04,Cahuacho,Caraveli,Arequipa,cahuacho,caraveli,arequipa
+040307,0403,04,Chala,Caraveli,Arequipa,chala,caraveli,arequipa
+040308,0403,04,Chaparra,Caraveli,Arequipa,chaparra,caraveli,arequipa
+040309,0403,04,Huanuhuanu,Caraveli,Arequipa,huanuhuanu,caraveli,arequipa
+040310,0403,04,Jaqui,Caraveli,Arequipa,jaqui,caraveli,arequipa
+040311,0403,04,Lomas,Caraveli,Arequipa,lomas,caraveli,arequipa
+040312,0403,04,Quicacha,Caraveli,Arequipa,quicacha,caraveli,arequipa
+040313,0403,04,Yauca,Caraveli,Arequipa,yauca,caraveli,arequipa
+040401,0404,04,Aplao,Castilla,Arequipa,aplao,castilla,arequipa
+040402,0404,04,Andagua,Castilla,Arequipa,andagua,castilla,arequipa
+040403,0404,04,Ayo,Castilla,Arequipa,ayo,castilla,arequipa
+040404,0404,04,Chachas,Castilla,Arequipa,chachas,castilla,arequipa
+040405,0404,04,Chilcaymarca,Castilla,Arequipa,chilcaymarca,castilla,arequipa
+040406,0404,04,Choco,Castilla,Arequipa,choco,castilla,arequipa
+040407,0404,04,Huancarqui,Castilla,Arequipa,huancarqui,castilla,arequipa
+040408,0404,04,Machaguay,Castilla,Arequipa,machaguay,castilla,arequipa
+040409,0404,04,Orcopampa,Castilla,Arequipa,orcopampa,castilla,arequipa
+040410,0404,04,Pampacolca,Castilla,Arequipa,pampacolca,castilla,arequipa
+040411,0404,04,Tipan,Castilla,Arequipa,tipan,castilla,arequipa
+040412,0404,04,Uñon,Castilla,Arequipa,unon,castilla,arequipa
+040413,0404,04,Uraca,Castilla,Arequipa,uraca,castilla,arequipa
+040414,0404,04,Viraco,Castilla,Arequipa,viraco,castilla,arequipa
+040501,0405,04,Chivay,Caylloma,Arequipa,chivay,caylloma,arequipa
+040502,0405,04,Achoma,Caylloma,Arequipa,achoma,caylloma,arequipa
+040503,0405,04,Cabanaconde,Caylloma,Arequipa,cabanaconde,caylloma,arequipa
+040504,0405,04,Callalli,Caylloma,Arequipa,callalli,caylloma,arequipa
+040505,0405,04,Caylloma,Caylloma,Arequipa,caylloma,caylloma,arequipa
+040506,0405,04,Coporaque,Caylloma,Arequipa,coporaque,caylloma,arequipa
+040507,0405,04,Huambo,Caylloma,Arequipa,huambo,caylloma,arequipa
+040508,0405,04,Huanca,Caylloma,Arequipa,huanca,caylloma,arequipa
+040509,0405,04,Ichupampa,Caylloma,Arequipa,ichupampa,caylloma,arequipa
+040510,0405,04,Lari,Caylloma,Arequipa,lari,caylloma,arequipa
+040511,0405,04,Lluta,Caylloma,Arequipa,lluta,caylloma,arequipa
+040512,0405,04,Maca,Caylloma,Arequipa,maca,caylloma,arequipa
+040513,0405,04,Madrigal,Caylloma,Arequipa,madrigal,caylloma,arequipa
+040514,0405,04,San Antonio de Chuca,Caylloma,Arequipa,san antonio de chuca,caylloma,arequipa
+040515,0405,04,Sibayo,Caylloma,Arequipa,sibayo,caylloma,arequipa
+040516,0405,04,Tapay,Caylloma,Arequipa,tapay,caylloma,arequipa
+040517,0405,04,Tisco,Caylloma,Arequipa,tisco,caylloma,arequipa
+040518,0405,04,Tuti,Caylloma,Arequipa,tuti,caylloma,arequipa
+040519,0405,04,Yanque,Caylloma,Arequipa,yanque,caylloma,arequipa
+040520,0405,04,Majes,Caylloma,Arequipa,majes,caylloma,arequipa
+040601,0406,04,Chuquibamba,Condesuyos,Arequipa,chuquibamba,condesuyos,arequipa
+040602,0406,04,Andaray,Condesuyos,Arequipa,andaray,condesuyos,arequipa
+040603,0406,04,Cayarani,Condesuyos,Arequipa,cayarani,condesuyos,arequipa
+040604,0406,04,Chichas,Condesuyos,Arequipa,chichas,condesuyos,arequipa
+040605,0406,04,Iray,Condesuyos,Arequipa,iray,condesuyos,arequipa
+040606,0406,04,Rio Grande,Condesuyos,Arequipa,rio grande,condesuyos,arequipa
+040607,0406,04,Salamanca,Condesuyos,Arequipa,salamanca,condesuyos,arequipa
+040608,0406,04,Yanaquihua,Condesuyos,Arequipa,yanaquihua,condesuyos,arequipa
+040701,0407,04,Mollendo,Islay,Arequipa,mollendo,islay,arequipa
+040702,0407,04,Cocachacra,Islay,Arequipa,cocachacra,islay,arequipa
+040703,0407,04,Dean Valdivia,Islay,Arequipa,dean valdivia,islay,arequipa
+040704,0407,04,Islay,Islay,Arequipa,islay,islay,arequipa
+040705,0407,04,Mejia,Islay,Arequipa,mejia,islay,arequipa
+040706,0407,04,Punta de Bombon,Islay,Arequipa,punta de bombon,islay,arequipa
+040801,0408,04,Cotahuasi,La Union,Arequipa,cotahuasi,la union,arequipa
+040802,0408,04,Alca,La Union,Arequipa,alca,la union,arequipa
+040803,0408,04,Charcana,La Union,Arequipa,charcana,la union,arequipa
+040804,0408,04,Huaynacotas,La Union,Arequipa,huaynacotas,la union,arequipa
+040805,0408,04,Pampamarca,La Union,Arequipa,pampamarca,la union,arequipa
+040806,0408,04,Puyca,La Union,Arequipa,puyca,la union,arequipa
+040807,0408,04,Quechualla,La Union,Arequipa,quechualla,la union,arequipa
+040808,0408,04,Sayla,La Union,Arequipa,sayla,la union,arequipa
+040809,0408,04,Tauria,La Union,Arequipa,tauria,la union,arequipa
+040810,0408,04,Tomepampa,La Union,Arequipa,tomepampa,la union,arequipa
+040811,0408,04,Toro,La Union,Arequipa,toro,la union,arequipa
+050101,0501,05,Ayacucho,Huamanga,Ayacucho,ayacucho,huamanga,ayacucho
+050102,0501,05,Acocro,Huamanga,Ayacucho,acocro,huamanga,ayacucho
+050103,0501,05,Acos Vinchos,Huamanga,Ayacucho,acos vinchos,huamanga,ayacucho
+050104,0501,05,Carmen Alto,Huamanga,Ayacucho,carmen alto,huamanga,ayacucho
+050105,0501,05,Chiara,Huamanga,Ayacucho,chiara,huamanga,ayacucho
+050106,0501,05,Ocros,Huamanga,Ayacucho,ocros,huamanga,ayacucho
+050107,0501,05,Pacaycasa,Huamanga,Ayacucho,pacaycasa,huamanga,ayacucho
+050108,0501,05,Quinua,Huamanga,Ayacucho,quinua,huamanga,ayacucho
+050109,0501,05,San Jose de Ticllas,Huamanga,Ayacucho,san jose de ticllas,huamanga,ayacucho
+050110,0501,05,San Juan Bautista,Huamanga,Ayacucho,san juan bautista,huamanga,ayacucho
+050111,0501,05,Santiago de Pischa,Huamanga,Ayacucho,santiago de pischa,huamanga,ayacucho
+050112,0501,05,Socos,Huamanga,Ayacucho,socos,huamanga,ayacucho
+050113,0501,05,Tambillo,Huamanga,Ayacucho,tambillo,huamanga,ayacucho
+050114,0501,05,Vinchos,Huamanga,Ayacucho,vinchos,huamanga,ayacucho
+050115,0501,05,Jesus Nazareno,Huamanga,Ayacucho,jesus nazareno,huamanga,ayacucho
+050201,0502,05,Cangallo,Cangallo,Ayacucho,cangallo,cangallo,ayacucho
+050202,0502,05,Chuschi,Cangallo,Ayacucho,chuschi,cangallo,ayacucho
+050203,0502,05,Los Morochucos,Cangallo,Ayacucho,los morochucos,cangallo,ayacucho
+050204,0502,05,Maria Parado de Bellido,Cangallo,Ayacucho,maria parado de bellido,cangallo,ayacucho
+050205,0502,05,Paras,Cangallo,Ayacucho,paras,cangallo,ayacucho
+050206,0502,05,Totos,Cangallo,Ayacucho,totos,cangallo,ayacucho
+050301,0503,05,Sancos,Huanca Sancos,Ayacucho,sancos,huanca sancos,ayacucho
+050302,0503,05,Carapo,Huanca Sancos,Ayacucho,carapo,huanca sancos,ayacucho
+050303,0503,05,Sacsamarca,Huanca Sancos,Ayacucho,sacsamarca,huanca sancos,ayacucho
+050304,0503,05,Santiago de Lucanamarca,Huanca Sancos,Ayacucho,santiago de lucanamarca,huanca sancos,ayacucho
+050401,0504,05,Huanta,Huanta,Ayacucho,huanta,huanta,ayacucho
+050402,0504,05,Ayahuanco,Huanta,Ayacucho,ayahuanco,huanta,ayacucho
+050403,0504,05,Huamanguilla,Huanta,Ayacucho,huamanguilla,huanta,ayacucho
+050404,0504,05,Iguain,Huanta,Ayacucho,iguain,huanta,ayacucho
+050405,0504,05,Luricocha,Huanta,Ayacucho,luricocha,huanta,ayacucho
+050406,0504,05,Santillana,Huanta,Ayacucho,santillana,huanta,ayacucho
+050407,0504,05,Sivia,Huanta,Ayacucho,sivia,huanta,ayacucho
+050408,0504,05,Llochegua,Huanta,Ayacucho,llochegua,huanta,ayacucho
+050501,0505,05,San Miguel,La Mar,Ayacucho,san miguel,la mar,ayacucho
+050502,0505,05,Anco,La Mar,Ayacucho,anco,la mar,ayacucho
+050503,0505,05,Ayna,La Mar,Ayacucho,ayna,la mar,ayacucho
+050504,0505,05,Chilcas,La Mar,Ayacucho,chilcas,la mar,ayacucho
+050505,0505,05,Chungui,La Mar,Ayacucho,chungui,la mar,ayacucho
+050506,0505,05,Luis Carranza,La Mar,Ayacucho,luis carranza,la mar,ayacucho
+050507,0505,05,Santa Rosa,La Mar,Ayacucho,santa rosa,la mar,ayacucho
+050508,0505,05,Tambo,La Mar,Ayacucho,tambo,la mar,ayacucho
+050601,0506,05,Puquio,Lucanas,Ayacucho,puquio,lucanas,ayacucho
+050602,0506,05,Aucara,Lucanas,Ayacucho,aucara,lucanas,ayacucho
+050603,0506,05,Cabana,Lucanas,Ayacucho,cabana,lucanas,ayacucho
+050604,0506,05,Carmen Salcedo,Lucanas,Ayacucho,carmen salcedo,lucanas,ayacucho
+050605,0506,05,Chaviña,Lucanas,Ayacucho,chavina,lucanas,ayacucho
+050606,0506,05,Chipao,Lucanas,Ayacucho,chipao,lucanas,ayacucho
+050607,0506,05,Huac-huas,Lucanas,Ayacucho,huac huas,lucanas,ayacucho
+050608,0506,05,Laramate,Lucanas,Ayacucho,laramate,lucanas,ayacucho
+050609,0506,05,Leoncio Prado,Lucanas,Ayacucho,leoncio prado,lucanas,ayacucho
+050610,0506,05,Llauta,Lucanas,Ayacucho,llauta,lucanas,ayacucho
+050611,0506,05,Lucanas,Lucanas,Ayacucho,lucanas,lucanas,ayacucho
+050612,0506,05,Ocaña,Lucanas,Ayacucho,ocana,lucanas,ayacucho
+050613,0506,05,Otoca,Lucanas,Ayacucho,otoca,lucanas,ayacucho
+050614,0506,05,Saisa,Lucanas,Ayacucho,saisa,lucanas,ayacucho
+050615,0506,05,San Cristobal,Lucanas,Ayacucho,san cristobal,lucanas,ayacucho
+050616,0506,05,San Juan,Lucanas,Ayacucho,san juan,lucanas,ayacucho
+050617,0506,05,San Pedro,Lucanas,Ayacucho,san pedro,lucanas,ayacucho
+050618,0506,05,San Pedro de Palco,Lucanas,Ayacucho,san pedro de palco,lucanas,ayacucho
+050619,0506,05,Sancos,Lucanas,Ayacucho,sancos,lucanas,ayacucho
+050620,0506,05,Santa Ana de Huaycahuacho,Lucanas,Ayacucho,santa ana de huaycahuacho,lucanas,ayacucho
+050621,0506,05,Santa Lucia,Lucanas,Ayacucho,santa lucia,lucanas,ayacucho
+050701,0507,05,Coracora,Parinacochas,Ayacucho,coracora,parinacochas,ayacucho
+050702,0507,05,Chumpi,Parinacochas,Ayacucho,chumpi,parinacochas,ayacucho
+050703,0507,05,Coronel Castañeda,Parinacochas,Ayacucho,coronel castaneda,parinacochas,ayacucho
+050704,0507,05,Pacapausa,Parinacochas,Ayacucho,pacapausa,parinacochas,ayacucho
+050705,0507,05,Pullo,Parinacochas,Ayacucho,pullo,parinacochas,ayacucho
+050706,0507,05,Puyusca,Parinacochas,Ayacucho,puyusca,parinacochas,ayacucho
+050707,0507,05,San Francisco de Ravacayco,Parinacochas,Ayacucho,san francisco de ravacayco,parinacochas,ayacucho
+050708,0507,05,Upahuacho,Parinacochas,Ayacucho,upahuacho,parinacochas,ayacucho
+050801,0508,05,Pausa,Paucar del Sara Sara,Ayacucho,pausa,paucar del sara sara,ayacucho
+050802,0508,05,Colta,Paucar del Sara Sara,Ayacucho,colta,paucar del sara sara,ayacucho
+050803,0508,05,Corculla,Paucar del Sara Sara,Ayacucho,corculla,paucar del sara sara,ayacucho
+050804,0508,05,Lampa,Paucar del Sara Sara,Ayacucho,lampa,paucar del sara sara,ayacucho
+050805,0508,05,Marcabamba,Paucar del Sara Sara,Ayacucho,marcabamba,paucar del sara sara,ayacucho
+050806,0508,05,Oyolo,Paucar del Sara Sara,Ayacucho,oyolo,paucar del sara sara,ayacucho
+050807,0508,05,Pararca,Paucar del Sara Sara,Ayacucho,pararca,paucar del sara sara,ayacucho
+050808,0508,05,San Javier de Alpabamba,Paucar del Sara Sara,Ayacucho,san javier de alpabamba,paucar del sara sara,ayacucho
+050809,0508,05,San Jose de Ushua,Paucar del Sara Sara,Ayacucho,san jose de ushua,paucar del sara sara,ayacucho
+050810,0508,05,Sara Sara,Paucar del Sara Sara,Ayacucho,sara sara,paucar del sara sara,ayacucho
+050901,0509,05,Querobamba,Sucre,Ayacucho,querobamba,sucre,ayacucho
+050902,0509,05,Belen,Sucre,Ayacucho,belen,sucre,ayacucho
+050903,0509,05,Chalcos,Sucre,Ayacucho,chalcos,sucre,ayacucho
+050904,0509,05,Chilcayoc,Sucre,Ayacucho,chilcayoc,sucre,ayacucho
+050905,0509,05,Huacaña,Sucre,Ayacucho,huacana,sucre,ayacucho
+050906,0509,05,Morcolla,Sucre,Ayacucho,morcolla,sucre,ayacucho
+050907,0509,05,Paico,Sucre,Ayacucho,paico,sucre,ayacucho
+050908,0509,05,San Pedro de Larcay,Sucre,Ayacucho,san pedro de larcay,sucre,ayacucho
+050909,0509,05,San Salvador de Quije,Sucre,Ayacucho,san salvador de quije,sucre,ayacucho
+050910,0509,05,Santiago de Paucaray,Sucre,Ayacucho,santiago de paucaray,sucre,ayacucho
+050911,0509,05,Soras,Sucre,Ayacucho,soras,sucre,ayacucho
+051001,0510,05,Huancapi,Victor Fajardo,Ayacucho,huancapi,victor fajardo,ayacucho
+051002,0510,05,Alcamenca,Victor Fajardo,Ayacucho,alcamenca,victor fajardo,ayacucho
+051003,0510,05,Apongo,Victor Fajardo,Ayacucho,apongo,victor fajardo,ayacucho
+051004,0510,05,Asquipata,Victor Fajardo,Ayacucho,asquipata,victor fajardo,ayacucho
+051005,0510,05,Canaria,Victor Fafardo,Ayacucho,canaria,victor fafardo,ayacucho
+051006,0510,05,Cayara,Victor Fajardo,Ayacucho,cayara,victor fajardo,ayacucho
+051007,0510,05,Colca,Victor Fajardo,Ayacucho,colca,victor fajardo,ayacucho
+051008,0510,05,Huamanquiquia,Victor Fajardo,Ayacucho,huamanquiquia,victor fajardo,ayacucho
+051009,0510,05,Huancaraylla,Victor Fajardo,Ayacucho,huancaraylla,victor fajardo,ayacucho
+051010,0510,05,Huaya,Victor Fajardo,Ayacucho,huaya,victor fajardo,ayacucho
+051011,0510,05,Sarhua,Victor Fajardo,Ayacucho,sarhua,victor fajardo,ayacucho
+051012,0510,05,Vilcanchos,Victor Fajardo,Ayacucho,vilcanchos,victor fajardo,ayacucho
+051101,0511,05,Vilcas Huaman,Vilcas Huaman,Ayacucho,vilcas huaman,vilcas huaman,ayacucho
+051102,0511,05,Accomarca,Vilcas Huaman,Ayacucho,accomarca,vilcas huaman,ayacucho
+051103,0511,05,Carhuanca,Vilcas Huaman,Ayacucho,carhuanca,vilcas huaman,ayacucho
+051104,0511,05,Concepcion,Vilcas Huaman,Ayacucho,concepcion,vilcas huaman,ayacucho
+051105,0511,05,Huambalpa,Vilcas Huaman,Ayacucho,huambalpa,vilcas huaman,ayacucho
+051106,0511,05,Independencia,Vilcas Huaman,Ayacucho,independencia,vilcas huaman,ayacucho
+051107,0511,05,Saurama,Vilcas Huaman,Ayacucho,saurama,vilcas huaman,ayacucho
+051108,0511,05,Vischongo,Vilcas Huaman,Ayacucho,vischongo,vilcas huaman,ayacucho
+060101,0601,06,Cajamarca,Cajamarca,Cajamarca,cajamarca,cajamarca,cajamarca
+060102,0601,06,Asuncion,Cajamarca,Cajamarca,asuncion,cajamarca,cajamarca
+060103,0601,06,Chetilla,Cajamarca,Cajamarca,chetilla,cajamarca,cajamarca
+060104,0601,06,Cospan,Cajamarca,Cajamarca,cospan,cajamarca,cajamarca
+060105,0601,06,Encañada,Cajamarca,Cajamarca,encanada,cajamarca,cajamarca
+060106,0601,06,Jesus,Cajamarca,Cajamarca,jesus,cajamarca,cajamarca
+060107,0601,06,Llacanora,Cajamarca,Cajamarca,llacanora,cajamarca,cajamarca
+060108,0601,06,Los Baños del Inca,Cajamarca,Cajamarca,los banos del inca,cajamarca,cajamarca
+060109,0601,06,Magdalena,Cajamarca,Cajamarca,magdalena,cajamarca,cajamarca
+060110,0601,06,Matara,Cajamarca,Cajamarca,matara,cajamarca,cajamarca
+060111,0601,06,Namora,Cajamarca,Cajamarca,namora,cajamarca,cajamarca
+060112,0601,06,San Juan,Cajamarca,Cajamarca,san juan,cajamarca,cajamarca
+060201,0602,06,Cajabamba,Cajabamba,Cajamarca,cajabamba,cajabamba,cajamarca
+060202,0602,06,Cachachi,Cajabamba,Cajamarca,cachachi,cajabamba,cajamarca
+060203,0602,06,Condebamba,Cajabamba,Cajamarca,condebamba,cajabamba,cajamarca
+060204,0602,06,Sitacocha,Cajabamba,Cajamarca,sitacocha,cajabamba,cajamarca
+060301,0603,06,Celendin,Celendin,Cajamarca,celendin,celendin,cajamarca
+060302,0603,06,Chumuch,Celendin,Cajamarca,chumuch,celendin,cajamarca
+060303,0603,06,Cortegana,Celendin,Cajamarca,cortegana,celendin,cajamarca
+060304,0603,06,Huasmin,Celendin,Cajamarca,huasmin,celendin,cajamarca
+060305,0603,06,Jorge Chavez,Celendin,Cajamarca,jorge chavez,celendin,cajamarca
+060306,0603,06,Jose Galvez,Celendin,Cajamarca,jose galvez,celendin,cajamarca
+060307,0603,06,Miguel Iglesias,Celendin,Cajamarca,miguel iglesias,celendin,cajamarca
+060308,0603,06,Oxamarca,Celendin,Cajamarca,oxamarca,celendin,cajamarca
+060309,0603,06,Sorochuco,Celendin,Cajamarca,sorochuco,celendin,cajamarca
+060310,0603,06,Sucre,Celendin,Cajamarca,sucre,celendin,cajamarca
+060311,0603,06,Utco,Celendin,Cajamarca,utco,celendin,cajamarca
+060312,0603,06,La Libertad de Pallan,Celendin,Cajamarca,la libertad de pallan,celendin,cajamarca
+060401,0604,06,Chota,Chota,Cajamarca,chota,chota,cajamarca
+060402,0604,06,Anguia,Chota,Cajamarca,anguia,chota,cajamarca
+060403,0604,06,Chadin,Chota,Cajamarca,chadin,chota,cajamarca
+060404,0604,06,Chiguirip,Chota,Cajamarca,chiguirip,chota,cajamarca
+060405,0604,06,Chimban,Chota,Cajamarca,chimban,chota,cajamarca
+060406,0604,06,Choropampa,Chota,Cajamarca,choropampa,chota,cajamarca
+060407,0604,06,Cochabamba,Chota,Cajamarca,cochabamba,chota,cajamarca
+060408,0604,06,Conchan,Chota,Cajamarca,conchan,chota,cajamarca
+060409,0604,06,Huambos,Chota,Cajamarca,huambos,chota,cajamarca
+060410,0604,06,Lajas,Chota,Cajamarca,lajas,chota,cajamarca
+060411,0604,06,Llama,Chota,Cajamarca,llama,chota,cajamarca
+060412,0604,06,Miracosta,Chota,Cajamarca,miracosta,chota,cajamarca
+060413,0604,06,Paccha,Chota,Cajamarca,paccha,chota,cajamarca
+060414,0604,06,Pion,Chota,Cajamarca,pion,chota,cajamarca
+060415,0604,06,Querocoto,Chota,Cajamarca,querocoto,chota,cajamarca
+060416,0604,06,San Juan de Licupis,Chota,Cajamarca,san juan de licupis,chota,cajamarca
+060417,0604,06,Tacabamba,Chota,Cajamarca,tacabamba,chota,cajamarca
+060418,0604,06,Tocmoche,Chota,Cajamarca,tocmoche,chota,cajamarca
+060419,0604,06,Chalamarca,Chota,Cajamarca,chalamarca,chota,cajamarca
+060501,0605,06,Contumaza,Contumaza,Cajamarca,contumaza,contumaza,cajamarca
+060502,0605,06,Chilete,Contumaza,Cajamarca,chilete,contumaza,cajamarca
+060503,0605,06,Cupisnique,Contumaza,Cajamarca,cupisnique,contumaza,cajamarca
+060504,0605,06,Guzmango,Contumaza,Cajamarca,guzmango,contumaza,cajamarca
+060505,0605,06,San Benito,Contumaza,Cajamarca,san benito,contumaza,cajamarca
+060506,0605,06,Santa Cruz de Toled,Contumaza,Cajamarca,santa cruz de toled,contumaza,cajamarca
+060507,0605,06,Tantarica,Contumaza,Cajamarca,tantarica,contumaza,cajamarca
+060508,0605,06,Yonan,Contumaza,Cajamarca,yonan,contumaza,cajamarca
+060601,0606,06,Cutervo,Cutervo,Cajamarca,cutervo,cutervo,cajamarca
+060602,0606,06,Callayuc,Cutervo,Cajamarca,callayuc,cutervo,cajamarca
+060603,0606,06,Choros,Cutervo,Cajamarca,choros,cutervo,cajamarca
+060604,0606,06,Cujillo,Cutervo,Cajamarca,cujillo,cutervo,cajamarca
+060605,0606,06,La Ramada,Cutervo,Cajamarca,la ramada,cutervo,cajamarca
+060606,0606,06,Pimpingos,Cutervo,Cajamarca,pimpingos,cutervo,cajamarca
+060607,0606,06,Querocotillo,Cutervo,Cajamarca,querocotillo,cutervo,cajamarca
+060608,0606,06,San Andres de Cutervo,Cutervo,Cajamarca,san andres de cutervo,cutervo,cajamarca
+060609,0606,06,San Juan de Cutervo,Cutervo,Cajamarca,san juan de cutervo,cutervo,cajamarca
+060610,0606,06,San Luis de Lucma,Cutervo,Cajamarca,san luis de lucma,cutervo,cajamarca
+060611,0606,06,Santa Cruz,Cutervo,Cajamarca,santa cruz,cutervo,cajamarca
+060612,0606,06,Santo Domingo de la Capilla,Cutervo,Cajamarca,santo domingo de la capilla,cutervo,cajamarca
+060613,0606,06,Santo Tomas,Cutervo,Cajamarca,santo tomas,cutervo,cajamarca
+060614,0606,06,Socota,Cutervo,Cajamarca,socota,cutervo,cajamarca
+060615,0606,06,Toribio Casanova,Cutervo,Cajamarca,toribio casanova,cutervo,cajamarca
+060701,0607,06,Bambamarca,Hualgayoc,Cajamarca,bambamarca,hualgayoc,cajamarca
+060702,0607,06,Chugur,Hualgayoc,Cajamarca,chugur,hualgayoc,cajamarca
+060703,0607,06,Hualgayoc,Hualgayoc,Cajamarca,hualgayoc,hualgayoc,cajamarca
+060801,0608,06,Jaen,Jaen,Cajamarca,jaen,jaen,cajamarca
+060802,0608,06,Bellavista,Jaen,Cajamarca,bellavista,jaen,cajamarca
+060803,0608,06,Chontali,Jaen,Cajamarca,chontali,jaen,cajamarca
+060804,0608,06,Colasay,Jaen,Cajamarca,colasay,jaen,cajamarca
+060805,0608,06,Huabal,Jaen,Cajamarca,huabal,jaen,cajamarca
+060806,0608,06,Las Pirias,Jaen,Cajamarca,las pirias,jaen,cajamarca
+060807,0608,06,Pomahuaca,Jaen,Cajamarca,pomahuaca,jaen,cajamarca
+060808,0608,06,Pucara,Jaen,Cajamarca,pucara,jaen,cajamarca
+060809,0608,06,Sallique,Jaen,Cajamarca,sallique,jaen,cajamarca
+060810,0608,06,San Felipe,Jaen,Cajamarca,san felipe,jaen,cajamarca
+060811,0608,06,San Jose del Alto,Jaen,Cajamarca,san jose del alto,jaen,cajamarca
+060812,0608,06,Santa Rosa,Jaen,Cajamarca,santa rosa,jaen,cajamarca
+060901,0609,06,San Ignacio,San Ignacio,Cajamarca,san ignacio,san ignacio,cajamarca
+060902,0609,06,Chirinos,San Ignacio,Cajamarca,chirinos,san ignacio,cajamarca
+060903,0609,06,Huarango,San Ignacio,Cajamarca,huarango,san ignacio,cajamarca
+060904,0609,06,La Coipa,San Ignacio,Cajamarca,la coipa,san ignacio,cajamarca
+060905,0609,06,Namballe,San Ignacio,Cajamarca,namballe,san ignacio,cajamarca
+060906,0609,06,San Jose de Lourdes,San Ignacio,Cajamarca,san jose de lourdes,san ignacio,cajamarca
+060907,0609,06,Tabaconas,San Ignacio,Cajamarca,tabaconas,san ignacio,cajamarca
+061001,0610,06,Pedro Galvez,San Marcos,Cajamarca,pedro galvez,san marcos,cajamarca
+061002,0610,06,Chancay,San Marcos,Cajamarca,chancay,san marcos,cajamarca
+061003,0610,06,Eduardo Villanueva,San Marcos,Cajamarca,eduardo villanueva,san marcos,cajamarca
+061004,0610,06,Gregorio Pita,San Marcos,Cajamarca,gregorio pita,san marcos,cajamarca
+061005,0610,06,Ichocan,San Marcos,Cajamarca,ichocan,san marcos,cajamarca
+061006,0610,06,Jose Manuel Quiroz,San Marcos,Cajamarca,jose manuel quiroz,san marcos,cajamarca
+061007,0610,06,Jose Sabogal,San Marcos,Cajamarca,jose sabogal,san marcos,cajamarca
+061101,0611,06,San Miguel,San Miguel,Cajamarca,san miguel,san miguel,cajamarca
+061102,0611,06,Bolivar,San Miguel,Cajamarca,bolivar,san miguel,cajamarca
+061103,0611,06,Calquis,San Miguel,Cajamarca,calquis,san miguel,cajamarca
+061104,0611,06,Catilluc,San Miguel,Cajamarca,catilluc,san miguel,cajamarca
+061105,0611,06,El Prado,San Miguel,Cajamarca,el prado,san miguel,cajamarca
+061106,0611,06,La Florida,San Miguel,Cajamarca,la florida,san miguel,cajamarca
+061107,0611,06,Llapa,San Miguel,Cajamarca,llapa,san miguel,cajamarca
+061108,0611,06,Nanchoc,San Miguel,Cajamarca,nanchoc,san miguel,cajamarca
+061109,0611,06,Niepos,San Miguel,Cajamarca,niepos,san miguel,cajamarca
+061110,0611,06,San Gregorio,San Miguel,Cajamarca,san gregorio,san miguel,cajamarca
+061111,0611,06,San Silvestre de Cochan,San Miguel,Cajamarca,san silvestre de cochan,san miguel,cajamarca
+061112,0611,06,Tongod,San Miguel,Cajamarca,tongod,san miguel,cajamarca
+061113,0611,06,Union Agua Blanca,San Miguel,Cajamarca,union agua blanca,san miguel,cajamarca
+061201,0612,06,San Pablo,San Pablo,Cajamarca,san pablo,san pablo,cajamarca
+061202,0612,06,San Bernardino,San Pablo,Cajamarca,san bernardino,san pablo,cajamarca
+061203,0612,06,San Luis,San Pablo,Cajamarca,san luis,san pablo,cajamarca
+061204,0612,06,Tumbaden,San Pablo,Cajamarca,tumbaden,san pablo,cajamarca
+061301,0613,06,Santa Cruz,Santa Cruz,Cajamarca,santa cruz,santa cruz,cajamarca
+061302,0613,06,Andabamba,Santa Cruz,Cajamarca,andabamba,santa cruz,cajamarca
+061303,0613,06,Catache,Santa Cruz,Cajamarca,catache,santa cruz,cajamarca
+061304,0613,06,Chancaybaños,Santa Cruz,Cajamarca,chancaybanos,santa cruz,cajamarca
+061305,0613,06,La Esperanza,Santa Cruz,Cajamarca,la esperanza,santa cruz,cajamarca
+061306,0613,06,Ninabamba,Santa Cruz,Cajamarca,ninabamba,santa cruz,cajamarca
+061307,0613,06,Pulan,Santa Cruz,Cajamarca,pulan,santa cruz,cajamarca
+061308,0613,06,Saucepampa,Santa Cruz,Cajamarca,saucepampa,santa cruz,cajamarca
+061309,0613,06,Sexi,Santa Cruz,Cajamarca,sexi,santa cruz,cajamarca
+061310,0613,06,Uticyacu,Santa Cruz,Cajamarca,uticyacu,santa cruz,cajamarca
+061311,0613,06,Yauyucan,Santa Cruz,Cajamarca,yauyucan,santa cruz,cajamarca
+070101,0701,07,Callao,Callao,Callao,callao,callao,callao
+070102,0701,07,Bellavista,Callao,Callao,bellavista,callao,callao
+070103,0701,07,Carmen de la Legua Reynoso,Callao,Callao,carmen de la legua reynoso,callao,callao
+070104,0701,07,La Perla,Callao,Callao,la perla,callao,callao
+070105,0701,07,La Punta,Callao,Callao,la punta,callao,callao
+070106,0701,07,Ventanilla,Callao,Callao,ventanilla,callao,callao
+080101,0801,08,Cusco,Cusco,Cusco,cusco,cusco,cusco
+080102,0801,08,Ccorca,Cusco,Cusco,ccorca,cusco,cusco
+080103,0801,08,Poroy,Cusco,Cusco,poroy,cusco,cusco
+080104,0801,08,San Jeronimo,Cusco,Cusco,san jeronimo,cusco,cusco
+080105,0801,08,San Sebastian,Cusco,Cusco,san sebastian,cusco,cusco
+080106,0801,08,Santiago,Cusco,Cusco,santiago,cusco,cusco
+080107,0801,08,Saylla,Cusco,Cusco,saylla,cusco,cusco
+080108,0801,08,Wanchaq,Cusco,Cusco,wanchaq,cusco,cusco
+080201,0802,08,Acomayo,Acomayo,Cusco,acomayo,acomayo,cusco
+080202,0802,08,Acopia,Acomayo,Cusco,acopia,acomayo,cusco
+080203,0802,08,Acos,Acomayo,Cusco,acos,acomayo,cusco
+080204,0802,08,Mosoc Llacta,Acomayo,Cusco,mosoc llacta,acomayo,cusco
+080205,0802,08,Pomacanchi,Acomayo,Cusco,pomacanchi,acomayo,cusco
+080206,0802,08,Rondocan,Acomayo,Cusco,rondocan,acomayo,cusco
+080207,0802,08,Sangarara,Acomayo,Cusco,sangarara,acomayo,cusco
+080301,0803,08,Anta,Anta,Cusco,anta,anta,cusco
+080302,0803,08,Ancahuasi,Anta,Cusco,ancahuasi,anta,cusco
+080303,0803,08,Cachimayo,Anta,Cusco,cachimayo,anta,cusco
+080304,0803,08,Chinchaypujio,Anta,Cusco,chinchaypujio,anta,cusco
+080305,0803,08,Huarocondo,Anta,Cusco,huarocondo,anta,cusco
+080306,0803,08,Limatambo,Anta,Cusco,limatambo,anta,cusco
+080307,0803,08,Mollepata,Anta,Cusco,mollepata,anta,cusco
+080308,0803,08,Pucyura,Anta,Cusco,pucyura,anta,cusco
+080309,0803,08,Zurite,Anta,Cusco,zurite,anta,cusco
+080401,0804,08,Calca,Calca,Cusco,calca,calca,cusco
+080402,0804,08,Coya,Calca,Cusco,coya,calca,cusco
+080403,0804,08,Lamay,Calca,Cusco,lamay,calca,cusco
+080404,0804,08,Lares,Calca,Cusco,lares,calca,cusco
+080405,0804,08,Pisac,Calca,Cusco,pisac,calca,cusco
+080406,0804,08,San Salvador,Calca,Cusco,san salvador,calca,cusco
+080407,0804,08,Taray,Calca,Cusco,taray,calca,cusco
+080408,0804,08,Yanatile,Calca,Cusco,yanatile,calca,cusco
+080501,0805,08,Yanaoca,Canas,Cusco,yanaoca,canas,cusco
+080502,0805,08,Checca,Canas,Cusco,checca,canas,cusco
+080503,0805,08,Kunturkanki,Canas,Cusco,kunturkanki,canas,cusco
+080504,0805,08,Langui,Canas,Cusco,langui,canas,cusco
+080505,0805,08,Layo,Canas,Cusco,layo,canas,cusco
+080506,0805,08,Pampamarca,Canas,Cusco,pampamarca,canas,cusco
+080507,0805,08,Quehue,Canas,Cusco,quehue,canas,cusco
+080508,0805,08,Tupac Amaru,Canas,Cusco,tupac amaru,canas,cusco
+080601,0806,08,Sicuani,Canchis,Cusco,sicuani,canchis,cusco
+080602,0806,08,Checacupe,Canchis,Cusco,checacupe,canchis,cusco
+080603,0806,08,Combapata,Canchis,Cusco,combapata,canchis,cusco
+080604,0806,08,Marangani,Canchis,Cusco,marangani,canchis,cusco
+080605,0806,08,Pitumarca,Canchis,Cusco,pitumarca,canchis,cusco
+080606,0806,08,San Pablo,Canchis,Cusco,san pablo,canchis,cusco
+080607,0806,08,San Pedro,Canchis,Cusco,san pedro,canchis,cusco
+080608,0806,08,Tinta,Canchis,Cusco,tinta,canchis,cusco
+080701,0807,08,Santo Tomas,Chumbivilcas,Cusco,santo tomas,chumbivilcas,cusco
+080702,0807,08,Capacmarca,Chumbivilcas,Cusco,capacmarca,chumbivilcas,cusco
+080703,0807,08,Chamaca,Chumbivilcas,Cusco,chamaca,chumbivilcas,cusco
+080704,0807,08,Colquemarca,Chumbivilcas,Cusco,colquemarca,chumbivilcas,cusco
+080705,0807,08,Livitaca,Chumbivilcas,Cusco,livitaca,chumbivilcas,cusco
+080706,0807,08,Llusco,Chumbivilcas,Cusco,llusco,chumbivilcas,cusco
+080707,0807,08,Quiñota,Chumbivilcas,Cusco,quinota,chumbivilcas,cusco
+080708,0807,08,Velille,Chumbivilcas,Cusco,velille,chumbivilcas,cusco
+080801,0808,08,Espinar,Espinar,Cusco,espinar,espinar,cusco
+080802,0808,08,Condoroma,Espinar,Cusco,condoroma,espinar,cusco
+080803,0808,08,Coporaque,Espinar,Cusco,coporaque,espinar,cusco
+080804,0808,08,Ocoruro,Espinar,Cusco,ocoruro,espinar,cusco
+080805,0808,08,Pallpata,Espinar,Cusco,pallpata,espinar,cusco
+080806,0808,08,Pichigua,Espinar,Cusco,pichigua,espinar,cusco
+080807,0808,08,Suyckutambo,Espinar,Cusco,suyckutambo,espinar,cusco
+080808,0808,08,Alto Pichigua,Espinar,Cusco,alto pichigua,espinar,cusco
+080901,0809,08,Santa Ana,La Convencion,Cusco,santa ana,la convencion,cusco
+080902,0809,08,Echarate,La Convencion,Cusco,echarate,la convencion,cusco
+080903,0809,08,Huayopata,La Convencion,Cusco,huayopata,la convencion,cusco
+080904,0809,08,Maranura,La Convencion,Cusco,maranura,la convencion,cusco
+080905,0809,08,Ocobamba,La Convencion,Cusco,ocobamba,la convencion,cusco
+080906,0809,08,Quellouno,La Convencion,Cusco,quellouno,la convencion,cusco
+080907,0809,08,Kimbiri,La Convencion,Cusco,kimbiri,la convencion,cusco
+080908,0809,08,Santa Teresa,La Convencion,Cusco,santa teresa,la convencion,cusco
+080909,0809,08,Vilcabamba,La Convencion,Cusco,vilcabamba,la convencion,cusco
+080910,0809,08,Pichari,La Convencion,Cusco,pichari,la convencion,cusco
+081001,0810,08,Paruro,Paruro,Cusco,paruro,paruro,cusco
+081002,0810,08,Accha,Paruro,Cusco,accha,paruro,cusco
+081003,0810,08,Ccapi,Paruro,Cusco,ccapi,paruro,cusco
+081004,0810,08,Colcha,Paruro,Cusco,colcha,paruro,cusco
+081005,0810,08,Huanoquite,Paruro,Cusco,huanoquite,paruro,cusco
+081006,0810,08,Omacha,Paruro,Cusco,omacha,paruro,cusco
+081007,0810,08,Paccaritambo,Paruro,Cusco,paccaritambo,paruro,cusco
+081008,0810,08,Pillpinto,Paruro,Cusco,pillpinto,paruro,cusco
+081009,0810,08,Yaurisque,Paruro,Cusco,yaurisque,paruro,cusco
+081101,0811,08,Paucartambo,Paucartambo,Cusco,paucartambo,paucartambo,cusco
+081102,0811,08,Caicay,Paucartambo,Cusco,caicay,paucartambo,cusco
+081103,0811,08,Challabamba,Paucartambo,Cusco,challabamba,paucartambo,cusco
+081104,0811,08,Colquepata,Paucartambo,Cusco,colquepata,paucartambo,cusco
+081105,0811,08,Huancarani,Paucartambo,Cusco,huancarani,paucartambo,cusco
+081106,0811,08,Kosñipata,Paucartambo,Cusco,kosnipata,paucartambo,cusco
+081201,0812,08,Urcos,Quispicanchi,Cusco,urcos,quispicanchi,cusco
+081202,0812,08,Andahuaylillas,Quispicanchi,Cusco,andahuaylillas,quispicanchi,cusco
+081203,0812,08,Camanti,Quispicanchi,Cusco,camanti,quispicanchi,cusco
+081204,0812,08,Ccarhuayo,Quispicanchi,Cusco,ccarhuayo,quispicanchi,cusco
+081205,0812,08,Ccatca,Quispicanchi,Cusco,ccatca,quispicanchi,cusco
+081206,0812,08,Cusipata,Quispicanchi,Cusco,cusipata,quispicanchi,cusco
+081207,0812,08,Huaro,Quispicanchi,Cusco,huaro,quispicanchi,cusco
+081208,0812,08,Lucre,Quispicanchi,Cusco,lucre,quispicanchi,cusco
+081209,0812,08,Marcapata,Quispicanchi,Cusco,marcapata,quispicanchi,cusco
+081210,0812,08,Ocongate,Quispicanchi,Cusco,ocongate,quispicanchi,cusco
+081211,0812,08,Oropesa,Quispicanchi,Cusco,oropesa,quispicanchi,cusco
+081212,0812,08,Quiquijana,Quispicanchi,Cusco,quiquijana,quispicanchi,cusco
+081301,0813,08,Urubamba,Urubamba,Cusco,urubamba,urubamba,cusco
+081302,0813,08,Chinchero,Urubamba,Cusco,chinchero,urubamba,cusco
+081303,0813,08,Huayllabamba,Urubamba,Cusco,huayllabamba,urubamba,cusco
+081304,0813,08,Machupicchu,Urubamba,Cusco,machupicchu,urubamba,cusco
+081305,0813,08,Maras,Urubamba,Cusco,maras,urubamba,cusco
+081306,0813,08,Ollantaytambo,Urubamba,Cusco,ollantaytambo,urubamba,cusco
+081307,0813,08,Yucay,Urubamba,Cusco,yucay,urubamba,cusco
+090101,0901,09,Huancavelica,Huancavelica,Huancavelica,huancavelica,huancavelica,huancavelica
+090102,0901,09,Acobambilla,Huancavelica,Huancavelica,acobambilla,huancavelica,huancavelica
+090103,0901,09,Acoria,Huancavelica,Huancavelica,acoria,huancavelica,huancavelica
+090104,0901,09,Conayca,Huancavelica,Huancavelica,conayca,huancavelica,huancavelica
+090105,0901,09,Cuenca,Huancavelica,Huancavelica,cuenca,huancavelica,huancavelica
+090106,0901,09,Huachocolpa,Huancavelica,Huancavelica,huachocolpa,huancavelica,huancavelica
+090107,0901,09,Huayllahuara,Huancavelica,Huancavelica,huayllahuara,huancavelica,huancavelica
+090108,0901,09,Izcuchaca,Huancavelica,Huancavelica,izcuchaca,huancavelica,huancavelica
+090109,0901,09,Laria,Huancavelica,Huancavelica,laria,huancavelica,huancavelica
+090110,0901,09,Manta,Huancavelica,Huancavelica,manta,huancavelica,huancavelica
+090111,0901,09,Mariscal Caceres,Huancavelica,Huancavelica,mariscal caceres,huancavelica,huancavelica
+090112,0901,09,Moya,Huancavelica,Huancavelica,moya,huancavelica,huancavelica
+090113,0901,09,Nuevo Occoro,Huancavelica,Huancavelica,nuevo occoro,huancavelica,huancavelica
+090114,0901,09,Palca,Huancavelica,Huancavelica,palca,huancavelica,huancavelica
+090115,0901,09,Pilchaca,Huancavelica,Huancavelica,pilchaca,huancavelica,huancavelica
+090116,0901,09,Vilca,Huancavelica,Huancavelica,vilca,huancavelica,huancavelica
+090117,0901,09,Yauli,Huancavelica,Huancavelica,yauli,huancavelica,huancavelica
+090118,0901,09,Ascension,Huancavelica,Huancavelica,ascension,huancavelica,huancavelica
+090119,0901,09,Huando,Huancavelica,Huancavelica,huando,huancavelica,huancavelica
+090201,0902,09,Acobamba,Acobamba,Huancavelica,acobamba,acobamba,huancavelica
+090202,0902,09,Andabamba,Acobamba,Huancavelica,andabamba,acobamba,huancavelica
+090203,0902,09,Anta,Acobamba,Huancavelica,anta,acobamba,huancavelica
+090204,0902,09,Caja,Acobamba,Huancavelica,caja,acobamba,huancavelica
+090205,0902,09,Marcas,Acobamba,Huancavelica,marcas,acobamba,huancavelica
+090206,0902,09,Paucara,Acobamba,Huancavelica,paucara,acobamba,huancavelica
+090207,0902,09,Pomacocha,Acobamba,Huancavelica,pomacocha,acobamba,huancavelica
+090208,0902,09,Rosario,Acobamba,Huancavelica,rosario,acobamba,huancavelica
+090301,0903,09,Lircay,Angaraes,Huancavelica,lircay,angaraes,huancavelica
+090302,0903,09,Anchonga,Angaraes,Huancavelica,anchonga,angaraes,huancavelica
+090303,0903,09,Callanmarca,Angaraes,Huancavelica,callanmarca,angaraes,huancavelica
+090304,0903,09,Ccochaccasa,Angaraes,Huancavelica,ccochaccasa,angaraes,huancavelica
+090305,0903,09,Chincho,Angaraes,Huancavelica,chincho,angaraes,huancavelica
+090306,0903,09,Congalla,Angaraes,Huancavelica,congalla,angaraes,huancavelica
+090307,0903,09,Huanca-huanca,Angaraes,Huancavelica,huanca huanca,angaraes,huancavelica
+090308,0903,09,Huayllay Grande,Angaraes,Huancavelica,huayllay grande,angaraes,huancavelica
+090309,0903,09,Julcamarca,Angaraes,Huancavelica,julcamarca,angaraes,huancavelica
+090310,0903,09,San Antonio de Antaparco,Angaraes,Huancavelica,san antonio de antaparco,angaraes,huancavelica
+090311,0903,09,Santo Tomas de Pata,Angaraes,Huancavelica,santo tomas de pata,angaraes,huancavelica
+090312,0903,09,Secclla,Angaraes,Huancavelica,secclla,angaraes,huancavelica
+090401,0904,09,Castrovirreyna,Castrovirreyna,Huancavelica,castrovirreyna,castrovirreyna,huancavelica
+090402,0904,09,Arma,Castrovirreyna,Huancavelica,arma,castrovirreyna,huancavelica
+090403,0904,09,Aurahua,Castrovirreyna,Huancavelica,aurahua,castrovirreyna,huancavelica
+090404,0904,09,Capillas,Castrovirreyna,Huancavelica,capillas,castrovirreyna,huancavelica
+090405,0904,09,Chupamarca,Castrovirreyna,Huancavelica,chupamarca,castrovirreyna,huancavelica
+090406,0904,09,Cocas,Castrovirreyna,Huancavelica,cocas,castrovirreyna,huancavelica
+090407,0904,09,Huachos,Castrovirreyna,Huancavelica,huachos,castrovirreyna,huancavelica
+090408,0904,09,Huamatambo,Castrovirreyna,Huancavelica,huamatambo,castrovirreyna,huancavelica
+090409,0904,09,Mollepampa,Castrovirreyna,Huancavelica,mollepampa,castrovirreyna,huancavelica
+090410,0904,09,San Juan,Castrovirreyna,Huancavelica,san juan,castrovirreyna,huancavelica
+090411,0904,09,Santa Ana,Castrovirreyna,Huancavelica,santa ana,castrovirreyna,huancavelica
+090412,0904,09,Tantara,Castrovirreyna,Huancavelica,tantara,castrovirreyna,huancavelica
+090413,0904,09,Ticrapo,Castrovirreyna,Huancavelica,ticrapo,castrovirreyna,huancavelica
+090501,0905,09,Churcampa,Churcampa,Huancavelica,churcampa,churcampa,huancavelica
+090502,0905,09,Anco,Churcampa,Huancavelica,anco,churcampa,huancavelica
+090503,0905,09,Chinchihuasi,Churcampa,Huancavelica,chinchihuasi,churcampa,huancavelica
+090504,0905,09,El Carmen,Churcampa,Huancavelica,el carmen,churcampa,huancavelica
+090505,0905,09,La Merced,Churcampa,Huancavelica,la merced,churcampa,huancavelica
+090506,0905,09,Locroja,Churcampa,Huancavelica,locroja,churcampa,huancavelica
+090507,0905,09,Paucarbamba,Churcampa,Huancavelica,paucarbamba,churcampa,huancavelica
+090508,0905,09,San Miguel de Mayocc,Churcampa,Huancavelica,san miguel de mayocc,churcampa,huancavelica
+090509,0905,09,San Pedro de Coris,Churcampa,Huancavelica,san pedro de coris,churcampa,huancavelica
+090510,0905,09,Pachamarca,Churcampa,Huancavelica,pachamarca,churcampa,huancavelica
+090601,0906,09,Huaytara,Huaytara,Huancavelica,huaytara,huaytara,huancavelica
+090602,0906,09,Ayavi,Huaytara,Huancavelica,ayavi,huaytara,huancavelica
+090603,0906,09,Cordova,Huaytara,Huancavelica,cordova,huaytara,huancavelica
+090604,0906,09,Huayacundo Arma,Huaytara,Huancavelica,huayacundo arma,huaytara,huancavelica
+090605,0906,09,Laramarca,Huaytara,Huancavelica,laramarca,huaytara,huancavelica
+090606,0906,09,Ocoyo,Huaytara,Huancavelica,ocoyo,huaytara,huancavelica
+090607,0906,09,Pilpichaca,Huaytara,Huancavelica,pilpichaca,huaytara,huancavelica
+090608,0906,09,Querco,Huaytara,Huancavelica,querco,huaytara,huancavelica
+090609,0906,09,Quito-arma,Huaytara,Huancavelica,quito arma,huaytara,huancavelica
+090610,0906,09,San Antonio de Cusicancha,Huaytara,Huancavelica,san antonio de cusicancha,huaytara,huancavelica
+090611,0906,09,San Francisco de Sangayaico,Huaytara,Huancavelica,san francisco de sangayaico,huaytara,huancavelica
+090612,0906,09,San Isidro,Huaytara,Huancavelica,san isidro,huaytara,huancavelica
+090613,0906,09,Santiago de Chocorvos,Huaytara,Huancavelica,santiago de chocorvos,huaytara,huancavelica
+090614,0906,09,Santiago de Quirahuara,Huaytara,Huancavelica,santiago de quirahuara,huaytara,huancavelica
+090615,0906,09,Santo Domingo de Capillas,Huaytara,Huancavelica,santo domingo de capillas,huaytara,huancavelica
+090616,0906,09,Tambo,Huaytara,Huancavelica,tambo,huaytara,huancavelica
+090701,0907,09,Pampas,Tayacaja,Huancavelica,pampas,tayacaja,huancavelica
+090702,0907,09,Acostambo,Tayacaja,Huancavelica,acostambo,tayacaja,huancavelica
+090703,0907,09,Acraquia,Tayacaja,Huancavelica,acraquia,tayacaja,huancavelica
+090704,0907,09,Ahuaycha,Tayacaja,Huancavelica,ahuaycha,tayacaja,huancavelica
+090705,0907,09,Colcabamba,Tayacaja,Huancavelica,colcabamba,tayacaja,huancavelica
+090706,0907,09,Daniel Hernandez,Tayacaja,Huancavelica,daniel hernandez,tayacaja,huancavelica
+090707,0907,09,Huachocolpa,Tayacaja,Huancavelica,huachocolpa,tayacaja,huancavelica
+090709,0907,09,Huaribamba,Tayacaja,Huancavelica,huaribamba,tayacaja,huancavelica
+090710,0907,09,Ñahuimpuquio,Tayacaja,Huancavelica,nahuimpuquio,tayacaja,huancavelica
+090711,0907,09,Pazos,Tayacaja,Huancavelica,pazos,tayacaja,huancavelica
+090713,0907,09,Quishuar,Tayacaja,Huancavelica,quishuar,tayacaja,huancavelica
+090714,0907,09,Salcabamba,Tayacaja,Huancavelica,salcabamba,tayacaja,huancavelica
+090715,0907,09,Salcahuasi,Tayacaja,Huancavelica,salcahuasi,tayacaja,huancavelica
+090716,0907,09,San Marcos de Rocchac,Tayacaja,Huancavelica,san marcos de rocchac,tayacaja,huancavelica
+090717,0907,09,Surcubamba,Tayacaja,Huancavelica,surcubamba,tayacaja,huancavelica
+090718,0907,09,Tintay Puncu,Tayacaja,Huancavelica,tintay puncu,tayacaja,huancavelica
+100101,1001,10,Huanuco,Huanuco,Huanuco,huanuco,huanuco,huanuco
+100102,1001,10,Amarilis,Huanuco,Huanuco,amarilis,huanuco,huanuco
+100103,1001,10,Chinchao,Huanuco,Huanuco,chinchao,huanuco,huanuco
+100104,1001,10,Churubamba,Huanuco,Huanuco,churubamba,huanuco,huanuco
+100105,1001,10,Margos,Huanuco,Huanuco,margos,huanuco,huanuco
+100106,1001,10,Quisqui,Huanuco,Huanuco,quisqui,huanuco,huanuco
+100107,1001,10,San Francisco de Cayran,Huanuco,Huanuco,san francisco de cayran,huanuco,huanuco
+100108,1001,10,San Pedro de Chaulan,Huanuco,Huanuco,san pedro de chaulan,huanuco,huanuco
+100109,1001,10,Santa Maria del Valle,Huanuco,Huanuco,santa maria del valle,huanuco,huanuco
+100110,1001,10,Yarumayo,Huanuco,Huanuco,yarumayo,huanuco,huanuco
+100111,1001,10,Pillco Marca,Huanuco,Huanuco,pillco marca,huanuco,huanuco
+100201,1002,10,Ambo,Ambo,Huanuco,ambo,ambo,huanuco
+100202,1002,10,Cayna,Ambo,Huanuco,cayna,ambo,huanuco
+100203,1002,10,Colpas,Ambo,Huanuco,colpas,ambo,huanuco
+100204,1002,10,Conchamarca,Ambo,Huanuco,conchamarca,ambo,huanuco
+100205,1002,10,Huacar,Ambo,Huanuco,huacar,ambo,huanuco
+100206,1002,10,San Francisco,Ambo,Huanuco,san francisco,ambo,huanuco
+100207,1002,10,San Rafael,Ambo,Huanuco,san rafael,ambo,huanuco
+100208,1002,10,Tomay Kichwa,Ambo,Huanuco,tomay kichwa,ambo,huanuco
+100301,1003,10,La Union,Dos de Mayo,Huanuco,la union,dos de mayo,huanuco
+100307,1003,10,Chuquis,Dos de Mayo,Huanuco,chuquis,dos de mayo,huanuco
+100311,1003,10,Marias,Dos de Mayo,Huanuco,marias,dos de mayo,huanuco
+100313,1003,10,Pachas,Dos de Mayo,Huanuco,pachas,dos de mayo,huanuco
+100316,1003,10,Quivilla,Dos de Mayo,Huanuco,quivilla,dos de mayo,huanuco
+100317,1003,10,Ripan,Dos de Mayo,Huanuco,ripan,dos de mayo,huanuco
+100321,1003,10,Shunqui,Dos de Mayo,Huanuco,shunqui,dos de mayo,huanuco
+100322,1003,10,Sillapata,Dos de Mayo,Huanuco,sillapata,dos de mayo,huanuco
+100323,1003,10,Yanas,Dos de Mayo,Huanuco,yanas,dos de mayo,huanuco
+100401,1004,10,Huacaybamba,Huacaybamba,Huanuco,huacaybamba,huacaybamba,huanuco
+100402,1004,10,Canchabamba,Huacaybamba,Huanuco,canchabamba,huacaybamba,huanuco
+100403,1004,10,Cochabamba,Huacaybamba,Huanuco,cochabamba,huacaybamba,huanuco
+100404,1004,10,Pinra,Huacaybamba,Huanuco,pinra,huacaybamba,huanuco
+100501,1005,10,Llata,Huamalies,Huanuco,llata,huamalies,huanuco
+100502,1005,10,Arancay,Huamalies,Huanuco,arancay,huamalies,huanuco
+100503,1005,10,Chavin de Pariarca,Huamalies,Huanuco,chavin de pariarca,huamalies,huanuco
+100504,1005,10,Jacas Grande,Huamalies,Huanuco,jacas grande,huamalies,huanuco
+100505,1005,10,Jircan,Huamalies,Huanuco,jircan,huamalies,huanuco
+100506,1005,10,Miraflores,Huamalies,Huanuco,miraflores,huamalies,huanuco
+100507,1005,10,Monzon,Huamalies,Huanuco,monzon,huamalies,huanuco
+100508,1005,10,Punchao,Huamalies,Huanuco,punchao,huamalies,huanuco
+100509,1005,10,Puños,Huamalies,Huanuco,punos,huamalies,huanuco
+100510,1005,10,Singa,Huamalies,Huanuco,singa,huamalies,huanuco
+100511,1005,10,Tantamayo,Huamalies,Huanuco,tantamayo,huamalies,huanuco
+100601,1006,10,Rupa-rupa,Leoncio Prado,Huanuco,rupa rupa,leoncio prado,huanuco
+100602,1006,10,Daniel Alomias Robles,Leoncio Prado,Huanuco,daniel alomias robles,leoncio prado,huanuco
+100603,1006,10,Hermilio Valdizan,Leoncio Prado,Huanuco,hermilio valdizan,leoncio prado,huanuco
+100604,1006,10,Jose Crespo y Castillo,Leoncio Prado,Huanuco,jose crespo y castillo,leoncio prado,huanuco
+100605,1006,10,Luyando,Leoncio Prado,Huanuco,luyando,leoncio prado,huanuco
+100606,1006,10,Mariano Damaso Beraun,Leoncio Prado,Huanuco,mariano damaso beraun,leoncio prado,huanuco
+100701,1007,10,Huacrachuco,Marañon,Huanuco,huacrachuco,maranon,huanuco
+100702,1007,10,Cholon,Marañon,Huanuco,cholon,maranon,huanuco
+100703,1007,10,San Buenaventura,Marañon,Huanuco,san buenaventura,maranon,huanuco
+100801,1008,10,Panao,Pachitea,Huanuco,panao,pachitea,huanuco
+100802,1008,10,Chaglla,Pachitea,Huanuco,chaglla,pachitea,huanuco
+100803,1008,10,Molino,Pachitea,Huanuco,molino,pachitea,huanuco
+100804,1008,10,Umari,Pachitea,Huanuco,umari,pachitea,huanuco
+100901,1009,10,Puerto Inca,Puerto Inca,Huanuco,puerto inca,puerto inca,huanuco
+100902,1009,10,Codo del Pozuzo,Puerto Inca,Huanuco,codo del pozuzo,puerto inca,huanuco
+100903,1009,10,Honoria,Puerto Inca,Huanuco,honoria,puerto inca,huanuco
+100904,1009,10,Tournavista,Puerto Inca,Huanuco,tournavista,puerto inca,huanuco
+100905,1009,10,Yuyapichis,Puerto Inca,Huanuco,yuyapichis,puerto inca,huanuco
+101001,1010,10,Jesus,Lauricocha,Huanuco,jesus,lauricocha,huanuco
+101002,1010,10,Baños,Lauricocha,Huanuco,banos,lauricocha,huanuco
+101003,1010,10,Jivia,Lauricocha,Huanuco,jivia,lauricocha,huanuco
+101004,1010,10,Queropalca,Lauricocha,Huanuco,queropalca,lauricocha,huanuco
+101005,1010,10,Rondos,Lauricocha,Huanuco,rondos,lauricocha,huanuco
+101006,1010,10,San Francisco de Asis,Lauricocha,Huanuco,san francisco de asis,lauricocha,huanuco
+101007,1010,10,San Miguel de Cauri,Lauricocha,Huanuco,san miguel de cauri,lauricocha,huanuco
+101101,1011,10,Chavinillo,Yarowilca,Huanuco,chavinillo,yarowilca,huanuco
+101102,1011,10,Cahuac,Yarowilca,Huanuco,cahuac,yarowilca,huanuco
+101103,1011,10,Chacabamba,Yarowilca,Huanuco,chacabamba,yarowilca,huanuco
+101104,1011,10,Aparicio Pomares,Yarowilca,Huanuco,aparicio pomares,yarowilca,huanuco
+101105,1011,10,Jacas Chico,Yarowilca,Huanuco,jacas chico,yarowilca,huanuco
+101106,1011,10,Obas,Yarowilca,Huanuco,obas,yarowilca,huanuco
+101107,1011,10,Pampamarca,Yarowilca,Huanuco,pampamarca,yarowilca,huanuco
+101108,1011,10,Choras,Yarowilca,Huanuco,choras,yarowilca,huanuco
+110101,1101,11,Ica,Ica,Ica,ica,ica,ica
+110102,1101,11,La Tinguiña,Ica,Ica,la tinguina,ica,ica
+110103,1101,11,Los Aquijes,Ica,Ica,los aquijes,ica,ica
+110104,1101,11,Ocucaje,Ica,Ica,ocucaje,ica,ica
+110105,1101,11,Pachacutec,Ica,Ica,pachacutec,ica,ica
+110106,1101,11,Parcona,Ica,Ica,parcona,ica,ica
+110107,1101,11,Pueblo Nuevo,Ica,Ica,pueblo nuevo,ica,ica
+110108,1101,11,Salas,Ica,Ica,salas,ica,ica
+110109,1101,11,San Jose de los Molinos,Ica,Ica,san jose de los molinos,ica,ica
+110110,1101,11,San Juan Bautista,Ica,Ica,san juan bautista,ica,ica
+110111,1101,11,Santiago,Ica,Ica,santiago,ica,ica
+110112,1101,11,Subtanjalla,Ica,Ica,subtanjalla,ica,ica
+110113,1101,11,Tate,Ica,Ica,tate,ica,ica
+110114,1101,11,Yauca del Rosario,Ica,Ica,yauca del rosario,ica,ica
+110201,1102,11,Chincha Alta,Chincha,Ica,chincha alta,chincha,ica
+110202,1102,11,Alto Laran,Chincha,Ica,alto laran,chincha,ica
+110203,1102,11,Chavin,Chincha,Ica,chavin,chincha,ica
+110204,1102,11,Chincha Baja,Chincha,Ica,chincha baja,chincha,ica
+110205,1102,11,El Carmen,Chincha,Ica,el carmen,chincha,ica
+110206,1102,11,Grocio Prado,Chincha,Ica,grocio prado,chincha,ica
+110207,1102,11,Pueblo Nuevo,Chincha,Ica,pueblo nuevo,chincha,ica
+110208,1102,11,San Juan de Yanac,Chincha,Ica,san juan de yanac,chincha,ica
+110209,1102,11,San Pedro de Huacarpana,Chincha,Ica,san pedro de huacarpana,chincha,ica
+110210,1102,11,Sunampe,Chincha,Ica,sunampe,chincha,ica
+110211,1102,11,Tambo de Mora,Chincha,Ica,tambo de mora,chincha,ica
+110301,1103,11,Nazca,Nazca,Ica,nazca,nazca,ica
+110302,1103,11,Changuillo,Nazca,Ica,changuillo,nazca,ica
+110303,1103,11,El Ingenio,Nazca,Ica,el ingenio,nazca,ica
+110304,1103,11,Marcona,Nazca,Ica,marcona,nazca,ica
+110305,1103,11,Vista Alegre,Nazca,Ica,vista alegre,nazca,ica
+110401,1104,11,Palpa,Palpa,Ica,palpa,palpa,ica
+110402,1104,11,Llipata,Palpa,Ica,llipata,palpa,ica
+110403,1104,11,Rio Grande,Palpa,Ica,rio grande,palpa,ica
+110404,1104,11,Santa Cruz,Palpa,Ica,santa cruz,palpa,ica
+110405,1104,11,Tibillo,Palpa,Ica,tibillo,palpa,ica
+110501,1105,11,Pisco,Pisco,Ica,pisco,pisco,ica
+110502,1105,11,Huancano,Pisco,Ica,huancano,pisco,ica
+110503,1105,11,Humay,Pisco,Ica,humay,pisco,ica
+110504,1105,11,Independencia,Pisco,Ica,independencia,pisco,ica
+110505,1105,11,Paracas,Pisco,Ica,paracas,pisco,ica
+110506,1105,11,San Andres,Pisco,Ica,san andres,pisco,ica
+110507,1105,11,San Clemente,Pisco,Ica,san clemente,pisco,ica
+110508,1105,11,Tupac Amaru Inca,Pisco,Ica,tupac amaru inca,pisco,ica
+120101,1201,12,Huancayo,Huancayo,Junin,huancayo,huancayo,junin
+120104,1201,12,Carhuacallanga,Huancayo,Junin,carhuacallanga,huancayo,junin
+120105,1201,12,Chacapampa,Huancayo,Junin,chacapampa,huancayo,junin
+120106,1201,12,Chicche,Huancayo,Junin,chicche,huancayo,junin
+120107,1201,12,Chilca,Huancayo,Junin,chilca,huancayo,junin
+120108,1201,12,Chongos Alto,Huancayo,Junin,chongos alto,huancayo,junin
+120111,1201,12,Chupuro,Huancayo,Junin,chupuro,huancayo,junin
+120112,1201,12,Colca,Huancayo,Junin,colca,huancayo,junin
+120113,1201,12,Cullhuas,Huancayo,Junin,cullhuas,huancayo,junin
+120114,1201,12,El Tambo,Huancayo,Junin,el tambo,huancayo,junin
+120116,1201,12,Huacrapuquio,Huancayo,Junin,huacrapuquio,huancayo,junin
+120117,1201,12,Hualhuas,Huancayo,Junin,hualhuas,huancayo,junin
+120119,1201,12,Huancan,Huancayo,Junin,huancan,huancayo,junin
+120120,1201,12,Huasicancha,Huancayo,Junin,huasicancha,huancayo,junin
+120121,1201,12,Huayucachi,Huancayo,Junin,huayucachi,huancayo,junin
+120122,1201,12,Ingenio,Huancayo,Junin,ingenio,huancayo,junin
+120124,1201,12,Pariahuanca,Huancayo,Junin,pariahuanca,huancayo,junin
+120125,1201,12,Pilcomayo,Huancayo,Junin,pilcomayo,huancayo,junin
+120126,1201,12,Pucara,Huancayo,Junin,pucara,huancayo,junin
+120127,1201,12,Quichuay,Huancayo,Junin,quichuay,huancayo,junin
+120128,1201,12,Quilcas,Huancayo,Junin,quilcas,huancayo,junin
+120129,1201,12,San Agustin,Huancayo,Junin,san agustin,huancayo,junin
+120130,1201,12,San Jeronimo de Tunan,Huancayo,Junin,san jeronimo de tunan,huancayo,junin
+120132,1201,12,Saño,Huancayo,Junin,sano,huancayo,junin
+120133,1201,12,Sapallanga,Huancayo,Junin,sapallanga,huancayo,junin
+120134,1201,12,Sicaya,Huancayo,Junin,sicaya,huancayo,junin
+120135,1201,12,Santo Domingo de Acobamba,Huancayo,Junin,santo domingo de acobamba,huancayo,junin
+120136,1201,12,Viques,Huancayo,Junin,viques,huancayo,junin
+120201,1202,12,Concepcion,Concepcion,Junin,concepcion,concepcion,junin
+120202,1202,12,Aco,Concepcion,Junin,aco,concepcion,junin
+120203,1202,12,Andamarca,Concepcion,Junin,andamarca,concepcion,junin
+120204,1202,12,Chambara,Concepcion,Junin,chambara,concepcion,junin
+120205,1202,12,Cochas,Concepcion,Junin,cochas,concepcion,junin
+120206,1202,12,Comas,Concepcion,Junin,comas,concepcion,junin
+120207,1202,12,Heroinas Toledo,Concepcion,Junin,heroinas toledo,concepcion,junin
+120208,1202,12,Manzanares,Concepcion,Junin,manzanares,concepcion,junin
+120209,1202,12,Mariscal Castilla,Concepcion,Junin,mariscal castilla,concepcion,junin
+120210,1202,12,Matahuasi,Concepcion,Junin,matahuasi,concepcion,junin
+120211,1202,12,Mito,Concepcion,Junin,mito,concepcion,junin
+120212,1202,12,Nueve de Julio,Concepcion,Junin,nueve de julio,concepcion,junin
+120213,1202,12,Orcotuna,Concepcion,Junin,orcotuna,concepcion,junin
+120214,1202,12,San Jose de Quero,Concepcion,Junin,san jose de quero,concepcion,junin
+120215,1202,12,Santa Rosa de Ocopa,Concepcion,Junin,santa rosa de ocopa,concepcion,junin
+120301,1203,12,Chanchamayo,Chanchamayo,Junin,chanchamayo,chanchamayo,junin
+120302,1203,12,Perene,Chanchamayo,Junin,perene,chanchamayo,junin
+120303,1203,12,Pichanaqui,Chanchamayo,Junin,pichanaqui,chanchamayo,junin
+120304,1203,12,San Luis de Shuaro,Chanchamayo,Junin,san luis de shuaro,chanchamayo,junin
+120305,1203,12,San Ramon,Chanchamayo,Junin,san ramon,chanchamayo,junin
+120306,1203,12,Vitoc,Chanchamayo,Junin,vitoc,chanchamayo,junin
+120401,1204,12,Jauja,Jauja,Junin,jauja,jauja,junin
+120402,1204,12,Acolla,Jauja,Junin,acolla,jauja,junin
+120403,1204,12,Apata,Jauja,Junin,apata,jauja,junin
+120404,1204,12,Ataura,Jauja,Junin,ataura,jauja,junin
+120405,1204,12,Canchayllo,Jauja,Junin,canchayllo,jauja,junin
+120406,1204,12,Curicaca,Jauja,Junin,curicaca,jauja,junin
+120407,1204,12,El Mantaro,Jauja,Junin,el mantaro,jauja,junin
+120408,1204,12,Huamali,Jauja,Junin,huamali,jauja,junin
+120409,1204,12,Huaripampa,Jauja,Junin,huaripampa,jauja,junin
+120410,1204,12,Huertas,Jauja,Junin,huertas,jauja,junin
+120411,1204,12,Janjaillo,Jauja,Junin,janjaillo,jauja,junin
+120412,1204,12,Julcan,Jauja,Junin,julcan,jauja,junin
+120413,1204,12,Leonor Ordoñez,Jauja,Junin,leonor ordonez,jauja,junin
+120414,1204,12,Llocllapampa,Jauja,Junin,llocllapampa,jauja,junin
+120415,1204,12,Marco,Jauja,Junin,marco,jauja,junin
+120416,1204,12,Masma,Jauja,Junin,masma,jauja,junin
+120417,1204,12,Masma Chicche,Jauja,Junin,masma chicche,jauja,junin
+120418,1204,12,Molinos,Jauja,Junin,molinos,jauja,junin
+120419,1204,12,Monobamba,Jauja,Junin,monobamba,jauja,junin
+120420,1204,12,Muqui,Jauja,Junin,muqui,jauja,junin
+120421,1204,12,Muquiyauyo,Jauja,Junin,muquiyauyo,jauja,junin
+120422,1204,12,Paca,Jauja,Junin,paca,jauja,junin
+120423,1204,12,Paccha,Jauja,Junin,paccha,jauja,junin
+120424,1204,12,Pancan,Jauja,Junin,pancan,jauja,junin
+120425,1204,12,Parco,Jauja,Junin,parco,jauja,junin
+120426,1204,12,Pomacancha,Jauja,Junin,pomacancha,jauja,junin
+120427,1204,12,Ricran,Jauja,Junin,ricran,jauja,junin
+120428,1204,12,San Lorenzo,Jauja,Junin,san lorenzo,jauja,junin
+120429,1204,12,San Pedro de Chunan,Jauja,Junin,san pedro de chunan,jauja,junin
+120430,1204,12,Sausa,Jauja,Junin,sausa,jauja,junin
+120431,1204,12,Sincos,Jauja,Junin,sincos,jauja,junin
+120432,1204,12,Tunan Marca,Jauja,Junin,tunan marca,jauja,junin
+120433,1204,12,Yauli,Jauja,Junin,yauli,jauja,junin
+120434,1204,12,Yauyos,Jauja,Junin,yauyos,jauja,junin
+120501,1205,12,Junin,Junin,Junin,junin,junin,junin
+120502,1205,12,Carhuamayo,Junin,Junin,carhuamayo,junin,junin
+120503,1205,12,Ondores,Junin,Junin,ondores,junin,junin
+120504,1205,12,Ulcumayo,Junin,Junin,ulcumayo,junin,junin
+120601,1206,12,Satipo,Satipo,Junin,satipo,satipo,junin
+120602,1206,12,Coviriali,Satipo,Junin,coviriali,satipo,junin
+120603,1206,12,Llaylla,Satipo,Junin,llaylla,satipo,junin
+120604,1206,12,Mazamari,Satipo,Junin,mazamari,satipo,junin
+120605,1206,12,Pampa Hermosa,Satipo,Junin,pampa hermosa,satipo,junin
+120606,1206,12,Pangoa,Satipo,Junin,pangoa,satipo,junin
+120607,1206,12,Rio Negro,Satipo,Junin,rio negro,satipo,junin
+120608,1206,12,Rio Tambo,Satipo,Junin,rio tambo,satipo,junin
+120701,1207,12,Tarma,Tarma,Junin,tarma,tarma,junin
+120702,1207,12,Acobamba,Tarma,Junin,acobamba,tarma,junin
+120703,1207,12,Huaricolca,Tarma,Junin,huaricolca,tarma,junin
+120704,1207,12,Huasahuasi,Tarma,Junin,huasahuasi,tarma,junin
+120705,1207,12,La Union,Tarma,Junin,la union,tarma,junin
+120706,1207,12,Palca,Tarma,Junin,palca,tarma,junin
+120707,1207,12,Palcamayo,Tarma,Junin,palcamayo,tarma,junin
+120708,1207,12,San Pedro de Cajas,Tarma,Junin,san pedro de cajas,tarma,junin
+120709,1207,12,Tapo,Tarma,Junin,tapo,tarma,junin
+120801,1208,12,La Oroya,Yauli,Junin,la oroya,yauli,junin
+120802,1208,12,Chacapalpa,Yauli,Junin,chacapalpa,yauli,junin
+120803,1208,12,Huay-huay,Yauli,Junin,huay huay,yauli,junin
+120804,1208,12,Marcapomacocha,Yauli,Junin,marcapomacocha,yauli,junin
+120805,1208,12,Morococha,Yauli,Junin,morococha,yauli,junin
+120806,1208,12,Paccha,Yauli,Junin,paccha,yauli,junin
+120807,1208,12,Santa Barbara de Carhuacayan,Yauli,Junin,santa barbara de carhuacayan,yauli,junin
+120808,1208,12,Santa Rosa de Sacco,Yauli,Junin,santa rosa de sacco,yauli,junin
+120809,1208,12,Suitucancha,Yauli,Junin,suitucancha,yauli,junin
+120810,1208,12,Yauli,Yauli,Junin,yauli,yauli,junin
+120901,1209,12,Chupaca,Chupaca,Junin,chupaca,chupaca,junin
+120902,1209,12,Ahuac,Chupaca,Junin,ahuac,chupaca,junin
+120903,1209,12,Chongos Bajo,Chupaca,Junin,chongos bajo,chupaca,junin
+120904,1209,12,Huachac,Chupaca,Junin,huachac,chupaca,junin
+120905,1209,12,Huamancaca Chico,Chupaca,Junin,huamancaca chico,chupaca,junin
+120906,1209,12,San Juan de Yscos,Chupaca,Junin,san juan de yscos,chupaca,junin
+120907,1209,12,San Juan de Jarpa,Chupaca,Junin,san juan de jarpa,chupaca,junin
+120908,1209,12,Tres de Diciembre,Chupaca,Junin,tres de diciembre,chupaca,junin
+120909,1209,12,Yanacancha,Chupaca,Junin,yanacancha,chupaca,junin
+130101,1301,13,Trujillo,Trujillo,La Libertad,trujillo,trujillo,la libertad
+130102,1301,13,El Porvenir,Trujillo,La Libertad,el porvenir,trujillo,la libertad
+130103,1301,13,Florencia de Mora,Trujillo,La Libertad,florencia de mora,trujillo,la libertad
+130104,1301,13,Huanchaco,Trujillo,La Libertad,huanchaco,trujillo,la libertad
+130105,1301,13,La Esperanza,Trujillo,La Libertad,la esperanza,trujillo,la libertad
+130106,1301,13,Laredo,Trujillo,La Libertad,laredo,trujillo,la libertad
+130107,1301,13,Moche,Trujillo,La Libertad,moche,trujillo,la libertad
+130108,1301,13,Poroto,Trujillo,La Libertad,poroto,trujillo,la libertad
+130109,1301,13,Salaverry,Trujillo,La Libertad,salaverry,trujillo,la libertad
+130110,1301,13,Simbal,Trujillo,La Libertad,simbal,trujillo,la libertad
+130111,1301,13,Victor Larco Herrera,Trujillo,La Libertad,victor larco herrera,trujillo,la libertad
+130201,1302,13,Ascope,Ascope,La Libertad,ascope,ascope,la libertad
+130202,1302,13,Chicama,Ascope,La Libertad,chicama,ascope,la libertad
+130203,1302,13,Chocope,Ascope,La Libertad,chocope,ascope,la libertad
+130204,1302,13,Magdalena de Cao,Ascope,La Libertad,magdalena de cao,ascope,la libertad
+130205,1302,13,Paijan,Ascope,La Libertad,paijan,ascope,la libertad
+130206,1302,13,Razuri,Ascope,La Libertad,razuri,ascope,la libertad
+130207,1302,13,Santiago de Cao,Ascope,La Libertad,santiago de cao,ascope,la libertad
+130208,1302,13,Casa Grande,Ascope,La Libertad,casa grande,ascope,la libertad
+130301,1303,13,Bolivar,Bolivar,La Libertad,bolivar,bolivar,la libertad
+130302,1303,13,Bambamarca,Bolivar,La Libertad,bambamarca,bolivar,la libertad
+130303,1303,13,Condormarca,Bolivar,La Libertad,condormarca,bolivar,la libertad
+130304,1303,13,Longotea,Bolivar,La Libertad,longotea,bolivar,la libertad
+130305,1303,13,Uchumarca,Bolivar,La Libertad,uchumarca,bolivar,la libertad
+130306,1303,13,Ucuncha,Bolivar,La Libertad,ucuncha,bolivar,la libertad
+130401,1304,13,Chepen,Chepen,La Libertad,chepen,chepen,la libertad
+130402,1304,13,Pacanga,Chepen,La Libertad,pacanga,chepen,la libertad
+130403,1304,13,Pueblo Nuevo,Chepen,La Libertad,pueblo nuevo,chepen,la libertad
+130501,1305,13,Julcan,Julcan,La Libertad,julcan,julcan,la libertad
+130502,1305,13,Calamarca,Julcan,La Libertad,calamarca,julcan,la libertad
+130503,1305,13,Carabamba,Julcan,La Libertad,carabamba,julcan,la libertad
+130504,1305,13,Huaso,Julcan,La Libertad,huaso,julcan,la libertad
+130601,1306,13,Otuzco,Otuzco,La Libertad,otuzco,otuzco,la libertad
+130602,1306,13,Agallpampa,Otuzco,La Libertad,agallpampa,otuzco,la libertad
+130604,1306,13,Charat,Otuzco,La Libertad,charat,otuzco,la libertad
+130605,1306,13,Huaranchal,Otuzco,La Libertad,huaranchal,otuzco,la libertad
+130606,1306,13,La Cuesta,Otuzco,La Libertad,la cuesta,otuzco,la libertad
+130608,1306,13,Mache,Otuzco,La Libertad,mache,otuzco,la libertad
+130610,1306,13,Paranday,Otuzco,La Libertad,paranday,otuzco,la libertad
+130611,1306,13,Salpo,Otuzco,La Libertad,salpo,otuzco,la libertad
+130613,1306,13,Sinsicap,Otuzco,La Libertad,sinsicap,otuzco,la libertad
+130614,1306,13,Usquil,Otuzco,La Libertad,usquil,otuzco,la libertad
+130701,1307,13,San Pedro de Lloc,Pacasmayo,La Libertad,san pedro de lloc,pacasmayo,la libertad
+130702,1307,13,Guadalupe,Pacasmayo,La Libertad,guadalupe,pacasmayo,la libertad
+130703,1307,13,Jequetepeque,Pacasmayo,La Libertad,jequetepeque,pacasmayo,la libertad
+130704,1307,13,Pacasmayo,Pacasmayo,La Libertad,pacasmayo,pacasmayo,la libertad
+130705,1307,13,San Jose,Pacasmayo,La Libertad,san jose,pacasmayo,la libertad
+130801,1308,13,Tayabamba,Pataz,La Libertad,tayabamba,pataz,la libertad
+130802,1308,13,Buldibuyo,Pataz,La Libertad,buldibuyo,pataz,la libertad
+130803,1308,13,Chillia,Pataz,La Libertad,chillia,pataz,la libertad
+130804,1308,13,Huancaspata,Pataz,La Libertad,huancaspata,pataz,la libertad
+130805,1308,13,Huaylillas,Pataz,La Libertad,huaylillas,pataz,la libertad
+130806,1308,13,Huayo,Pataz,La Libertad,huayo,pataz,la libertad
+130807,1308,13,Ongon,Pataz,La Libertad,ongon,pataz,la libertad
+130808,1308,13,Parcoy,Pataz,La Libertad,parcoy,pataz,la libertad
+130809,1308,13,Pataz,Pataz,La Libertad,pataz,pataz,la libertad
+130810,1308,13,Pias,Pataz,La Libertad,pias,pataz,la libertad
+130811,1308,13,Santiago de Challas,Pataz,La Libertad,santiago de challas,pataz,la libertad
+130812,1308,13,Taurija,Pataz,La Libertad,taurija,pataz,la libertad
+130813,1308,13,Urpay,Pataz,La Libertad,urpay,pataz,la libertad
+130901,1309,13,Huamachuco,Sanchez Carrion,La Libertad,huamachuco,sanchez carrion,la libertad
+130902,1309,13,Chugay,Sanchez Carrion,La Libertad,chugay,sanchez carrion,la libertad
+130903,1309,13,Cochorco,Sanchez Carrion,La Libertad,cochorco,sanchez carrion,la libertad
+130904,1309,13,Curgos,Sanchez Carrion,La Libertad,curgos,sanchez carrion,la libertad
+130905,1309,13,Marcabal,Sanchez Carrion,La Libertad,marcabal,sanchez carrion,la libertad
+130906,1309,13,Sanagoran,Sanchez Carrion,La Libertad,sanagoran,sanchez carrion,la libertad
+130907,1309,13,Sarin,Sanchez Carrion,La Libertad,sarin,sanchez carrion,la libertad
+130908,1309,13,Sartimbamba,Sanchez Carrion,La Libertad,sartimbamba,sanchez carrion,la libertad
+131001,1310,13,Santiago de Chuco,Santiago de Chuco,La Libertad,santiago de chuco,santiago de chuco,la libertad
+131002,1310,13,Angasmarca,Santiago de Chuco,La Libertad,angasmarca,santiago de chuco,la libertad
+131003,1310,13,Cachicadan,Santiago de Chuco,La Libertad,cachicadan,santiago de chuco,la libertad
+131004,1310,13,Mollebamba,Santiago de Chuco,La Libertad,mollebamba,santiago de chuco,la libertad
+131005,1310,13,Mollepata,Santiago de Chuco,La Libertad,mollepata,santiago de chuco,la libertad
+131006,1310,13,Quiruvilca,Santiago de Chuco,La Libertad,quiruvilca,santiago de chuco,la libertad
+131007,1310,13,Santa Cruz de Chuca,Santiago de Chuco,La Libertad,santa cruz de chuca,santiago de chuco,la libertad
+131008,1310,13,Sitabamba,Santiago de Chuco,La Libertad,sitabamba,santiago de chuco,la libertad
+131101,1311,13,Cascas,Gran Chimu,La Libertad,cascas,gran chimu,la libertad
+131102,1311,13,Lucma,Gran Chimu,La Libertad,lucma,gran chimu,la libertad
+131103,1311,13,Compin,Gran Chimu,La Libertad,compin,gran chimu,la libertad
+131104,1311,13,Sayapullo,Gran Chimu,La Libertad,sayapullo,gran chimu,la libertad
+131201,1312,13,Viru,Viru,La Libertad,viru,viru,la libertad
+131202,1312,13,Chao,Viru,La Libertad,chao,viru,la libertad
+131203,1312,13,Guadalupito,Viru,La Libertad,guadalupito,viru,la libertad
+140101,1401,14,Chiclayo,Chiclayo,Lambayeque,chiclayo,chiclayo,lambayeque
+140102,1401,14,Chongoyape,Chiclayo,Lambayeque,chongoyape,chiclayo,lambayeque
+140103,1401,14,Eten,Chiclayo,Lambayeque,eten,chiclayo,lambayeque
+140104,1401,14,Eten Puerto,Chiclayo,Lambayeque,eten puerto,chiclayo,lambayeque
+140105,1401,14,Jose Leonardo Ortiz,Chiclayo,Lambayeque,jose leonardo ortiz,chiclayo,lambayeque
+140106,1401,14,La Victoria,Chiclayo,Lambayeque,la victoria,chiclayo,lambayeque
+140107,1401,14,Lagunas,Chiclayo,Lambayeque,lagunas,chiclayo,lambayeque
+140108,1401,14,Monsefu,Chiclayo,Lambayeque,monsefu,chiclayo,lambayeque
+140109,1401,14,Nueva Arica,Chiclayo,Lambayeque,nueva arica,chiclayo,lambayeque
+140110,1401,14,Oyotun,Chiclayo,Lambayeque,oyotun,chiclayo,lambayeque
+140111,1401,14,Picsi,Chiclayo,Lambayeque,picsi,chiclayo,lambayeque
+140112,1401,14,Pimentel,Chiclayo,Lambayeque,pimentel,chiclayo,lambayeque
+140113,1401,14,Reque,Chiclayo,Lambayeque,reque,chiclayo,lambayeque
+140114,1401,14,Santa Rosa,Chiclayo,Lambayeque,santa rosa,chiclayo,lambayeque
+140115,1401,14,Saña,Chiclayo,Lambayeque,sana,chiclayo,lambayeque
+140116,1401,14,Cayalti,Chiclayo,Lambayeque,cayalti,chiclayo,lambayeque
+140117,1401,14,Patapo,Chiclayo,Lambayeque,patapo,chiclayo,lambayeque
+140118,1401,14,Pomalca,Chiclayo,Lambayeque,pomalca,chiclayo,lambayeque
+140119,1401,14,Pucala,Chiclayo,Lambayeque,pucala,chiclayo,lambayeque
+140120,1401,14,Tuman,Chiclayo,Lambayeque,tuman,chiclayo,lambayeque
+140201,1402,14,Ferreñafe,Ferreñafe,Lambayeque,ferrenafe,ferrenafe,lambayeque
+140202,1402,14,Cañaris,Ferreñafe,Lambayeque,canaris,ferrenafe,lambayeque
+140203,1402,14,Incahuasi,Ferreñafe,Lambayeque,incahuasi,ferrenafe,lambayeque
+140204,1402,14,Manuel Antonio Mesones Muro,Ferreñafe,Lambayeque,manuel antonio mesones muro,ferrenafe,lambayeque
+140205,1402,14,Pitipo,Ferreñafe,Lambayeque,pitipo,ferrenafe,lambayeque
+140206,1402,14,Pueblo Nuevo,Ferreñafe,Lambayeque,pueblo nuevo,ferrenafe,lambayeque
+140301,1403,14,Lambayeque,Lambayeque,Lambayeque,lambayeque,lambayeque,lambayeque
+140302,1403,14,Chochope,Lambayeque,Lambayeque,chochope,lambayeque,lambayeque
+140303,1403,14,Illimo,Lambayeque,Lambayeque,illimo,lambayeque,lambayeque
+140304,1403,14,Jayanca,Lambayeque,Lambayeque,jayanca,lambayeque,lambayeque
+140305,1403,14,Mochumi,Lambayeque,Lambayeque,mochumi,lambayeque,lambayeque
+140306,1403,14,Morrope,Lambayeque,Lambayeque,morrope,lambayeque,lambayeque
+140307,1403,14,Motupe,Lambayeque,Lambayeque,motupe,lambayeque,lambayeque
+140308,1403,14,Olmos,Lambayeque,Lambayeque,olmos,lambayeque,lambayeque
+140309,1403,14,Pacora,Lambayeque,Lambayeque,pacora,lambayeque,lambayeque
+140310,1403,14,Salas,Lambayeque,Lambayeque,salas,lambayeque,lambayeque
+140311,1403,14,San Jose,Lambayeque,Lambayeque,san jose,lambayeque,lambayeque
+140312,1403,14,Tucume,Lambayeque,Lambayeque,tucume,lambayeque,lambayeque
+150101,1501,15,Lima,Lima,Lima,lima,lima,lima
+150102,1501,15,Ancon,Lima,Lima,ancon,lima,lima
+150103,1501,15,Ate,Lima,Lima,ate,lima,lima
+150104,1501,15,Barranco,Lima,Lima,barranco,lima,lima
+150105,1501,15,Breña,Lima,Lima,brena,lima,lima
+150106,1501,15,Carabayllo,Lima,Lima,carabayllo,lima,lima
+150107,1501,15,Chaclacayo,Lima,Lima,chaclacayo,lima,lima
+150108,1501,15,Chorrillos,Lima,Lima,chorrillos,lima,lima
+150109,1501,15,Cieneguilla,Lima,Lima,cieneguilla,lima,lima
+150110,1501,15,Comas,Lima,Lima,comas,lima,lima
+150111,1501,15,El Agustino,Lima,Lima,el agustino,lima,lima
+150112,1501,15,Independencia,Lima,Lima,independencia,lima,lima
+150113,1501,15,Jesus Maria,Lima,Lima,jesus maria,lima,lima
+150114,1501,15,La Molina,Lima,Lima,la molina,lima,lima
+150115,1501,15,La Victoria,Lima,Lima,la victoria,lima,lima
+150116,1501,15,Lince,Lima,Lima,lince,lima,lima
+150117,1501,15,Los Olivos,Lima,Lima,los olivos,lima,lima
+150118,1501,15,Lurigancho,Lima,Lima,lurigancho,lima,lima
+150119,1501,15,Lurin,Lima,Lima,lurin,lima,lima
+150120,1501,15,Magdalena del Mar,Lima,Lima,magdalena del mar,lima,lima
+150121,1501,15,Magdalena Vieja,Lima,Lima,magdalena vieja,lima,lima
+150122,1501,15,Miraflores,Lima,Lima,miraflores,lima,lima
+150123,1501,15,Pachacamac,Lima,Lima,pachacamac,lima,lima
+150124,1501,15,Pucusana,Lima,Lima,pucusana,lima,lima
+150125,1501,15,Puente Piedra,Lima,Lima,puente piedra,lima,lima
+150126,1501,15,Punta Hermosa,Lima,Lima,punta hermosa,lima,lima
+150127,1501,15,Punta Negra,Lima,Lima,punta negra,lima,lima
+150128,1501,15,Rimac,Lima,Lima,rimac,lima,lima
+150129,1501,15,San Bartolo,Lima,Lima,san bartolo,lima,lima
+150130,1501,15,San Borja,Lima,Lima,san borja,lima,lima
+150131,1501,15,San Isidro,Lima,Lima,san isidro,lima,lima
+150132,1501,15,San Juan de Lurigancho,Lima,Lima,san juan de lurigancho,lima,lima
+150133,1501,15,San Juan de Miraflores,Lima,Lima,san juan de miraflores,lima,lima
+150134,1501,15,San Luis,Lima,Lima,san luis,lima,lima
+150135,1501,15,San Martin de Porres,Lima,Lima,san martin de porres,lima,lima
+150136,1501,15,San Miguel,Lima,Lima,san miguel,lima,lima
+150137,1501,15,Santa Anita,Lima,Lima,santa anita,lima,lima
+150138,1501,15,Santa Maria del Mar,Lima,Lima,santa maria del mar,lima,lima
+150139,1501,15,Santa Rosa,Lima,Lima,santa rosa,lima,lima
+150140,1501,15,Santiago de Surco,Lima,Lima,santiago de surco,lima,lima
+150141,1501,15,Surquillo,Lima,Lima,surquillo,lima,lima
+150142,1501,15,Villa el Salvador,Lima,Lima,villa el salvador,lima,lima
+150143,1501,15,Villa Maria del Triunfo,Lima,Lima,villa maria del triunfo,lima,lima
+150201,1502,15,Barranca,Barranca,Lima,barranca,barranca,lima
+150202,1502,15,Paramonga,Barranca,Lima,paramonga,barranca,lima
+150203,1502,15,Pativilca,Barranca,Lima,pativilca,barranca,lima
+150204,1502,15,Supe,Barranca,Lima,supe,barranca,lima
+150205,1502,15,Supe Puerto,Barranca,Lima,supe puerto,barranca,lima
+150301,1503,15,Cajatambo,Cajatambo,Lima,cajatambo,cajatambo,lima
+150302,1503,15,Copa,Cajatambo,Lima,copa,cajatambo,lima
+150303,1503,15,Gorgor,Cajatambo,Lima,gorgor,cajatambo,lima
+150304,1503,15,Huancapon,Cajatambo,Lima,huancapon,cajatambo,lima
+150305,1503,15,Manas,Cajatambo,Lima,manas,cajatambo,lima
+150401,1504,15,Canta,Canta,Lima,canta,canta,lima
+150402,1504,15,Arahuay,Canta,Lima,arahuay,canta,lima
+150403,1504,15,Huamantanga,Canta,Lima,huamantanga,canta,lima
+150404,1504,15,Huaros,Canta,Lima,huaros,canta,lima
+150405,1504,15,Lachaqui,Canta,Lima,lachaqui,canta,lima
+150406,1504,15,San Buenaventura,Canta,Lima,san buenaventura,canta,lima
+150407,1504,15,Santa Rosa de Quives,Canta,Lima,santa rosa de quives,canta,lima
+150501,1505,15,San Vicente de Cañete,Cañete,Lima,san vicente de canete,canete,lima
+150502,1505,15,Asia,Cañete,Lima,asia,canete,lima
+150503,1505,15,Calango,Cañete,Lima,calango,canete,lima
+150504,1505,15,Cerro Azul,Cañete,Lima,cerro azul,canete,lima
+150505,1505,15,Chilca,Cañete,Lima,chilca,canete,lima
+150506,1505,15,Coayllo,Cañete,Lima,coayllo,canete,lima
+150507,1505,15,Imperial,Cañete,Lima,imperial,canete,lima
+150508,1505,15,Lunahuana,Cañete,Lima,lunahuana,canete,lima
+150509,1505,15,Mala,Cañete,Lima,mala,canete,lima
+150510,1505,15,Nuevo Imperial,Cañete,Lima,nuevo imperial,canete,lima
+150511,1505,15,Pacaran,Cañete,Lima,pacaran,canete,lima
+150512,1505,15,Quilmana,Cañete,Lima,quilmana,canete,lima
+150513,1505,15,San Antonio,Cañete,Lima,san antonio,canete,lima
+150514,1505,15,San Luis,Cañete,Lima,san luis,canete,lima
+150515,1505,15,Santa Cruz de Flores,Cañete,Lima,santa cruz de flores,canete,lima
+150516,1505,15,Zuñiga,Cañete,Lima,zuniga,canete,lima
+150601,1506,15,Huaral,Huaral,Lima,huaral,huaral,lima
+150602,1506,15,Atavillos Alto,Huaral,Lima,atavillos alto,huaral,lima
+150603,1506,15,Atavillos Bajo,Huaral,Lima,atavillos bajo,huaral,lima
+150604,1506,15,Aucallama,Huaral,Lima,aucallama,huaral,lima
+150605,1506,15,Chancay,Huaral,Lima,chancay,huaral,lima
+150606,1506,15,Ihuari,Huaral,Lima,ihuari,huaral,lima
+150607,1506,15,Lampian,Huaral,Lima,lampian,huaral,lima
+150608,1506,15,Pacaraos,Huaral,Lima,pacaraos,huaral,lima
+150609,1506,15,San Miguel de Acos,Huaral,Lima,san miguel de acos,huaral,lima
+150610,1506,15,Santa Cruz de Andamarca,Huaral,Lima,santa cruz de andamarca,huaral,lima
+150611,1506,15,Sumbilca,Huaral,Lima,sumbilca,huaral,lima
+150612,1506,15,Veintisiete de Noviembre,Huaral,Lima,veintisiete de noviembre,huaral,lima
+150701,1507,15,Matucana,Huarochiri,Lima,matucana,huarochiri,lima
+150702,1507,15,Antioquia,Huarochiri,Lima,antioquia,huarochiri,lima
+150703,1507,15,Callahuanca,Huarochiri,Lima,callahuanca,huarochiri,lima
+150704,1507,15,Carampoma,Huarochiri,Lima,carampoma,huarochiri,lima
+150705,1507,15,Chicla,Huarochiri,Lima,chicla,huarochiri,lima
+150706,1507,15,Cuenca,Huarochiri,Lima,cuenca,huarochiri,lima
+150707,1507,15,Huachupampa,Huarochiri,Lima,huachupampa,huarochiri,lima
+150708,1507,15,Huanza,Huarochiri,Lima,huanza,huarochiri,lima
+150709,1507,15,Huarochiri,Huarochiri,Lima,huarochiri,huarochiri,lima
+150710,1507,15,Lahuaytambo,Huarochiri,Lima,lahuaytambo,huarochiri,lima
+150711,1507,15,Langa,Huarochiri,Lima,langa,huarochiri,lima
+150712,1507,15,Laraos,Huarochiri,Lima,laraos,huarochiri,lima
+150713,1507,15,Mariatana,Huarochiri,Lima,mariatana,huarochiri,lima
+150714,1507,15,Ricardo Palma,Huarochiri,Lima,ricardo palma,huarochiri,lima
+150715,1507,15,San Andres de Tupicocha,Huarochiri,Lima,san andres de tupicocha,huarochiri,lima
+150716,1507,15,San Antonio,Huarochiri,Lima,san antonio,huarochiri,lima
+150717,1507,15,San Bartolome,Huarochiri,Lima,san bartolome,huarochiri,lima
+150718,1507,15,San Damian,Huarochiri,Lima,san damian,huarochiri,lima
+150719,1507,15,San Juan de Iris,Huarochiri,Lima,san juan de iris,huarochiri,lima
+150720,1507,15,San Juan de Tantaranche,Huarochiri,Lima,san juan de tantaranche,huarochiri,lima
+150721,1507,15,San Lorenzo de Quinti,Huarochiri,Lima,san lorenzo de quinti,huarochiri,lima
+150722,1507,15,San Mateo,Huarochiri,Lima,san mateo,huarochiri,lima
+150723,1507,15,San Mateo de Otao,Huarochiri,Lima,san mateo de otao,huarochiri,lima
+150724,1507,15,San Pedro de Casta,Huarochiri,Lima,san pedro de casta,huarochiri,lima
+150725,1507,15,San Pedro de Huancayre,Huarochiri,Lima,san pedro de huancayre,huarochiri,lima
+150726,1507,15,Sangallaya,Huarochiri,Lima,sangallaya,huarochiri,lima
+150727,1507,15,Santa Cruz de Cocachacra,Huarochiri,Lima,santa cruz de cocachacra,huarochiri,lima
+150728,1507,15,Santa Eulalia,Huarochiri,Lima,santa eulalia,huarochiri,lima
+150729,1507,15,Santiago de Anchucaya,Huarochiri,Lima,santiago de anchucaya,huarochiri,lima
+150730,1507,15,Santiago de Tuna,Huarochiri,Lima,santiago de tuna,huarochiri,lima
+150731,1507,15,Santo Domingo de los Olleros,Huarochiri,Lima,santo domingo de los olleros,huarochiri,lima
+150732,1507,15,Surco,Huarochiri,Lima,surco,huarochiri,lima
+150801,1508,15,Huacho,Huaura,Lima,huacho,huaura,lima
+150802,1508,15,Ambar,Huaura,Lima,ambar,huaura,lima
+150803,1508,15,Caleta de Carquin,Huaura,Lima,caleta de carquin,huaura,lima
+150804,1508,15,Checras,Huaura,Lima,checras,huaura,lima
+150805,1508,15,Hualmay,Huaura,Lima,hualmay,huaura,lima
+150806,1508,15,Huaura,Huaura,Lima,huaura,huaura,lima
+150807,1508,15,Leoncio Prado,Huaura,Lima,leoncio prado,huaura,lima
+150808,1508,15,Paccho,Huaura,Lima,paccho,huaura,lima
+150809,1508,15,Santa Leonor,Huaura,Lima,santa leonor,huaura,lima
+150810,1508,15,Santa Maria,Huaura,Lima,santa maria,huaura,lima
+150811,1508,15,Sayan,Huaura,Lima,sayan,huaura,lima
+150812,1508,15,Vegueta,Huaura,Lima,vegueta,huaura,lima
+150901,1509,15,Oyon,Oyon,Lima,oyon,oyon,lima
+150902,1509,15,Andajes,Oyon,Lima,andajes,oyon,lima
+150903,1509,15,Caujul,Oyon,Lima,caujul,oyon,lima
+150904,1509,15,Cochamarca,Oyon,Lima,cochamarca,oyon,lima
+150905,1509,15,Navan,Oyon,Lima,navan,oyon,lima
+150906,1509,15,Pachangara,Oyon,Lima,pachangara,oyon,lima
+151001,1510,15,Yauyos,Yauyos,Lima,yauyos,yauyos,lima
+151002,1510,15,Alis,Yauyos,Lima,alis,yauyos,lima
+151003,1510,15,Ayauca,Yauyos,Lima,ayauca,yauyos,lima
+151004,1510,15,Ayaviri,Yauyos,Lima,ayaviri,yauyos,lima
+151005,1510,15,Azangaro,Yauyos,Lima,azangaro,yauyos,lima
+151006,1510,15,Cacra,Yauyos,Lima,cacra,yauyos,lima
+151007,1510,15,Carania,Yauyos,Lima,carania,yauyos,lima
+151008,1510,15,Catahuasi,Yauyos,Lima,catahuasi,yauyos,lima
+151009,1510,15,Chocos,Yauyos,Lima,chocos,yauyos,lima
+151010,1510,15,Cochas,Yauyos,Lima,cochas,yauyos,lima
+151011,1510,15,Colonia,Yauyos,Lima,colonia,yauyos,lima
+151012,1510,15,Hongos,Yauyos,Lima,hongos,yauyos,lima
+151013,1510,15,Huampara,Yauyos,Lima,huampara,yauyos,lima
+151014,1510,15,Huancaya,Yauyos,Lima,huancaya,yauyos,lima
+151015,1510,15,Huangascar,Yauyos,Lima,huangascar,yauyos,lima
+151016,1510,15,Huantan,Yauyos,Lima,huantan,yauyos,lima
+151017,1510,15,Huañec,Yauyos,Lima,huanec,yauyos,lima
+151018,1510,15,Laraos,Yauyos,Lima,laraos,yauyos,lima
+151019,1510,15,Lincha,Yauyos,Lima,lincha,yauyos,lima
+151020,1510,15,Madean,Yauyos,Lima,madean,yauyos,lima
+151021,1510,15,Miraflores,Yauyos,Lima,miraflores,yauyos,lima
+151022,1510,15,Omas,Yauyos,Lima,omas,yauyos,lima
+151023,1510,15,Putinza,Yauyos,Lima,putinza,yauyos,lima
+151024,1510,15,Quinches,Yauyos,Lima,quinches,yauyos,lima
+151025,1510,15,Quinocay,Yauyos,Lima,quinocay,yauyos,lima
+151026,1510,15,San Joaquin,Yauyos,Lima,san joaquin,yauyos,lima
+151027,1510,15,San Pedro de Pilas,Yauyos,Lima,san pedro de pilas,yauyos,lima
+151028,1510,15,Tanta,Yauyos,Lima,tanta,yauyos,lima
+151029,1510,15,Tauripampa,Yauyos,Lima,tauripampa,yauyos,lima
+151030,1510,15,Tomas,Yauyos,Lima,tomas,yauyos,lima
+151031,1510,15,Tupe,Yauyos,Lima,tupe,yauyos,lima
+151032,1510,15,Viñac,Yauyos,Lima,vinac,yauyos,lima
+151033,1510,15,Vitis,Yauyos,Lima,vitis,yauyos,lima
+160101,1601,16,Iquitos,Maynas,Loreto,iquitos,maynas,loreto
+160102,1601,16,Alto Nanay,Maynas,Loreto,alto nanay,maynas,loreto
+160103,1601,16,Fernando Lores,Maynas,Loreto,fernando lores,maynas,loreto
+160104,1601,16,Indiana,Maynas,Loreto,indiana,maynas,loreto
+160105,1601,16,Las Amazonas,Maynas,Loreto,las amazonas,maynas,loreto
+160106,1601,16,Mazan,Maynas,Loreto,mazan,maynas,loreto
+160107,1601,16,Napo,Maynas,Loreto,napo,maynas,loreto
+160108,1601,16,Punchana,Maynas,Loreto,punchana,maynas,loreto
+160109,1601,16,Putumayo,Maynas,Loreto,putumayo,maynas,loreto
+160110,1601,16,Torres Causana,Maynas,Loreto,torres causana,maynas,loreto
+160112,1601,16,Belen,Maynas,Loreto,belen,maynas,loreto
+160113,1601,16,San Juan Bautista,Maynas,Loreto,san juan bautista,maynas,loreto
+160114,1601,16,Teniente Manuel Clavero,Maynas,Loreto,teniente manuel clavero,maynas,loreto
+160201,1602,16,Yurimaguas,Alto Amazonas,Loreto,yurimaguas,alto amazonas,loreto
+160202,1602,16,Balsapuerto,Alto Amazonas,Loreto,balsapuerto,alto amazonas,loreto
+160205,1602,16,Jeberos,Alto Amazonas,Loreto,jeberos,alto amazonas,loreto
+160206,1602,16,Lagunas,Alto Amazonas,Loreto,lagunas,alto amazonas,loreto
+160210,1602,16,Santa Cruz,Alto Amazonas,Loreto,santa cruz,alto amazonas,loreto
+160211,1602,16,Teniente Cesar Lopez Rojas,Alto Amazonas,Loreto,teniente cesar lopez rojas,alto amazonas,loreto
+160301,1603,16,Nauta,Loreto,Loreto,nauta,loreto,loreto
+160302,1603,16,Parinari,Loreto,Loreto,parinari,loreto,loreto
+160303,1603,16,Tigre,Loreto,Loreto,tigre,loreto,loreto
+160304,1603,16,Trompeteros,Loreto,Loreto,trompeteros,loreto,loreto
+160305,1603,16,Urarinas,Loreto,Loreto,urarinas,loreto,loreto
+160401,1604,16,Ramon Castilla,Mariscal Ramon Castilla,Loreto,ramon castilla,mariscal ramon castilla,loreto
+160402,1604,16,Pebas,Mariscal Ramon Castilla,Loreto,pebas,mariscal ramon castilla,loreto
+160403,1604,16,Yavari,Mariscal Ramon Castilla,Loreto,yavari,mariscal ramon castilla,loreto
+160404,1604,16,San Pablo,Mariscal Ramon Castilla,Loreto,san pablo,mariscal ramon castilla,loreto
+160501,1605,16,Requena,Requena,Loreto,requena,requena,loreto
+160502,1605,16,Alto Tapiche,Requena,Loreto,alto tapiche,requena,loreto
+160503,1605,16,Capelo,Requena,Loreto,capelo,requena,loreto
+160504,1605,16,Emilio San Martin,Requena,Loreto,emilio san martin,requena,loreto
+160505,1605,16,Maquia,Requena,Loreto,maquia,requena,loreto
+160506,1605,16,Puinahua,Requena,Loreto,puinahua,requena,loreto
+160507,1605,16,Saquena,Requena,Loreto,saquena,requena,loreto
+160508,1605,16,Soplin,Requena,Loreto,soplin,requena,loreto
+160509,1605,16,Tapiche,Requena,Loreto,tapiche,requena,loreto
+160510,1605,16,Jenaro Herrera,Requena,Loreto,jenaro herrera,requena,loreto
+160511,1605,16,Yaquerana,Requena,Loreto,yaquerana,requena,loreto
+160601,1606,16,Contamana,Ucayali,Loreto,contamana,ucayali,loreto
+160602,1606,16,Inahuaya,Ucayali,Loreto,inahuaya,ucayali,loreto
+160603,1606,16,Padre Marquez,Ucayali,Loreto,padre marquez,ucayali,loreto
+160604,1606,16,Pampa Hermosa,Ucayali,Loreto,pampa hermosa,ucayali,loreto
+160605,1606,16,Sarayacu,Ucayali,Loreto,sarayacu,ucayali,loreto
+160606,1606,16,Vargas Guerra,Ucayali,Loreto,vargas guerra,ucayali,loreto
+160701,1607,16,Barranca,Datem del Marañon,Loreto,barranca,datem del maranon,loreto
+160702,1607,16,Cahuapanas,Datem del Marañon,Loreto,cahuapanas,datem del maranon,loreto
+160703,1607,16,Manseriche,Datem del Marañon,Loreto,manseriche,datem del maranon,loreto
+160704,1607,16,Morona,Datem del Marañon,Loreto,morona,datem del maranon,loreto
+160705,1607,16,Pastaza,Datem del Marañon,Loreto,pastaza,datem del maranon,loreto
+160706,1607,16,Andoas,Datem del Marañon,Loreto,andoas,datem del maranon,loreto
+170101,1701,17,Tambopata,Tambopata,Madre de Dios,tambopata,tambopata,madre de dios
+170102,1701,17,Inambari,Tambopata,Madre de Dios,inambari,tambopata,madre de dios
+170103,1701,17,Las Piedras,Tambopata,Madre de Dios,las piedras,tambopata,madre de dios
+170104,1701,17,Laberinto,Tambopata,Madre de Dios,laberinto,tambopata,madre de dios
+170201,1702,17,Manu,Manu,Madre de Dios,manu,manu,madre de dios
+170202,1702,17,Fitzcarrald,Manu,Madre de Dios,fitzcarrald,manu,madre de dios
+170203,1702,17,Madre de Dios,Manu,Madre de Dios,madre de dios,manu,madre de dios
+170204,1702,17,Huepetuhe,Manu,Madre de Dios,huepetuhe,manu,madre de dios
+170301,1703,17,Iñapari,Tahuamanu,Madre de Dios,inapari,tahuamanu,madre de dios
+170302,1703,17,Iberia,Tahuamanu,Madre de Dios,iberia,tahuamanu,madre de dios
+170303,1703,17,Tahuamanu,Tahuamanu,Madre de Dios,tahuamanu,tahuamanu,madre de dios
+180101,1801,18,Moquegua,Mariscal Nieto,Moquegua,moquegua,mariscal nieto,moquegua
+180102,1801,18,Carumas,Mariscal Nieto,Moquegua,carumas,mariscal nieto,moquegua
+180103,1801,18,Cuchumbaya,Mariscal Nieto,Moquegua,cuchumbaya,mariscal nieto,moquegua
+180104,1801,18,Samegua,Mariscal Nieto,Moquegua,samegua,mariscal nieto,moquegua
+180105,1801,18,San Cristobal,Mariscal Nieto,Moquegua,san cristobal,mariscal nieto,moquegua
+180106,1801,18,Torata,Mariscal Nieto,Moquegua,torata,mariscal nieto,moquegua
+180201,1802,18,Omate,General Sanchez Cerro,Moquegua,omate,general sanchez cerro,moquegua
+180202,1802,18,Chojata,General Sanchez Cerro,Moquegua,chojata,general sanchez cerro,moquegua
+180203,1802,18,Coalaque,General Sanchez Cerro,Moquegua,coalaque,general sanchez cerro,moquegua
+180204,1802,18,Ichuña,General Sanchez Cerro,Moquegua,ichuna,general sanchez cerro,moquegua
+180205,1802,18,La Capilla,General Sanchez Cerro,Moquegua,la capilla,general sanchez cerro,moquegua
+180206,1802,18,Lloque,General Sanchez Cerro,Moquegua,lloque,general sanchez cerro,moquegua
+180207,1802,18,Matalaque,General Sanchez Cerro,Moquegua,matalaque,general sanchez cerro,moquegua
+180208,1802,18,Puquina,General Sanchez Cerro,Moquegua,puquina,general sanchez cerro,moquegua
+180209,1802,18,Quinistaquillas,General Sanchez Cerro,Moquegua,quinistaquillas,general sanchez cerro,moquegua
+180210,1802,18,Ubinas,General Sanchez Cerro,Moquegua,ubinas,general sanchez cerro,moquegua
+180211,1802,18,Yunga,General Sanchez Cerro,Moquegua,yunga,general sanchez cerro,moquegua
+180301,1803,18,Ilo,Ilo,Moquegua,ilo,ilo,moquegua
+180302,1803,18,El Algarrobal,Ilo,Moquegua,el algarrobal,ilo,moquegua
+180303,1803,18,Pacocha,Ilo,Moquegua,pacocha,ilo,moquegua
+190101,1901,19,Chaupimarca,Pasco,Pasco,chaupimarca,pasco,pasco
+190102,1901,19,Huachon,Pasco,Pasco,huachon,pasco,pasco
+190103,1901,19,Huariaca,Pasco,Pasco,huariaca,pasco,pasco
+190104,1901,19,Huayllay,Pasco,Pasco,huayllay,pasco,pasco
+190105,1901,19,Ninacaca,Pasco,Pasco,ninacaca,pasco,pasco
+190106,1901,19,Pallanchacra,Pasco,Pasco,pallanchacra,pasco,pasco
+190107,1901,19,Paucartambo,Pasco,Pasco,paucartambo,pasco,pasco
+190108,1901,19,San Francisco de Asis de Yarusyacan,Pasco,Pasco,san francisco de asis de yarusyacan,pasco,pasco
+190109,1901,19,Simon Bolivar,Pasco,Pasco,simon bolivar,pasco,pasco
+190110,1901,19,Ticlacayan,Pasco,Pasco,ticlacayan,pasco,pasco
+190111,1901,19,Tinyahuarco,Pasco,Pasco,tinyahuarco,pasco,pasco
+190112,1901,19,Vicco,Pasco,Pasco,vicco,pasco,pasco
+190113,1901,19,Yanacancha,Pasco,Pasco,yanacancha,pasco,pasco
+190201,1902,19,Yanahuanca,Daniel Alcides Carrion,Pasco,yanahuanca,daniel alcides carrion,pasco
+190202,1902,19,Chacayan,Daniel Alcides Carrion,Pasco,chacayan,daniel alcides carrion,pasco
+190203,1902,19,Goyllarisquizga,Daniel Alcides Carrion,Pasco,goyllarisquizga,daniel alcides carrion,pasco
+190204,1902,19,Paucar,Daniel Alcides Carrion,Pasco,paucar,daniel alcides carrion,pasco
+190205,1902,19,San Pedro de Pillao,Daniel Alcides Carrion,Pasco,san pedro de pillao,daniel alcides carrion,pasco
+190206,1902,19,Santa Ana de Tusi,Daniel Alcides Carrion,Pasco,santa ana de tusi,daniel alcides carrion,pasco
+190207,1902,19,Tapuc,Daniel Alcides Carrion,Pasco,tapuc,daniel alcides carrion,pasco
+190208,1902,19,Vilcabamba,Daniel Alcides Carrion,Pasco,vilcabamba,daniel alcides carrion,pasco
+190301,1903,19,Oxapampa,Oxapampa,Pasco,oxapampa,oxapampa,pasco
+190302,1903,19,Chontabamba,Oxapampa,Pasco,chontabamba,oxapampa,pasco
+190303,1903,19,Huancabamba,Oxapampa,Pasco,huancabamba,oxapampa,pasco
+190304,1903,19,Palcazu,Oxapampa,Pasco,palcazu,oxapampa,pasco
+190305,1903,19,Pozuzo,Oxapampa,Pasco,pozuzo,oxapampa,pasco
+190306,1903,19,Puerto Bermudez,Oxapampa,Pasco,puerto bermudez,oxapampa,pasco
+190307,1903,19,Villa Rica,Oxapampa,Pasco,villa rica,oxapampa,pasco
+200101,2001,20,Piura,Piura,Piura,piura,piura,piura
+200104,2001,20,Castilla,Piura,Piura,castilla,piura,piura
+200105,2001,20,Catacaos,Piura,Piura,catacaos,piura,piura
+200107,2001,20,Cura Mori,Piura,Piura,cura mori,piura,piura
+200108,2001,20,El Tallan,Piura,Piura,el tallan,piura,piura
+200109,2001,20,La Arena,Piura,Piura,la arena,piura,piura
+200110,2001,20,La Union,Puira,Piura,la union,puira,piura
+200111,2001,20,Las Lomas,Piura,Piura,las lomas,piura,piura
+200114,2001,20,Tambo Grande,Piura,Piura,tambo grande,piura,piura
+200201,2002,20,Ayabaca,Ayabaca,Piura,ayabaca,ayabaca,piura
+200202,2002,20,Frias,Ayabaca,Piura,frias,ayabaca,piura
+200203,2002,20,Jilili,Ayabaca,Piura,jilili,ayabaca,piura
+200204,2002,20,Lagunas,Ayabaca,Piura,lagunas,ayabaca,piura
+200205,2002,20,Montero,Ayabaca,Piura,montero,ayabaca,piura
+200206,2002,20,Pacaipampa,Ayabaca,Piura,pacaipampa,ayabaca,piura
+200207,2002,20,Paimas,Ayabaca,Piura,paimas,ayabaca,piura
+200208,2002,20,Sapillica,Ayabaca,Piura,sapillica,ayabaca,piura
+200209,2002,20,Sicchez,Ayabaca,Piura,sicchez,ayabaca,piura
+200210,2002,20,Suyo,Ayabaca,Piura,suyo,ayabaca,piura
+200301,2003,20,Huancabamba,Huancabamba,Piura,huancabamba,huancabamba,piura
+200302,2003,20,Canchaque,Huancabamba,Piura,canchaque,huancabamba,piura
+200303,2003,20,El Carmen de la Frontera,Huancabamba,Piura,el carmen de la frontera,huancabamba,piura
+200304,2003,20,Huarmaca,Huancabamba,Piura,huarmaca,huancabamba,piura
+200305,2003,20,Lalaquiz,Huancabamba,Piura,lalaquiz,huancabamba,piura
+200306,2003,20,San Miguel de el Faique,Huancabamba,Piura,san miguel de el faique,huancabamba,piura
+200307,2003,20,Sondor,Huancabamba,Piura,sondor,huancabamba,piura
+200308,2003,20,Sondorillo,Huancabamba,Piura,sondorillo,huancabamba,piura
+200401,2004,20,Chulucanas,Morropon,Piura,chulucanas,morropon,piura
+200402,2004,20,Buenos Aires,Morropon,Piura,buenos aires,morropon,piura
+200403,2004,20,Chalaco,Morropon,Piura,chalaco,morropon,piura
+200404,2004,20,La Matanza,Morropon,Piura,la matanza,morropon,piura
+200405,2004,20,Morropon,Morropon,Piura,morropon,morropon,piura
+200406,2004,20,Salitral,Morropon,Piura,salitral,morropon,piura
+200407,2004,20,San Juan de Bigote,Morropon,Piura,san juan de bigote,morropon,piura
+200408,2004,20,Santa Catalina de Mossa,Morropon,Piura,santa catalina de mossa,morropon,piura
+200409,2004,20,Santo Domingo,Morropon,Piura,santo domingo,morropon,piura
+200410,2004,20,Yamango,Morropon,Piura,yamango,morropon,piura
+200501,2005,20,Paita,Paita,Piura,paita,paita,piura
+200502,2005,20,Amotape,Paita,Piura,amotape,paita,piura
+200503,2005,20,Arenal,Paita,Piura,arenal,paita,piura
+200504,2005,20,Colan,Paita,Piura,colan,paita,piura
+200505,2005,20,La Huaca,Paita,Piura,la huaca,paita,piura
+200506,2005,20,Tamarindo,Paita,Piura,tamarindo,paita,piura
+200507,2005,20,Vichayal,Paita,Piura,vichayal,paita,piura
+200601,2006,20,Sullana,Sullana,Piura,sullana,sullana,piura
+200602,2006,20,Bellavista,Sullana,Piura,bellavista,sullana,piura
+200603,2006,20,Ignacio Escudero,Sullana,Piura,ignacio escudero,sullana,piura
+200604,2006,20,Lancones,Sullana,Piura,lancones,sullana,piura
+200605,2006,20,Marcavelica,Sullana,Piura,marcavelica,sullana,piura
+200606,2006,20,Miguel Checa,Sullana,Piura,miguel checa,sullana,piura
+200607,2006,20,Querecotillo,Sullana,Piura,querecotillo,sullana,piura
+200608,2006,20,Salitral,Sullana,Piura,salitral,sullana,piura
+200701,2007,20,Pariñas,Talara,Piura,parinas,talara,piura
+200702,2007,20,El Alto,Talara,Piura,el alto,talara,piura
+200703,2007,20,La Brea,Talara,Piura,la brea,talara,piura
+200704,2007,20,Lobitos,Talara,Piura,lobitos,talara,piura
+200705,2007,20,Los Organos,Talara,Piura,los organos,talara,piura
+200706,2007,20,Mancora,Talara,Piura,mancora,talara,piura
+200801,2008,20,Sechura,Sechura,Piura,sechura,sechura,piura
+200802,2008,20,Bellavista de la Union,Sechura,Piura,bellavista de la union,sechura,piura
+200803,2008,20,Bernal,Sechura,Piura,bernal,sechura,piura
+200804,2008,20,Cristo Nos Valga,Sechura,Piura,cristo nos valga,sechura,piura
+200805,2008,20,Vice,Sechura,Piura,vice,sechura,piura
+200806,2008,20,Rinconada Llicuar,Sechura,Piura,rinconada llicuar,sechura,piura
+210101,2101,21,Puno,Puno,Puno,puno,puno,puno
+210102,2101,21,Acora,Puno,Puno,acora,puno,puno
+210103,2101,21,Amantani,Puno,Puno,amantani,puno,puno
+210104,2101,21,Atuncolla,Puno,Puno,atuncolla,puno,puno
+210105,2101,21,Capachica,Puno,Puno,capachica,puno,puno
+210106,2101,21,Chucuito,Puno,Puno,chucuito,puno,puno
+210107,2101,21,Coata,Puno,Puno,coata,puno,puno
+210108,2101,21,Huata,Puno,Puno,huata,puno,puno
+210109,2101,21,Mañazo,Puno,Puno,manazo,puno,puno
+210110,2101,21,Paucarcolla,Puno,Puno,paucarcolla,puno,puno
+210111,2101,21,Pichacani,Puno,Puno,pichacani,puno,puno
+210112,2101,21,Plateria,Puno,Puno,plateria,puno,puno
+210113,2101,21,San Antonio,Puno,Puno,san antonio,puno,puno
+210114,2101,21,Tiquillaca,Puno,Puno,tiquillaca,puno,puno
+210115,2101,21,Vilque,Puno,Puno,vilque,puno,puno
+210201,2102,21,Azangaro,Azangaro,Puno,azangaro,azangaro,puno
+210202,2102,21,Achaya,Azangaro,Puno,achaya,azangaro,puno
+210203,2102,21,Arapa,Azangaro,Puno,arapa,azangaro,puno
+210204,2102,21,Asillo,Azangaro,Puno,asillo,azangaro,puno
+210205,2102,21,Caminaca,Azangaro,Puno,caminaca,azangaro,puno
+210206,2102,21,Chupa,Azangaro,Puno,chupa,azangaro,puno
+210207,2102,21,Jose Domingo Choquehuanca,Azangaro,Puno,jose domingo choquehuanca,azangaro,puno
+210208,2102,21,Muñani,Azangaro,Puno,munani,azangaro,puno
+210209,2102,21,Potoni,Azangaro,Puno,potoni,azangaro,puno
+210210,2102,21,Saman,Azangaro,Puno,saman,azangaro,puno
+210211,2102,21,San Anton,Azangaro,Puno,san anton,azangaro,puno
+210212,2102,21,San Jose,Azangaro,Puno,san jose,azangaro,puno
+210213,2102,21,San Juan de Salinas,Azangaro,Puno,san juan de salinas,azangaro,puno
+210214,2102,21,Santiago de Pupuja,Azangaro,Puno,santiago de pupuja,azangaro,puno
+210215,2102,21,Tirapata,Azangaro,Puno,tirapata,azangaro,puno
+210301,2103,21,Macusani,Carabaya,Puno,macusani,carabaya,puno
+210302,2103,21,Ajoyani,Carabaya,Puno,ajoyani,carabaya,puno
+210303,2103,21,Ayapata,Carabaya,Puno,ayapata,carabaya,puno
+210304,2103,21,Coasa,Carabaya,Puno,coasa,carabaya,puno
+210305,2103,21,Corani,Carabaya,Puno,corani,carabaya,puno
+210306,2103,21,Crucero,Carabaya,Puno,crucero,carabaya,puno
+210307,2103,21,Ituata,Carabaya,Puno,ituata,carabaya,puno
+210308,2103,21,Ollachea,Carabaya,Puno,ollachea,carabaya,puno
+210309,2103,21,San Gaban,Carabaya,Puno,san gaban,carabaya,puno
+210310,2103,21,Usicayos,Carabaya,Puno,usicayos,carabaya,puno
+210401,2104,21,Juli,Chucuito,Puno,juli,chucuito,puno
+210402,2104,21,Desaguadero,Chucuito,Puno,desaguadero,chucuito,puno
+210403,2104,21,Huacullani,Chucuito,Puno,huacullani,chucuito,puno
+210404,2104,21,Kelluyo,Chucuito,Puno,kelluyo,chucuito,puno
+210405,2104,21,Pisacoma,Chucuito,Puno,pisacoma,chucuito,puno
+210406,2104,21,Pomata,Chucuito,Puno,pomata,chucuito,puno
+210407,2104,21,Zepita,Chucuito,Puno,zepita,chucuito,puno
+210501,2105,21,Ilave,El Collao,Puno,ilave,el collao,puno
+210502,2105,21,Capazo,El Collao,Puno,capazo,el collao,puno
+210503,2105,21,Pilcuyo,El Collao,Puno,pilcuyo,el collao,puno
+210504,2105,21,Santa Rosa,El Collao,Puno,santa rosa,el collao,puno
+210505,2105,21,Conduriri,El Collao,Puno,conduriri,el collao,puno
+210601,2106,21,Huancane,Huancane,Puno,huancane,huancane,puno
+210602,2106,21,Cojata,Huancane,Puno,cojata,huancane,puno
+210603,2106,21,Huatasani,Huancane,Puno,huatasani,huancane,puno
+210604,2106,21,Inchupalla,Huancane,Puno,inchupalla,huancane,puno
+210605,2106,21,Pusi,Huancane,Puno,pusi,huancane,puno
+210606,2106,21,Rosaspata,Huancane,Puno,rosaspata,huancane,puno
+210607,2106,21,Taraco,Huancane,Puno,taraco,huancane,puno
+210608,2106,21,Vilque Chico,Huancane,Puno,vilque chico,huancane,puno
+210701,2107,21,Lampa,Lampa,Puno,lampa,lampa,puno
+210702,2107,21,Cabanilla,Lampa,Puno,cabanilla,lampa,puno
+210703,2107,21,Calapuja,Lampa,Puno,calapuja,lampa,puno
+210704,2107,21,Nicasio,Lampa,Puno,nicasio,lampa,puno
+210705,2107,21,Ocuviri,Lampa,Puno,ocuviri,lampa,puno
+210706,2107,21,Palca,Lampa,Puno,palca,lampa,puno
+210707,2107,21,Paratia,Lampa,Puno,paratia,lampa,puno
+210708,2107,21,Pucara,Lampa,Puno,pucara,lampa,puno
+210709,2107,21,Santa Lucia,Lampa,Puno,santa lucia,lampa,puno
+210710,2107,21,Vilavila,Lampa,Puno,vilavila,lampa,puno
+210801,2108,21,Ayaviri,Melgar,Puno,ayaviri,melgar,puno
+210802,2108,21,Antauta,Melgar,Puno,antauta,melgar,puno
+210803,2108,21,Cupi,Melgar,Puno,cupi,melgar,puno
+210804,2108,21,Llalli,Melgar,Puno,llalli,melgar,puno
+210805,2108,21,Macari,Melgar,Puno,macari,melgar,puno
+210806,2108,21,Nuñoa,Melgar,Puno,nunoa,melgar,puno
+210807,2108,21,Orurillo,Melgar,Puno,orurillo,melgar,puno
+210808,2108,21,Santa Rosa,Melgar,Puno,santa rosa,melgar,puno
+210809,2108,21,Umachiri,Melgar,Puno,umachiri,melgar,puno
+210901,2109,21,Moho,Moho,Puno,moho,moho,puno
+210902,2109,21,Conima,Moho,Puno,conima,moho,puno
+210903,2109,21,Huayrapata,Moho,Puno,huayrapata,moho,puno
+210904,2109,21,Tilali,Moho,Puno,tilali,moho,puno
+211001,2110,21,Putina,San Antonio de Putina,Puno,putina,san antonio de putina,puno
+211002,2110,21,Ananea,San Antonio de Putina,Puno,ananea,san antonio de putina,puno
+211003,2110,21,Pedro Vilca Apaza,San Antonio de Putina,Puno,pedro vilca apaza,san antonio de putina,puno
+211004,2110,21,Quilcapuncu,San Antonio de Putina,Puno,quilcapuncu,san antonio de putina,puno
+211005,2110,21,Sina,San Antonio de Putina,Puno,sina,san antonio de putina,puno
+211101,2111,21,Juliaca,San Roman,Puno,juliaca,san roman,puno
+211102,2111,21,Cabana,San Roman,Puno,cabana,san roman,puno
+211103,2111,21,Cabanillas,San Roman,Puno,cabanillas,san roman,puno
+211104,2111,21,Caracoto,San Roman,Puno,caracoto,san roman,puno
+211201,2112,21,Sandia,Sandia,Puno,sandia,sandia,puno
+211202,2112,21,Cuyocuyo,Sandia,Puno,cuyocuyo,sandia,puno
+211203,2112,21,Limbani,Sandia,Puno,limbani,sandia,puno
+211204,2112,21,Patambuco,Sandia,Puno,patambuco,sandia,puno
+211205,2112,21,Phara,Sandia,Puno,phara,sandia,puno
+211206,2112,21,Quiaca,Sandia,Puno,quiaca,sandia,puno
+211207,2112,21,San Juan del Oro,Sandia,Puno,san juan del oro,sandia,puno
+211208,2112,21,Yanahuaya,Sandia,Puno,yanahuaya,sandia,puno
+211209,2112,21,Alto Inambari,Sandia,Puno,alto inambari,sandia,puno
+211210,2112,21,San Pedro de Putina Punco,Sandia,Puno,san pedro de putina punco,sandia,puno
+211301,2113,21,Yunguyo,Yunguyo,Puno,yunguyo,yunguyo,puno
+211302,2113,21,Anapia,Yunguyo,Puno,anapia,yunguyo,puno
+211303,2113,21,Copani,Yunguyo,Puno,copani,yunguyo,puno
+211304,2113,21,Cuturapi,Yunguyo,Puno,cuturapi,yunguyo,puno
+211305,2113,21,Ollaraya,Yunguyo,Puno,ollaraya,yunguyo,puno
+211306,2113,21,Tinicachi,Yunguyo,Puno,tinicachi,yunguyo,puno
+211307,2113,21,Unicachi,Yunguyo,Puno,unicachi,yunguyo,puno
+220101,2201,22,Moyobamba,Moyobamba,San Martin,moyobamba,moyobamba,san martin
+220102,2201,22,Calzada,Moyobamba,San Martin,calzada,moyobamba,san martin
+220103,2201,22,Habana,Moyobamba,San Martin,habana,moyobamba,san martin
+220104,2201,22,Jepelacio,Moyobamba,San Martin,jepelacio,moyobamba,san martin
+220105,2201,22,Soritor,Moyobamba,San Martin,soritor,moyobamba,san martin
+220106,2201,22,Yantalo,Moyobamba,San Martin,yantalo,moyobamba,san martin
+220201,2202,22,Bellavista,Bellavista,San Martin,bellavista,bellavista,san martin
+220202,2202,22,Alto Biavo,Bellavista,San Martin,alto biavo,bellavista,san martin
+220203,2202,22,Bajo Biavo,Bellavista,San Martin,bajo biavo,bellavista,san martin
+220204,2202,22,Huallaga,Bellavista,San Martin,huallaga,bellavista,san martin
+220205,2202,22,San Pablo,Bellavista,San Martin,san pablo,bellavista,san martin
+220206,2202,22,San Rafael,Bellavista,San Martin,san rafael,bellavista,san martin
+220301,2203,22,San Jose de Sisa,El Dorado,San Martin,san jose de sisa,el dorado,san martin
+220302,2203,22,Agua Blanca,El Dorado,San Martin,agua blanca,el dorado,san martin
+220303,2203,22,San Martin,El Dorado,San Martin,san martin,el dorado,san martin
+220304,2203,22,Santa Rosa,El Dorado,San Martin,santa rosa,el dorado,san martin
+220305,2203,22,Shatoja,El Dorado,San Martin,shatoja,el dorado,san martin
+220401,2204,22,Saposoa,Huallaga,San Martin,saposoa,huallaga,san martin
+220402,2204,22,Alto Saposoa,Huallaga,San Martin,alto saposoa,huallaga,san martin
+220403,2204,22,El Eslabon,Huallaga,San Martin,el eslabon,huallaga,san martin
+220404,2204,22,Piscoyacu,Huallaga,San Martin,piscoyacu,huallaga,san martin
+220405,2204,22,Sacanche,Huallaga,San Martin,sacanche,huallaga,san martin
+220406,2204,22,Tingo de Saposoa,Huallaga,San Martin,tingo de saposoa,huallaga,san martin
+220501,2205,22,Lamas,Lamas,San Martin,lamas,lamas,san martin
+220502,2205,22,Alonso de Alvarado,Lamas,San Martin,alonso de alvarado,lamas,san martin
+220503,2205,22,Barranquita,Lamas,San Martin,barranquita,lamas,san martin
+220504,2205,22,Caynarachi,Lamas,San Martin,caynarachi,lamas,san martin
+220505,2205,22,Cuñumbuqui,Lamas,San Martin,cunumbuqui,lamas,san martin
+220506,2205,22,Pinto Recodo,Lamas,San Martin,pinto recodo,lamas,san martin
+220507,2205,22,Rumisapa,Lamas,San Martin,rumisapa,lamas,san martin
+220508,2205,22,San Roque de Cumbaza,Lamas,San Martin,san roque de cumbaza,lamas,san martin
+220509,2205,22,Shanao,Lamas,San Martin,shanao,lamas,san martin
+220510,2205,22,Tabalosos,Lamas,San Martin,tabalosos,lamas,san martin
+220511,2205,22,Zapatero,Lamas,San Martin,zapatero,lamas,san martin
+220601,2206,22,Juanjui,Mariscal Caceres,San Martin,juanjui,mariscal caceres,san martin
+220602,2206,22,Campanilla,Mariscal Caceres,San Martin,campanilla,mariscal caceres,san martin
+220603,2206,22,Huicungo,Mariscal Caceres,San Martin,huicungo,mariscal caceres,san martin
+220604,2206,22,Pachiza,Mariscal Caceres,San Martin,pachiza,mariscal caceres,san martin
+220605,2206,22,Pajarillo,Mariscal Caceres,San Martin,pajarillo,mariscal caceres,san martin
+220701,2207,22,Picota,Picota,San Martin,picota,picota,san martin
+220702,2207,22,Buenos Aires,Picota,San Martin,buenos aires,picota,san martin
+220703,2207,22,Caspisapa,Picota,San Martin,caspisapa,picota,san martin
+220704,2207,22,Pilluana,Picota,San Martin,pilluana,picota,san martin
+220705,2207,22,Pucacaca,Picota,San Martin,pucacaca,picota,san martin
+220706,2207,22,San Cristobal,Picota,San Martin,san cristobal,picota,san martin
+220707,2207,22,San Hilarion,Picota,San Martin,san hilarion,picota,san martin
+220708,2207,22,Shamboyacu,Picota,San Martin,shamboyacu,picota,san martin
+220709,2207,22,Tingo de Ponasa,Picota,San Martin,tingo de ponasa,picota,san martin
+220710,2207,22,Tres Unidos,Picota,San Martin,tres unidos,picota,san martin
+220801,2208,22,Rioja,Rioja,San Martin,rioja,rioja,san martin
+220802,2208,22,Awajun,Rioja,San Martin,awajun,rioja,san martin
+220803,2208,22,Elias Soplin Vargas,Rioja,San Martin,elias soplin vargas,rioja,san martin
+220804,2208,22,Nueva Cajamarca,Rioja,San Martin,nueva cajamarca,rioja,san martin
+220805,2208,22,Pardo Miguel,Rioja,San Martin,pardo miguel,rioja,san martin
+220806,2208,22,Posic,Rioja,San Martin,posic,rioja,san martin
+220807,2208,22,San Fernando,Rioja,San Martin,san fernando,rioja,san martin
+220808,2208,22,Yorongos,Rioja,San Martin,yorongos,rioja,san martin
+220809,2208,22,Yuracyacu,Rioja,San Martin,yuracyacu,rioja,san martin
+220901,2209,22,Tarapoto,San Martin,San Martin,tarapoto,san martin,san martin
+220902,2209,22,Alberto Leveau,San Martin,San Martin,alberto leveau,san martin,san martin
+220903,2209,22,Cacatachi,San Martin,San Martin,cacatachi,san martin,san martin
+220904,2209,22,Chazuta,San Martin,San Martin,chazuta,san martin,san martin
+220905,2209,22,Chipurana,San Martin,San Martin,chipurana,san martin,san martin
+220906,2209,22,El Porvenir,San Martin,San Martin,el porvenir,san martin,san martin
+220907,2209,22,Huimbayoc,San Martin,San Martin,huimbayoc,san martin,san martin
+220908,2209,22,Juan Guerra,San Martin,San Martin,juan guerra,san martin,san martin
+220909,2209,22,La Banda de Shilcayo,San Martin,San Martin,la banda de shilcayo,san martin,san martin
+220910,2209,22,Morales,San Martin,San Martin,morales,san martin,san martin
+220911,2209,22,Papaplaya,San Martin,San Martin,papaplaya,san martin,san martin
+220912,2209,22,San Antonio,San Martin,San Martin,san antonio,san martin,san martin
+220913,2209,22,Sauce,San Martin,San Martin,sauce,san martin,san martin
+220914,2209,22,Shapaja,San Martin,San Martin,shapaja,san martin,san martin
+221001,2210,22,Tocache,Tocache,San Martin,tocache,tocache,san martin
+221002,2210,22,Nuevo Progreso,Tocache,San Martin,nuevo progreso,tocache,san martin
+221003,2210,22,Polvora,Tocache,San Martin,polvora,tocache,san martin
+221004,2210,22,Shunte,Tocache,San Martin,shunte,tocache,san martin
+221005,2210,22,Uchiza,Tocache,San Martin,uchiza,tocache,san martin
+230101,2301,23,Tacna,Tacna,Tacna,tacna,tacna,tacna
+230102,2301,23,Alto de la Alianza,Tacna,Tacna,alto de la alianza,tacna,tacna
+230103,2301,23,Calana,Tacna,Tacna,calana,tacna,tacna
+230104,2301,23,Ciudad Nueva,Tacna,Tacna,ciudad nueva,tacna,tacna
+230105,2301,23,Inclan,Tacna,Tacna,inclan,tacna,tacna
+230106,2301,23,Pachia,Tacna,Tacna,pachia,tacna,tacna
+230107,2301,23,Palca,Tacna,Tacna,palca,tacna,tacna
+230108,2301,23,Pocollay,Tacna,Tacna,pocollay,tacna,tacna
+230109,2301,23,Sama,Tacna,Tacna,sama,tacna,tacna
+230110,2301,23,Coronel Gregorio Albarracin Lanchipa,Tacna,Tacna,coronel gregorio albarracin lanchipa,tacna,tacna
+230201,2302,23,Candarave,Candarave,Tacna,candarave,candarave,tacna
+230202,2302,23,Cairani,Candarave,Tacna,cairani,candarave,tacna
+230203,2302,23,Camilaca,Candarave,Tacna,camilaca,candarave,tacna
+230204,2302,23,Curibaya,Candarave,Tacna,curibaya,candarave,tacna
+230205,2302,23,Huanuara,Candarave,Tacna,huanuara,candarave,tacna
+230206,2302,23,Quilahuani,Candarave,Tacna,quilahuani,candarave,tacna
+230301,2303,23,Locumba,Jorge Basadre,Tacna,locumba,jorge basadre,tacna
+230302,2303,23,Ilabaya,Jorge Basadre,Tacna,ilabaya,jorge basadre,tacna
+230303,2303,23,Ite,Jorge Basadre,Tacna,ite,jorge basadre,tacna
+230401,2304,23,Tarata,Tarata,Tacna,tarata,tarata,tacna
+230402,2304,23,Heroes Albarracin,Tarata,Tacna,heroes albarracin,tarata,tacna
+230403,2304,23,Estique,Tarata,Tacna,estique,tarata,tacna
+230404,2304,23,Estique-pampa,Tarata,Tacna,estique pampa,tarata,tacna
+230405,2304,23,Sitajara,Tarata,Tacna,sitajara,tarata,tacna
+230406,2304,23,Susapaya,Tarata,Tacna,susapaya,tarata,tacna
+230407,2304,23,Tarucachi,Tarata,Tacna,tarucachi,tarata,tacna
+230408,2304,23,Ticaco,Tarata,Tacna,ticaco,tarata,tacna
+240101,2401,24,Tumbes,Tumbes,Tumbes,tumbes,tumbes,tumbes
+240102,2401,24,Corrales,Tumbes,Tumbes,corrales,tumbes,tumbes
+240103,2401,24,La Cruz,Tumbes,Tumbes,la cruz,tumbes,tumbes
+240104,2401,24,Pampas de Hospital,Tumbes,Tumbes,pampas de hospital,tumbes,tumbes
+240105,2401,24,San Jacinto,Tumbes,Tumbes,san jacinto,tumbes,tumbes
+240106,2401,24,San Juan de la Virgen,Tumbes,Tumbes,san juan de la virgen,tumbes,tumbes
+240201,2402,24,Zorritos,Contralmirante Villar,Tumbes,zorritos,contralmirante villar,tumbes
+240202,2402,24,Casitas,Contralmirante Villar,Tumbes,casitas,contralmirante villar,tumbes
+240203,2402,24,Canoas de Punta Sal,Contralmirante Villar,Tumbes,canoas de punta sal,contralmirante villar,tumbes
+240301,2403,24,Zarumilla,Zarumilla,Tumbes,zarumilla,zarumilla,tumbes
+240302,2403,24,Aguas Verdes,Zarumilla,Tumbes,aguas verdes,zarumilla,tumbes
+240303,2403,24,Matapalo,Zarumilla,Tumbes,matapalo,zarumilla,tumbes
+240304,2403,24,Papayal,Zarumilla,Tumbes,papayal,zarumilla,tumbes
+250101,2501,25,Calleria,Coronel Portillo,Ucayali,calleria,coronel portillo,ucayali
+250102,2501,25,Campoverde,Coronel Portillo,Ucayali,campoverde,coronel portillo,ucayali
+250103,2501,25,Iparia,Coronel Portillo,Ucayali,iparia,coronel portillo,ucayali
+250104,2501,25,Masisea,Coronel Portillo,Ucayali,masisea,coronel portillo,ucayali
+250105,2501,25,Yarinacocha,Coronel Portillo,Ucayali,yarinacocha,coronel portillo,ucayali
+250106,2501,25,Nueva Requena,Coronel Portillo,Ucayali,nueva requena,coronel portillo,ucayali
+250107,2501,25,Manantay,Coronel Portillo,Ucayali,manantay,coronel portillo,ucayali
+250201,2502,25,Raymondi,Atalaya,Ucayali,raymondi,atalaya,ucayali
+250202,2502,25,Sepahua,Atalaya,Ucayali,sepahua,atalaya,ucayali
+250203,2502,25,Tahuania,Atalaya,Ucayali,tahuania,atalaya,ucayali
+250204,2502,25,Yurua,Atalaya,Ucayali,yurua,atalaya,ucayali
+250301,2503,25,Padre Abad,Padre Abad,Ucayali,padre abad,padre abad,ucayali
+250302,2503,25,Irazola,Padre Abad,Ucayali,irazola,padre abad,ucayali
+250303,2503,25,Curimana,Padre Abad,Ucayali,curimana,padre abad,ucayali
+250401,2504,25,Purus,Purus,Ucayali,purus,purus,ucayali

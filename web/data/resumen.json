@@ -1,0 +1,15 @@
+{
+  "obras": 900,
+  "costo_actualizado": 3113818521.62,
+  "monto_ejecutado": 1986968207.38,
+  "saldo_por_ejecutar": 1126850314.24,
+  "obras_mitad_o_mas": 634,
+  "obras_casi_terminadas": 96,
+  "saldo_casi_terminadas": 19486082.3,
+  "entidades": 345,
+  "geo_distrito": 900,
+  "geo_provincia": 0,
+  "geo_departamento": 0,
+  "geo_sin_match": 0,
+  "mediana_anios_paralizada": 1.8
+}
