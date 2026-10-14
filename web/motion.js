@@ -147,7 +147,7 @@ export function makeTerminal(body) {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // Activa el paso que cruza el centro de la pantalla y avisa con onStep(i).
-export function scrollSteps(steps, onStep) {
+export function scrollSteps(steps, onStep, rootMargin = "-45% 0px -45% 0px") {
   let current = -1;
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) {
@@ -158,6 +158,6 @@ export function scrollSteps(steps, onStep) {
       steps.forEach((s, j) => s.classList.toggle("is-active", j === i));
       onStep(i);
     }
-  }, { rootMargin: "-45% 0px -45% 0px" });
+  }, { rootMargin });
   steps.forEach((s) => io.observe(s));
 }

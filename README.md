@@ -32,12 +32,16 @@ El dato es público, pero viene en un PDF de 70+ páginas y un Excel anexo que c
 
 Y se mueve con lo que haces:
 
-- Al pasar el cursor por una zona del mapa sale una tarjeta con sus obras, cuánto pesa en el total del país y su obra más cara.
-- Al pasar el cursor por una obra de la lista sale su "cartel de obra" en miniatura y su distrito se marca en el mapa.
-- Al pasar el cursor por una causa o una entidad sale un mini mapa con dónde se concentra ese dinero, y el mapa grande apaga las demás zonas. Clic en una causa y el mapa se filtra.
-- En la portada, cada obra es un punto del mapa del Perú (el tamaño es lo que falta ejecutar; en ámbar las que pasan el 90% de avance). Al cargar los puntos caen y se acomodan en su distrito; al pasar el cursor se ilumina la obra y las de su mismo distrito, y con un clic se abre su ficha. Las cifras de portada se decodifican como código.
-- El mapa coroplético se "construye" zona por zona al entrar en pantalla, de la que más dinero tiene parado a la que menos.
-- En "Cómo se construye este mapa", al hacer scroll una terminal escribe la salida real de la última carga del pipeline: el mapeo de columnas, los modelos de dbt con sus tiempos, los tests y el export.
+- **Portada como historia con scroll.** Cada obra es un punto. Al cargar, los puntos caen y se acomodan en el mapa del Perú. Al bajar, los mismos puntos viajan y se reordenan en gráficos: un histograma por avance físico, filas por causa de paralización, un histograma por años sin avance y de vuelta al mapa marcando las que están al 90% o más. Las cifras de cada paso se calculan de los datos. Con las pestañas Mapa / Avance / Causa / Tiempo parada se puede cambiar a mano.
+- **Cursor sobre un punto:** sale la obra, su lugar, lo que falta, el avance y la causa; en el mapa se apagan los puntos de otros distritos. Clic abre la ficha.
+- **Una obra al azar** desde la portada o desde la ficha, y **Ver en el mapa** desde la ficha (vuela al distrito de la obra).
+- **Cinta de obras** con las de más dinero pendiente: corre sola, acelera con el scroll y se detiene con el cursor. Clic abre la ficha.
+- **Mapa en 3D:** la altura de cada zona es lo que falta ejecutar (o el número de obras), con cámara inclinada y rotación.
+- **Copiar enlace** a la zona seleccionada (queda en la URL, `#zona=distrito/080309`) y **Descargar CSV** con las obras de la zona y filtros actuales.
+- **Tabla de entidades ordenable** por obras, dinero pendiente u obras casi terminadas.
+- Al pasar el cursor por una zona del mapa, una obra de la lista, una causa o una entidad salen tarjetas con el detalle (las de causa y entidad traen un mini mapa). Clic en una causa filtra el mapa.
+- Navegación lateral que marca en qué sección estás, títulos que se decodifican al aparecer, contadores animados y el mapa coroplético que se "construye" zona por zona.
+- En "Cómo se construye este mapa", una terminal escribe la salida real de la última carga del pipeline mientras haces scroll.
 - Todo respeta `prefers-reduced-motion`: con esa preferencia activa, la página muestra el estado final sin animar.
 
 ![Mapa](docs/img/mapa.png)

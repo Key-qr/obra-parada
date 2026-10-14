@@ -13,10 +13,6 @@
   <link href="styles.css" rel="stylesheet">
 </head>
 <body>
-  <div class="sample-bar" id="sample-bar" hidden>
-    Estás viendo <strong>datos sintéticos de prueba</strong>. Las obras, entidades y montos de esta versión son inventados.
-  </div>
-
   <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
 
   <header class="site-head">
@@ -33,34 +29,88 @@
   </header>
 
   <main id="top">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-text">
-        <h1 id="hero-title">¿Qué obra está parada en tu distrito?</h1>
-        <p class="lede">Cada trimestre la Contraloría publica la lista de obras públicas que llevan seis meses o más sin avance. Aquí la puedes buscar por lugar, ver cuánto se gastó y por qué se detuvo.</p>
-        <div class="search" role="search">
-          <label for="q">Busca un distrito, provincia o departamento</label>
-          <div class="search-box">
-            <input id="q" type="search" autocomplete="off" placeholder="Ej. Santiago, Cusco" aria-controls="q-list" aria-expanded="false" aria-autocomplete="list" role="combobox">
-            <ul id="q-list" role="listbox" hidden></ul>
+    <section class="story" aria-labelledby="hero-title">
+      <div class="story-grid">
+        <div class="story-text">
+          <div class="story-step hero-text is-active" data-mode="geo">
+            <h1 id="hero-title">¿Qué obra está parada en tu distrito?</h1>
+            <p class="lede">Cada trimestre la Contraloría publica la lista de obras públicas que llevan seis meses o más sin avance. Aquí la puedes buscar por lugar, ver cuánto se gastó y por qué se detuvo.</p>
+            <div class="search" role="search">
+              <label for="q">Busca un distrito, provincia o departamento</label>
+              <div class="search-box">
+                <input id="q" type="search" autocomplete="off" placeholder="Ej. Santiago, Cusco" aria-controls="q-list" aria-expanded="false" aria-autocomplete="list" role="combobox">
+                <ul id="q-list" role="listbox" hidden></ul>
+              </div>
+            </div>
+            <div class="hero-actions">
+              <a class="btn btn-solid" href="#mapa">Explorar el mapa</a>
+              <button type="button" class="btn" id="btn-azar">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><circle cx="8.5" cy="8.5" r="1.4"/><circle cx="15.5" cy="15.5" r="1.4"/><circle cx="15.5" cy="8.5" r="1.4"/><circle cx="8.5" cy="15.5" r="1.4"/></svg>
+                Una obra al azar
+              </button>
+            </div>
+            <dl class="hero-stats">
+              <div><dt>Obras paralizadas</dt><dd data-k="obras">…</dd></div>
+              <div><dt>Falta ejecutar</dt><dd data-k="saldo">…</dd></div>
+              <div><dt>Costo actualizado</dt><dd data-k="costo">…</dd></div>
+              <div><dt>Con más de la mitad construida</dt><dd data-k="mitad">…</dd></div>
+            </dl>
+            <p class="hero-source">Fuente: Contraloría General de la República, informe con corte a <span data-k="corte_largo">…</span>.<span class="sample-tag" id="sample-tag" hidden> Esta versión usa datos sintéticos de prueba.</span></p>
+            <a class="scroll-hint" href="#paso-1"><span>Baja para ver la historia</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M5 12l7 7 7-7"/></svg></a>
+          </div>
+
+          <div class="story-step" id="paso-1" data-mode="avance" data-hl="mitad">
+            <p class="step-k">El avance</p>
+            <p class="step-big"><span data-s="mitad">…</span> de <span data-s="obras">…</span> obras se quedaron con más de la mitad construida.</p>
+            <p>Los puntos se ordenan según el avance físico que tenía cada obra cuando se paró. Las que pasan el 50% ya tienen hecha la parte más cara del trabajo.</p>
+          </div>
+
+          <div class="story-step" data-mode="causa" data-hl="topcausa">
+            <p class="step-k">La causa</p>
+            <p class="step-big">La causa que más dinero frena es <span data-s="topcausa">…</span>.</p>
+            <p data-s="causa_det">…</p>
+          </div>
+
+          <div class="story-step" data-mode="tiempo" data-hl="mediana">
+            <p class="step-k">El tiempo</p>
+            <p class="step-big">La mitad lleva más de <span data-s="mediana">…</span> sin avanzar.</p>
+            <p data-s="tiempo_det">…</p>
+          </div>
+
+          <div class="story-step" data-mode="geo" data-hl="casi">
+            <p class="step-k">Lo que falta poco</p>
+            <p class="step-big"><span data-s="casi">…</span> obras están construidas al 90% o más.</p>
+            <p data-s="casi_det">…</p>
+            <div class="hero-actions">
+              <a class="btn btn-solid" href="#casi">Ver esas obras</a>
+              <a class="btn" href="#mapa">Ir al mapa</a>
+            </div>
           </div>
         </div>
-        <dl class="hero-stats">
-          <div><dt>Obras paralizadas</dt><dd data-k="obras">…</dd></div>
-          <div><dt>Falta ejecutar</dt><dd data-k="saldo">…</dd></div>
-          <div><dt>Costo actualizado</dt><dd data-k="costo">…</dd></div>
-          <div><dt>Con más de la mitad construida</dt><dd data-k="mitad">…</dd></div>
-        </dl>
-        <p class="hero-source">Fuente: Contraloría General de la República, informe con corte a <span data-k="corte_largo">…</span>.</p>
-      </div>
 
-      <figure class="dots-wrap">
-        <canvas id="dots" aria-label="Mapa del Perú donde cada punto es una obra paralizada" role="img"></canvas>
-        <figcaption class="dots-key">
-          <span><i class="k-dot"></i>Cada punto es una obra. El tamaño es lo que falta ejecutar.</span>
-          <span><i class="k-dot k-casi"></i>Construidas al 90% o más</span>
-        </figcaption>
-      </figure>
+        <div class="story-vis">
+          <div class="vis-bar">
+            <div class="mode-tabs" role="tablist" aria-label="Cómo ordenar los puntos">
+              <button type="button" role="tab" data-mode="geo" aria-selected="true">Mapa</button>
+              <button type="button" role="tab" data-mode="avance" aria-selected="false">Avance</button>
+              <button type="button" role="tab" data-mode="causa" aria-selected="false">Causa</button>
+              <button type="button" role="tab" data-mode="tiempo" aria-selected="false">Tiempo parada</button>
+            </div>
+          </div>
+          <figure class="dots-wrap">
+            <canvas id="dots" aria-label="Cada punto es una obra paralizada; se puede ver como mapa o agrupada por avance, causa o tiempo" role="img"></canvas>
+            <figcaption class="dots-key">
+              <span><i class="k-dot"></i>Una obra. En el mapa, el tamaño es lo que falta ejecutar.</span>
+              <span><i class="k-dot k-casi"></i>Construida al 90% o más</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
     </section>
+
+    <div class="ticker" id="ticker" aria-label="Algunas de las obras con más dinero pendiente">
+      <div class="ticker-track" id="ticker-track"></div>
+    </div>
 
     <section class="map-section" id="mapa" aria-labelledby="mapa-title">
       <div class="section-head">
@@ -105,6 +155,10 @@
           <input type="checkbox" name="mitad">
           <span>Solo con más de 50% de avance</span>
         </label>
+        <button type="button" class="btn btn-sm" id="btn-3d" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
+          Ver en 3D
+        </button>
       </form>
 
       <div class="map-layout">
@@ -119,6 +173,16 @@
             <p class="zone-path" id="zone-path">Todo el Perú</p>
             <h3 id="zone-name">Perú</h3>
             <button type="button" class="link-btn" id="zone-clear" hidden>Volver a todo el Perú</button>
+          </div>
+          <div class="zone-actions">
+            <button type="button" class="btn btn-sm" id="btn-link">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></svg>
+              <span>Copiar enlace</span>
+            </button>
+            <button type="button" class="btn btn-sm" id="btn-csv">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+              <span>Descargar CSV</span>
+            </button>
           </div>
           <dl class="zone-stats">
             <div><dt>Obras</dt><dd id="z-obras">–</dd></div>
@@ -142,7 +206,7 @@
         <div class="bars" id="bars-causal"></div>
       </div>
       <div class="col">
-        <div class="section-head">
+        <div class="section-head" id="casi">
           <h2 class="decode">A un paso de terminar</h2>
           <p class="section-note">Obras con 90% o más de avance físico. Son las más baratas de destrabar.</p>
         </div>
@@ -152,13 +216,16 @@
 
     <section class="entities" id="entidades" aria-labelledby="ent-title">
       <div class="section-head">
-        <h2 class="decode" id="ent-title">Entidades con más dinero pendiente</h2>
+        <h2 class="decode" id="ent-title">Entidades con obras paralizadas</h2>
         <p class="section-note">Tener obras paralizadas no prueba una mala gestión actual: muchas vienen de gestiones anteriores.</p>
       </div>
       <div class="table-wrap">
         <table class="ent-table">
           <thead>
-            <tr><th scope="col">Entidad</th><th scope="col">Nivel</th><th scope="col" class="num">Obras</th><th scope="col" class="num">Falta ejecutar</th><th scope="col" class="num">Con 90%+ de avance</th></tr>
+            <tr><th scope="col">Entidad</th><th scope="col">Nivel</th>
+              <th scope="col" class="num" aria-sort="none"><button type="button" class="sort" data-sort="obras">Obras</button></th>
+              <th scope="col" class="num" aria-sort="descending"><button type="button" class="sort" data-sort="saldo">Falta ejecutar</button></th>
+              <th scope="col" class="num" aria-sort="none"><button type="button" class="sort" data-sort="casi">Con 90%+ de avance</button></th></tr>
           </thead>
           <tbody id="ent-body"></tbody>
         </table>
@@ -225,6 +292,14 @@
     <p>Proyecto abierto de <a href="https://github.com/Key-qr">Keysi Quiñe</a>. Código en <a href="https://github.com/Key-qr/obra-parada">GitHub</a>, licencia MIT. Límites distritales: INEI.</p>
   </footer>
 
+  <nav class="side-nav" id="side-nav" aria-label="Ir a sección">
+    <a href="#top" data-sec="top"><span>Inicio</span></a>
+    <a href="#mapa" data-sec="mapa"><span>Mapa</span></a>
+    <a href="#causas" data-sec="causas"><span>Causas</span></a>
+    <a href="#entidades" data-sec="entidades"><span>Entidades</span></a>
+    <a href="#metodo" data-sec="metodo"><span>Cómo se hizo</span></a>
+  </nav>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
   <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
   <div class="peek" id="peek" aria-hidden="true" hidden></div>
 
@@ -249,6 +324,10 @@
       <div><dt>Código Infobras</dt><dd id="d-id"></dd></div>
       <div><dt>CUI (Invierte.pe)</dt><dd id="d-cui"></dd></div>
     </dl>
+    <div class="hero-actions d-actions">
+      <button type="button" class="btn btn-solid btn-sm" id="d-ver">Ver en el mapa</button>
+      <button type="button" class="btn btn-sm" id="d-otra">Otra obra al azar</button>
+    </div>
     <p class="fine">Con el CUI puedes buscar la inversión en el Seguimiento de Inversiones (SSI) del MEF, y con el código en Infobras.</p>
   </dialog>
 
