@@ -1,4 +1,4 @@
-"""Parser del Anexo N.° 02 de la Contraloría (base de obras paralizadas).
+"""Parser del Anexo N.° 01 de la Contraloría (base de obras paralizadas).
 
 La Contraloría no publica un esquema estable: el Excel cambia de nombre de
 columnas, de hoja y de filas de título entre un informe y otro. Por eso el

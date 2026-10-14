@@ -46,7 +46,7 @@ def cmd_ingest(args) -> int:
 
     meta = {
         "corte": args.corte,
-        "fuente": "Contraloría General de la República - Informe de obras paralizadas en el territorio nacional, Anexo N.° 02",
+        "fuente": "Contraloría General de la República - Informe de obras paralizadas en el territorio nacional, Anexo N.° 01",
         "publicacion": title,
         "url": source_url,
         "archivo": path.name,
@@ -78,7 +78,7 @@ def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="obra-parada")
     sub = p.add_subparsers(dest="cmd", required=True)
 
-    i = sub.add_parser("ingest", help="descarga/lee el Anexo 02 y lo deja en data/staging")
+    i = sub.add_parser("ingest", help="descarga/lee el Anexo 01 y lo deja en data/staging")
     src = i.add_mutually_exclusive_group()
     src.add_argument("--file", help="Excel ya descargado")
     src.add_argument("--url", help="enlace directo al Excel")

@@ -1,5 +1,5 @@
 # Pipeline completo: make all
-# Con un Excel descargado a mano: make all FILE=data/raw/anexo02.xlsx CORTE=2026-06
+# Con un Excel descargado a mano: make all FILE=data/raw/anexo01.xlsx CORTE=2026-06
 # Con datos sintéticos para desarrollar: make sample
 
 PY ?= python3

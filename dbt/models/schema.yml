@@ -9,7 +9,7 @@ seeds:
 
 models:
   - name: stg_obras
-    description: Base del Anexo N.° 02 de la Contraloría tipada y con llaves normalizadas.
+    description: Base del Anexo N.° 01 de la Contraloría tipada y con llaves normalizadas.
     columns:
       - name: nombre_obra
         data_tests: [not_null]

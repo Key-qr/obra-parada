@@ -2,7 +2,7 @@
 
 ## Fuente
 
-Contraloría General de la República, *Informe de obras (públicas) paralizadas en el territorio nacional*, publicado cada trimestre en gob.pe. La base de obras va en el **Anexo N.° 02** como archivo aparte del PDF.
+Contraloría General de la República, *Informe de obras (públicas) paralizadas en el territorio nacional*, publicado cada trimestre en gob.pe. La base de obras va como archivo Excel aparte del PDF. En el informe a junio de 2026 es el **Anexo N.° 01: Base de datos con la lista de obras públicas paralizadas** (en informes anteriores el número de anexo cambió). El Anexo N.° 02 de ese informe es otra base: los servicios de control efectuados a las obras.
 
 La Contraloría considera paralizada una obra que no registra avance físico por seis meses o más en Infobras.
 

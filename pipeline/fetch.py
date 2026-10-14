@@ -1,7 +1,7 @@
 """Descubre y descarga la base de obras paralizadas más reciente de la Contraloría.
 
 La Contraloría publica cada trimestre un "Informe de obras (públicas) paralizadas
-en el territorio nacional" en gob.pe. La base (Anexo N.° 02) va como archivo
+en el territorio nacional" en gob.pe. La base (Anexo N.° 01) va como archivo
 adjunto de la publicación. Este módulo:
 
 1. Busca en el listado de publicaciones de la Contraloría las que calzan con el
@@ -66,25 +66,38 @@ def list_publications(session: requests.Session) -> list[Publication]:
     return sorted(pubs, key=lambda p: p.corte, reverse=True)
 
 
+# La publicación trae varios Excel: la lista de obras y la de servicios de control.
+# Nos quedamos con el que describe la lista de obras, sin importar su número de anexo.
+OBRAS_RE = re.compile(r"lista de obras|obras p[uú]blicas paralizadas en el territorio", re.I)
+CONTROL_RE = re.compile(r"servicios de control", re.I)
+
+
 def attachment_urls(session: requests.Session, pub_url: str) -> list[str]:
+    """Adjuntos Excel de la publicación, primero el de la lista de obras."""
     resp = session.get(pub_url, headers=HEADERS, timeout=60)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
-    urls = []
+    found: list[tuple[int, str]] = []
     for a in soup.find_all("a", href=True):
         href = a["href"]
-        if re.search(r"\.(xlsx|xls|zip)(\?|$)", href, re.I) or (
+        if not (re.search(r"\.(xlsx|xls|zip)(\?|$)", href, re.I) or (
             "cdn.www.gob.pe/uploads/document/file" in href and "pdf" not in href.lower()
-        ):
-            urls.append(urljoin(BASE, href))
-    return urls
+        )):
+            continue
+        # El título del adjunto está en la tarjeta que contiene el enlace.
+        card = a.find_parent(["article", "li", "div"]) or a
+        text = " ".join(card.get_text(" ").split())
+        if CONTROL_RE.search(text):
+            continue
+        found.append((0 if OBRAS_RE.search(text) else 1, urljoin(BASE, href)))
+    return [u for _, u in sorted(found)]
 
 
 def download(session: requests.Session, url: str, dest_dir: Path) -> Path:
     dest_dir.mkdir(parents=True, exist_ok=True)
     resp = session.get(url, headers=HEADERS, timeout=180)
     resp.raise_for_status()
-    name = Path(url.split("?")[0]).name or "anexo02.xlsx"
+    name = Path(url.split("?")[0]).name or "anexo01.xlsx"
     content = resp.content
     if name.lower().endswith(".zip") or content[:2] == b"PK" and not name.lower().endswith((".xlsx", ".xls")):
         with zipfile.ZipFile(io.BytesIO(content)) as zf:

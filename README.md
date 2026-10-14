@@ -56,7 +56,7 @@ Y se mueve con lo que haces:
 
 ```mermaid
 flowchart LR
-    A["gob.pe<br/>Informe de la Contraloría<br/>Anexo 02 (Excel)"] -->|"fetch.py<br/>descubre y descarga"| B["parse.py<br/>detecta cabecera y<br/>mapea columnas"]
+    A["gob.pe<br/>Informe de la Contraloría<br/>Anexo 01 (Excel)"] -->|"fetch.py<br/>descubre y descarga"| B["parse.py<br/>detecta cabecera y<br/>mapea columnas"]
     B --> C[("data/staging<br/>obras.parquet")]
     G["INEI<br/>límites distritales"] -->|"build_geo.sh<br/>mapshaper"| S["seed dim_ubigeo"]
     C --> D["dbt + DuckDB<br/>staging → geo → marts<br/>tests de calidad"]
@@ -137,7 +137,7 @@ make sample
 
 # con el informe real
 make all                                            # descubre y descarga lo último
-make all FILE=data/raw/anexo02.xlsx CORTE=2026-06   # con un Excel descargado a mano
+make all FILE=data/raw/anexo01.xlsx CORTE=2026-06   # con un Excel descargado a mano
 
 make test     # tests del parser
 make serve    # http://localhost:8000
@@ -183,7 +183,7 @@ obra-parada/
 
 ## Fuentes
 
-- Contraloría General de la República, [Informe de obras paralizadas en el territorio nacional](https://www.gob.pe/institucion/contraloria/informes-publicaciones), Anexo N.° 02.
+- Contraloría General de la República, [Informe de obras paralizadas en el territorio nacional](https://www.gob.pe/institucion/contraloria/informes-publicaciones), Anexo N.° 01.
 - Límites departamentales, provinciales y distritales: INEI, vía [juaneladio/peru-geojson](https://github.com/juaneladio/peru-geojson).
 
 Detalle de campos en [`docs/DATA.md`](docs/DATA.md).

@@ -1,4 +1,4 @@
-"""Genera un Excel SINTÉTICO con la forma del Anexo N.° 02 de la Contraloría.
+"""Genera un Excel SINTÉTICO con la forma del Anexo N.° 01 de la Contraloría.
 
 Sirve para desarrollar y testear sin depender de gob.pe. Todo lo que genera es
 inventado: las entidades se llaman "Entidad de ejemplo N" y cada obra lleva el
