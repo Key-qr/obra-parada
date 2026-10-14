@@ -2,6 +2,7 @@
 // Sin backend: los filtros recalculan agregados sobre ~2,500 filas al vuelo.
 import { reduced, scramble, decodeOnView, countTo, readingProgress, revealOnView, makeTerminal, scrollSteps } from "./motion.js";
 import { createDots } from "./dots.js";
+import { TIPOS, tipoDe, renderTipos, bindTipos, renderRecords, renderTimeline, renderGob, initCompare } from "./sections.js";
 
 const NIVELES = {
   departamento: { key: "u_dep", geo: "data/geo/departamentos.json", label: "Departamento" },
@@ -16,7 +17,8 @@ const PAGE = 12;
 const state = {
   nivel: "departamento",
   metrica: "saldo",
-  gob: "", causal: "", sector: "", mitad: false,
+  gob: "", causal: "", sector: "", tipo: "", mitad: false,
+  tlMetric: "obras",
   sel: null,          // { nivel, ubigeo }
   entSort: "saldo",
   tresD: false,
@@ -77,7 +79,7 @@ async function load() {
     ...Object.values(NIVELES).map((n) => getJSON(n.geo)),
   ]);
   OBRAS = obras.rows.map((r) => Object.fromEntries(obras.cols.map((c, i) => [c, r[i]])));
-  OBRAS.forEach((o, i) => (o._i = i));
+  OBRAS.forEach((o, i) => { o._i = i; o.tipo = tipoDe(o.nombre); });
 
   Object.keys(NIVELES).forEach((nivel, i) => {
     const topo = topos[i];
@@ -125,6 +127,7 @@ function filtered() {
     (!state.gob || o.nivel === state.gob) &&
     (!state.causal || o.causal === state.causal) &&
     (!state.sector || o.sector === state.sector) &&
+    (!state.tipo || o.tipo === state.tipo) &&
     (!state.mitad || (o.avance ?? 0) >= 50)
   );
 }
@@ -416,7 +419,22 @@ function render() {
   renderCausas(scope);
   renderCasi(scope);
   renderEntidades(scope);
+  renderTipos(scope, H);
+  renderTimeline(scope, H);
+  renderGob(scope, H);
 }
+
+// Helpers que usan las secciones de sections.js.
+let META = {};
+const H = {
+  state, nf, nf1, soles, solesCorto, anios, fecha, median, countTo, esc, titulo, reduced,
+  get meta() { return META; },
+  openObra: (i) => openObra(i),
+  select: (n, u) => select(n, u),
+  toast: (m) => toast(m),
+  scope: () => inSelection(filtered()),
+  miniSvg: (v) => miniSvg(v),
+};
 
 function obraItem(o, showPlace = true) {
   const place = showPlace ? [o.dist, o.prov, o.dep].filter(Boolean)[0] : "";
@@ -591,6 +609,7 @@ function initControls() {
   const fill = (id, values) => document.getElementById(id).insertAdjacentHTML("beforeend", values.map((v) => `<option>${esc(v)}</option>`).join(""));
   fill("f-causal", opts("causal"));
   fill("f-sector", opts("sector"));
+  fill("f-tipo", TIPOS.map((t) => t.id).filter((id) => OBRAS.some((o) => o.tipo === id)));
 
   const form = document.getElementById("controls");
   form.addEventListener("change", (e) => {
@@ -937,7 +956,8 @@ function initTicker() {
 // ---------- navegación lateral ----------
 function initSideNav() {
   const links = [...document.querySelectorAll("#side-nav a")];
-  const targets = { top: document.querySelector(".story"), mapa: document.getElementById("mapa"), causas: document.getElementById("causas"), entidades: document.getElementById("entidades"), metodo: document.getElementById("metodo") };
+  const targets = { top: document.querySelector(".story") };
+  for (const id of ["mapa", "tipos", "causas", "records", "comparar", "entidades", "faq", "metodo"]) targets[id] = document.getElementById(id);
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) {
       if (!e.isIntersecting) continue;
@@ -1083,6 +1103,7 @@ function initPipeline(meta, resumen) {
   try {
     readingProgress(document.getElementById("progress-bar"));
     const { resumen, meta } = await load();
+    META = meta;
     renderHero(resumen, meta);
     initStory();
     initTicker();
@@ -1094,7 +1115,17 @@ function initPipeline(meta, resumen) {
     initSideNav();
     buildInMap();
     decodeOnView("h2.decode");
-    revealOnView(".bars, .obra-list.compact, .ent-table, .zone-stats");
+    revealOnView(".bars, .obra-list.compact, .ent-table, .zone-stats, .timeline, .gob, .rec-grid, .tipo-grid, .mod-table");
+    bindTipos(H);
+    renderRecords(OBRAS, H);
+    initCompare(OBRAS, H);
+    document.querySelector(".tl-switch").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-tl]");
+      if (!b) return;
+      state.tlMetric = b.dataset.tl;
+      document.querySelectorAll(".tl-switch [data-tl]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      renderTimeline(inSelection(filtered()), H);
+    });
     initPipeline(meta, resumen);
   } catch (err) {
     console.error(err);

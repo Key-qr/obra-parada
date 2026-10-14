@@ -22,7 +22,9 @@
     </a>
     <nav aria-label="Secciones">
       <a href="#mapa">Mapa</a>
+      <a href="#tipos">Qué se paró</a>
       <a href="#causas">Causas</a>
+      <a href="#comparar">Comparar</a>
       <a href="#entidades">Entidades</a>
       <a href="#metodo">Cómo se hizo</a>
     </nav>
@@ -148,6 +150,10 @@
           <select name="causal" id="f-causal"><option value="">Todas</option></select>
         </label>
         <label class="field">
+          <span>Tipo de obra</span>
+          <select name="tipo" id="f-tipo"><option value="">Todos</option></select>
+        </label>
+        <label class="field">
           <span>Sector</span>
           <select name="sector" id="f-sector"><option value="">Todos</option></select>
         </label>
@@ -197,6 +203,14 @@
       </div>
     </section>
 
+    <section class="tipos" id="tipos" aria-labelledby="tipos-title">
+      <div class="section-head">
+        <h2 class="decode" id="tipos-title">Qué se dejó de construir</h2>
+        <p class="section-note" id="tipos-note">Tipo de obra según las palabras de su nombre. Pasa el cursor para ver ejemplos; haz clic para filtrar el mapa.</p>
+      </div>
+      <ul class="tipo-grid" id="tipo-grid"></ul>
+    </section>
+
     <section class="band" aria-labelledby="causas-title" id="causas">
       <div class="col">
         <div class="section-head">
@@ -214,6 +228,58 @@
       </div>
     </section>
 
+    <section class="records" id="records" aria-labelledby="rec-title">
+      <div class="section-head">
+        <h2 class="decode" id="rec-title">Los récords</h2>
+        <p class="section-note">Los casos extremos de todo el país. Haz clic en una tarjeta para ver la obra o la zona.</p>
+      </div>
+      <ol class="rec-grid" id="rec-grid"></ol>
+    </section>
+
+    <section class="band band-2" aria-label="Tiempo y responsables">
+      <div class="col">
+        <div class="section-head">
+          <h2 class="decode" id="tl-title">Cuándo se pararon</h2>
+          <p class="section-note" id="tl-note">Obras según el año en que dejaron de avanzar.</p>
+        </div>
+        <div class="seg-opts tl-switch" role="group" aria-label="Medir por">
+          <button type="button" class="chip" data-tl="obras" aria-pressed="true">Obras</button>
+          <button type="button" class="chip" data-tl="saldo" aria-pressed="false">Falta ejecutar</button>
+        </div>
+        <div class="timeline" id="timeline" role="img" aria-labelledby="tl-title"></div>
+      </div>
+      <div class="col">
+        <div class="section-head">
+          <h2 class="decode">Quién las ejecuta</h2>
+          <p class="section-note" id="gob-note">…</p>
+        </div>
+        <div class="gob" id="gob"></div>
+        <h3 class="sub-h">Por modalidad de ejecución</h3>
+        <div class="table-wrap">
+          <table class="mod-table">
+            <thead><tr><th scope="col">Modalidad</th><th scope="col" class="num">Obras</th><th scope="col" class="num">Avance mediano</th><th scope="col" class="num">Años parada (mediana)</th><th scope="col" class="num">Falta ejecutar</th></tr></thead>
+            <tbody id="mod-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="compare" id="comparar" aria-labelledby="cmp-title">
+      <div class="section-head">
+        <h2 class="decode" id="cmp-title">Compara dos departamentos</h2>
+        <p class="section-note">Elige dos y mira cómo se ven lado a lado.</p>
+      </div>
+      <div class="cmp-pick">
+        <label class="field"><span>Departamento A</span><select id="cmp-a"></select></label>
+        <button type="button" class="btn btn-sm" id="cmp-swap" aria-label="Intercambiar departamentos">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h12l-3-3M17 17H5l3 3"/></svg>
+          Intercambiar
+        </button>
+        <label class="field"><span>Departamento B</span><select id="cmp-b"></select></label>
+      </div>
+      <div class="cmp-board" id="cmp-board"></div>
+    </section>
+
     <section class="entities" id="entidades" aria-labelledby="ent-title">
       <div class="section-head">
         <h2 class="decode" id="ent-title">Entidades con obras paralizadas</h2>
@@ -229,6 +295,42 @@
           </thead>
           <tbody id="ent-body"></tbody>
         </table>
+      </div>
+    </section>
+
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <div class="section-head">
+        <h2 class="decode" id="faq-title">Preguntas frecuentes</h2>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary>¿Qué es una obra paralizada?</summary>
+          <div><p>Para la Contraloría, es una obra pública que no registra avance físico por seis meses o más en Infobras, el sistema donde las entidades deben reportar el avance de sus obras. No importa si la obra está abandonada, en arbitraje o esperando presupuesto: si no avanza, cuenta.</p></div>
+        </details>
+        <details>
+          <summary>¿Qué diferencia hay entre costo actualizado y lo que falta ejecutar?</summary>
+          <div><p>El costo actualizado es lo que cuesta la obra completa hoy, con sus adicionales y ampliaciones. Lo que falta ejecutar es la parte de ese costo que todavía no se ha gastado: lo mínimo que haría falta para terminarla, sin contar lo que pueda deteriorarse mientras está parada.</p></div>
+        </details>
+        <details>
+          <summary>¿Qué es la administración directa?</summary>
+          <div><p>Es cuando la propia entidad (una municipalidad, por ejemplo) construye la obra con su personal y maquinaria, en vez de contratar a una empresa. La otra modalidad común es por contrata, cuando una empresa la gana en un proceso de selección.</p></div>
+        </details>
+        <details>
+          <summary>¿Qué son el CUI y el código Infobras?</summary>
+          <div><p>El CUI (Código Único de Inversiones) identifica el proyecto en Invierte.pe, el sistema del MEF; con él puedes ver su presupuesto y su ejecución en el Seguimiento de Inversiones. El código Infobras identifica la obra en el sistema de la Contraloría, donde están sus fotos y avances reportados.</p></div>
+        </details>
+        <details>
+          <summary>¿Cómo se clasifica el tipo de obra?</summary>
+          <div><p>Por palabras en el nombre: si dice "educativo", "colegio" o "institución educativa" es un colegio; si dice "agua potable" o "alcantarillado", agua y desagüe; y así. Es una aproximación: una obra que menciona dos cosas cae en la primera que coincide, y las que no calzan quedan en "Otras".</p></div>
+        </details>
+        <details>
+          <summary>¿Cada cuánto se actualiza?</summary>
+          <div><p>La Contraloría publica un informe cada trimestre. Un proceso automático revisa gob.pe cada lunes; cuando aparece un archivo nuevo, lo procesa, valida y publica sin intervención manual.</p></div>
+        </details>
+        <details>
+          <summary>¿Que una obra esté paralizada significa que hubo corrupción?</summary>
+          <div><p>No. Las causas más comunes son falta de presupuesto, problemas con el contratista o deficiencias en el expediente técnico. Esta página muestra los datos oficiales; no acusa a ninguna persona ni entidad.</p></div>
+        </details>
       </div>
     </section>
 
@@ -295,8 +397,12 @@
   <nav class="side-nav" id="side-nav" aria-label="Ir a sección">
     <a href="#top" data-sec="top"><span>Inicio</span></a>
     <a href="#mapa" data-sec="mapa"><span>Mapa</span></a>
+    <a href="#tipos" data-sec="tipos"><span>Qué se paró</span></a>
     <a href="#causas" data-sec="causas"><span>Causas</span></a>
+    <a href="#records" data-sec="records"><span>Récords</span></a>
+    <a href="#comparar" data-sec="comparar"><span>Comparar</span></a>
     <a href="#entidades" data-sec="entidades"><span>Entidades</span></a>
+    <a href="#faq" data-sec="faq"><span>Preguntas</span></a>
     <a href="#metodo" data-sec="metodo"><span>Cómo se hizo</span></a>
   </nav>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>

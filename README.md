@@ -29,6 +29,12 @@ El dato es público, pero viene en un PDF de 70+ páginas y un Excel anexo que c
 - **Ficha de cada obra** con entidad, ubicación, costo, avance, fecha de paralización, causa, código Infobras y CUI.
 - **"A un paso de terminar":** obras con 90%+ de avance, las más baratas de destrabar.
 - **Ranking de entidades** por dinero pendiente.
+- **Qué se dejó de construir:** colegios, postas y hospitales, agua y desagüe, pistas, puentes, riego y deporte, clasificados por palabras del nombre de la obra. Cada tipo muestra cuántas obras hay, cuánto falta y su avance mediano; es también un filtro del mapa.
+- **Récords:** la obra con más dinero pendiente, la que lleva más tiempo parada, la que se paró casi terminada, la entidad y el distrito con más obras, el departamento con más dinero parado.
+- **Cuándo se pararon:** obras (o dinero) por año de paralización.
+- **Quién las ejecuta:** porcentaje de obras frente a porcentaje de dinero por nivel de gobierno, y una tabla por modalidad (administración directa, contrata, núcleo ejecutor, obras por impuestos).
+- **Comparador de departamentos:** dos departamentos lado a lado en obras, dinero, avance, tiempo parada, causa y tipo principal.
+- **Preguntas frecuentes:** qué es una obra paralizada, costo actualizado frente a saldo, administración directa, CUI e Infobras, cómo se clasifica el tipo de obra.
 
 Y se mueve con lo que haces:
 
