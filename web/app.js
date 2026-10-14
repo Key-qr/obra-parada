@@ -1,5 +1,6 @@
 // Obra Parada: todo se calcula en el navegador a partir de data/*.json.
 // Sin backend: los filtros recalculan agregados sobre ~2,500 filas al vuelo.
+import { reduced, scramble, decodeOnView, countTo, tilt, readingProgress, revealOnView, makeTerminal, scrollSteps } from "./motion.js";
 
 const NIVELES = {
   departamento: { key: "u_dep", geo: "data/geo/departamentos.json", label: "Departamento" },
@@ -182,7 +183,11 @@ function initMap() {
       map.addLayer({
         id: `${nivel}-fill`, type: "fill", source: nivel,
         layout: { visibility: nivel === state.nivel ? "visible" : "none" },
-        paint: { "fill-color": ZERO, "fill-opacity": 1 },
+        paint: {
+          "fill-color": ZERO,
+          // "off": aún no "construida" en la animación de entrada; "dim": atenuada al pasar el cursor por una causa o entidad.
+          "fill-opacity": ["case", ["boolean", ["feature-state", "off"], false], 0.08, ["boolean", ["feature-state", "dim"], false], 0.16, 1],
+        },
       });
       map.addLayer({
         id: `${nivel}-line`, type: "line", source: nivel,
@@ -218,8 +223,7 @@ function bindLayer(nivel) {
     map.setFeatureState(hovered, { hover: true });
     const z = ZONES[nivel].get(f.id);
     const st = map.getFeatureState({ source: nivel, id: f.id });
-    tip.innerHTML = `<b>${esc(z?.nombre)}</b>${z?.padre ? `<span>${esc(z.padre)}</span><br>` : ""}${
-      st.obras ? `${nf.format(st.obras)} ${st.obras === 1 ? "obra" : "obras"}, falta ejecutar ${soles(st.saldo)}` : "Sin obras paralizadas con estos filtros"}`;
+    tip.innerHTML = zoneTip(nivel, f.id, z, st);
     tip.hidden = false;
     const pad = 14;
     const x = Math.min(e.originalEvent.clientX + pad, window.innerWidth - tip.offsetWidth - 8);
@@ -236,6 +240,73 @@ function bindLayer(nivel) {
     const f = e.features[0];
     if (f) select(nivel, f.id, { fit: false });
   });
+}
+
+// Tarjeta del tooltip: totales de la zona, cuánto pesa en el país y su obra más cara.
+let tipCache = { key: "", rows: [] };
+function zoneTip(nivel, id, z, st) {
+  const head = `<b>${esc(z?.nombre)}</b>${z?.padre ? `<span class="t-sub">${esc(z.padre)}</span>` : ""}`;
+  if (!st.obras) return `${head}<span class="t-empty">Sin obras paralizadas con estos filtros</span>`;
+  const cacheKey = JSON.stringify([state.gob, state.causal, state.sector, state.mitad]);
+  if (tipCache.key !== cacheKey) tipCache = { key: cacheKey, rows: filtered() };
+  const key = NIVELES[nivel].key;
+  const enZona = tipCache.rows.filter((o) => o[key] === id);
+  const total = tipCache.rows.reduce((s, o) => s + (o.saldo || 0), 0) || 1;
+  const share = (st.saldo / total) * 100;
+  const top = enZona.reduce((a, o) => ((o.saldo || 0) > (a?.saldo || 0) ? o : a), null);
+  const casi = enZona.filter((o) => (o.avance ?? 0) >= 90).length;
+  return `${head}
+    <span class="t-row"><span>${nf.format(st.obras)} ${st.obras === 1 ? "obra" : "obras"}</span><strong>${solesCorto(st.saldo)}</strong></span>
+    <span class="t-share"><i style="width:${Math.max(2, Math.min(100, share * 4))}%"></i></span>
+    <span class="t-note">${share < 0.1 ? "menos de 0.1" : nf1.format(share)}% de lo que falta ejecutar en el país${casi ? `, ${casi} a un paso de terminar` : ""}</span>
+    ${top ? `<span class="t-top">La más cara: ${esc(top.nombre.length > 70 ? top.nombre.slice(0, 68) + "…" : top.nombre)}</span>` : ""}`;
+}
+
+// ---------- resaltados cruzados (lista, causas, entidades -> mapa) ----------
+// Atenúa todas las zonas del nivel visible salvo las de `keep` (Set de ubigeos).
+function dimExcept(keep) {
+  const nivel = state.nivel;
+  for (const f of GEO[nivel].features) {
+    map.setFeatureState({ source: nivel, id: f.properties.ubigeo }, { dim: keep ? !keep.has(f.properties.ubigeo) : false });
+  }
+}
+function zonesWhere(pred) {
+  const key = NIVELES[state.nivel].key;
+  return new Set(inSelection(filtered()).filter(pred).map((o) => o[key]).filter(Boolean));
+}
+let pulsed = null;
+function pulseZone(o) {
+  if (pulsed) map.setFeatureState(pulsed, { hover: false });
+  pulsed = null;
+  if (!o) return;
+  const id = o[NIVELES[state.nivel].key];
+  if (!id) return;
+  pulsed = { source: state.nivel, id };
+  map.setFeatureState(pulsed, { hover: true });
+}
+
+// Animación de entrada del mapa: las zonas se "construyen" de la que más
+// dinero pendiente tiene a la que menos, la primera vez que el mapa se ve.
+function buildInMap() {
+  const nivel = state.nivel;
+  const order = GEO[nivel].features
+    .map((f) => ({ id: f.properties.ubigeo, v: map.getFeatureState({ source: nivel, id: f.properties.ubigeo }).saldo || 0 }))
+    .sort((a, b) => b.v - a.v);
+  if (reduced) return;
+  order.forEach(({ id }) => map.setFeatureState({ source: nivel, id }, { off: true }));
+  const io = new IntersectionObserver((entries) => {
+    if (!entries[0].isIntersecting) return;
+    io.disconnect();
+    const total = 1100, start = performance.now();
+    let done = 0;
+    const frame = (now) => {
+      const upto = Math.min(order.length, Math.ceil(((now - start) / total) * order.length));
+      for (; done < upto; done++) map.setFeatureState({ source: nivel, id: order[done].id }, { off: false });
+      if (done < order.length) requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  }, { threshold: 0.35 });
+  io.observe(document.getElementById("map"));
 }
 
 function setLayerVisibility() {
@@ -269,9 +340,15 @@ function paintMap(rows) {
   map.setPaintProperty(`${nivel}-fill`, "fill-color", expr);
   renderLegend();
 
-  const sinUbicar = rows.filter((o) => !o[NIVELES[nivel].key]).length;
-  document.getElementById("map-status").textContent = sinUbicar
-    ? `${nf.format(sinUbicar)} ${sinUbicar === 1 ? "obra no se pudo ubicar" : "obras no se pudieron ubicar"} a nivel de ${NIVELES[nivel].label.toLowerCase()}`
+  lastSinUbicar = rows.filter((o) => !o[NIVELES[nivel].key]).length;
+  paintStatus();
+}
+
+let lastSinUbicar = 0;
+function paintStatus() {
+  const n = lastSinUbicar;
+  document.getElementById("map-status").textContent = n
+    ? `${nf.format(n)} ${n === 1 ? "obra no se pudo ubicar" : "obras no se pudieron ubicar"} a nivel de ${NIVELES[state.nivel].label.toLowerCase()}`
     : "";
 }
 
@@ -344,9 +421,9 @@ function renderZone(scope) {
 
   const saldo = scope.reduce((s, o) => s + (o.saldo || 0), 0);
   const costo = scope.reduce((s, o) => s + (o.costo || 0), 0);
-  document.getElementById("z-obras").textContent = nf.format(scope.length);
-  document.getElementById("z-saldo").textContent = solesCorto(saldo);
-  document.getElementById("z-costo").textContent = solesCorto(costo);
+  countTo(document.getElementById("z-obras"), scope.length, (v) => nf.format(Math.round(v)));
+  countTo(document.getElementById("z-saldo"), saldo, solesCorto);
+  countTo(document.getElementById("z-costo"), costo, solesCorto);
   document.getElementById("z-anios").textContent = anios(median(scope.map((o) => o.anios)));
 
   const list = document.getElementById("zone-list");
@@ -370,15 +447,15 @@ function renderCausas(scope) {
   const rows = [...m.entries()].sort((a, b) => b[1][metric] - a[1][metric]);
   const max = Math.max(1, ...rows.map((r) => r[1][metric]));
   const el = document.getElementById("bars-causal");
-  el.innerHTML = rows.length ? rows.map(([k, a]) => `
-    <div class="bar-row">
+  el.innerHTML = rows.length ? rows.map(([k, a], i) => `
+    <div class="bar-row" data-causal="${esc(k)}" tabindex="0">
       <span>${esc(k)}</span>
-      <span class="bar-track" aria-hidden="true"><i style="width:${(a[metric] / max) * 100}%"></i></span>
+      <span class="bar-track" aria-hidden="true"><i style="width:${(a[metric] / max) * 100}%; transition-delay:${i * 45}ms"></i></span>
       <span class="bar-val">${metric === "saldo" ? solesCorto(a.saldo) : nf.format(a.obras)}</span>
     </div>`).join("") : `<p class="empty-note">Sin obras con estos filtros.</p>`;
   const z = state.sel && ZONES[state.sel.nivel].get(state.sel.ubigeo);
   document.getElementById("causas-note").textContent =
-    `Causa declarada por la entidad ante la Contraloría${z ? `, en ${z.nombre}` : ""}. ${metric === "saldo" ? "Ordenado por dinero pendiente." : "Ordenado por número de obras."}`;
+    `Causa declarada por la entidad ante la Contraloría${z ? `, en ${z.nombre}` : ""}. ${metric === "saldo" ? "Ordenado por dinero pendiente." : "Ordenado por número de obras."} Pasa el cursor para ver dónde pesa cada una; haz clic para filtrar el mapa.`;
 }
 
 function renderCasi(scope) {
@@ -398,7 +475,7 @@ function renderEntidades(scope) {
   }
   const rows = [...m.entries()].sort((a, b) => b[1].saldo - a[1].saldo).slice(0, 15);
   document.getElementById("ent-body").innerHTML = rows.length ? rows.map(([k, a]) => `
-    <tr><td>${esc(titulo(k))}<small>${esc(a.dep || "")}</small></td><td>${esc(a.nivel)}</td>
+    <tr data-entidad="${esc(k)}"><td>${esc(titulo(k))}<small>${esc(a.dep || "")}</small></td><td>${esc(a.nivel)}</td>
     <td class="num">${nf.format(a.obras)}</td><td class="num">${soles(a.saldo)}</td><td class="num">${nf.format(a.casi)}</td></tr>`).join("")
     : `<tr><td colspan="5" class="empty-note">Sin entidades con estos filtros.</td></tr>`;
 }
@@ -519,11 +596,168 @@ function initControls() {
   document.getElementById("obra-dialog").addEventListener("click", (e) => {
     if (e.target.id === "obra-dialog") e.target.close();
   });
+  initHovers();
+}
+
+// ---------- mini mapa SVG por departamento (para las tarjetas flotantes) ----------
+let MINI = null;
+function miniMap() {
+  if (MINI) return MINI;
+  const W = 150, H = 210;
+  const feats = GEO.departamento.features;
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const f of feats) { const [[a, b], [c, d]] = ZONES.departamento.get(f.properties.ubigeo).bbox; x0 = Math.min(x0, a); y0 = Math.min(y0, b); x1 = Math.max(x1, c); y1 = Math.max(y1, d); }
+  const k = Math.cos(((y0 + y1) / 2) * Math.PI / 180);
+  const sc = Math.min(W / ((x1 - x0) * k), H / (y1 - y0));
+  const pt = ([x, y]) => `${((x - x0) * k * sc).toFixed(1)},${((y1 - y) * sc).toFixed(1)}`;
+  const ring = (r) => `M${r.map(pt).join("L")}Z`;
+  const paths = feats.map((f) => {
+    const g = f.geometry;
+    const polys = g.type === "Polygon" ? [g.coordinates] : g.coordinates;
+    return { id: f.properties.ubigeo, d: polys.map((p) => p.map(ring).join("")).join("") };
+  });
+  MINI = { W, H, paths };
+  return MINI;
+}
+function miniSvg(values) {
+  const { W, H, paths } = miniMap();
+  const max = Math.max(1, ...values.values());
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" aria-hidden="true">${paths.map((p) => {
+    // Sobre el fondo azul del cartel la intensidad va en ámbar: más dinero, más opaco.
+    const v = values.get(p.id) || 0;
+    const fill = v ? `rgba(233,162,26,${(0.35 + 0.65 * Math.sqrt(v / max)).toFixed(2)})` : "rgba(255,255,255,.1)";
+    return `<path d="${p.d}" fill="${fill}" stroke="#0f3359" stroke-width=".6"/>`;
+  }).join("")}</svg>`;
+}
+
+// ---------- hover: tarjeta de obra, causas y entidades ----------
+function initHovers() {
+  const peek = document.getElementById("peek");
+  const fine = matchMedia("(pointer: fine)").matches;
+  let current = -1;
+
+  function showPeek(o, x, y) {
+    if (!fine) return;
+    if (current !== o._i) {
+      current = o._i;
+      peek.classList.remove("peek-wide");
+      peek.innerHTML = `
+        <span class="bolt tl"></span><span class="bolt tr"></span>
+        <span class="p-k">${esc(titulo(o.entidad || ""))}</span>
+        <span class="p-name">${esc(o.nombre)}</span>
+        <span class="p-grid">
+          <span><small>Costo</small>${solesCorto(o.costo)}</span>
+          <span><small>Falta</small>${solesCorto(o.saldo)}</span>
+          <span><small>Parada hace</small>${anios(o.anios)}</span>
+        </span>
+        <span class="p-meter"><i style="width:${o.avance ?? 0}%"></i></span>
+        <span class="p-k">${o.avance != null ? `${nf1.format(o.avance)}% construida` : "Avance sin dato"}. ${esc(o.causal || "")}</span>`;
+      peek.hidden = false;
+      peek.classList.remove("is-in");
+      void peek.offsetWidth;
+      peek.classList.add("is-in");
+    }
+    const w = peek.offsetWidth, h = peek.offsetHeight;
+    const px = x + 22 + w > innerWidth ? x - w - 22 : x + 22;
+    const py = Math.min(Math.max(8, y - h / 2), innerHeight - h - 8);
+    peek.style.transform = `translate(${px}px, ${py}px)`;
+  }
+  function hidePeek() { peek.hidden = true; peek.classList.remove("peek-wide"); current = -1; }
+
+  document.body.addEventListener("pointermove", (e) => {
+    const b = e.target.closest(".obra-list button[data-i]");
+    if (b) {
+      const o = OBRAS[Number(b.dataset.i)];
+      showPeek(o, e.clientX, e.clientY);
+      if (pulsed?.id !== o[NIVELES[state.nivel].key]) pulseZone(o);
+    } else if (current >= 0) { hidePeek(); pulseZone(null); }
+  });
+  document.body.addEventListener("focusin", (e) => {
+    const b = e.target.closest(".obra-list button[data-i]");
+    if (b) pulseZone(OBRAS[Number(b.dataset.i)]);
+  });
+
+  // Causas y entidades: al pasar el cursor sale una tarjeta con un mini mapa
+  // de dónde están esas obras, y el mapa grande deja encendidas solo sus zonas.
+  const groupCard = (field, v, el, pt) => {
+    if (!fine) return;
+    const rows = inSelection(filtered()).filter((o) => o[field] === v);
+    const porDep = new Map();
+    for (const o of rows) if (o.u_dep) porDep.set(o.u_dep, (porDep.get(o.u_dep) || 0) + (o.saldo || 0));
+    const top = [...porDep.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3);
+    const saldo = rows.reduce((s, o) => s + (o.saldo || 0), 0);
+    const av = median(rows.map((o) => o.avance));
+    peek.innerHTML = `
+      <span class="bolt tl"></span><span class="bolt tr"></span>
+      <span class="p-k">${field === "causal" ? "Causa declarada" : esc(rows[0]?.nivel ? `Gobierno ${rows[0].nivel.toLowerCase()}` : "Entidad")}</span>
+      <span class="p-name">${esc(field === "causal" ? v : titulo(v))}</span>
+      <span class="p-split">
+        ${miniSvg(porDep)}
+        <span class="p-side">
+          <span><small>Obras</small>${nf.format(rows.length)}</span>
+          <span><small>Falta ejecutar</small>${solesCorto(saldo)}</span>
+          <span><small>Avance mediano</small>${av != null ? `${nf1.format(av)}%` : "–"}</span>
+          ${top.length ? `<span class="p-top"><small>Dónde pesa más</small>${top.map(([u, val]) => `${esc(ZONES.departamento.get(u)?.nombre || u)} <b>${solesCorto(val)}</b>`).join("<br>")}</span>` : ""}
+        </span>
+      </span>
+      ${field === "causal" ? `<span class="p-k">Clic para filtrar el mapa por esta causa</span>` : ""}`;
+    peek.hidden = false;
+    peek.classList.add("peek-wide");
+    peek.classList.remove("is-in"); void peek.offsetWidth; peek.classList.add("is-in");
+    // Junto al cursor (o al elemento si llegó con teclado), sin salirse de la pantalla.
+    const r = el.getBoundingClientRect();
+    const ax = pt ? pt.x : r.left + 40, ay = pt ? pt.y : r.top + r.height / 2;
+    const w = peek.offsetWidth, h = peek.offsetHeight;
+    const px = ax + 24 + w < innerWidth ? ax + 24 : Math.max(8, ax - w - 24);
+    const py = Math.min(Math.max(8, ay - h / 2), innerHeight - h - 8);
+    peek.style.transform = `translate(${px}px, ${py}px)`;
+    current = -2;
+  };
+  const hoverDim = (selector, attr, field) => {
+    const root = document.querySelector(selector);
+    let active = null;
+    const on = (el, pt) => {
+      const v = el.getAttribute(attr);
+      if (v === active) return;
+      active = v;
+      root.querySelectorAll(`[${attr}]`).forEach((r) => r.classList.toggle("is-hot", r === el));
+      dimExcept(zonesWhere((o) => o[field] === v));
+      groupCard(field, v, el, pt);
+      document.getElementById("map-status").textContent = `Mostrando en el mapa: ${field === "causal" ? v : titulo(v)}`;
+    };
+    const off = () => {
+      if (active == null) return;
+      active = null;
+      root.querySelectorAll(".is-hot").forEach((r) => r.classList.remove("is-hot"));
+      dimExcept(null);
+      hidePeek();
+      paintStatus();
+    };
+    root.addEventListener("pointerover", (e) => { const el = e.target.closest(`[${attr}]`); if (el) on(el, { x: e.clientX, y: e.clientY }); });
+    root.addEventListener("pointerleave", off);
+    root.addEventListener("focusin", (e) => { const el = e.target.closest(`[${attr}]`); if (el) on(el); });
+    root.addEventListener("focusout", off);
+  };
+  hoverDim("#bars-causal", "data-causal", "causal");
+  const filtrarCausa = (row) => {
+    const sel = document.getElementById("f-causal");
+    sel.value = row.dataset.causal;
+    sel.dispatchEvent(new Event("change", { bubbles: true }));
+    hidePeek();
+    document.getElementById("mapa").scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+  };
+  document.getElementById("bars-causal").addEventListener("click", (e) => { const r = e.target.closest("[data-causal]"); if (r) filtrarCausa(r); });
+  document.getElementById("bars-causal").addEventListener("keydown", (e) => {
+    const r = e.target.closest("[data-causal]");
+    if (r && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); filtrarCausa(r); }
+  });
+  hoverDim("#ent-body", "data-entidad", "entidad");
 }
 
 // ---------- portada ----------
 function renderHero(resumen, meta) {
-  const set = (k, v) => document.querySelectorAll(`[data-k="${k}"]`).forEach((el) => (el.textContent = v));
+  // Las cifras del cartel se "decodifican" al cargar.
+  const set = (k, v) => document.querySelectorAll(`[data-k="${k}"]`).forEach((el, i) => { el.setAttribute("aria-label", v); scramble(el, v, 1100 + i * 120); });
   set("obras", nf.format(resumen.obras));
   set("costo", soles(resumen.costo_actualizado));
   set("saldo", soles(resumen.saldo_por_ejecutar));
@@ -542,15 +776,79 @@ function renderHero(resumen, meta) {
     `${nf.format(ubicadas)} de ${nf.format(resumen.obras)} obras se ubicaron a nivel de distrito; ${nf.format(resumen.geo_provincia || 0)} solo a nivel de provincia y ${nf.format((resumen.geo_departamento || 0) + (resumen.geo_sin_match || 0))} a nivel de departamento o sin ubicar.`;
 }
 
+// ---------- terminal del pipeline ----------
+// Las líneas salen de meta.json y resumen.json: es la salida real de la última carga.
+function pipelineLines(meta, resumen) {
+  const sha = meta.sha256 ? meta.sha256.slice(0, 16) : "sin dato";
+  const corte = meta.corte || "AAAA-MM";
+  const cols = Object.entries(meta.columnas || {});
+  const pad = (t, n) => (t.length > n ? t.slice(0, n - 1) + "…" : t.padEnd(n, " "));
+  const dbt = meta.dbt;
+  const t = dbt?.tests || {};
+  return [
+    [
+      { t: "$ python -m pipeline.cli ingest", c: "cmd" },
+      { t: "buscando \"obras paralizadas en el territorio nacional\" en gob.pe", c: "dim" },
+      { t: meta.publicacion ? `publicación: ${meta.publicacion}` : "fuente: archivo local (--file)", c: "" },
+      { t: `corte del informe: ${corte}`, c: "" },
+      { t: `descargado ${meta.archivo || "anexo02.xlsx"}`, c: "ok" },
+      { t: `sha256 ${sha}…`, c: "dim" },
+      { t: "comparando con la última carga publicada… archivo nuevo", c: "dim" },
+    ],
+    [
+      { t: `$ parse_excel("${meta.archivo || "anexo02.xlsx"}")`, c: "cmd" },
+      { t: `hoja "${meta.hoja}", cabecera en la fila ${(meta.fila_cabecera ?? 0) + 1}`, c: "" },
+      ...cols.slice(0, 9).map(([k, v]) => ({ t: innerWidth < 640 ? `  "${k}" -> ${v}` : `  ${pad(`"${k}"`, 30)} -> ${v}`, c: "map" })),
+      ...(cols.length > 9 ? [{ t: `  … y ${cols.length - 9} columnas más`, c: "dim" }] : []),
+      ...((meta.columnas_no_mapeadas || []).length ? [{ t: `  sin mapear: ${meta.columnas_no_mapeadas.join(", ")}`, c: "dim" }] : []),
+      { t: `${nf.format(meta.filas || 0)} obras leídas -> data/staging/obras.parquet`, c: "ok" },
+    ],
+    [
+      { t: `$ dbt build --vars '{fecha_corte: "${corte}"}'`, c: "cmd" },
+      { t: `seeds: ${dbt?.seeds ?? 2} (ubigeo INEI, departamentos)`, c: "dim" },
+      ...(dbt?.modelos || []).map((m) => ({ t: `  OK  ${pad(m.nombre, 16)} ${m.segundos.toFixed(2)}s`, c: "ok" })),
+      { t: `tests: PASS=${t.pass ?? 0} WARN=${t.warn ?? 0} ERROR=${(t.error ?? 0) + (t.fail ?? 0)}`, c: (t.error || t.fail) ? "err" : "ok" },
+      { t: `ubicadas en su distrito: ${nf.format(resumen.geo_distrito || 0)} de ${nf.format(resumen.obras)}`, c: "" },
+      { t: `solo a nivel de provincia: ${nf.format(resumen.geo_provincia || 0)}`, c: "dim" },
+    ],
+    [
+      { t: "$ python -m pipeline.cli export", c: "cmd" },
+      { t: `web/data/obras.json    ${nf.format(resumen.obras)} filas`, c: "ok" },
+      { t: "web/data/resumen.json  cifras de portada", c: "ok" },
+      { t: "web/data/meta.json     procedencia y hash", c: "ok" },
+      { t: `$ git commit -m "datos: corte ${corte}" && git push`, c: "cmd" },
+      { t: "netlify: deploy publicado", c: "ok" },
+    ],
+  ];
+}
+
+function initPipeline(meta, resumen) {
+  const term = makeTerminal(document.getElementById("term-body"));
+  const titles = ["ingest", "parse", "dbt build", "export"];
+  const flow = [...document.querySelectorAll("#flow li")];
+  const lines = pipelineLines(meta, resumen);
+  scrollSteps([...document.querySelectorAll(".pipe .step")], (i) => {
+    document.getElementById("term-title").textContent = `obra-parada: ${titles[i]}`;
+    flow.forEach((li, j) => { li.classList.toggle("is-done", j < i); li.classList.toggle("is-active", j === i); });
+    term.play(lines[i]);
+  });
+}
+
 // ---------- arranque ----------
 (async function main() {
   try {
+    readingProgress(document.getElementById("progress-bar"));
     const { resumen, meta } = await load();
     renderHero(resumen, meta);
+    tilt(document.querySelector(".hero"), document.querySelector(".cartel-hero"));
     await initMap();
     initControls();
     initSearch();
     render();
+    buildInMap();
+    decodeOnView("h2.decode");
+    revealOnView(".bars, .obra-list.compact, .ent-table, .zone-stats");
+    initPipeline(meta, resumen);
   } catch (err) {
     console.error(err);
     document.getElementById("map-status").textContent = `No se pudieron cargar los datos: ${err.message}. Recarga la página.`;

@@ -30,6 +30,15 @@ El dato es público, pero viene en un PDF de 70+ páginas y un Excel anexo que c
 - **"A un paso de terminar":** obras con 90%+ de avance, las más baratas de destrabar.
 - **Ranking de entidades** por dinero pendiente.
 
+Y se mueve con lo que haces:
+
+- Al pasar el cursor por una zona del mapa sale una tarjeta con sus obras, cuánto pesa en el total del país y su obra más cara.
+- Al pasar el cursor por una obra de la lista sale su "cartel de obra" en miniatura y su distrito se marca en el mapa.
+- Al pasar el cursor por una causa o una entidad sale un mini mapa con dónde se concentra ese dinero, y el mapa grande apaga las demás zonas. Clic en una causa y el mapa se filtra.
+- Al cargar, el cartel se "cuelga" y sus cifras se decodifican; luego se inclina siguiendo el cursor. El mapa se "construye" zona por zona, de la que más dinero tiene parado a la que menos.
+- En "Cómo se construye este mapa", al hacer scroll una terminal escribe la salida real de la última carga del pipeline: el mapeo de columnas, los modelos de dbt con sus tiempos, los tests y el export.
+- Todo respeta `prefers-reduced-motion`: con esa preferencia activa, la página muestra el estado final sin animar.
+
 ![Mapa](docs/img/mapa.png)
 
 ## Arquitectura
@@ -58,7 +67,7 @@ Todo corre gratis: GitHub Actions para el pipeline, el repo como almacenamiento 
 | Almacenamiento | Parquet + DuckDB | Unas 2,500 filas: un warehouse en archivo es suficiente y no cuesta nada |
 | Transformación | dbt-duckdb | Modelos versionados, linaje y tests de calidad antes de publicar |
 | Geodatos | mapshaper, TopoJSON | Los 1,834 distritos pasan de 1.8 MB a 450 KB |
-| Front | MapLibre GL, JS sin framework | Mapa vectorial sin API key; filtros en el cliente |
+| Front | MapLibre GL, JS sin framework | Mapa vectorial sin API key; filtros y animaciones en el cliente, sin librerías de animación |
 | Orquestación | GitHub Actions | Cron semanal + disparo manual |
 | Hosting | Netlify | Deploy automático en cada push |
 

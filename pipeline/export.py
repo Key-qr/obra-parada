@@ -49,6 +49,23 @@ def _clean(v):
     return v
 
 
+def dbt_summary(run_results: Path) -> dict | None:
+    """Resume el último `dbt build` (modelos y tests) para mostrarlo en la web."""
+    if not run_results.exists():
+        return None
+    rr = json.loads(run_results.read_text(encoding="utf-8"))
+    out = {"modelos": [], "seeds": 0, "tests": {"pass": 0, "warn": 0, "error": 0, "fail": 0}, "segundos": round(rr.get("elapsed_time", 0), 2)}
+    for r in rr.get("results", []):
+        kind, name = r["unique_id"].split(".")[0], r["unique_id"].split(".")[-1]
+        if kind == "model":
+            out["modelos"].append({"nombre": name, "estado": r["status"], "segundos": round(r.get("execution_time", 0), 2)})
+        elif kind == "seed":
+            out["seeds"] += 1
+        elif kind == "test":
+            out["tests"][r["status"]] = out["tests"].get(r["status"], 0) + 1
+    return out
+
+
 def export(db_path: Path, out_dir: Path, meta_path: Path) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     con = duckdb.connect(str(db_path), read_only=True)
@@ -66,6 +83,7 @@ def export(db_path: Path, out_dir: Path, meta_path: Path) -> None:
     (out_dir / "resumen.json").write_text(json.dumps(res, ensure_ascii=False, indent=2), encoding="utf-8")
 
     meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
+    meta["dbt"] = dbt_summary(db_path.parent.parent / "dbt" / "target" / "run_results.json")
     (out_dir / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
 
     size_kb = (out_dir / "obras.json").stat().st_size / 1024

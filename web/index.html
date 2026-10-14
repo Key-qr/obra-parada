@@ -17,6 +17,8 @@
     Estás viendo <strong>datos sintéticos de prueba</strong>. Las obras, entidades y montos de esta versión son inventados.
   </div>
 
+  <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+
   <header class="site-head">
     <a class="brand" href="#top" aria-label="Obra Parada, inicio">
       <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="26" height="17" rx="1.5"/><path d="M9 22v7M23 22v7"/><path d="M8 13h16" class="brand-bar"/></svg>
@@ -32,7 +34,8 @@
 
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="cartel" role="group" aria-labelledby="hero-title">
+      <div class="cartel cartel-hero" role="group" aria-labelledby="hero-title">
+        <span class="glare" aria-hidden="true"></span>
         <span class="bolt tl"></span><span class="bolt tr"></span><span class="bolt bl"></span><span class="bolt br"></span>
         <p class="cartel-entidad">Fuente: Contraloría General de la República, informe con corte a <span data-k="corte_largo">…</span></p>
         <dl class="cartel-grid">
@@ -74,7 +77,7 @@
 
     <section class="map-section" id="mapa" aria-labelledby="mapa-title">
       <div class="section-head">
-        <h2 id="mapa-title">Mapa de obras paralizadas</h2>
+        <h2 class="decode" id="mapa-title">Mapa de obras paralizadas</h2>
         <p class="section-note">Haz clic en una zona para ver sus obras. Los filtros afectan el mapa y todo lo que está debajo.</p>
       </div>
 
@@ -146,14 +149,14 @@
     <section class="band" aria-labelledby="causas-title" id="causas">
       <div class="col">
         <div class="section-head">
-          <h2 id="causas-title">Por qué se paralizaron</h2>
+          <h2 class="decode" id="causas-title">Por qué se paralizaron</h2>
           <p class="section-note" id="causas-note">Causa declarada por la entidad ante la Contraloría.</p>
         </div>
         <div class="bars" id="bars-causal"></div>
       </div>
       <div class="col">
         <div class="section-head">
-          <h2>A un paso de terminar</h2>
+          <h2 class="decode">A un paso de terminar</h2>
           <p class="section-note">Obras con 90% o más de avance físico. Son las más baratas de destrabar.</p>
         </div>
         <ol class="obra-list compact" id="casi-list"></ol>
@@ -162,7 +165,7 @@
 
     <section class="entities" id="entidades" aria-labelledby="ent-title">
       <div class="section-head">
-        <h2 id="ent-title">Entidades con más dinero pendiente</h2>
+        <h2 class="decode" id="ent-title">Entidades con más dinero pendiente</h2>
         <p class="section-note">Tener obras paralizadas no prueba una mala gestión actual: muchas vienen de gestiones anteriores.</p>
       </div>
       <div class="table-wrap">
@@ -175,17 +178,52 @@
       </div>
     </section>
 
-    <section class="method" id="metodo" aria-labelledby="metodo-title">
-      <h2 id="metodo-title">Cómo se hizo</h2>
+    <section class="pipe" id="metodo" aria-labelledby="metodo-title">
+      <div class="pipe-head">
+        <h2 id="metodo-title" class="decode">Cómo se construye este mapa</h2>
+        <p class="section-note">De un Excel de la Contraloría a esta página, sin servidores ni pagos. Baja para ver cada paso; la terminal muestra la salida real de la última carga.</p>
+      </div>
+      <div class="pipe-grid">
+        <div class="term-wrap">
+          <div class="term">
+            <div class="term-bar"><i></i><i></i><i></i><span id="term-title">obra-parada</span></div>
+            <div class="term-body" id="term-body"></div>
+          </div>
+          <ol class="flow" id="flow" aria-hidden="true">
+            <li>gob.pe</li><li>Python</li><li>dbt + DuckDB</li><li>Web</li>
+          </ol>
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-n">1</span>
+            <h3>Descarga</h3>
+            <p>Cada lunes un workflow de GitHub Actions busca en gob.pe el último informe de obras paralizadas y descarga el Anexo 02. Si el archivo no cambió (mismo SHA-256), se detiene ahí.</p>
+          </li>
+          <li class="step">
+            <span class="step-n">2</span>
+            <h3>Lectura del Excel</h3>
+            <p>El Excel cambia de columnas entre un informe y otro. El parser busca la fila que parece cabecera y reconoce cada columna por su nombre, aunque venga con tildes, abreviada o en otro orden.</p>
+          </li>
+          <li class="step">
+            <span class="step-n">3</span>
+            <h3>Limpieza y validación</h3>
+            <p>dbt sobre DuckDB tipa los datos, ubica cada obra en su distrito con el ubigeo del INEI y corre tests: avance entre 0 y 100, saldo menor que el costo, totales que cuadran. Si algo falla, no se publica.</p>
+          </li>
+          <li class="step">
+            <span class="step-n">4</span>
+            <h3>Publicación</h3>
+            <p>Los modelos finales se exportan a JSON y se commitean al repo. Netlify publica el sitio estático; el navegador hace todos los filtros, sin base de datos en línea.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="method" aria-label="Fuente y alcance">
       <div class="method-grid">
         <div>
           <h3>De dónde salen los datos</h3>
           <p>Del <a id="src-link" href="https://www.gob.pe/institucion/contraloria/informes-publicaciones" rel="noopener">Informe de obras paralizadas en el territorio nacional</a> de la Contraloría, Anexo N.° 02. La Contraloría considera paralizada una obra que no registra avance físico por seis meses o más en Infobras.</p>
           <p class="fine" id="src-meta"></p>
-        </div>
-        <div>
-          <h3>Cómo se procesan</h3>
-          <p>Un pipeline en Python descarga el Excel, reconoce sus columnas aunque cambien de nombre entre informes y lo carga en DuckDB. Los modelos de dbt limpian, ubican cada obra en su distrito con el ubigeo del INEI y validan que los totales cuadren antes de publicar.</p>
           <p class="fine" id="geo-meta"></p>
         </div>
         <div>
@@ -201,6 +239,7 @@
   </footer>
 
   <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+  <div class="peek" id="peek" aria-hidden="true" hidden></div>
 
   <dialog class="obra-dialog" id="obra-dialog" aria-labelledby="d-nombre">
     <form method="dialog"><button class="close" aria-label="Cerrar">×</button></form>

@@ -30,5 +30,47 @@
   ],
   "filas": 900,
   "es_muestra": true,
-  "procesado": "2026-10-14T16:58:15+00:00"
+  "procesado": "2026-10-14T16:58:15+00:00",
+  "dbt": {
+    "modelos": [
+      {
+        "nombre": "stg_obras",
+        "estado": "success",
+        "segundos": 0.23
+      },
+      {
+        "nombre": "int_obras_geo",
+        "estado": "success",
+        "segundos": 0.03
+      },
+      {
+        "nombre": "fct_obras",
+        "estado": "success",
+        "segundos": 0.12
+      },
+      {
+        "nombre": "agg_entidad",
+        "estado": "success",
+        "segundos": 0.08
+      },
+      {
+        "nombre": "agg_resumen",
+        "estado": "success",
+        "segundos": 0.09
+      },
+      {
+        "nombre": "agg_zona",
+        "estado": "success",
+        "segundos": 0.11
+      }
+    ],
+    "seeds": 2,
+    "tests": {
+      "pass": 16,
+      "warn": 0,
+      "error": 0,
+      "fail": 0
+    },
+    "segundos": 1.13
+  }
 }

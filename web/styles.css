@@ -288,3 +288,174 @@ p { margin: 0 0 var(--s4); max-width: 68ch; }
   .ent-table { font-size: 15px; }
   .legend { font-size: 12px; }
 }
+
+/* =====================================================================
+   Movimiento
+   Un solo momento orquestado al cargar (el cartel se cuelga y sus cifras se
+   decodifican). El resto responde a lo que hace la persona: cursor y scroll.
+   ===================================================================== */
+
+/* barra de avance de lectura, como la barra de avance físico de una obra */
+.progress { position: fixed; inset: 0 0 auto 0; height: 4px; z-index: 50; background: transparent; pointer-events: none; }
+.progress span { display: block; height: 100%; background: var(--ambar); transform-origin: 0 50%; transform: scaleX(0); }
+
+/* el cartel del hero: se cuelga al cargar y luego sigue al cursor */
+.cartel-hero {
+  --rx: 0deg; --ry: 0deg; --gx: 50%; --gy: 50%;
+  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform .25s cubic-bezier(.2,.7,.3,1);
+  transform-style: preserve-3d;
+  animation: colgar 1s cubic-bezier(.2,.9,.25,1.15) backwards;
+}
+@keyframes colgar {
+  0%   { transform: perspective(1100px) translateY(-40px) rotateZ(-4deg); opacity: 0; }
+  60%  { transform: perspective(1100px) translateY(4px) rotateZ(1deg); opacity: 1; }
+  100% { transform: perspective(1100px) rotateX(0) rotateY(0); }
+}
+.cartel-hero .bolt { animation: perno .35s ease-out both; }
+.cartel-hero .bolt.tl { animation-delay: .55s; } .cartel-hero .bolt.tr { animation-delay: .65s; }
+.cartel-hero .bolt.bl { animation-delay: .75s; } .cartel-hero .bolt.br { animation-delay: .85s; }
+@keyframes perno { from { transform: scale(2.2); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.glare {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(circle at var(--gx) var(--gy), rgba(255,255,255,.16), transparent 45%);
+}
+.hero:hover .glare { opacity: 1; }
+.cartel-hero [data-k] { font-variant-numeric: tabular-nums; }
+
+/* tooltip del mapa como tarjeta */
+.tooltip { max-width: 300px; padding: 10px 12px; border-left: 4px solid var(--ambar); }
+.tooltip .t-sub { display: block; color: #b9c2c8; font-size: 13px; margin-bottom: 6px; }
+.tooltip .t-row { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
+.tooltip .t-row strong { font: 700 18px var(--f-cond); }
+.tooltip .t-share { display: block; height: 4px; background: rgba(255,255,255,.15); margin: 6px 0 4px; }
+.tooltip .t-share i { display: block; height: 100%; background: var(--ambar); }
+.tooltip .t-note { display: block; font-size: 12.5px; color: #c9d1d6; }
+.tooltip .t-top { display: block; font-size: 12.5px; margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,.15); }
+.tooltip .t-empty { display: block; font-size: 13px; color: #c9d1d6; }
+
+/* tarjeta que aparece al pasar el cursor sobre una obra */
+.peek {
+  position: fixed; left: 0; top: 0; z-index: 40; width: 300px; pointer-events: none;
+  background: var(--cartel); color: #fff; padding: 16px 16px 14px;
+  border: 4px solid #f2f4f6; outline: 1px solid #9aa3aa;
+  box-shadow: 0 16px 28px -14px rgba(15,30,50,.6);
+  display: grid; gap: 6px;
+  transition: transform .12s ease-out;
+}
+.peek.is-in { animation: peekIn .22s cubic-bezier(.2,.8,.3,1.2); }
+@keyframes peekIn { from { opacity: 0; scale: .92; } to { opacity: 1; scale: 1; } }
+.peek .bolt { width: 7px; height: 7px; top: 6px; }
+.peek .bolt.tl { left: 6px; } .peek .bolt.tr { right: 6px; }
+.peek .p-k { font-size: 12.5px; color: #c9d6e6; }
+.peek .p-name { font: 700 17px/1.15 var(--f-cond); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.peek .p-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 4px; font: 700 17px/1.1 var(--f-cond); }
+.peek .p-grid small { display: block; font: 400 11.5px var(--f-text); color: #c9d6e6; margin-bottom: 2px; }
+.peek .p-meter { display: block; height: 6px; background: rgba(255,255,255,.22); }
+.peek .p-meter i { display: block; height: 100%; background: var(--ambar); animation: llenar .6s ease-out; transform-origin: 0 50%; }
+@keyframes llenar { from { transform: scaleX(0); } }
+
+/* listas de obras: el monto y la barra responden al cursor */
+.obra-list button { transition: background-color .15s, padding .15s; }
+.obra-list button:hover, .obra-list button:focus-visible { background: #e8ebee; padding-left: 8px; padding-right: 8px; }
+.obra-list button:hover .o-amount { color: var(--cartel); }
+.o-bar > i { transition: background-color .15s; }
+.obra-list button:hover .o-bar > i { background: var(--ambar); }
+
+/* barras de causas: crecen al entrar en pantalla, y se pueden "encender" */
+.bars .bar-track i { transition: width .8s cubic-bezier(.2,.8,.2,1); }
+.bars:not(.is-in) .bar-track i { width: 0 !important; }
+.bar-row { padding: 4px 6px; margin: -4px -6px; transition: background-color .15s; outline-offset: 0; }
+.bar-row.is-hot { background: #fbe7bd; }
+.bar-row.is-hot .bar-track i { background: var(--ambar-osc); }
+.bars:has(.is-hot) .bar-row:not(.is-hot) { opacity: .45; }
+
+/* tabla de entidades */
+.ent-table tbody tr { transition: background-color .15s, opacity .15s; cursor: default; }
+.ent-table tbody tr.is-hot { background: #fbe7bd; }
+.ent-table tbody:has(.is-hot) tr:not(.is-hot) { opacity: .5; }
+
+/* aparición escalonada de listas y tabla */
+.obra-list.compact li, .ent-table tbody tr, .zone-stats > div { transition: opacity .5s, transform .5s; }
+.obra-list.compact:not(.is-in) li, .ent-table:not(.is-in) tbody tr, .zone-stats:not(.is-in) > div { opacity: 0; transform: translateY(10px); }
+
+/* =====================================================================
+   Cómo se construye: terminal que se escribe al hacer scroll
+   ===================================================================== */
+.pipe {
+  background: var(--cartel-2);
+  color: #e9eef3;
+  padding: var(--s8) max(var(--s5), calc((100vw - var(--wrap)) / 2 + var(--s5)));
+}
+.pipe-head { max-width: 760px; margin-bottom: var(--s6); }
+.pipe-head h2 { margin-bottom: var(--s3); }
+.pipe .section-note { color: #b7c6d6; }
+.pipe-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--s7); align-items: start; }
+.term-wrap { position: sticky; top: 12vh; }
+.term { background: #081f38; border: 1px solid #2c5684; box-shadow: 0 30px 50px -30px rgba(0,0,0,.7); }
+.term-bar { display: flex; align-items: center; gap: 6px; padding: 10px 12px; border-bottom: 1px solid #2c5684; }
+.term-bar i { width: 10px; height: 10px; border-radius: 50%; background: #3d6896; }
+.term-bar span { margin-left: 8px; font: 500 13px var(--f-text); color: #9fb5cc; }
+.term-body {
+  font: 13.5px/1.6 ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+  padding: 14px 16px 18px; height: 420px; overflow: hidden; white-space: pre-wrap; word-break: break-word;
+}
+.tl { color: #d5e0ea; }
+.tl.cmd { color: #fff; margin-top: 6px; }
+.tl:last-child::after { content: "▌"; color: var(--ambar); animation: cursor 1s steps(1) infinite; margin-left: 2px; }
+.tl.ok { color: #9ee0b0; }
+.tl.err { color: #ff9b8a; }
+.tl.dim { color: #7f9ab5; }
+.tl.map { color: #f5d38a; }
+@keyframes cursor { 50% { opacity: 0; } }
+
+.flow { list-style: none; margin: var(--s4) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: f; }
+.flow li {
+  position: relative; text-align: center; font: 600 15px var(--f-cond); color: #7f9ab5;
+  padding-top: 18px; transition: color .3s;
+}
+.flow li::before { content: ""; position: absolute; top: 4px; left: 50%; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: #2c5684; transition: background-color .3s, box-shadow .3s; }
+.flow li::after { content: ""; position: absolute; top: 8px; left: calc(50% + 8px); right: calc(-50% + 8px); height: 2px; background: #2c5684; }
+.flow li:last-child::after { display: none; }
+.flow li.is-done { color: #b7c6d6; }
+.flow li.is-done::before { background: #9ee0b0; }
+.flow li.is-done::after { background: #9ee0b0; }
+.flow li.is-active { color: #fff; }
+.flow li.is-active::before { background: var(--ambar); box-shadow: 0 0 0 6px rgba(233,162,26,.25); }
+
+.steps { list-style: none; margin: 0; padding: 0; }
+.step { min-height: 62vh; padding: 12vh 0; opacity: .32; transition: opacity .4s; }
+.step:first-child { padding-top: 4vh; }
+.step:last-child { min-height: 50vh; }
+.step.is-active { opacity: 1; }
+.step-n { font: 800 64px/1 var(--f-cond); color: transparent; -webkit-text-stroke: 1.5px #5b84ad; display: block; margin-bottom: var(--s3); transition: color .4s, -webkit-text-stroke-color .4s; }
+.step.is-active .step-n { color: var(--ambar); -webkit-text-stroke-color: var(--ambar); }
+.step h3 { font-size: 30px; margin-bottom: var(--s3); color: #fff; }
+.step p { color: #c9d6e6; font-size: 17px; }
+
+.method { padding-top: var(--s7); }
+.method-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+@media (max-width: 1020px) {
+  .pipe-grid { grid-template-columns: 1fr; gap: 0; }
+  .term-wrap { top: 8px; z-index: 2; }
+  .term-body { height: 220px; font-size: 12px; }
+  .flow { display: none; }
+  .step { min-height: 55vh; padding: 8vh 0; }
+}
+@media (pointer: coarse) { .peek { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .cartel-hero { animation: none; transform: none; }
+}
+.peek[hidden], .tooltip[hidden] { display: none; }
+
+/* tarjeta ancha con mini mapa (causas y entidades) */
+.peek.peek-wide { width: 360px; transition: none; }
+.peek .p-split { display: grid; grid-template-columns: 150px 1fr; gap: 14px; align-items: start; margin-top: 4px; }
+.peek .p-side { display: grid; gap: 8px; font: 700 18px/1.1 var(--f-cond); }
+.peek .p-side small { display: block; font: 400 11.5px var(--f-text); color: #c9d6e6; margin-bottom: 1px; }
+.peek .p-top { font: 500 13px/1.45 var(--f-text); }
+.peek .p-top b { font-weight: 600; color: var(--ambar); }
+.peek svg path { animation: encender .4s ease-out backwards; }
+@keyframes encender { from { opacity: 0; } }
+.bar-row { cursor: pointer; }
