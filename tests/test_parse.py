@@ -87,3 +87,58 @@ def test_parse_fails_loud_without_header(tmp_path):
     path = _write(tmp_path, [["a", "b"], [1, 2]])
     with pytest.raises(ValueError):
         parse_excel(path)
+
+
+# ---------- formato real del informe de junio de 2026 ----------
+from pipeline.parse import CONTROL, OBRAS, parse_control  # noqa: E402
+
+CABECERA_2026 = [
+    "N°", "CODIGO INFOBRAS", "CUI", "DESCRIPCION DE INVERSION", "DESCRIPCION OBRA", "ENTIDAD",
+    "COSTO DE OBRA SEGÚN EXP. TEC.\n(Según INFOBRAS S/)", "SALDO DE OBRA\n(Costo de obra - Avance Valorizado)",
+    "COSTO ACTUALIZADO\n(Según INVIERTE S/)", "SALDO DE LA INVERSIÓN\n(Según INVIERTE S/)", "PIM 2026",
+    "TIENE PIM 2026", "TIPO DE OBRA (Nivel 2)", "DEPARTAMENTO", "PROVINCIA", "DISTRITO", "AÑO INICIO OBRA",
+    "AVANCE FÍSICO", "RANGO AVANCE FÍSICO", "CAUSAL PARALIZACION", "DENTRO DE LA LISTA PRIORIZADA", "URL INFORME",
+]
+
+
+def test_columnas_2026_toman_costo_y_saldo_de_invierte():
+    """Hay dos costos y dos saldos; manda el de Invierte.pe (actualizado), no el del expediente."""
+    mapping, unmapped = map_headers(CABECERA_2026, OBRAS)
+    inv = {v: k for k, v in mapping.items()}
+    assert inv["costo_actualizado"].startswith("COSTO ACTUALIZADO")
+    assert inv["saldo_por_ejecutar"].startswith("SALDO DE LA INVERSIÓN")
+    assert inv["nombre_obra"] == "DESCRIPCION OBRA"
+    assert inv["anio_inicio"] == "AÑO INICIO OBRA"
+    assert inv["pim_anual"] == "PIM 2026" and inv["tiene_pim"] == "TIENE PIM 2026"
+    assert inv["avance_fisico"] == "AVANCE FÍSICO"
+    assert "RANGO AVANCE FÍSICO" in unmapped and "DESCRIPCION DE INVERSION" in unmapped
+
+
+def test_parse_2026(tmp_path):
+    fila = [1, 59, 2100376, "INVERSION X", "OBRA X", "ENTIDAD X", 1000, 0, 1200.5, 300, 0, "NO",
+            "Riego", "PUNO", "LAMPA", "CABANILLA", 2010, 78, "70 - 80 %", "15 OTROS", "SI", None]
+    path = _write(tmp_path, [CABECERA_2026, fila])
+    df = parse_excel(path).df
+    o = df.iloc[0]
+    assert o["costo_actualizado"] == 1200.5 and o["saldo_por_ejecutar"] == 300
+    assert o["monto_ejecutado"] == pytest.approx(900.5)
+    assert o["anio_inicio"] == 2010 and o["avance_fisico"] == 78
+    assert bool(o["tiene_pim"]) is False and bool(o["en_lista_priorizada"]) is True
+
+
+def test_parse_control(tmp_path):
+    path = _write(tmp_path, [
+        ["N°", "CODIGO INFOBRAS", "CUI", "OBRA", "DEPARTAMENTO OBRA", "TIPO_CONTROL", "TIPO_ACCION",
+         "ENTIDAD AUDITADA", "AÑO EMISION", "ORGANO AUDITOR", "NOMBRE SERVICIO CONTROL", "NUMERO INFORME", "TITULO INFORME",
+         "URL SPIC INFORME", "URL SPIC RESUMEN"],
+        [1, 27574, 2226480, "OBRA X", "AMAZONAS", "Control Simultáneo", "ORIENTACIÓN DE OFICIO", "GORE",
+         2017, "GERENCIA", "Orientación de Oficio", "00005-2017-CG/C", "VISITA ¿ INFORME¿", "http://x/a.pdf", "http://x/b.pdf"],
+    ])
+    res = parse_control(path)
+    c = res.df.iloc[0]
+    assert str(c["codigo_infobras"]) == "27574"
+    assert c["tipo_accion"] == "ORIENTACIÓN DE OFICIO"
+    assert int(c["anio_emision"]) == 2017
+    # caracteres rotos de la fuente: "¿" sin "?" que lo cierre
+    assert c["titulo_informe"] == "VISITA - INFORME"
+    assert set(CONTROL.order) >= {"url_informe", "url_resumen", "numero_informe"}

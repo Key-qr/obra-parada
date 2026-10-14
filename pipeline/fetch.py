@@ -72,8 +72,9 @@ OBRAS_RE = re.compile(r"lista de obras|obras p[uú]blicas paralizadas en el terr
 CONTROL_RE = re.compile(r"servicios de control", re.I)
 
 
-def attachment_urls(session: requests.Session, pub_url: str) -> list[str]:
-    """Adjuntos Excel de la publicación, primero el de la lista de obras."""
+def attachment_urls(session: requests.Session, pub_url: str, kind: str = "obras") -> list[str]:
+    """Adjuntos Excel de la publicación del tipo pedido: "obras" (lista de obras)
+    o "control" (servicios de control). Se reconocen por el título de la tarjeta."""
     resp = session.get(pub_url, headers=HEADERS, timeout=60)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
@@ -87,9 +88,12 @@ def attachment_urls(session: requests.Session, pub_url: str) -> list[str]:
         # El título del adjunto está en la tarjeta que contiene el enlace.
         card = a.find_parent(["article", "li", "div"]) or a
         text = " ".join(card.get_text(" ").split())
-        if CONTROL_RE.search(text):
-            continue
-        found.append((0 if OBRAS_RE.search(text) else 1, urljoin(BASE, href)))
+        es_control = bool(CONTROL_RE.search(text))
+        if kind == "control":
+            if es_control:
+                found.append((0, urljoin(BASE, href)))
+        elif not es_control:
+            found.append((0 if OBRAS_RE.search(text) else 1, urljoin(BASE, href)))
     return [u for _, u in sorted(found)]
 
 
@@ -110,13 +114,17 @@ def download(session: requests.Session, url: str, dest_dir: Path) -> Path:
     return path
 
 
-def fetch_latest(dest_dir: Path) -> tuple[Path, Publication]:
+def fetch_latest(dest_dir: Path) -> tuple[Path, Path | None, Publication]:
+    """Descarga la lista de obras y, si está, la base de servicios de control."""
     with requests.Session() as s:
         pubs = list_publications(s)
         if not pubs:
             raise RuntimeError("No encontré publicaciones de obras paralizadas en gob.pe")
         for pub in pubs:
-            urls = attachment_urls(s, pub.url)
+            urls = attachment_urls(s, pub.url, "obras")
             if urls:
-                return download(s, urls[0], dest_dir), pub
+                obras = download(s, urls[0], dest_dir)
+                ctrl_urls = attachment_urls(s, pub.url, "control")
+                control = download(s, ctrl_urls[0], dest_dir) if ctrl_urls else None
+                return obras, control, pub
         raise RuntimeError("Encontré informes pero ninguno trae la base en Excel adjunta")

@@ -21,8 +21,8 @@ jobs:
         run: make test
       - name: Pipeline con datos sintéticos (ingest + dbt build + export)
         run: |
-          python scripts/make_fixture.py data/raw/fixture_anexo02.xlsx --rows 900
-          python -m pipeline.cli ingest --file data/raw/fixture_anexo02.xlsx --corte 2026-06 --sample
+          python scripts/make_fixture.py data/raw/fixture_anexo01.xlsx --control data/raw/fixture_anexo02.xlsx --rows 900
+          python -m pipeline.cli ingest --file data/raw/fixture_anexo01.xlsx --control-file data/raw/fixture_anexo02.xlsx --corte 2026-06 --sample
           make transform
           python -c "
           import duckdb; c = duckdb.connect('data/warehouse.duckdb', read_only=True)

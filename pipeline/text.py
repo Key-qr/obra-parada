@@ -9,6 +9,9 @@ ALIASES = {
     "lima metropolitana": "lima",
     "lima provincias": "lima",
     "region lima": "lima",
+    "p c del callao": "callao",
+    "prov const del callao": "callao",
+    "provincia constitucional callao": "callao",
 }
 
 

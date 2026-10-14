@@ -23,17 +23,48 @@ export function tipoDe(nombre) {
 }
 const iconSvg = (t) => `<svg viewBox="0 0 24 24" aria-hidden="true">${TIPOS.find((x) => x.id === t).icon}</svg>`;
 
+// Ícono para un tipo de obra cualquiera (los de la Contraloría o los inferidos).
+const ICONOS = [
+  [/puente/, "Puentes"], [/riego|agrari|pecuari/, "Riego"], [/educ|colegio|cultur/, "Colegios"],
+  [/salud|atencion medica|sanitari|hospital/, "Salud"], [/agua|saneamiento|residuo/, "Agua y desagüe"],
+  [/deport|recrea|verde|ornato|turismo/, "Deporte y recreación"], [/transporte|vial|camino|pista/, "Pistas y caminos"],
+];
+const EXTRA = {
+  energia: '<path d="M13 3 5 13h6l-1 8 8-10h-6l1-8Z"/>',
+  seguridad: '<path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6l-8-3Z"/>',
+  comunicacion: '<path d="M12 21V11M8 8a6 6 0 0 1 8 0M5 5a10 10 0 0 1 14 0"/><circle cx="12" cy="11" r="1.5"/>',
+  vivienda: '<path d="M4 11 12 4l8 7M6 10v10h12V10"/>',
+};
+function iconFor(nombre) {
+  const n = strip(nombre);
+  if (/energ|electric/.test(n)) return `<svg viewBox="0 0 24 24" aria-hidden="true">${EXTRA.energia}</svg>`;
+  if (/seguridad|orden|defensa|readapt|social/.test(n)) return `<svg viewBox="0 0 24 24" aria-hidden="true">${EXTRA.seguridad}</svg>`;
+  if (/comunica|telecom/.test(n)) return `<svg viewBox="0 0 24 24" aria-hidden="true">${EXTRA.comunicacion}</svg>`;
+  if (/vivienda|urbano y rural/.test(n) && !/saneamiento/.test(n)) return `<svg viewBox="0 0 24 24" aria-hidden="true">${EXTRA.vivienda}</svg>`;
+  const hit = ICONOS.find(([re]) => re.test(n));
+  return iconSvg(hit ? hit[1] : "Otras");
+}
+
 // ---------- tipos ----------
 export function renderTipos(scope, h) {
   const grid = document.getElementById("tipo-grid");
   const tot = scope.reduce((s, o) => s + (o.saldo || 0), 0) || 1;
-  const by = new Map(TIPOS.map((t) => [t.id, { n: 0, saldo: 0, av: [] }]));
-  for (const o of scope) { const a = by.get(o.tipo); a.n++; a.saldo += o.saldo || 0; a.av.push(o.avance); }
-  const items = TIPOS.map((t) => ({ t, ...by.get(t.id) })).filter((x) => x.n || x.t.id === h.state.tipo);
+  const by = new Map();
+  for (const o of scope) {
+    const a = by.get(o.tipo) || { n: 0, saldo: 0, av: [] };
+    a.n++; a.saldo += o.saldo || 0; a.av.push(o.avance); by.set(o.tipo, a);
+  }
+  if (h.state.tipo && !by.has(h.state.tipo)) by.set(h.state.tipo, { n: 0, saldo: 0, av: [] });
+  // Los 12 tipos con más dinero pendiente; el resto queda en el filtro "Tipo de obra".
+  const all = [...by.entries()].sort((a, b) => b[1].saldo - a[1].saldo);
+  const shown = all.slice(0, 12);
+  if (h.state.tipo && !shown.some(([k]) => k === h.state.tipo)) shown.push(all.find(([k]) => k === h.state.tipo));
+  const items = shown.map(([id, a]) => ({ t: { id }, ...a }));
+  document.getElementById("tipos-note").textContent = `Tipo de obra según la clasificación de la Contraloría, ordenado por dinero pendiente${all.length > shown.length ? `; hay ${all.length - shown.length} tipos más en el filtro del mapa` : ""}. Pasa el cursor para ver ejemplos; haz clic para filtrar.`;
   grid.innerHTML = items.map(({ t, n, saldo, av }) => `
     <li><button type="button" class="tipo${h.state.tipo === t.id ? " is-on" : ""}" data-tipo="${t.id}" aria-pressed="${h.state.tipo === t.id}">
-      ${iconSvg(t.id)}
-      <span class="tipo-name">${t.id}</span>
+      ${iconFor(t.id)}
+      <span class="tipo-name">${h.esc(t.id)}</span>
       <span class="tipo-n" data-n="${n}">${h.nf.format(n)}</span>
       <span class="tipo-sub">${n === 1 ? "obra" : "obras"}, ${h.solesCorto(saldo)} pendientes</span>
       <span class="tipo-bar" aria-hidden="true"><i style="width:${(saldo / tot) * 100}%"></i></span>
@@ -82,7 +113,10 @@ export function renderRecords(obras, h) {
   const max = (arr, f) => arr.reduce((a, o) => (f(o) > f(a) ? o : a), arr[0]);
   const conDato = (k) => obras.filter((o) => o[k] != null);
   const saldo = max(obras, (o) => o.saldo || 0);
-  const viejo = max(conDato("anios"), (o) => o.anios);
+  const viejo = max(conDato("ini"), (o) => -o.ini);
+  const masCtrl = max(obras, (o) => o.nctrl || 0);
+  const masPim = max(obras, (o) => o.pim || 0);
+  const sinCtrl = max(obras.filter((o) => !o.nctrl), (o) => o.saldo || 0);
   const casi = max(obras.filter((o) => o.avance != null && o.avance < 100 && (o.saldo || 0) > 0), (o) => o.avance);
   const cuenta = (k) => { const m = new Map(); for (const o of obras) if (o[k]) m.set(o[k], (m.get(o[k]) || 0) + 1); return [...m.entries()].sort((a, b) => b[1] - a[1])[0]; };
   const [ent, entN] = cuenta("entidad") || [];
@@ -95,10 +129,13 @@ export function renderRecords(obras, h) {
 
   const cards = [
     { k: "La obra con más dinero pendiente", v: h.soles(saldo.saldo), name: saldo.nombre, sub: lugar(saldo), act: `obra:${saldo._i}` },
-    { k: "La que lleva más tiempo parada", v: h.anios(viejo?.anios), name: viejo?.nombre, sub: `${lugar(viejo)}. Desde ${h.fecha(viejo?.f_paral)}`, act: `obra:${viejo?._i}` },
+    { k: "La obra más antigua", v: `Empezó en ${viejo?.ini}`, name: viejo?.nombre, sub: `${lugar(viejo)}. Avance ${viejo?.avance != null ? h.nf1.format(viejo.avance) + "%" : "sin dato"}`, act: `obra:${viejo?._i}` },
     { k: "Se paró casi terminada", v: `${h.nf1.format(casi?.avance)}%`, name: casi?.nombre, sub: `${lugar(casi)}. Le falta ${h.soles(casi?.saldo)}`, act: `obra:${casi?._i}` },
     { k: "La entidad con más obras paralizadas", v: `${h.nf.format(entN)} obras`, name: h.titulo(ent), sub: "Ver en la tabla de entidades", act: "ent" },
     { k: "El distrito con más obras paralizadas", v: `${h.nf.format(distN)} obras`, name: distObra?.dist, sub: [distObra?.prov, distObra?.dep].filter(Boolean).join(", "), act: `zona:distrito:${dist}` },
+    ...(masCtrl?.nctrl ? [{ k: "La obra con más servicios de control", v: `${h.nf.format(masCtrl.nctrl)} controles`, name: masCtrl.nombre, sub: `${lugar(masCtrl)}. Ver sus informes`, act: `ctrl:${masCtrl.id}` }] : []),
+    ...(masPim?.pim ? [{ k: "La que más presupuesto tiene este año", v: h.soles(masPim.pim), name: masPim.nombre, sub: `${lugar(masPim)}. Le falta ${h.soles(masPim.saldo)}`, act: `obra:${masPim._i}` }] : []),
+    ...(masCtrl?.nctrl && sinCtrl ? [{ k: "La más cara que nunca tuvo un control", v: h.soles(sinCtrl.saldo), name: sinCtrl.nombre, sub: `${lugar(sinCtrl)}. Cero servicios de control`, act: `obra:${sinCtrl._i}` }] : []),
     { k: "El departamento con más dinero parado", v: h.soles(depV), name: depObra?.dep, sub: `${h.nf.format(obras.filter((o) => o.u_dep === dep).length)} obras`, act: `zona:departamento:${dep}` },
   ];
   const grid = document.getElementById("rec-grid");
@@ -115,6 +152,7 @@ export function renderRecords(obras, h) {
     const [kind, a, c] = b.dataset.act.split(":");
     if (kind === "obra") h.openObra(Number(a));
     else if (kind === "ent") { document.querySelector('[data-sort="obras"]').click(); document.getElementById("entidades").scrollIntoView({ behavior: h.reduced ? "auto" : "smooth" }); }
+    else if (kind === "ctrl") h.verControles(a);
     else if (kind === "zona") { document.getElementById("mapa").scrollIntoView({ behavior: h.reduced ? "auto" : "smooth" }); h.select(a, c); }
   });
 }
@@ -123,17 +161,15 @@ export function renderRecords(obras, h) {
 export function renderTimeline(scope, h) {
   const el = document.getElementById("timeline");
   const metric = h.state.tlMetric;
-  const corteY = Number((h.meta.corte || "").slice(0, 4)) || new Date().getFullYear();
   const years = new Map();
   let sinFecha = 0;
   for (const o of scope) {
-    if (!o.f_paral) { sinFecha++; continue; }
-    const y = Number(o.f_paral.slice(0, 4));
-    const a = years.get(y) || { obras: 0, saldo: 0 };
-    a.obras++; a.saldo += o.saldo || 0; years.set(y, a);
+    if (!o.ini) { sinFecha++; continue; }
+    const a = years.get(o.ini) || { obras: 0, saldo: 0 };
+    a.obras++; a.saldo += o.saldo || 0; years.set(o.ini, a);
   }
-  if (!years.size) { el.innerHTML = `<p class="empty-note">Sin fechas de paralización con estos filtros.</p>`; return; }
-  const y0 = Math.min(...years.keys()), y1 = Math.max(corteY, ...years.keys());
+  if (!years.size) { el.innerHTML = `<p class="empty-note">Sin año de inicio con estos filtros.</p>`; return; }
+  const y0 = Math.min(...years.keys()), y1 = Math.max(...years.keys());
   const list = []; for (let y = y0; y <= y1; y++) list.push([y, years.get(y) || { obras: 0, saldo: 0 }]);
   const max = Math.max(1, ...list.map(([, a]) => a[metric]));
   const peak = list.reduce((a, b) => (b[1][metric] > a[1][metric] ? b : a));
@@ -144,7 +180,7 @@ export function renderTimeline(scope, h) {
       <span class="tl-y">${list.length > 12 ? "’" + String(y).slice(2) : y}</span>
     </div>`).join("")}</div>`;
   document.getElementById("tl-note").textContent =
-    `Según el año en que dejaron de avanzar. El año con más ${metric === "saldo" ? "dinero parado" : "obras paralizadas"} fue ${peak[0]}.${sinFecha ? ` ${h.nf.format(sinFecha)} sin fecha.` : ""}`;
+    `Obras paralizadas según el año en que empezaron. El año con más ${metric === "saldo" ? "dinero hoy parado" : "obras"} fue ${peak[0]}.${sinFecha ? ` ${h.nf.format(sinFecha)} sin año declarado.` : ""}`;
 }
 
 // ---------- nivel de gobierno y modalidad ----------
@@ -175,7 +211,7 @@ export function renderGob(scope, h) {
   document.getElementById("mod-body").innerHTML = [...mm.entries()].sort((a, b) => b[1].length - a[1].length).map(([k, arr]) => `
     <tr><td>${h.esc(k)}</td><td class="num">${h.nf.format(arr.length)}</td>
     <td class="num">${h.nf1.format(h.median(arr.map((o) => o.avance)) ?? 0)}%</td>
-    <td class="num">${h.anios(h.median(arr.map((o) => o.anios)))}</td>
+    <td class="num">${h.anio(h.median(arr.map((o) => o.ini)))}</td>
     <td class="num">${h.soles(arr.reduce((s, o) => s + (o.saldo || 0), 0))}</td></tr>`).join("");
 }
 
@@ -194,7 +230,8 @@ export function initCompare(obras, h) {
     const top = (k) => { const m = new Map(); for (const o of rows) m.set(o[k], (m.get(o[k]) || 0) + (o.saldo || 0)); return [...m.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] || "–"; };
     return {
       obras: rows.length, saldo: sum(rows), costo: rows.reduce((s, o) => s + (o.costo || 0), 0),
-      avance: h.median(rows.map((o) => o.avance)) ?? 0, anios: h.median(rows.map((o) => o.anios)) ?? 0,
+      avance: h.median(rows.map((o) => o.avance)) ?? 0, antig: h.median(rows.map((o) => o.antig)) ?? 0,
+      pim: rows.filter((o) => o.con_pim === true).length, ctrl: rows.reduce((s, o) => s + (o.nctrl || 0), 0),
       casi: rows.filter((o) => (o.avance ?? 0) >= 90).length, causa: top("causal"), tipo: top("tipo"),
     };
   };
@@ -203,7 +240,9 @@ export function initCompare(obras, h) {
     ["saldo", "Falta ejecutar", h.solesCorto],
     ["costo", "Costo actualizado", h.solesCorto],
     ["avance", "Avance mediano", (v) => `${h.nf1.format(v)}%`],
-    ["anios", "Tiempo parada (mediana)", h.anios],
+    ["antig", "Años desde que empezaron (mediana)", (v) => `${h.nf1.format(v)} años`],
+    ["pim", "Con presupuesto este año", (v) => h.nf.format(v)],
+    ["ctrl", "Servicios de control", (v) => h.nf.format(v)],
     ["casi", "Construidas al 90% o más", (v) => h.nf.format(v)],
   ];
   const board = document.getElementById("cmp-board");

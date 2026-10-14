@@ -18,7 +18,8 @@ select
     sum(saldo_por_ejecutar)                             as saldo_por_ejecutar,
     count(*) filter (where avance_fisico >= 50)         as obras_mitad_o_mas,
     count(*) filter (where avance_fisico >= 90)         as obras_casi_terminadas,
-    median(anios_paralizada)                            as mediana_anios_paralizada
+    median(anios_paralizada)                            as mediana_anios_paralizada,
+    median(anio_inicio)                                 as mediana_anio_inicio
 from {{ ref('fct_obras') }}
 where {{ col }} is not null
 group by {{ col }}

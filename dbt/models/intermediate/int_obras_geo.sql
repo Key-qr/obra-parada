@@ -1,5 +1,7 @@
 -- Geolocaliza cada obra al nivel más fino posible.
--- Orden de intento: ubigeo de la fuente > dep+prov+dist > dep+dist > provincia > departamento.
+-- Orden de intento: ubigeo de la fuente > dep+prov+dist > dep+dist > nombre parecido
+-- dentro de la misma provincia (Raimondi/Raymondi, "Pueblo Libre (Magdalena Vieja)")
+-- > provincia > departamento.
 -- Los distritos creados después del límite INEI 2007 no están en el mapa y caen a su provincia.
 with obras as (select * from {{ ref('stg_obras') }}),
 dim as (select * from {{ ref('dim_ubigeo') }}),
@@ -17,14 +19,32 @@ dist_por_dep as (
     from dim group by 1, 2 having count(*) = 1
 ),
 
+-- Coincidencia aproximada del distrito dentro de su provincia: el más parecido
+-- por Jaro-Winkler, o el que es prefijo del nombre de la fuente.
+aprox as (
+    select
+        o.obra_sk,
+        arg_max(d.ubigeo, case when starts_with(o.distrito_key, d.distrito_key || ' ') then 1.0
+                               else jaro_winkler_similarity(o.distrito_key, d.distrito_key) end) as ubigeo,
+        max(case when starts_with(o.distrito_key, d.distrito_key || ' ') then 1.0
+                 else jaro_winkler_similarity(o.distrito_key, d.distrito_key) end)                as score
+    from obras o
+    join dim d
+      on d.departamento_key = o.departamento_key
+     and d.provincia_key = o.provincia_key
+    where o.distrito_key <> ''
+    group by o.obra_sk
+),
+
 matched as (
     select
         o.*,
-        coalesce(d_src.ubigeo, d_full.ubigeo, d_dep.ubigeo)          as ubigeo_distrito,
+        coalesce(d_src.ubigeo, d_full.ubigeo, d_dep.ubigeo, ap.ubigeo) as ubigeo_distrito,
         case
             when d_src.ubigeo  is not null then 'ubigeo_fuente'
             when d_full.ubigeo is not null then 'dep_prov_dist'
             when d_dep.ubigeo  is not null then 'dep_dist'
+            when ap.ubigeo     is not null then 'dist_aproximado'
             when p.ubigeo_prov is not null then 'provincia'
             when dp.ubigeo_dep is not null then 'departamento'
             else 'sin_match'
@@ -41,6 +61,9 @@ matched as (
     left join dist_por_dep d_dep
         on d_dep.departamento_key = o.departamento_key
        and d_dep.distrito_key = o.distrito_key
+    left join aprox ap
+        on ap.obra_sk = o.obra_sk
+       and ap.score >= 0.9
     left join provincias p
         on p.departamento_key = o.departamento_key
        and p.provincia_key = o.provincia_key

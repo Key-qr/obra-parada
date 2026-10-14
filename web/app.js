@@ -3,6 +3,7 @@
 import { reduced, scramble, decodeOnView, countTo, readingProgress, revealOnView, makeTerminal, scrollSteps } from "./motion.js";
 import { createDots } from "./dots.js";
 import { TIPOS, tipoDe, renderTipos, bindTipos, renderRecords, renderTimeline, renderGob, initCompare } from "./sections.js";
+import { initControl, setFiltros } from "./control.js";
 
 const NIVELES = {
   departamento: { key: "u_dep", geo: "data/geo/departamentos.json", label: "Departamento" },
@@ -17,7 +18,7 @@ const PAGE = 12;
 const state = {
   nivel: "departamento",
   metrica: "saldo",
-  gob: "", causal: "", sector: "", tipo: "", mitad: false,
+  gob: "", causal: "", sector: "", tipo: "", pim: "", mitad: false,
   tlMetric: "obras",
   sel: null,          // { nivel, ubigeo }
   entSort: "saldo",
@@ -26,6 +27,8 @@ const state = {
 };
 
 let OBRAS = [];
+let CONTROL = [];
+let OBRA_POR_ID = new Map();
 let GEO = {};          // nivel -> FeatureCollection
 let ZONES = {};        // nivel -> Map(ubigeo -> {nombre, padre, bbox})
 let map;
@@ -61,6 +64,8 @@ function anios(v) {
   if (v == null) return "–";
   return v < 1 ? `${Math.round(v * 12)} meses` : `${nf1.format(v)} años`;
 }
+// Año suelto, sin separador de miles.
+const anio = (v) => (v == null ? "–" : String(Math.round(v)));
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const norm = (s) => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
 
@@ -72,14 +77,19 @@ async function getJSON(url) {
 }
 
 async function load() {
-  const [obras, resumen, meta, ...topos] = await Promise.all([
+  const [obras, resumen, meta, control, ...topos] = await Promise.all([
     getJSON("data/obras.json"),
     getJSON("data/resumen.json"),
     getJSON("data/meta.json"),
+    // La base de servicios de control es opcional.
+    getJSON("data/control.json").catch(() => ({ cols: [], rows: [] })),
     ...Object.values(NIVELES).map((n) => getJSON(n.geo)),
   ]);
   OBRAS = obras.rows.map((r) => Object.fromEntries(obras.cols.map((c, i) => [c, r[i]])));
-  OBRAS.forEach((o, i) => { o._i = i; o.tipo = tipoDe(o.nombre); });
+  // Tipo de obra: el de la Contraloría (nivel 2) si viene; si no, por palabras del nombre.
+  OBRAS.forEach((o, i) => { o._i = i; o.tipo = o.tipo2 || tipoDe(o.nombre); o.nctrl = o.nctrl || 0; });
+  OBRA_POR_ID = new Map(OBRAS.map((o) => [String(o.id), o]));
+  CONTROL = control.rows.map((r) => Object.fromEntries(control.cols.map((c, i) => [c, r[i]])));
 
   Object.keys(NIVELES).forEach((nivel, i) => {
     const topo = topos[i];
@@ -128,6 +138,7 @@ function filtered() {
     (!state.causal || o.causal === state.causal) &&
     (!state.sector || o.sector === state.sector) &&
     (!state.tipo || o.tipo === state.tipo) &&
+    (!state.pim || (state.pim === "si" ? o.con_pim === true : o.con_pim === false)) &&
     (!state.mitad || (o.avance ?? 0) >= 50)
   );
 }
@@ -263,7 +274,7 @@ let tipCache = { key: "", rows: [] };
 function zoneTip(nivel, id, z, st) {
   const head = `<b>${esc(z?.nombre)}</b>${z?.padre ? `<span class="t-sub">${esc(z.padre)}</span>` : ""}`;
   if (!st.obras) return `${head}<span class="t-empty">Sin obras paralizadas con estos filtros</span>`;
-  const cacheKey = JSON.stringify([state.gob, state.causal, state.sector, state.mitad]);
+  const cacheKey = JSON.stringify([state.gob, state.causal, state.sector, state.tipo, state.pim, state.mitad]);
   if (tipCache.key !== cacheKey) tipCache = { key: cacheKey, rows: filtered() };
   const key = NIVELES[nivel].key;
   const enZona = tipCache.rows.filter((o) => o[key] === id);
@@ -427,7 +438,11 @@ function render() {
 // Helpers que usan las secciones de sections.js.
 let META = {};
 const H = {
-  state, nf, nf1, soles, solesCorto, anios, fecha, median, countTo, esc, titulo, reduced,
+  state, nf, nf1, soles, solesCorto, anios, anio, fecha, median, countTo, esc, titulo, reduced,
+  get control() { return CONTROL; },
+  get obras() { return OBRAS; },
+  verControles: (id) => verControles(id),
+  obraPorId: (id) => OBRA_POR_ID.get(String(id)),
   get meta() { return META; },
   openObra: (i) => openObra(i),
   select: (n, u) => select(n, u),
@@ -463,7 +478,7 @@ function renderZone(scope) {
   countTo(document.getElementById("z-obras"), scope.length, (v) => nf.format(Math.round(v)));
   countTo(document.getElementById("z-saldo"), saldo, solesCorto);
   countTo(document.getElementById("z-costo"), costo, solesCorto);
-  document.getElementById("z-anios").textContent = anios(median(scope.map((o) => o.anios)));
+  document.getElementById("z-anios").textContent = anio(median(scope.map((o) => o.ini)));
 
   const list = document.getElementById("zone-list");
   const sorted = [...scope].sort((a, b) => (b.saldo || 0) - (a.saldo || 0));
@@ -533,7 +548,17 @@ function openObra(i) {
   set("d-saldo", soles(o.saldo));
   set("d-avance", o.avance != null ? `${nf1.format(o.avance)}%` : "Sin dato");
   document.getElementById("d-meter").style.width = `${o.avance ?? 0}%`;
-  set("d-fecha", o.f_paral ? `${fecha(o.f_paral)} (${anios(o.anios)} al corte)` : "Sin dato");
+  set("d-fecha", o.ini ? `${o.ini}${o.antig != null ? `, hace ${o.antig} ${o.antig === 1 ? "año" : "años"}` : ""}${o.plazo ? `. Plazo previsto: ${nf.format(o.plazo)} días` : ""}` : "Sin dato");
+  set("d-tipo", [o.tipo1, o.tipo2, o.tipo3].filter((v, k, a) => v && a.indexOf(v) === k).join(" / ") || o.tipo || "Sin dato");
+  set("d-evento", o.evento || "Sin dato");
+  set("d-pim", o.con_pim == null ? "Sin dato" : o.con_pim ? `Sí: ${soles(o.pim)} asignados en ${(META.corte || "").slice(0, 4) || "el año"}` : "No tiene presupuesto asignado este año");
+  const link = (url, txt) => (url ? ` <a href="${esc(url)}" target="_blank" rel="noopener">${txt}</a>` : "");
+  document.getElementById("d-prior").innerHTML = o.prior == null ? "Sin dato" : o.prior ? `Sí, está priorizada para reactivarse.${link(o.url_res, "Ver resolución")}` : "No";
+  document.getElementById("d-sit").innerHTML = o.url_sit ? `Hay un informe de estado situacional en Invierte.pe.${link(o.url_sit, "Ver informe")}` : o.inv_mef ? "Está en el inventario del MEF, sin informe enlazado." : "No figura en el inventario del MEF.";
+  const ctrlBox = document.getElementById("d-ctrl");
+  ctrlBox.innerHTML = o.nctrl
+    ? `${nf.format(o.nctrl)} ${o.nctrl === 1 ? "servicio de control" : "servicios de control"} de la Contraloría. <button type="button" class="link-btn" id="d-ver-ctrl">Ver sus informes</button>`
+    : "La Contraloría no registra servicios de control a esta obra.";
   set("d-causal", o.causal || "Sin dato");
   set("d-modalidad", o.modalidad || "Sin dato");
   set("d-sector", o.sector || "Sin dato");
@@ -640,6 +665,7 @@ function initControls() {
   });
   document.getElementById("obra-dialog").addEventListener("click", (e) => {
     if (e.target.id === "obra-dialog") e.target.close();
+    if (e.target.id === "d-ver-ctrl") verControles(OBRAS[dialogObra].id);
   });
   initHovers();
   document.getElementById("btn-azar").addEventListener("click", obraAlAzar);
@@ -647,6 +673,7 @@ function initControls() {
   document.getElementById("d-ver").addEventListener("click", () => {
     const o = OBRAS[dialogObra];
     document.getElementById("obra-dialog").close();
+    if (VIEW === "control") showView("obras", { keepScroll: false });
     const nivel = o.u_dist && ZONES.distrito.get(o.u_dist)?.bbox ? "distrito" : o.u_prov ? "provincia" : "departamento";
     const id = nivel === "distrito" ? o.u_dist : nivel === "provincia" ? o.u_prov : o.u_dep;
     document.getElementById("mapa").scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
@@ -780,7 +807,7 @@ function initHovers() {
         <span class="p-grid">
           <span><small>Costo</small>${solesCorto(o.costo)}</span>
           <span><small>Falta</small>${solesCorto(o.saldo)}</span>
-          <span><small>Parada hace</small>${anios(o.anios)}</span>
+          <span><small>Empezó en</small>${anio(o.ini)}</span>
         </span>
         <span class="p-meter"><i style="width:${o.avance ?? 0}%"></i></span>
         <span class="p-k">${o.avance != null ? `${nf1.format(o.avance)}% construida` : "Avance sin dato"}. ${esc(o.causal || "")}</span>`;
@@ -894,6 +921,10 @@ function renderHero(resumen, meta) {
   set("costo", soles(resumen.costo_actualizado));
   set("saldo", soles(resumen.saldo_por_ejecutar));
   set("mitad", nf.format(resumen.obras_mitad_o_mas));
+  if (CONTROL.length) {
+    set("servicios", nf.format(CONTROL.length));
+    set("obras_ctrl", nf.format(new Set(CONTROL.map((c) => c.id)).size));
+  } else document.querySelectorAll(".needs-control").forEach((el) => (el.hidden = true));
   if (meta.corte) {
     const [y, m] = meta.corte.split("-").map(Number);
     set("corte_largo", `${MESES[m - 1]} de ${y}`);
@@ -936,18 +967,24 @@ function initStory() {
   }
   const causas = [...porCausa.entries()].sort((a, b) => b[1].saldo - a[1].saldo);
   const [top, segunda, tercera] = causas;
-  const med = median(all.map((o) => o.anios));
+  const med = median(all.map((o) => o.ini));
   const casi = all.filter((o) => (o.avance ?? 0) >= 90);
   const saldoTotal = all.reduce((s, o) => s + (o.saldo || 0), 0) || 1;
   const saldoCasi = casi.reduce((s, o) => s + (o.saldo || 0), 0);
-  const mas3 = all.filter((o) => (o.anios ?? 0) > 3).length;
+  const mas10 = all.filter((o) => (o.antig ?? 0) >= 10).length;
+  const minIni = Math.min(...all.map((o) => o.ini).filter(Boolean));
+  const conPim = all.filter((o) => o.con_pim === true);
+  const sinPim = all.filter((o) => o.con_pim === false).length;
+  const prior = all.filter((o) => o.prior === true).length;
   const S = {
     obras: nf.format(all.length),
     mitad: nf.format(all.filter((o) => (o.avance ?? 0) >= 50).length),
     topcausa: `"${(top?.[0] || "").toLowerCase()}"`,
     causa_det: top ? `${nf.format(top[1].n)} obras y ${soles(top[1].saldo)} pendientes. Le siguen ${(segunda?.[0] || "").toLowerCase()} y ${(tercera?.[0] || "").toLowerCase()}.` : "",
-    mediana: anios(med),
-    tiempo_det: `${nf.format(mas3)} obras pasan los tres años sin ningún avance. A la derecha del gráfico están las más antiguas.`,
+    mediana: anio(med),
+    tiempo_det: `${nf.format(mas10)} obras empezaron hace diez años o más y siguen sin terminarse. La más antigua es de ${minIni}. Las más viejas están a la izquierda del gráfico.`,
+    pim: nf.format(conPim.length),
+    pim_det: `Entre todas suman ${soles(conPim.reduce((s, o) => s + (o.pim || 0), 0))} de presupuesto para el año. Las otras ${nf.format(sinPim)} no tienen ni un sol asignado${prior ? `, y ${nf.format(prior)} figuran en la lista priorizada del MEF para reactivarse` : ""}.`,
     casi: nf.format(casi.length),
     casi_det: `Terminarlas costaría ${soles(saldoCasi)}: el ${nf1.format((saldoCasi / saldoTotal) * 100)}% de todo lo que falta ejecutar. Son las que más rápido se podrían destrabar.`,
   };
@@ -956,7 +993,8 @@ function initStory() {
   const HL = {
     mitad: (o) => (o.avance ?? 0) >= 50,
     topcausa: (o) => o.causal === top?.[0],
-    mediana: (o) => (o.anios ?? 0) > (med ?? 0),
+    mediana: (o) => (o.ini ?? 9999) <= (med ?? 0),
+    pim: (o) => o.con_pim === true,
     casi: (o) => (o.avance ?? 0) >= 90,
   };
   const tabs = [...document.querySelectorAll(".mode-tabs [data-mode]")];
@@ -986,7 +1024,7 @@ function obraTip(o, x, y) {
     <span class="t-sub">${esc(lugar)}</span>
     <span class="t-row"><span>Falta ejecutar</span><strong>${solesCorto(o.saldo)}</strong></span>
     <span class="t-share"><i style="width:${o.avance ?? 0}%"></i></span>
-    <span class="t-note">${o.avance != null ? `${nf1.format(o.avance)}% construida` : "Avance sin dato"}${o.anios != null ? `, parada hace ${anios(o.anios)}` : ""}. ${esc(o.causal || "")}. Clic para ver la ficha.</span>`;
+    <span class="t-note">${o.avance != null ? `${nf1.format(o.avance)}% construida` : "Avance sin dato"}${o.ini ? `, empezó en ${o.ini}` : ""}. ${esc(o.causal || "")}. Clic para ver la ficha.</span>`;
   tip.hidden = false;
   tip.style.left = `${Math.min(x + 16, innerWidth - tip.offsetWidth - 8)}px`;
   tip.style.top = `${Math.min(y + 16, innerHeight - tip.offsetHeight - 8)}px`;
@@ -1006,7 +1044,7 @@ function initTicker() {
   const item = (o) => `<button type="button" class="ticker-item" data-i="${o._i}">
     <span>${esc(o.nombre.length > 64 ? o.nombre.slice(0, 62) + "…" : o.nombre)}</span>
     <small>${esc(o.dist || o.prov || o.dep || "")}</small><b>${solesCorto(o.saldo)}</b>
-    <small>${o.anios != null ? `parada hace ${anios(o.anios)}` : ""}</small></button>`;
+    <small>${o.ini ? `empezó en ${o.ini}` : ""}</small></button>`;
   // Dos copias seguidas para que el bucle no tenga corte.
   track.innerHTML = top.map(item).join("") + `<span aria-hidden="true" style="display:contents">${top.map(item).join("")}</span>`;
   track.querySelectorAll("[aria-hidden] button").forEach((b) => (b.tabIndex = -1));
@@ -1074,7 +1112,8 @@ function initZoneActions() {
     const cols = [["id", "codigo_infobras"], ["cui", "cui"], ["nombre", "nombre_obra"], ["entidad", "entidad"], ["nivel", "nivel_gobierno"],
       ["dep", "departamento"], ["prov", "provincia"], ["dist", "distrito"], ["sector", "sector"], ["causal", "causal_paralizacion"],
       ["costo", "costo_actualizado"], ["ejecutado", "monto_ejecutado"], ["saldo", "saldo_por_ejecutar"], ["avance", "avance_fisico"],
-      ["f_paral", "fecha_paralizacion"], ["anios", "anios_paralizada"]];
+      ["ini", "anio_inicio"], ["tipo2", "tipo_obra"], ["con_pim", "tiene_pim_anual"], ["pim", "pim_anual"],
+      ["prior", "en_lista_priorizada"], ["nctrl", "servicios_de_control"]];
     const q = (v) => (v == null ? "" : /[",\n;]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v));
     const csv = "\ufeff" + [cols.map((c) => c[1]).join(","), ...rows.map((o) => cols.map(([k]) => q(o[k])).join(","))].join("\n");
     const z = state.sel && ZONES[state.sel.nivel].get(state.sel.ubigeo);
@@ -1137,6 +1176,7 @@ function pipelineLines(meta, resumen) {
       { t: meta.publicacion ? `publicación: ${meta.publicacion}` : "fuente: archivo local (--file)", c: "" },
       { t: `corte del informe: ${corte}`, c: "" },
       { t: `descargado ${meta.archivo || "anexo01.xlsx"}`, c: "ok" },
+      ...(meta.control?.archivo ? [{ t: `descargado ${meta.control.archivo}`, c: "ok" }] : []),
       { t: `sha256 ${sha}…`, c: "dim" },
       { t: "comparando con la última carga publicada… archivo nuevo", c: "dim" },
     ],
@@ -1147,6 +1187,11 @@ function pipelineLines(meta, resumen) {
       ...(cols.length > 9 ? [{ t: `  … y ${cols.length - 9} columnas más`, c: "dim" }] : []),
       ...((meta.columnas_no_mapeadas || []).length ? [{ t: `  sin mapear: ${meta.columnas_no_mapeadas.join(", ")}`, c: "dim" }] : []),
       { t: `${nf.format(meta.filas || 0)} obras leídas -> data/staging/obras.parquet`, c: "ok" },
+      ...(meta.control?.filas ? [
+        { t: `$ parse_control("${meta.control.archivo}")`, c: "cmd" },
+        { t: `${Object.keys(meta.control.columnas || {}).length} columnas reconocidas`, c: "dim" },
+        { t: `${nf.format(meta.control.filas)} servicios de control -> data/staging/control.parquet`, c: "ok" },
+      ] : []),
     ],
     [
       { t: `$ dbt build --vars '{fecha_corte: "${corte}"}'`, c: "cmd" },
@@ -1159,6 +1204,7 @@ function pipelineLines(meta, resumen) {
     [
       { t: "$ python -m pipeline.cli export", c: "cmd" },
       { t: `web/data/obras.json    ${nf.format(resumen.obras)} filas`, c: "ok" },
+      ...(resumen.servicios_control ? [{ t: `web/data/control.json  ${nf.format(resumen.servicios_control)} servicios`, c: "ok" }] : []),
       { t: "web/data/resumen.json  cifras de portada", c: "ok" },
       { t: "web/data/meta.json     procedencia y hash", c: "ok" },
       { t: `$ git commit -m "datos: corte ${corte}" && git push`, c: "cmd" },
@@ -1179,6 +1225,52 @@ function initPipeline(meta, resumen) {
   });
 }
 
+// ---------- dos vistas: obras (Anexo 01) y servicios de control (Anexo 02) ----------
+// La vista de control vive en #control; #control=<código Infobras> la abre
+// filtrada por esa obra. Cualquier otro hash es la vista de obras.
+let VIEW = "obras";
+let obrasScroll = 0;
+function showView(view, { keepScroll = true } = {}) {
+  if (view === VIEW) return;
+  const obras = document.getElementById("top"), ctrl = document.getElementById("control");
+  if (view === "control") {
+    obrasScroll = scrollY;
+    obras.hidden = true; ctrl.hidden = false;
+    initControl(H);
+    scrollTo(0, 0);
+  } else {
+    ctrl.hidden = true; obras.hidden = false;
+    // El mapa y el lienzo de puntos se midieron ocultos: que se vuelvan a medir.
+    dispatchEvent(new Event("resize"));
+    map?.resize();
+    if (keepScroll) scrollTo(0, obrasScroll);
+  }
+  VIEW = view;
+  document.body.dataset.view = view;
+  document.querySelectorAll("[data-view]").forEach((a) => a.setAttribute("aria-current", a.dataset.view === view ? "page" : "false"));
+  document.title = view === "control" ? "Servicios de control · Obra Parada" : "Obra Parada · obras públicas paralizadas en el Perú";
+}
+
+function route() {
+  const m = location.hash.match(/^#control(?:=(\w+))?$/);
+  if (m) {
+    showView("control");
+    setFiltros(m[1] ? { obra: m[1] } : {}, Boolean(m[1]));
+    return;
+  }
+  const sec = location.hash.length > 1 && !location.hash.startsWith("#zona=") && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  // Un ancla dentro de la vista de control (p. ej. #c-explorar) no la cierra.
+  const enControl = sec && sec !== document.getElementById("control") && sec.closest("#control");
+  showView(enControl ? "control" : "obras", { keepScroll: !sec });
+  if (sec) sec.scrollIntoView();
+}
+
+function verControles(id) {
+  const dlg = document.getElementById("obra-dialog");
+  if (dlg.open) dlg.close();
+  location.hash = `control=${id}`;
+}
+
 // ---------- arranque ----------
 (async function main() {
   try {
@@ -1186,6 +1278,8 @@ function initPipeline(meta, resumen) {
     const { resumen, meta } = await load();
     META = meta;
     renderHero(resumen, meta);
+    addEventListener("hashchange", route);
+    route();
     initStory();
     initTicker();
     await initMap();

@@ -6,31 +6,65 @@ Contraloría General de la República, *Informe de obras (públicas) paralizadas
 
 La Contraloría considera paralizada una obra que no registra avance físico por seis meses o más en Infobras.
 
-Los nombres de columna del Excel cambian entre informes. El parser los mapea a estos campos canónicos (reglas en `pipeline/parse.py`, `FIELD_RULES`). El mapeo exacto usado en cada carga queda en `web/data/meta.json`, campo `columnas`.
+Los nombres de columna del Excel cambian entre informes. El parser los mapea a estos campos canónicos (reglas en `pipeline/parse.py`, esquemas `OBRAS` y `CONTROL`). El mapeo exacto usado en cada carga queda en `web/data/meta.json`, campos `columnas` y `control.columnas`.
 
 ## `fct_obras` (y `web/data/obras.json`)
+
+Una fila por obra del Anexo N.° 01.
 
 | Campo dbt | Clave JSON | Tipo | Descripción |
 |---|---|---|---|
 | codigo_infobras | id | texto | Código de la obra en Infobras |
 | cui | cui | texto | Código Único de Inversión (Invierte.pe) |
-| nombre_obra | nombre | texto | Nombre de la obra tal como lo registra la entidad |
+| nombre_obra | nombre | texto | Descripción de la obra tal como la registra la entidad |
 | entidad | entidad | texto | Entidad ejecutora |
 | nivel_gobierno | nivel | texto | Local, Regional o Nacional |
 | sector | sector | texto | Sector de la inversión |
 | modalidad_ejecucion | modalidad | texto | Por contrata, administración directa, núcleo ejecutor, etc. |
-| causal_paralizacion | causal | texto | Causa declarada por la entidad |
+| causal_paralizacion | causal | texto | Causa declarada por la entidad, sin el número de catálogo |
+| evento | evento | texto | Proceso normal, Reconstrucción con Cambios, etc. |
+| tipo_obra_1, tipo_obra_2, tipo_obra_3 | tipo1, tipo2, tipo3 | texto | Tipo de obra de la Contraloría en tres niveles; la web usa el nivel 2 |
 | ubigeo_departamento | u_dep | texto(2) | Ubigeo INEI del departamento |
 | ubigeo_provincia | u_prov | texto(4) | Ubigeo INEI de la provincia |
 | ubigeo_distrito | u_dist | texto(6) | Ubigeo INEI del distrito; nulo si solo se ubicó a nivel superior |
 | departamento, provincia, distrito | dep, prov, dist | texto | Nombres para mostrar |
-| geo_metodo | geo | texto | Cómo se ubicó: `ubigeo_fuente`, `dep_prov_dist`, `dep_dist`, `provincia`, `departamento`, `sin_match` |
-| costo_actualizado | costo | número (S/) | Costo actualizado de la obra |
-| monto_ejecutado | ejecutado | número (S/) | Monto ejecutado acumulado |
-| saldo_por_ejecutar | saldo | número (S/) | Lo que falta ejecutar. Si el informe no lo trae, `costo - ejecutado` |
+| geo_metodo | geo | texto | Cómo se ubicó: `ubigeo_fuente`, `dep_prov_dist`, `dep_dist`, `dist_aproximado`, `provincia`, `departamento`, `sin_match` |
+| costo_actualizado | costo | número (S/) | Costo actualizado según Invierte.pe |
+| monto_ejecutado | ejecutado | número (S/) | `costo_actualizado - saldo_por_ejecutar` cuando el informe no lo trae |
+| saldo_por_ejecutar | saldo | número (S/) | Saldo de la inversión según Invierte.pe: lo que falta ejecutar |
 | avance_fisico | avance | número (%) | Avance físico, 0 a 100 |
-| fecha_paralizacion | f_paral | fecha | Desde cuándo está paralizada |
-| anios_paralizada | anios | número | Años sin avance a la **fecha de corte del informe** (no a hoy) |
+| anio_inicio | ini | entero | Año en que empezó la obra |
+| antiguedad_anios | antig | entero | Años desde el inicio hasta el año de corte del informe |
+| plazo_dias | plazo | entero | Plazo de ejecución previsto, en días |
+| pim_anual | pim | número (S/) | Presupuesto Institucional Modificado del año del informe |
+| tiene_pim | con_pim | booleano | Si tiene presupuesto asignado ese año |
+| en_inventario_mef | inv_mef | booleano | Si está en el inventario de obras paralizadas del MEF |
+| en_lista_priorizada | prior | booleano | Si está en la lista priorizada para reactivarse |
+| url_informe_situacional | url_sit | URL | Informe de estado situacional en Invierte.pe |
+| url_resolucion_priorizada | url_res | URL | Resolución de la lista priorizada |
+| n_controles | nctrl | entero | Servicios de control registrados en el Anexo N.° 02 |
+| fecha_paralizacion, anios_paralizada | f_paral, anios | fecha, número | Se mantienen por compatibilidad con informes anteriores; el de junio de 2026 no trae fecha de paralización |
+
+## `fct_control` (y `web/data/control.json`)
+
+Una fila por servicio de control del Anexo N.° 02. Todos los de junio de 2026 están en estado "Concluida".
+
+| Campo dbt | Clave JSON | Tipo | Descripción |
+|---|---|---|---|
+| codigo_infobras | id | texto | Obra a la que se refiere (llave hacia `fct_obras`) |
+| tipo_control | tipo | texto | Control previo, simultáneo o posterior |
+| tipo_accion | accion | texto | Control concurrente, orientación de oficio, visita, auditoría de cumplimiento… |
+| entidad_auditada | entidad | texto | Entidad revisada |
+| anio_emision | anio | entero | Año de emisión del informe |
+| tipo_organo | organo_tipo | texto | Órgano de control institucional (OCI) o Contraloría general |
+| organo_auditor | organo | texto | Unidad que hizo el control |
+| servicio | servicio | texto | Nombre del servicio de control |
+| numero_informe | num | texto | Número del informe |
+| titulo_informe | titulo | texto | Título del informe |
+| url_informe | url | URL | PDF del informe en el SPIC. Si sigue el patrón `…/SPIC/srvDownload/ViewPDF?CRES_CODIGO=X&TIPOARCHIVO=ADJUNTO`, el JSON guarda solo `spic:X` |
+| url_resumen | url_res | URL | PDF del resumen (`TIPOARCHIVO=RE`). Nulo en el JSON cuando se deriva del mismo código |
+
+Algunas filas traen el servidor interno del SPIC (`http://localhost:puerto/...`) en vez del público; `stg_control` lo corrige.
 
 ## `web/data/meta.json`
 

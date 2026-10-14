@@ -22,9 +22,10 @@ WEB_DATA = ROOT / "web" / "data"
 
 
 def cmd_ingest(args) -> int:
-    from pipeline.parse import parse_excel
+    from pipeline.parse import empty_control, parse_control, parse_excel
 
     source_url, title = args.url, None
+    control_path = Path(args.control_file) if args.control_file else None
     if args.file:
         path = Path(args.file)
     elif args.url:
@@ -33,9 +34,11 @@ def cmd_ingest(args) -> int:
         from pipeline.fetch import download
         with requests.Session() as s:
             path = download(s, args.url, RAW_DIR)
+            if args.control_url:
+                control_path = download(s, args.control_url, RAW_DIR)
     else:
         from pipeline.fetch import fetch_latest
-        path, pub = fetch_latest(RAW_DIR)
+        path, control_path, pub = fetch_latest(RAW_DIR)
         source_url, title = pub.url, pub.title
         args.corte = args.corte or pub.corte
 
@@ -44,9 +47,24 @@ def cmd_ingest(args) -> int:
     STAGING.mkdir(parents=True, exist_ok=True)
     df.to_parquet(STAGING / "obras.parquet", index=False)
 
+    # La base de servicios de control es opcional: sin ella se escribe una tabla vacía
+    # con el mismo esquema, para que dbt corra igual.
+    control_meta = None
+    if control_path:
+        ctrl = parse_control(control_path)
+        ctrl.df.to_parquet(STAGING / "control.parquet", index=False)
+        control_meta = {
+            "archivo": control_path.name, "sha256": ctrl.sha256, "hoja": ctrl.sheet,
+            "fila_cabecera": ctrl.header_row, "columnas": ctrl.mapping,
+            "columnas_no_mapeadas": ctrl.unmapped, "filas": len(ctrl.df),
+        }
+        print(f"{len(ctrl.df)} servicios de control leídos de '{control_path.name}'")
+    else:
+        empty_control().to_parquet(STAGING / "control.parquet", index=False)
+
     meta = {
         "corte": args.corte,
-        "fuente": "Contraloría General de la República - Informe de obras paralizadas en el territorio nacional, Anexo N.° 01",
+        "fuente": "Contraloría General de la República - Informe de obras paralizadas en el territorio nacional",
         "publicacion": title,
         "url": source_url,
         "archivo": path.name,
@@ -56,6 +74,7 @@ def cmd_ingest(args) -> int:
         "columnas": result.mapping,
         "columnas_no_mapeadas": result.unmapped,
         "filas": len(df),
+        "control": control_meta,
         "es_muestra": bool(args.sample),
         "procesado": datetime.now(timezone.utc).isoformat(timespec="seconds"),
     }
@@ -82,6 +101,8 @@ def main(argv=None) -> int:
     src = i.add_mutually_exclusive_group()
     src.add_argument("--file", help="Excel ya descargado")
     src.add_argument("--url", help="enlace directo al Excel")
+    i.add_argument("--control-file", help="Excel de servicios de control ya descargado (opcional)")
+    i.add_argument("--control-url", help="enlace directo al Excel de servicios de control (con --url)")
     i.add_argument("--corte", help="fecha de corte del informe, AAAA-MM")
     i.add_argument("--sample", action="store_true", help="marca los datos como de ejemplo")
     i.set_defaults(func=cmd_ingest)

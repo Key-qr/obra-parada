@@ -1,76 +1,138 @@
 {
   "corte": "2026-06",
-  "fuente": "Contraloría General de la República - Informe de obras paralizadas en el territorio nacional, Anexo N.° 02",
+  "fuente": "Contraloría General de la República - Informe de obras paralizadas en el territorio nacional",
   "publicacion": null,
   "url": null,
-  "archivo": "fixture_anexo02.xlsx",
-  "sha256": "e4ef7fa7b9990ba84508a570898e11f2bc4fceb96d52fea49fdd174612ede145",
-  "hoja": "BD Obras paralizadas",
-  "fila_cabecera": 3,
+  "archivo": "anexo01_2026-06.xlsx",
+  "sha256": "aee166f5f864722222b67f4e36926c05308efaecba1db81f3652d926e1d30b35",
+  "hoja": "Data",
+  "fila_cabecera": 0,
   "columnas": {
-    "CÓDIGO INFOBRAS": "codigo_infobras",
+    "CODIGO INFOBRAS": "codigo_infobras",
     "CUI": "cui",
+    "DESCRIPCION OBRA": "nombre_obra",
+    "ENTIDAD": "entidad",
+    "EVENTO": "evento_asociado",
+    "MODALIDAD DE EJECUCIÓN": "modalidad_ejecucion",
+    "COSTO ACTUALIZADO\n(Según INVIERTE S/)": "costo_actualizado",
+    "SALDO DE LA INVERSIÓN\n(Según INVIERTE S/)": "saldo_por_ejecutar",
+    "PIM 2026": "pim_anual",
+    "TIENE PIM 2026": "tiene_pim",
+    "TIPO DE OBRA": "tipo_obra_1",
+    "TIPO DE OBRA (Nivel 2)": "tipo_obra_2",
+    "TIPO DE OBRA (Nivel 3)": "tipo_obra_3",
     "DEPARTAMENTO": "departamento",
     "PROVINCIA": "provincia",
     "DISTRITO": "distrito",
+    "AÑO INICIO OBRA": "anio_inicio",
+    "PLAZO DE EJECUCIÓN": "plazo_dias",
+    "AVANCE FÍSICO": "avance_fisico",
     "NIVEL DE GOBIERNO": "nivel_gobierno",
-    "ENTIDAD": "entidad",
     "SECTOR": "sector",
-    "NOMBRE DE LA OBRA": "nombre_obra",
-    "MODALIDAD DE EJECUCIÓN": "modalidad_ejecucion",
-    "COSTO ACTUALIZADO (S/)": "costo_actualizado",
-    "MONTO EJECUTADO (S/)": "monto_ejecutado",
-    "SALDO POR EJECUTAR (S/)": "saldo_por_ejecutar",
-    "% AVANCE FÍSICO": "avance_fisico",
-    "FECHA DE PARALIZACIÓN": "fecha_paralizacion",
-    "CAUSAL DE PARALIZACIÓN": "causal_paralizacion"
+    "CAUSAL PARALIZACION": "causal_paralizacion",
+    "ESTA EN EL INVENTARIO OBRAS PARALIZADAS MEF": "en_inventario_mef",
+    "CUENTA CON INFORME DE ESTADO SITUACIONAL": "tiene_informe_situacional",
+    "URL INFORME": "url_informe_situacional",
+    "DENTRO DE LA LISTA PRIORIZADA": "en_lista_priorizada",
+    "URL RESOLUCION": "url_resolucion_priorizada"
   },
   "columnas_no_mapeadas": [
-    "N°"
+    "N°",
+    "DESCRIPCION DE INVERSION",
+    "SNIP",
+    "COSTO DE OBRA SEGÚN EXP. TEC.\n(Según INFOBRAS S/)",
+    "SALDO DE OBRA\n(Costo de obra - Avance Valorizado)",
+    "RANGO DE INVERSION\n(mlls.)",
+    "RANGO AVANCE FÍSICO",
+    "UNIDAD ORGÁNICA",
+    "FECHA DE REGISTRO EN EL INVENTARIO",
+    "FECHA INFORME SITUACIONAL",
+    "FECHA RESOLUCION DE LISTA PRIORIZADA"
   ],
-  "filas": 900,
-  "es_muestra": true,
-  "procesado": "2026-10-14T16:58:15+00:00",
+  "filas": 2262,
+  "control": {
+    "archivo": "anexo02_2026-06.xlsx",
+    "sha256": "af5719eac3de995233c1595ce59a7bca249586b2ee8163f46a8e77452c74f019",
+    "hoja": "Hoja1",
+    "fila_cabecera": 0,
+    "columnas": {
+      "CODIGO INFOBRAS": "codigo_infobras",
+      "CUI": "cui",
+      "OBRA": "nombre_obra",
+      "DEPARTAMENTO OBRA": "departamento",
+      "TIPO_CONTROL": "tipo_control",
+      "TIPO_ACCION": "tipo_accion",
+      "ENTIDAD AUDITADA": "entidad_auditada",
+      "AÑO EMISION": "anio_emision",
+      "TIPO ORGANO": "tipo_organo",
+      "ORGANO AUDITOR": "organo_auditor",
+      "NOMBRE SERVICIO CONTROL": "servicio",
+      "ESTADO SERVICIO DE CONTROL": "estado",
+      "NIVEL GOBIERNO": "nivel_gobierno",
+      "NUMERO INFORME": "numero_informe",
+      "TITULO INFORME": "titulo_informe",
+      "URL SPIC INFORME": "url_informe",
+      "URL SPIC RESUMEN": "url_resumen"
+    },
+    "columnas_no_mapeadas": [
+      "N°",
+      "CODIGO SNIP",
+      "COD ENTIDAD AUDITADA"
+    ],
+    "filas": 4386
+  },
+  "es_muestra": false,
+  "procesado": "2026-10-14T23:00:54+00:00",
   "dbt": {
     "modelos": [
       {
         "nombre": "stg_obras",
         "estado": "success",
-        "segundos": 0.23
+        "segundos": 0.27
+      },
+      {
+        "nombre": "stg_control",
+        "estado": "success",
+        "segundos": 0.31
       },
       {
         "nombre": "int_obras_geo",
         "estado": "success",
-        "segundos": 0.03
+        "segundos": 0.05
       },
       {
         "nombre": "fct_obras",
         "estado": "success",
-        "segundos": 0.12
+        "segundos": 0.18
       },
       {
         "nombre": "agg_entidad",
-        "estado": "success",
-        "segundos": 0.08
-      },
-      {
-        "nombre": "agg_resumen",
         "estado": "success",
         "segundos": 0.09
       },
       {
         "nombre": "agg_zona",
         "estado": "success",
-        "segundos": 0.11
+        "segundos": 0.12
+      },
+      {
+        "nombre": "fct_control",
+        "estado": "success",
+        "segundos": 0.14
+      },
+      {
+        "nombre": "agg_resumen",
+        "estado": "success",
+        "segundos": 0.04
       }
     ],
     "seeds": 2,
     "tests": {
-      "pass": 16,
+      "pass": 22,
       "warn": 0,
       "error": 0,
       "fail": 0
     },
-    "segundos": 1.13
+    "segundos": 1.47
   }
 }

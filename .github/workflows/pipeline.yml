@@ -9,7 +9,10 @@ on:
   workflow_dispatch:
     inputs:
       url:
-        description: "Enlace directo al Excel del Anexo 01 (opcional, si gob.pe cambió su HTML)"
+        description: "Enlace directo al Excel del Anexo N.° 01, lista de obras (opcional, si gob.pe cambió su HTML)"
+        required: false
+      control_url:
+        description: "Enlace directo al Excel del Anexo N.° 02, servicios de control (opcional)"
         required: false
       corte:
         description: "Fecha de corte AAAA-MM (obligatoria si pasas url)"
@@ -32,10 +35,11 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - name: Descargar y leer el Anexo 01
+      - name: Descargar y leer los anexos 01 y 02
         run: |
           if [ -n "${{ inputs.url }}" ]; then
-            python -m pipeline.cli ingest --url "${{ inputs.url }}" --corte "${{ inputs.corte }}"
+            python -m pipeline.cli ingest --url "${{ inputs.url }}" --corte "${{ inputs.corte }}" \
+              ${{ inputs.control_url && format('--control-url "{0}"', inputs.control_url) || '' }}
           else
             python -m pipeline.cli ingest
           fi

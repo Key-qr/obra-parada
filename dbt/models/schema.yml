@@ -42,6 +42,13 @@ models:
         data_tests:
           - between:
               arguments: {min_value: 0, max_value: 50000000000}
+      - name: antiguedad_anios
+        data_tests:
+          - between:
+              arguments: {min_value: 0, max_value: 40}
+      - name: n_controles
+        data_tests:
+          - not_null
       - name: anios_paralizada
         data_tests:
           - between:
@@ -58,7 +65,25 @@ models:
         data_tests:
           - accepted_values:
               arguments:
-                values: [ubigeo_fuente, dep_prov_dist, dep_dist, provincia, departamento, sin_match]
+                values: [ubigeo_fuente, dep_prov_dist, dep_dist, dist_aproximado, provincia, departamento, sin_match]
+
+  - name: stg_control
+    description: Servicios de control efectuados a obras paralizadas, una fila por servicio.
+  - name: fct_control
+    description: Servicios de control con la obra y su departamento.
+    columns:
+      - name: control_sk
+        data_tests: [unique, not_null]
+      - name: obra_sk
+        description: Cada servicio debe corresponder a una obra de la lista; si no, el anexo cambió de llave.
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
+      - name: anio_emision
+        data_tests:
+          - between:
+              arguments: {min_value: 2000, max_value: 2100}
 
   - name: agg_zona
     description: Totales por departamento, provincia y distrito.

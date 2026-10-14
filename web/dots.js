@@ -4,7 +4,7 @@
 //
 //   geo     mapa del Perú, cada punto en su distrito (tamaño = falta ejecutar)
 //   avance  histograma de puntos por % de avance físico
-//   tiempo  histograma de puntos por años sin avance
+//   tiempo  histograma de puntos por año de inicio de la obra
 //   causa   barras de puntos, una fila por causa declarada
 //
 // Además se puede "resaltar" un subconjunto (el resto se apaga).
@@ -142,10 +142,17 @@ export function createDots({ canvas, obras, geo, colors, fmtSoles, onHover, onLe
       min: 0, max: 100, bins: 50, ticks: [0, 25, 50, 75, 100], fmt: (t) => `${t}%`,
       title: "Cada punto es una obra, según cuánto avanzó antes de pararse",
     });
-    if (mode === "tiempo") return layoutHist((o) => o.anios, {
-      min: 0, max: 10, bins: 40, ticks: [0, 2, 4, 6, 8, 10], fmt: (t) => (t === 10 ? "10+ años" : `${t} años`),
-      title: "Cada punto es una obra, según cuánto tiempo lleva sin avance",
-    });
+    if (mode === "tiempo") {
+      const ys = dots.map((d) => d.o.ini).filter(Boolean);
+      const y0 = Math.min(...ys), y1 = Math.max(...ys);
+      const paso = y1 - y0 > 12 ? 3 : 2;
+      const ticks = [];
+      for (let y = y0; y <= y1; y += paso) ticks.push(y + 0.5);
+      return layoutHist((o) => o.ini, {
+        min: y0, max: y1 + 1, bins: y1 - y0 + 1, ticks, fmt: (t) => String(Math.floor(t)),
+        title: "Cada punto es una obra, según el año en que empezó",
+      });
+    }
     if (mode === "causa") return layoutCausa();
     return [];
   }

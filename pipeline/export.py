@@ -10,6 +10,7 @@ todo lo que muestra sale de estos archivos.
 from __future__ import annotations
 
 import json
+import re
 from datetime import date
 from pathlib import Path
 
@@ -38,6 +39,36 @@ FIELDS = {
     "avance_fisico": "avance",
     "fecha_paralizacion": "f_paral",
     "anios_paralizada": "anios",
+    "anio_inicio": "ini",
+    "antiguedad_anios": "antig",
+    "plazo_dias": "plazo",
+    "evento": "evento",
+    "tipo_obra_1": "tipo1",
+    "tipo_obra_2": "tipo2",
+    "tipo_obra_3": "tipo3",
+    "pim_anual": "pim",
+    "tiene_pim": "con_pim",
+    "en_inventario_mef": "inv_mef",
+    "en_lista_priorizada": "prior",
+    "url_informe_situacional": "url_sit",
+    "url_resolucion_priorizada": "url_res",
+    "n_controles": "nctrl",
+}
+
+# Servicios de control (fct_control) -> control.json
+CONTROL_FIELDS = {
+    "codigo_infobras": "id",
+    "tipo_control": "tipo",
+    "tipo_accion": "accion",
+    "entidad_auditada": "entidad",
+    "anio_emision": "anio",
+    "tipo_organo": "organo_tipo",
+    "organo_auditor": "organo",
+    "servicio": "servicio",
+    "numero_informe": "num",
+    "titulo_informe": "titulo",
+    "url_informe": "url",
+    "url_resumen": "url_res",
 }
 
 
@@ -77,6 +108,23 @@ def export(db_path: Path, out_dir: Path, meta_path: Path) -> None:
     obras = {"cols": [FIELDS[c] for c in cols], "rows": [[_clean(v) for v in r] for r in rows]}
     (out_dir / "obras.json").write_text(json.dumps(obras, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
+    crow = con.execute(
+        f"select {', '.join(CONTROL_FIELDS)} from fct_control order by anio_emision desc nulls last, control_sk"
+    ).fetchall()
+    ctrl = {"cols": list(CONTROL_FIELDS.values()), "rows": [[_clean(v) for v in r] for r in crow]}
+    # Los PDF del SPIC siguen un patrón fijo: se guarda solo el código y la web arma
+    # la URL (ahorra ~0.5 MB). Si una URL no sigue el patrón, se guarda completa.
+    iu, ir = ctrl["cols"].index("url"), ctrl["cols"].index("url_res")
+    spic = re.compile(r"^https?://apps8\.contraloria\.gob\.pe/SPIC/srvDownload/ViewPDF\?CRES_CODIGO=([^&]+)&TIPOARCHIVO=(ADJUNTO|RE)$")
+    for r in ctrl["rows"]:
+        mi = spic.match(r[iu] or "")
+        mr = spic.match(r[ir] or "")
+        if mi and mr and mi.group(1) == mr.group(1):
+            r[iu], r[ir] = f"spic:{mi.group(1)}", None
+        elif mi:
+            r[iu] = f"spic:{mi.group(1)}"
+    (out_dir / "control.json").write_text(json.dumps(ctrl, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+
     cur = con.execute("select * from agg_resumen")
     row = cur.fetchone()
     res = {d[0]: _clean(v) for d, v in zip(cur.description, row)}
@@ -87,4 +135,5 @@ def export(db_path: Path, out_dir: Path, meta_path: Path) -> None:
     (out_dir / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
 
     size_kb = (out_dir / "obras.json").stat().st_size / 1024
-    print(f"obras.json: {len(rows)} filas, {size_kb:.0f} KB | resumen.json | meta.json -> {out_dir}")
+    ckb = (out_dir / "control.json").stat().st_size / 1024
+    print(f"obras.json: {len(rows)} filas, {size_kb:.0f} KB | control.json: {len(crow)} filas, {ckb:.0f} KB | resumen.json | meta.json -> {out_dir}")

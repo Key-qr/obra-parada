@@ -20,7 +20,11 @@
       <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="26" height="17" rx="1.5"/><path d="M9 22v7M23 22v7"/><path d="M8 13h16" class="brand-bar"/></svg>
       Obra Parada
     </a>
-    <nav aria-label="Secciones">
+    <nav class="view-tabs" aria-label="Bases de datos">
+      <a href="#" data-view="obras" aria-current="page">Obras paralizadas</a>
+      <a href="#control" data-view="control" class="needs-control">Servicios de control <b data-k="servicios">…</b></a>
+    </nav>
+    <nav class="sec-nav" aria-label="Secciones">
       <a href="#mapa">Mapa</a>
       <a href="#tipos">Qué se paró</a>
       <a href="#causas">Causas</a>
@@ -75,8 +79,14 @@
 
           <div class="story-step" data-mode="tiempo" data-hl="mediana">
             <p class="step-k">El tiempo</p>
-            <p class="step-big">La mitad lleva más de <span data-s="mediana">…</span> sin avanzar.</p>
+            <p class="step-big">La mitad empezó en <span data-s="mediana">…</span> o antes.</p>
             <p data-s="tiempo_det">…</p>
+          </div>
+
+          <div class="story-step" data-mode="geo" data-hl="pim">
+            <p class="step-k">La plata</p>
+            <p class="step-big">Solo <span data-s="pim">…</span> de <span data-s="obras">…</span> tienen presupuesto asignado este año.</p>
+            <p data-s="pim_det">…</p>
           </div>
 
           <div class="story-step" data-mode="geo" data-hl="casi">
@@ -96,11 +106,11 @@
               <button type="button" role="tab" data-mode="geo" aria-selected="true">Mapa</button>
               <button type="button" role="tab" data-mode="avance" aria-selected="false">Avance</button>
               <button type="button" role="tab" data-mode="causa" aria-selected="false">Causa</button>
-              <button type="button" role="tab" data-mode="tiempo" aria-selected="false">Tiempo parada</button>
+              <button type="button" role="tab" data-mode="tiempo" aria-selected="false">Año de inicio</button>
             </div>
           </div>
           <figure class="dots-wrap">
-            <canvas id="dots" aria-label="Cada punto es una obra paralizada; se puede ver como mapa o agrupada por avance, causa o tiempo" role="img"></canvas>
+            <canvas id="dots" aria-label="Cada punto es una obra paralizada; se puede ver como mapa o agrupada por avance, causa o año de inicio" role="img"></canvas>
             <figcaption class="dots-key">
               <span><i class="k-dot"></i>Una obra. En el mapa, el tamaño es lo que falta ejecutar.</span>
               <span><i class="k-dot k-casi"></i>Construida al 90% o más</span>
@@ -157,6 +167,14 @@
           <span>Sector</span>
           <select name="sector" id="f-sector"><option value="">Todos</option></select>
         </label>
+        <label class="field">
+          <span>Presupuesto este año</span>
+          <select name="pim">
+            <option value="">Todas</option>
+            <option value="si">Con presupuesto asignado</option>
+            <option value="no">Sin presupuesto</option>
+          </select>
+        </label>
         <label class="check">
           <input type="checkbox" name="mitad">
           <span>Solo con más de 50% de avance</span>
@@ -194,7 +212,7 @@
             <div><dt>Obras</dt><dd id="z-obras">–</dd></div>
             <div><dt>Falta ejecutar</dt><dd id="z-saldo">–</dd></div>
             <div><dt>Costo actualizado</dt><dd id="z-costo">–</dd></div>
-            <div><dt>Mediana sin avance</dt><dd id="z-anios">–</dd></div>
+            <div><dt>Año de inicio (mediana)</dt><dd id="z-anios">–</dd></div>
           </dl>
           <h4 class="zone-list-title">Obras con más dinero pendiente</h4>
           <ol class="obra-list" id="zone-list"></ol>
@@ -203,10 +221,19 @@
       </div>
     </section>
 
+    <aside class="ctrl-callout needs-control" aria-label="Servicios de control">
+      <div class="cc-num"><span data-k="servicios">…</span><small>servicios de control</small></div>
+      <div class="cc-text">
+        <p class="step-k">Anexo N.° 02</p>
+        <p>La Contraloría también publicó qué revisó en estas obras: <b data-k="obras_ctrl">…</b> de ellas tuvieron al menos una visita, control concurrente o auditoría, y la mayoría tiene su informe publicado en PDF.</p>
+      </div>
+      <a class="btn btn-solid" href="#control">Ver los informes <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </aside>
+
     <section class="tipos" id="tipos" aria-labelledby="tipos-title">
       <div class="section-head">
         <h2 class="decode" id="tipos-title">Qué se dejó de construir</h2>
-        <p class="section-note" id="tipos-note">Tipo de obra según las palabras de su nombre. Pasa el cursor para ver ejemplos; haz clic para filtrar el mapa.</p>
+        <p class="section-note" id="tipos-note">Tipo de obra según la clasificación de la Contraloría. Pasa el cursor para ver ejemplos; haz clic para filtrar el mapa.</p>
       </div>
       <ul class="tipo-grid" id="tipo-grid"></ul>
     </section>
@@ -239,8 +266,8 @@
     <section class="band band-2" aria-label="Tiempo y responsables">
       <div class="col">
         <div class="section-head">
-          <h2 class="decode" id="tl-title">Cuándo se pararon</h2>
-          <p class="section-note" id="tl-note">Obras según el año en que dejaron de avanzar.</p>
+          <h2 class="decode" id="tl-title">Cuándo empezaron</h2>
+          <p class="section-note" id="tl-note">Obras paralizadas según el año en que empezaron.</p>
         </div>
         <div class="seg-opts tl-switch" role="group" aria-label="Medir por">
           <button type="button" class="chip" data-tl="obras" aria-pressed="true">Obras</button>
@@ -257,7 +284,7 @@
         <h3 class="sub-h">Por modalidad de ejecución</h3>
         <div class="table-wrap">
           <table class="mod-table">
-            <thead><tr><th scope="col">Modalidad</th><th scope="col" class="num">Obras</th><th scope="col" class="num">Avance mediano</th><th scope="col" class="num">Años parada (mediana)</th><th scope="col" class="num">Falta ejecutar</th></tr></thead>
+            <thead><tr><th scope="col">Modalidad</th><th scope="col" class="num">Obras</th><th scope="col" class="num">Avance mediano</th><th scope="col" class="num">Inicio (mediana)</th><th scope="col" class="num">Falta ejecutar</th></tr></thead>
             <tbody id="mod-body"></tbody>
           </table>
         </div>
@@ -321,7 +348,19 @@
         </details>
         <details>
           <summary>¿Cómo se clasifica el tipo de obra?</summary>
-          <div><p>Por palabras en el nombre: si dice "educativo", "colegio" o "institución educativa" es un colegio; si dice "agua potable" o "alcantarillado", agua y desagüe; y así. Es una aproximación: una obra que menciona dos cosas cae en la primera que coincide, y las que no calzan quedan en "Otras".</p></div>
+          <div><p>Con la clasificación que trae la propia base de la Contraloría (tipo de obra en tres niveles; aquí se usa el segundo). Solo si una obra viene sin tipo se adivina por palabras del nombre: "educativo" o "colegio" es educación, "agua potable" es saneamiento, y así.</p></div>
+        </details>
+        <details>
+          <summary>¿Por qué no dice desde cuándo está paralizada cada obra?</summary>
+          <div><p>Porque la base de junio de 2026 no trae la fecha de paralización. Lo que sí trae es el año en que empezó la obra, y eso es lo que se usa para medir el tiempo: una obra que empezó en 2012 y sigue sin terminarse lleva más de una década pendiente, aunque no se sepa el mes exacto en que se detuvo.</p></div>
+        </details>
+        <details>
+          <summary>¿Qué es el PIM y por qué importa?</summary>
+          <div><p>El Presupuesto Institucional Modificado es la plata que una entidad tiene asignada para un proyecto en el año. Una obra paralizada sin PIM no tiene con qué reactivarse ese año, por mucho que se quiera. La lista priorizada es otra cosa: es la relación de obras que el Estado eligió para reactivar primero, aprobada por resolución.</p></div>
+        </details>
+        <details>
+          <summary>¿Qué es un servicio de control?</summary>
+          <div><p>Es cualquier revisión que hace la Contraloría o el órgano de control de la entidad (OCI): control concurrente mientras la obra avanza, visitas, orientaciones de oficio, auditorías. Cada uno termina en un informe, y la mayoría está publicado. En la pestaña <a href="#control">Servicios de control</a> los puedes buscar por obra, lugar, tipo o año.</p></div>
         </details>
         <details>
           <summary>¿Cada cuánto se actualiza?</summary>
@@ -353,7 +392,7 @@
           <li class="step">
             <span class="step-n">1</span>
             <h3>Descarga</h3>
-            <p>Cada lunes un workflow de GitHub Actions busca en gob.pe el último informe de obras paralizadas y descarga el Anexo 01 (la lista de obras). Si el archivo no cambió (mismo SHA-256), se detiene ahí.</p>
+            <p>Cada lunes un workflow de GitHub Actions busca en gob.pe el último informe de obras paralizadas y descarga sus dos bases: el Anexo N.° 01 (la lista de obras) y el Anexo N.° 02 (los servicios de control). Si el archivo no cambió (mismo SHA-256), se detiene ahí.</p>
           </li>
           <li class="step">
             <span class="step-n">2</span>
@@ -363,7 +402,7 @@
           <li class="step">
             <span class="step-n">3</span>
             <h3>Limpieza y validación</h3>
-            <p>dbt sobre DuckDB tipa los datos, ubica cada obra en su distrito con el ubigeo del INEI y corre tests: avance entre 0 y 100, saldo menor que el costo, totales que cuadran. Si algo falla, no se publica.</p>
+            <p>dbt sobre DuckDB tipa los datos, ubica cada obra en su distrito con el ubigeo del INEI y corre tests: avance entre 0 y 100, saldo menor que el costo, totales que cuadran, cada servicio de control apunta a una obra de la lista. Si algo falla, no se publica.</p>
           </li>
           <li class="step">
             <span class="step-n">4</span>
@@ -378,7 +417,7 @@
       <div class="method-grid">
         <div>
           <h3>De dónde salen los datos</h3>
-          <p>Del <a id="src-link" href="https://www.gob.pe/institucion/contraloria/informes-publicaciones" rel="noopener">Informe de obras paralizadas en el territorio nacional</a> de la Contraloría, Anexo N.° 01. La Contraloría considera paralizada una obra que no registra avance físico por seis meses o más en Infobras.</p>
+          <p>Del <a id="src-link" href="https://www.gob.pe/institucion/contraloria/informes-publicaciones" rel="noopener">Informe de obras paralizadas en el territorio nacional</a> de la Contraloría: Anexo N.° 01 (lista de obras) y Anexo N.° 02 (servicios de control). La Contraloría considera paralizada una obra que no registra avance físico por seis meses o más en Infobras.</p>
           <p class="fine" id="src-meta"></p>
           <p class="fine" id="geo-meta"></p>
         </div>
@@ -387,6 +426,88 @@
           <p>No acusa a nadie. Una obra puede pararse por un arbitraje, un huaico o falta de presupuesto. Los montos son los que reportan las propias entidades y pueden tener errores; ante una duda, manda la fuente oficial.</p>
         </div>
       </div>
+    </section>
+  </main>
+
+  <main id="control" class="ctrl" hidden aria-labelledby="ctrl-title">
+    <section class="ctrl-hero">
+      <div>
+        <p class="step-k">Anexo N.° 02 · Servicios de control</p>
+        <h1 id="ctrl-title">Lo que la Contraloría revisó en las obras paralizadas</h1>
+        <p class="lede">Cada fila de esta base es un servicio de control hecho a una obra de la lista: un control concurrente, una visita, una orientación de oficio, una auditoría. Todos figuran como concluidos y la mayoría tiene su informe publicado.</p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="#c-explorar">Buscar un informe</a>
+          <a class="btn" href="#">Volver a las obras</a>
+        </div>
+      </div>
+      <div>
+        <dl class="hero-stats ctrl-stats">
+          <div><dt>Servicios de control</dt><dd id="c-total">…</dd></div>
+          <div><dt>Obras revisadas</dt><dd id="c-obras">…</dd></div>
+          <div><dt>Obras sin ningún control</dt><dd id="c-sin">…</dd></div>
+          <div><dt>Con informe en PDF</dt><dd id="c-pdf">…</dd></div>
+        </dl>
+        <p class="hero-source" id="c-rango"></p>
+      </div>
+    </section>
+
+    <section class="band ctrl-band" aria-label="Cómo se reparten">
+      <div class="col">
+        <div class="section-head">
+          <h2 class="decode">Qué tipo de control</h2>
+          <p class="section-note">Clic en una barra para ver esos informes.</p>
+        </div>
+        <div class="bars" id="c-bars-tipo"></div>
+        <h3 class="sub-h c-sub">Tipo de acción</h3>
+        <div class="bars" id="c-bars-accion"></div>
+      </div>
+      <div class="col">
+        <div class="section-head">
+          <h2 class="decode">Año de emisión</h2>
+          <p class="section-note" id="c-anio-note"></p>
+        </div>
+        <div class="timeline" id="c-anios"></div>
+        <h3 class="sub-h c-sub">Quién hizo el control</h3>
+        <div class="gob" id="c-organo"></div>
+      </div>
+    </section>
+
+    <section class="ctrl-obras" aria-label="Obras">
+      <div>
+        <div class="section-head">
+          <h2 class="decode">Las obras más revisadas</h2>
+          <p class="section-note">Número de servicios de control. Clic para ver sus informes.</p>
+        </div>
+        <ol class="obra-list compact" id="c-top"></ol>
+      </div>
+      <div>
+        <div class="section-head">
+          <h2 class="decode">Mucho dinero, ningún control</h2>
+          <p class="section-note">Las obras con más saldo pendiente que no registran ningún servicio de control. Clic para ver la ficha.</p>
+        </div>
+        <ol class="obra-list compact" id="c-sin-list"></ol>
+      </div>
+    </section>
+
+    <section class="ctrl-explore" id="c-explorar" aria-labelledby="c-exp-title">
+      <div class="section-head">
+        <h2 class="decode" id="c-exp-title">Buscar informes</h2>
+        <p class="section-note">Busca por obra, número de informe, entidad o lo que diga el título. Los PDF se abren en el sistema de la Contraloría.</p>
+      </div>
+      <form class="controls c-form" id="c-form" role="search">
+        <label class="field c-q"><span>Buscar</span><input type="search" name="q" placeholder="Ej. hospital, 001-2024-OCI, Chiclayo" autocomplete="off"></label>
+        <label class="field"><span>Departamento</span><select name="dep" id="c-f-dep"><option value="">Todos</option></select></label>
+        <label class="field"><span>Tipo de control</span><select name="tipo" id="c-f-tipo"><option value="">Todos</option></select></label>
+        <label class="field"><span>Tipo de acción</span><select name="accion" id="c-f-accion"><option value="">Todas</option></select></label>
+        <label class="field"><span>Año</span><select name="anio" id="c-f-anio"><option value="">Todos</option></select></label>
+      </form>
+      <div class="c-status">
+        <p id="c-count" role="status"></p>
+        <div class="c-chips" id="c-chips"></div>
+        <button type="button" class="link-btn" id="c-reset" hidden>Quitar filtros</button>
+      </div>
+      <ol class="c-list" id="c-list"></ol>
+      <button type="button" class="more-btn" id="c-more" hidden>Ver más</button>
     </section>
   </main>
 
@@ -423,8 +544,14 @@
       </dl>
     </div>
     <dl class="d-facts">
-      <div><dt>Paralizada desde</dt><dd id="d-fecha"></dd></div>
+      <div><dt>Año de inicio</dt><dd id="d-fecha"></dd></div>
       <div><dt>Causa declarada</dt><dd id="d-causal"></dd></div>
+      <div><dt>Tipo de obra</dt><dd id="d-tipo"></dd></div>
+      <div><dt>Evento asociado</dt><dd id="d-evento"></dd></div>
+      <div><dt>Presupuesto este año (PIM)</dt><dd id="d-pim"></dd></div>
+      <div><dt>Lista priorizada</dt><dd id="d-prior"></dd></div>
+      <div class="d-wide"><dt>Estado situacional</dt><dd id="d-sit"></dd></div>
+      <div class="d-wide d-ctrl"><dt>Control de la Contraloría</dt><dd id="d-ctrl"></dd></div>
       <div><dt>Modalidad</dt><dd id="d-modalidad"></dd></div>
       <div><dt>Sector</dt><dd id="d-sector"></dd></div>
       <div><dt>Código Infobras</dt><dd id="d-id"></dd></div>

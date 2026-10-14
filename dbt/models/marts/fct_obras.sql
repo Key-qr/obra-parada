@@ -1,6 +1,11 @@
 -- Tabla de hechos: una fila por obra paralizada, lista para la web.
 with o as (select * from {{ ref('int_obras_geo') }}),
-dep as (select * from {{ ref('dim_departamento') }})
+dep as (select * from {{ ref('dim_departamento') }}),
+ctrl as (
+    select codigo_infobras, count(*) as n_controles, max(anio_emision) as ultimo_control
+    from {{ ref('stg_control') }}
+    group by 1
+)
 
 select
     o.obra_sk,
@@ -29,6 +34,24 @@ select
     case when o.fecha_paralizacion is not null then
         round(date_diff('day', o.fecha_paralizacion, cast('{{ var("fecha_corte") }}' as date)) / 365.25, 1)
     end                                                             as anios_paralizada,
+    o.anio_inicio,
+    -- Años desde que empezó la obra, a la fecha de corte del informe.
+    case when o.anio_inicio between 1990 and year(cast('{{ var("fecha_corte") }}' as date)) then
+        year(cast('{{ var("fecha_corte") }}' as date)) - o.anio_inicio
+    end                                                             as antiguedad_anios,
+    o.plazo_dias,
+    o.evento,
+    o.tipo_obra_1,
+    o.tipo_obra_2,
+    o.tipo_obra_3,
+    round(o.pim_anual, 2)                                           as pim_anual,
+    o.tiene_pim,
+    o.en_inventario_mef,
+    o.en_lista_priorizada,
+    o.url_informe_situacional,
+    o.url_resolucion_priorizada,
+    coalesce(ctrl.n_controles, 0)                                   as n_controles,
+    ctrl.ultimo_control,
     case
         when o.avance_fisico >= 90 then '90-100%'
         when o.avance_fisico >= 50 then '50-89%'
@@ -37,3 +60,4 @@ select
     end                                                             as tramo_avance
 from o
 left join dep on dep.ubigeo_dep = o.ubigeo_departamento
+left join ctrl on ctrl.codigo_infobras = o.codigo_infobras
