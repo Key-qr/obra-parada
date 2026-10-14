@@ -434,6 +434,9 @@ const H = {
   toast: (m) => toast(m),
   scope: () => inSelection(filtered()),
   miniSvg: (v) => miniSvg(v),
+  dotCountry: (dep, lado, rows) => dotCountry(dep, lado, rows),
+  obraTip: (o, x, y) => obraTip(o, x, y),
+  hideTip: () => (document.getElementById("tooltip").hidden = true),
 };
 
 function obraItem(o, showPlace = true) {
@@ -674,6 +677,80 @@ function miniMap() {
   MINI = { W, H, paths };
   return MINI;
 }
+// ---------- el país hecho de puntos (comparador) ----------
+// Una trama regular de puntos dentro del Perú. Cada punto sabe a qué
+// departamento pertenece; se calcula una vez y se reutiliza.
+let DOTGRID = null;
+function dotGrid() {
+  if (DOTGRID) return DOTGRID;
+  const W = 230, H = 320, step = 5.2, pad = 6;
+  const feats = GEO.departamento.features;
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const f of feats) { const [[a, b], [c, d]] = ZONES.departamento.get(f.properties.ubigeo).bbox; x0 = Math.min(x0, a); y0 = Math.min(y0, b); x1 = Math.max(x1, c); y1 = Math.max(y1, d); }
+  const k = Math.cos(((y0 + y1) / 2) * Math.PI / 180);
+  const sc = Math.min((W - pad * 2) / ((x1 - x0) * k), (H - pad * 2) / (y1 - y0));
+  const ox = (W - (x1 - x0) * k * sc) / 2, oy = (H - (y1 - y0) * sc) / 2;
+  const proj = (lon, lat) => [ox + (lon - x0) * k * sc, oy + (y1 - lat) * sc];
+  const unproj = (x, y) => [x0 + (x - ox) / (k * sc), y1 - (y - oy) / sc];
+  const polys = feats.map((f) => ({ id: f.properties.ubigeo, bbox: ZONES.departamento.get(f.properties.ubigeo).bbox, rings: (f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates) }));
+  const inside = (lon, lat, poly) => {
+    let hit = false;
+    for (const p of poly.rings) {
+      let ins = false;
+      const ring = p[0];
+      for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+        const [xi, yi] = ring[i], [xj, yj] = ring[j];
+        if ((yi > lat) !== (yj > lat) && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) ins = !ins;
+      }
+      if (ins) { hit = true; break; }
+    }
+    return hit;
+  };
+  const pts = [];
+  for (let y = step / 2; y < H; y += step) {
+    for (let x = step / 2; x < W; x += step) {
+      const [lon, lat] = unproj(x, y);
+      const poly = polys.find((p) => lon >= p.bbox[0][0] && lon <= p.bbox[1][0] && lat >= p.bbox[0][1] && lat <= p.bbox[1][1] && inside(lon, lat, p));
+      if (poly) pts.push({ x, y, dep: poly.id });
+    }
+  }
+  // Centro de cada distrito para ubicar las obras.
+  const centros = new Map();
+  for (const f of GEO.distrito.features) {
+    const ring = (f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates).map((p) => p[0]).sort((a, b) => b.length - a.length)[0];
+    let cx = 0, cy = 0; for (const [a, b] of ring) { cx += a; cy += b; }
+    centros.set(f.properties.ubigeo, [cx / ring.length, cy / ring.length]);
+  }
+  DOTGRID = { W, H, pts, proj, centros, step };
+  return DOTGRID;
+}
+
+function dotCountry(dep, lado, rows) {
+  const { W, H, pts, proj, centros, step } = dotGrid();
+  const mine = pts.filter((p) => p.dep === dep);
+  const cx = mine.reduce((s, p) => s + p.x, 0) / (mine.length || 1);
+  const cy = mine.reduce((s, p) => s + p.y, 0) / (mine.length || 1);
+  const maxD = Math.max(1, ...mine.map((p) => Math.hypot(p.x - cx, p.y - cy)));
+  // El departamento se enciende en ola desde su centro; luego caen sus obras.
+  const grid = pts.map((p) => p.dep === dep
+    ? `<circle class="g-on" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(step * 0.36).toFixed(2)}" style="--d:${Math.round((Math.hypot(p.x - cx, p.y - cy) / maxD) * 520)}ms"/>`
+    : `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(step * 0.24).toFixed(2)}"/>`).join("");
+  let seed = Number(dep) * 977 + 13;
+  const rnd = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+  const maxS = Math.max(1, ...rows.map((o) => o.saldo || 0));
+  const obras = rows.map((o, i) => {
+    const c = centros.get(o.u_dist) || centros.get(o.u_prov) ;
+    let x, y;
+    if (c) { [x, y] = proj(c[0], c[1]); }
+    else { const p = mine[Math.floor(rnd() * mine.length)]; if (!p) return ""; x = p.x; y = p.y; }
+    x += (rnd() - 0.5) * 4; y += (rnd() - 0.5) * 4;
+    const r = 1.6 + 3.4 * Math.sqrt((o.saldo || 0) / maxS);
+    return `<circle class="o-dot" data-i="${o._i}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" style="--d:${560 + Math.round(rnd() * 700)}ms"/>`;
+  }).join("");
+  return `<svg class="dot-country is-${lado}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(ZONES.departamento.get(dep)?.nombre || "")} en el mapa del Perú, con ${rows.length} obras paralizadas">
+    <g class="g-grid">${grid}</g><g class="g-obras">${obras}</g></svg>`;
+}
+
 function miniSvg(values) {
   const { W, H, paths } = miniMap();
   const max = Math.max(1, ...values.values());
@@ -845,17 +922,7 @@ function initStory() {
       ring: cssVar("--grafito"), ink: cssVar("--grafito"), muted: cssVar("--gris"),
       font: "Barlow, system-ui, sans-serif", cond: "'Barlow Condensed', 'Arial Narrow', sans-serif",
     },
-    onHover(o, x, y) {
-      const lugar = [o.dist, o.prov, o.dep].filter(Boolean).join(", ");
-      tip.innerHTML = `<b>${esc(o.nombre.length > 90 ? o.nombre.slice(0, 88) + "…" : o.nombre)}</b>
-        <span class="t-sub">${esc(lugar)}</span>
-        <span class="t-row"><span>Falta ejecutar</span><strong>${solesCorto(o.saldo)}</strong></span>
-        <span class="t-share"><i style="width:${o.avance ?? 0}%"></i></span>
-        <span class="t-note">${o.avance != null ? `${nf1.format(o.avance)}% construida` : "Avance sin dato"}${o.anios != null ? `, parada hace ${anios(o.anios)}` : ""}. ${esc(o.causal || "")}. Clic para ver la ficha.</span>`;
-      tip.hidden = false;
-      tip.style.left = `${Math.min(x + 16, innerWidth - tip.offsetWidth - 8)}px`;
-      tip.style.top = `${Math.min(y + 16, innerHeight - tip.offsetHeight - 8)}px`;
-    },
+    onHover: (o, x, y) => obraTip(o, x, y),
     onLeave() { tip.hidden = true; },
     onPick(o) { tip.hidden = true; openObra(o._i); },
   });
@@ -909,6 +976,20 @@ function initStory() {
   // En celular el gráfico ocupa la mitad de arriba: el paso se activa al entrar en la mitad de abajo.
   const narrow = matchMedia("(max-width: 1020px)").matches;
   scrollSteps(steps, (i) => go(steps[i].dataset.mode, steps[i].dataset.hl), narrow ? "-72% 0px -24% 0px" : undefined);
+}
+
+// Tooltip de una obra (portada y comparador).
+function obraTip(o, x, y) {
+  const tip = document.getElementById("tooltip");
+  const lugar = [o.dist, o.prov, o.dep].filter(Boolean).join(", ");
+  tip.innerHTML = `<b>${esc(o.nombre.length > 90 ? o.nombre.slice(0, 88) + "…" : o.nombre)}</b>
+    <span class="t-sub">${esc(lugar)}</span>
+    <span class="t-row"><span>Falta ejecutar</span><strong>${solesCorto(o.saldo)}</strong></span>
+    <span class="t-share"><i style="width:${o.avance ?? 0}%"></i></span>
+    <span class="t-note">${o.avance != null ? `${nf1.format(o.avance)}% construida` : "Avance sin dato"}${o.anios != null ? `, parada hace ${anios(o.anios)}` : ""}. ${esc(o.causal || "")}. Clic para ver la ficha.</span>`;
+  tip.hidden = false;
+  tip.style.left = `${Math.min(x + 16, innerWidth - tip.offsetWidth - 8)}px`;
+  tip.style.top = `${Math.min(y + 16, innerHeight - tip.offsetHeight - 8)}px`;
 }
 
 // ---------- obra al azar ----------

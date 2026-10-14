@@ -627,10 +627,25 @@ p { margin: 0 0 var(--s4); max-width: 68ch; }
 .cmp-board > .cmp-label, .cmp-spacer { grid-column: 2; }
 .cmp-board > .cmp-side:not(.is-b), .cmp-board > .cmp-text:not(.is-b), .cmp-head:not(.is-b) { grid-column: 1; }
 .cmp-board > .is-b { grid-column: 3; }
-.cmp-head { display: flex; align-items: center; gap: var(--s3); justify-content: flex-end; font: 700 clamp(24px, 2.6vw, 34px)/1 var(--f-cond); }
-.cmp-head.is-b { justify-content: flex-start; }
-.cmp-map { display: inline-flex; background: var(--cartel); padding: 6px; }
-.cmp-map svg { width: 62px; height: auto; }
+.cmp-head { display: flex; flex-direction: column; align-items: center; gap: var(--s2); font: 700 clamp(26px, 2.8vw, 38px)/1 var(--f-cond); margin-bottom: var(--s3); }
+.cmp-cap { font: 400 13.5px var(--f-text); color: var(--gris); }
+.cmp-spacer { align-self: center; text-align: center; }
+.cmp-vs { font: 600 18px var(--f-cond); color: var(--gris); }
+
+/* el país hecho de puntos */
+.dot-country { width: min(100%, 250px); height: auto; overflow: visible; }
+.dot-country .g-grid circle { fill: #c3c7c4; }
+.dot-country.is-a .g-on { fill: #8eaac6; }
+.dot-country.is-b .g-on { fill: #f2c66d; }
+.dot-country .g-on { transform-box: fill-box; transform-origin: center; animation: puntoOn .45s cubic-bezier(.2,.9,.3,1.5) backwards; animation-delay: var(--d); }
+.dot-country .o-dot { transform-box: fill-box; transform-origin: center; animation: obraCae .5s cubic-bezier(.2,.9,.3,1.3) backwards; animation-delay: var(--d); stroke: var(--concreto); stroke-width: .8; }
+.dot-country.is-a .o-dot { fill: var(--cartel); }
+.dot-country.is-b .o-dot { fill: var(--ambar-osc); }
+.dot-country .o-dot { cursor: pointer; }
+.dot-country .o-dot:hover { stroke: var(--grafito); stroke-width: 2; }
+@keyframes puntoOn { from { transform: scale(0); opacity: 0; } }
+@keyframes obraCae { from { transform: translateY(-14px) scale(0); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .dot-country .g-on, .dot-country .o-dot { animation: none; } }
 .cmp-label { text-align: center; font-size: 14px; color: var(--gris); line-height: 1.25; }
 .cmp-side { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: center; }
 .cmp-side.is-b { grid-template-columns: 1fr auto; }
@@ -675,9 +690,12 @@ p { margin: 0 0 var(--s4); max-width: 68ch; }
   .cmp-board > .cmp-side:not(.is-b), .cmp-board > .cmp-text:not(.is-b), .cmp-head:not(.is-b) { grid-column: 1; }
   .cmp-board > .is-b { grid-column: 2; }
   .cmp-spacer { display: none; }
-  .cmp-head { font-size: 20px; justify-content: flex-start; }
+  .cmp-head { font-size: 20px; align-items: flex-start; }
+  .dot-country { width: 100%; }
+  .cmp-cap { font-size: 12px; }
   .cmp-side, .cmp-side.is-b { grid-template-columns: 1fr; }
   .cmp-side .cmp-track, .cmp-side.is-b .cmp-track { justify-content: flex-start; }
+  .cmp-side.is-b b { order: -1; }
   .cmp-text, .cmp-text.is-b { text-align: left; font-size: 15px; }
   .timeline { height: 240px; }
 }

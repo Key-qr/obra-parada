@@ -210,11 +210,10 @@ export function initCompare(obras, h) {
   function draw() {
     const A = deps.get(selA.value), B = deps.get(selB.value);
     const a = stats(A.rows), b = stats(B.rows);
-    const mapA = new Map([[selA.value, 1]]), mapB = new Map([[selB.value, 1]]);
     board.innerHTML = `
-      <div class="cmp-head"><span class="cmp-map">${h.miniSvg(mapA)}</span><strong>${h.esc(A.nombre)}</strong></div>
-      <div class="cmp-spacer"></div>
-      <div class="cmp-head is-b"><strong>${h.esc(B.nombre)}</strong><span class="cmp-map">${h.miniSvg(mapB)}</span></div>
+      <div class="cmp-head"><strong>${h.esc(A.nombre)}</strong>${h.dotCountry(selA.value, "a", A.rows)}<span class="cmp-cap">${h.nf.format(A.rows.length)} obras paralizadas</span></div>
+      <div class="cmp-spacer"><span class="cmp-vs">frente a</span></div>
+      <div class="cmp-head is-b"><strong>${h.esc(B.nombre)}</strong>${h.dotCountry(selB.value, "b", B.rows)}<span class="cmp-cap">${h.nf.format(B.rows.length)} obras paralizadas</span></div>
       ${METRICS.map(([k, label, f]) => {
         const mx = Math.max(a[k], b[k]) || 1;
         return `<div class="cmp-label">${label}</div>
@@ -227,6 +226,13 @@ export function initCompare(obras, h) {
     board.classList.remove("is-in"); void board.offsetWidth; board.classList.add("is-in");
   }
   selA.addEventListener("change", draw); selB.addEventListener("change", draw);
+  // Cursor sobre una obra del mapa de puntos: sale su detalle; clic abre la ficha.
+  board.addEventListener("pointermove", (e) => {
+    const c = e.target.closest(".o-dot");
+    if (c) h.obraTip(obras[Number(c.dataset.i)], e.clientX, e.clientY); else h.hideTip();
+  });
+  board.addEventListener("pointerleave", () => h.hideTip());
+  board.addEventListener("click", (e) => { const c = e.target.closest(".o-dot"); if (c) { h.hideTip(); h.openObra(Number(c.dataset.i)); } });
   document.getElementById("cmp-swap").addEventListener("click", () => { const t = selA.value; selA.value = selB.value; selB.value = t; draw(); });
   draw();
 }
