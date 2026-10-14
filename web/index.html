@@ -34,36 +34,8 @@
 
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="cartel cartel-hero" role="group" aria-labelledby="hero-title">
-        <span class="glare" aria-hidden="true"></span>
-        <span class="bolt tl"></span><span class="bolt tr"></span><span class="bolt bl"></span><span class="bolt br"></span>
-        <p class="cartel-entidad">Fuente: Contraloría General de la República, informe con corte a <span data-k="corte_largo">…</span></p>
-        <dl class="cartel-grid">
-          <div class="cartel-row cartel-obra">
-            <dt>OBRA</dt>
-            <dd id="hero-title"><span data-k="obras">…</span> obras públicas paralizadas en el Perú</dd>
-          </div>
-          <div class="cartel-row">
-            <dt>COSTO ACTUALIZADO</dt>
-            <dd data-k="costo">…</dd>
-          </div>
-          <div class="cartel-row">
-            <dt>FALTA EJECUTAR</dt>
-            <dd data-k="saldo">…</dd>
-          </div>
-          <div class="cartel-row">
-            <dt>AVANCE</dt>
-            <dd><span data-k="mitad">…</span> obras se quedaron con más de la mitad construida</dd>
-          </div>
-          <div class="cartel-row">
-            <dt>PLAZO</dt>
-            <dd class="plazo">Vencido</dd>
-          </div>
-        </dl>
-      </div>
-
-      <div class="hero-side">
-        <h1>¿Qué obra está parada en tu distrito?</h1>
+      <div class="hero-text">
+        <h1 id="hero-title">¿Qué obra está parada en tu distrito?</h1>
         <p class="lede">Cada trimestre la Contraloría publica la lista de obras públicas que llevan seis meses o más sin avance. Aquí la puedes buscar por lugar, ver cuánto se gastó y por qué se detuvo.</p>
         <div class="search" role="search">
           <label for="q">Busca un distrito, provincia o departamento</label>
@@ -72,7 +44,22 @@
             <ul id="q-list" role="listbox" hidden></ul>
           </div>
         </div>
+        <dl class="hero-stats">
+          <div><dt>Obras paralizadas</dt><dd data-k="obras">…</dd></div>
+          <div><dt>Falta ejecutar</dt><dd data-k="saldo">…</dd></div>
+          <div><dt>Costo actualizado</dt><dd data-k="costo">…</dd></div>
+          <div><dt>Con más de la mitad construida</dt><dd data-k="mitad">…</dd></div>
+        </dl>
+        <p class="hero-source">Fuente: Contraloría General de la República, informe con corte a <span data-k="corte_largo">…</span>.</p>
       </div>
+
+      <figure class="dots-wrap">
+        <canvas id="dots" aria-label="Mapa del Perú donde cada punto es una obra paralizada" role="img"></canvas>
+        <figcaption class="dots-key">
+          <span><i class="k-dot"></i>Cada punto es una obra. El tamaño es lo que falta ejecutar.</span>
+          <span><i class="k-dot k-casi"></i>Construidas al 90% o más</span>
+        </figcaption>
+      </figure>
     </section>
 
     <section class="map-section" id="mapa" aria-labelledby="mapa-title">

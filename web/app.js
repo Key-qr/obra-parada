@@ -1,6 +1,7 @@
 // Obra Parada: todo se calcula en el navegador a partir de data/*.json.
 // Sin backend: los filtros recalculan agregados sobre ~2,500 filas al vuelo.
-import { reduced, scramble, decodeOnView, countTo, tilt, readingProgress, revealOnView, makeTerminal, scrollSteps } from "./motion.js";
+import { reduced, scramble, decodeOnView, countTo, readingProgress, revealOnView, makeTerminal, scrollSteps } from "./motion.js";
+import { initDots } from "./dots.js";
 
 const NIVELES = {
   departamento: { key: "u_dep", geo: "data/geo/departamentos.json", label: "Departamento" },
@@ -776,6 +777,30 @@ function renderHero(resumen, meta) {
     `${nf.format(ubicadas)} de ${nf.format(resumen.obras)} obras se ubicaron a nivel de distrito; ${nf.format(resumen.geo_provincia || 0)} solo a nivel de provincia y ${nf.format((resumen.geo_departamento || 0) + (resumen.geo_sin_match || 0))} a nivel de departamento o sin ubicar.`;
 }
 
+// ---------- portada: mapa de puntos ----------
+function initHeroDots() {
+  const tip = document.getElementById("tooltip");
+  initDots({
+    canvas: document.getElementById("dots"),
+    obras: OBRAS,
+    geo: GEO,
+    colors: { land: cssVar("--concreto-2"), border: "#f4f5f3", dot: cssVar("--cartel"), casi: cssVar("--ambar"), ring: cssVar("--grafito") },
+    onHover(o, x, y) {
+      const lugar = [o.dist, o.prov, o.dep].filter(Boolean).join(", ");
+      tip.innerHTML = `<b>${esc(o.nombre.length > 90 ? o.nombre.slice(0, 88) + "…" : o.nombre)}</b>
+        <span class="t-sub">${esc(lugar)}</span>
+        <span class="t-row"><span>Falta ejecutar</span><strong>${solesCorto(o.saldo)}</strong></span>
+        <span class="t-share"><i style="width:${o.avance ?? 0}%"></i></span>
+        <span class="t-note">${o.avance != null ? `${nf1.format(o.avance)}% construida` : "Avance sin dato"}${o.anios != null ? `, parada hace ${anios(o.anios)}` : ""}. Clic para ver la ficha.</span>`;
+      tip.hidden = false;
+      tip.style.left = `${Math.min(x + 16, innerWidth - tip.offsetWidth - 8)}px`;
+      tip.style.top = `${Math.min(y + 16, innerHeight - tip.offsetHeight - 8)}px`;
+    },
+    onLeave() { tip.hidden = true; },
+    onPick(o) { tip.hidden = true; openObra(o._i); },
+  });
+}
+
 // ---------- terminal del pipeline ----------
 // Las líneas salen de meta.json y resumen.json: es la salida real de la última carga.
 function pipelineLines(meta, resumen) {
@@ -840,7 +865,7 @@ function initPipeline(meta, resumen) {
     readingProgress(document.getElementById("progress-bar"));
     const { resumen, meta } = await load();
     renderHero(resumen, meta);
-    tilt(document.querySelector(".hero"), document.querySelector(".cartel-hero"));
+    initHeroDots();
     await initMap();
     initControls();
     initSearch();
