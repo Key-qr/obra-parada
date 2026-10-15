@@ -32,6 +32,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+      - name: Versión en los archivos para que el navegador no use copias viejas
+        # GitHub Pages deja que el navegador guarde cada archivo 10 minutos. Con ?v=<commit> en cada
+        # CSS y JS (y en los import entre módulos) una página nueva siempre pide sus archivos nuevos.
+        run: |
+          v="${GITHUB_SHA::8}"
+          sed -i -E "s#(href|src)=\"(styles\.css|app\.js|js/dc\.js)\"#\1=\"\2?v=$v\"#g" web/*.html
+          sed -i -E "s#from \"\./(motion|dots|sections|control)\.js\"#from \"./\1.js?v=$v\"#g" web/*.js
+          grep -o 'styles.css?v=[0-9a-f]*\|app.js?v=[0-9a-f]*\|dc.js?v=[0-9a-f]*' web/*.html | sort -u
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

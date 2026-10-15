@@ -11,6 +11,10 @@
   <link href="vendor/fonts.css" rel="stylesheet">
   <link href="vendor/maplibre-gl.css" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
+  <style>
+    /* la portada termina en la cinta de obras (va aquí también por si styles.css llega tarde) */
+    body:not(.completo) #todo, body:not(.completo) .side-nav { display: none; }
+  </style>
 </head>
 <body>
   <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
