@@ -47,8 +47,13 @@ html{scroll-behavior:smooth}
 .seg button:hover,.chip:hover{background:#e8ebee}
 .seg button.on,.chip.on{background:#1f2326;color:#fff}
 .stack{display:flex;height:60px;border:2px solid #1f2326}
-.stack span{display:flex;align-items:center;padding:0 12px;font:600 17px 'Barlow Condensed',sans-serif;white-space:nowrap;overflow:hidden;transition:flex-grow .4s}
-.stack span:hover{flex-grow:1.6!important}
+.stack span{position:relative;display:flex;align-items:center;min-width:0;padding:0 12px;font:600 17px 'Barlow Condensed',sans-serif;white-space:nowrap;cursor:default;transition:opacity .2s}
+.stack span em{font-style:normal;overflow:hidden}
+.stack span::after{content:attr(data-p);position:absolute;left:50%;bottom:calc(100% + 10px);transform:translate(-50%,6px);background:#1f2326;color:#fff;font:600 15px/1 'Barlow Condensed',sans-serif;padding:7px 10px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:3}
+.stack span:last-child::after{left:auto;right:0;transform:translateY(6px)}
+.stack span:hover::after{opacity:1;transform:translate(-50%,0)}
+.stack span:last-child:hover::after{transform:none}
+.stack:hover span:not(:hover){opacity:.4}
 .brow{display:grid;grid-template-columns:minmax(0,18em) minmax(0,1fr) 5em;gap:14px;align-items:center;padding:7px 8px;transition:background-color .15s}
 .brow:hover{background:#fbe7bd}
 .track{height:16px;background:#d3d5d2}
@@ -212,9 +217,9 @@ header nav.sub a{flex:0 0 auto}
   <p class="kick">PANORAMA</p>
   <h2 class="h2 rv" style="margin-bottom: 20px">El 95% es control simultáneo: mientras la obra avanza</h2>
   <div class="stack rv" role="img" aria-label="Control simultáneo 4,165; posterior 150; previo 71">
-    <span style="flex-grow: 4165; flex-basis: 0; background: #17457a; color: #fff">Simultáneo · 4,165</span>
-    <span style="flex-grow: 380; flex-basis: 0; background: #e9a21a">Posterior · 150</span>
-    <span style="flex-grow: 280; flex-basis: 0; background: #f4f5f3">Previo · 71</span>
+    <span style="flex-grow: 4165; flex-basis: 0; background: #17457a; color: #fff" data-p="Simultáneo: 4,165 servicios, 95% del total"><em>Simultáneo · 4,165</em></span>
+    <span style="flex-grow: 380; flex-basis: 0; background: #e9a21a" data-p="Posterior: 150 servicios, 3.4%"><em>Posterior · 150</em></span>
+    <span style="flex-grow: 280; flex-basis: 0; background: #f4f5f3" data-p="Previo: 71 servicios, 1.6%"><em>Previo · 71</em></span>
   </div>
   <p style="margin: 10px 0 40px; font-size: 14px; color: #5d6468">Posterior y previo se dibujan un poco más anchos de lo que les toca para que se puedan leer.</p>
   <div style="display: flex; flex-wrap: wrap; gap: 48px">
