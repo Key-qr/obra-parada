@@ -57,14 +57,19 @@ a{color:#17457a}a:hover{color:#0f3359}
 .wb .cd.ona,.wb .cd.onb{animation:olaB .5s cubic-bezier(.2,.9,.3,1.6) backwards}
 @keyframes olaA{from{transform:translate(-50%,-50%) scale(0)}}
 @keyframes olaB{from{transform:translate(-50%,-50%) scale(0)}}
-.ax{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 7em 7em;gap:10px;padding:8px 10px;border-top:1px solid #b9bdbb;transition:background-color .15s}
+.ax{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 8em 8em;white-space:nowrap;gap:10px;padding:8px 10px;border-top:1px solid #b9bdbb;transition:background-color .15s}
 .ax:hover,.ax.on{background:#fbe7bd}
 .ax:focus-visible{outline:3px solid #e9a21a}
-.rda .rpa,.rda .rpb{animation:radA .7s cubic-bezier(.2,.9,.3,1.3) backwards;transform-origin:0 0}
-.rdb .rpa,.rdb .rpb{animation:radB .7s cubic-bezier(.2,.9,.3,1.3) backwards;transform-origin:0 0}
-.rpb{animation-delay:.12s!important}
-@keyframes radA{from{transform:scale(0)}}
-@keyframes radB{from{transform:scale(0)}}
+.rgrow{transform-origin:0 0}
+.rring{transform-origin:0 0}
+.rda:not(.visto) .rgrow,.rda:not(.visto) .rring{opacity:0}
+.rda.visto .rring{animation:ringIn .6s ease-out backwards}
+.rda.visto .rgrow{animation:radIn .9s cubic-bezier(.2,.9,.3,1.25) .25s backwards}
+.rda.visto .rgrow.b{animation-delay:.45s}
+@keyframes radIn{from{transform:scale(0) rotate(-60deg);opacity:0}}
+@keyframes ringIn{from{transform:scale(.6);opacity:0}}
+.rvx circle{transition:r .2s}
+.rvx circle:hover{r:7}
 .pbar{display:flex;height:46px;gap:2px}
 .pbar span{display:flex;align-items:center;justify-content:center;overflow:hidden;white-space:nowrap;font:700 15px 'Barlow Condensed',sans-serif;cursor:default;transition:flex-grow .7s cubic-bezier(.2,.8,.2,1),filter .2s}
 .pbar span:hover{filter:brightness(1.15)}
@@ -99,14 +104,14 @@ a{color:#17457a}a:hover{color:#0f3359}
 .map-b{animation:pulsoB .6s ease-out}
 @keyframes pulsoA{from{transform:scale(.96);opacity:.4}}
 @keyframes pulsoB{from{transform:scale(.96);opacity:.4}}
-.row{display:grid;grid-template-columns:7em minmax(0,1fr) minmax(8em,12em) minmax(0,1fr) 7em;gap:14px;align-items:center;padding:12px 0;border-top:1px solid #b9bdbb}
+.row{display:grid;grid-template-columns:9em minmax(0,1fr) minmax(8em,12em) minmax(0,1fr) 9em;gap:14px;align-items:center;padding:12px 0;border-top:1px solid #b9bdbb}
 .row:hover{background:#f4f5f3}
 .tl{height:20px;background:#d3d5d2;display:flex;justify-content:flex-end}
 .tr{height:20px;background:#d3d5d2;display:flex}
 .tl i,.tr i{display:block;height:100%;transition:width .9s cubic-bezier(.2,.8,.2,1)}
 .tl i{background:#17457a}
 .tr i{background:#e9a21a}
-.win{font:700 20px 'Barlow Condensed',sans-serif;font-variant-numeric:tabular-nums}
+.win{font:700 20px 'Barlow Condensed',sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap}
 @supports (animation-timeline: view()){.rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% cover 25%}}
 @keyframes rv{from{opacity:0;transform:translateY(40px)}}
 @media (max-width:760px){.row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px 12px}.row .lab{grid-column:1/-1;grid-row:1;text-align:left!important}.row .tl,.row .tr{display:none}}
@@ -286,15 +291,23 @@ header nav.sub a{flex:0 0 auto}
     </div>
   </div>
   <div style="flex: 1 1 420px; min-width: 0; max-width: 520px; margin: 0 auto">
-    <div class="{{radarCls}}" style="position: relative; aspect-ratio: 1">
+    <div id="radar" class="{{radarCls}}" style="position: relative; aspect-ratio: 1">
       <svg viewBox="-160 -160 320 320" style="width: 100%; height: 100%; overflow: visible" role="img" aria-label="{{radarAria}}">
+        <g class="rring">
+        <polygon points="{{ring3}}" fill="#eceeeb" stroke="#1f2326" stroke-width="1.5"></polygon>
         <polygon points="{{ring1}}" fill="none" stroke="#b9bdbb" stroke-width="1"></polygon>
         <polygon points="{{ring2}}" fill="none" stroke="#b9bdbb" stroke-width="1"></polygon>
-        <polygon points="{{ring3}}" fill="#eceeeb" stroke="#1f2326" stroke-width="1.5"></polygon>
         <path d="{{spokes}}" stroke="#b9bdbb" stroke-width="1"></path>
+        </g>
         <path d="{{hiSpoke}}" stroke="#e9a21a" stroke-width="3"></path>
-        <polygon class="rpa" points="{{polyA}}" fill="rgba(23, 69, 122, 0.35)" stroke="#17457a" stroke-width="2.5"></polygon>
-        <polygon class="rpb" points="{{polyB}}" fill="rgba(233, 162, 26, 0.35)" stroke="#8a5a00" stroke-width="2.5"></polygon>
+        <g class="rgrow a">
+          <polygon class="rpa" points="{{polyA}}" fill="rgba(23, 69, 122, 0.35)" stroke="#17457a" stroke-width="2.5" stroke-linejoin="round"></polygon>
+          <g class="rvx rva"><template sc-for list="{{vA}}" as="v" hint-placeholder-count="6"><circle cx="{{v.x}}" cy="{{v.y}}" r="4.5" fill="#17457a" stroke="#f4f5f3" stroke-width="1.5"></circle></template></g>
+        </g>
+        <g class="rgrow b">
+          <polygon class="rpb" points="{{polyB}}" fill="rgba(233, 162, 26, 0.35)" stroke="#8a5a00" stroke-width="2.5" stroke-linejoin="round"></polygon>
+          <g class="rvx rvb"><template sc-for list="{{vB}}" as="v" hint-placeholder-count="6"><circle cx="{{v.x}}" cy="{{v.y}}" r="4.5" fill="#e9a21a" stroke="#1f2326" stroke-width="1.5"></circle></template></g>
+        </g>
       </svg>
       <template sc-for list="{{axLabels}}" as="x" hint-placeholder-count="6">
         <span style="position: absolute; left: {{x.l}}%; top: {{x.t}}%; transform: translate(-50%, -50%); font: 600 14px 'Barlow Condensed', sans-serif; text-align: center; white-space: nowrap; color: {{x.c}}">{{x.n}}</span>
@@ -371,6 +384,14 @@ class Component extends DCLogic {
     this.state = { a: '21', b: '08', fa: false, fb: false, bm: 'saldo', ver: 0, gha: null, ghb: null, ax: null, pt: 0, pseg: null, hy: null, obr: null, om: 'mapa', oh: null, os: null, sw: 1216 };
   }
   componentDidMount() {
+    // el radar se arma una vez, cuando aparece en pantalla
+    const radar = document.getElementById('radar');
+    if (radar && 'IntersectionObserver' in window) {
+      this.io = new IntersectionObserver((es) => {
+        if (es.some((e) => e.isIntersecting)) { this.setState({ radIn: true }); this.io.disconnect(); }
+      }, { threshold: 0.35 });
+      this.io.observe(radar);
+    } else this.setState({ radIn: true });
     fetch('data/obras_por_depto.json').then((r) => r.json()).then((obr) => this.setState({ obr })).catch(() => this.setState({ obr: {} }));
     this.measure = () => {
       const el = document.getElementById('ostage');
@@ -379,7 +400,35 @@ class Component extends DCLogic {
     this.measure();
     window.addEventListener('resize', this.measure);
   }
-  componentWillUnmount() { window.removeEventListener('resize', this.measure); }
+  componentWillUnmount() { window.removeEventListener('resize', this.measure); cancelAnimationFrame(this.radRaf); if (this.io) this.io.disconnect(); }
+  // Cuando cambia un departamento, las dos figuras del radar pasan de la forma anterior a la nueva
+  // moviendo sus vértices, en vez de saltar. Se mueve el SVG directo, sin volver a pintar la página.
+  morphRadar(a, b) {
+    const prev = this.rad;
+    this.rad = { a, b };
+    if (!prev || (prev.a === a && prev.b === b)) return null;
+    const leer = (s) => s.split(' ').map((q) => q.split(',').map(Number));
+    const A0 = leer(prev.a), A1 = leer(a), B0 = leer(prev.b), B1 = leer(b);
+    const mezcla = (P, Q, k) => P.map((p, i) => [p[0] + (Q[i][0] - p[0]) * k, p[1] + (Q[i][1] - p[1]) * k]);
+    const pintar = (sel, pts) => {
+      const pol = document.querySelector(`.rp${sel}`);
+      if (pol) pol.setAttribute('points', pts.map((p) => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' '));
+      document.querySelectorAll(`.rv${sel} circle`).forEach((c, i) => { if (pts[i]) { c.setAttribute('cx', pts[i][0].toFixed(1)); c.setAttribute('cy', pts[i][1].toFixed(1)); } });
+    };
+    cancelAnimationFrame(this.radRaf);
+    const t0 = performance.now();
+    const paso = (now) => {
+      const t = Math.min(1, (now - t0) / 850);
+      // termina con un pequeño rebote; la figura ámbar sale un poco después que la azul
+      const curva = (x) => (x <= 0 ? 0 : x >= 1 ? 1 : 1 - Math.pow(1 - x, 3) * Math.cos(x * Math.PI * 1.5));
+      pintar('a', mezcla(A0, A1, curva(t / 0.9)));
+      pintar('b', mezcla(B0, B1, curva((t - 0.1) / 0.9)));
+      if (t < 1) this.radRaf = requestAnimationFrame(paso);
+      else { pintar('a', A1); pintar('b', B1); }
+    };
+    this.radRaf = requestAnimationFrame(paso);
+    return null;
+  }
   // Posición de cada punto en la vista elegida: { p: % horizontal, x: px desde ahí, y: px desde arriba }.
   oLayout(sides) {
     const st = this.state, H = 580;
@@ -587,8 +636,10 @@ class Component extends DCLogic {
       ring1: ring(1 / 3), ring2: ring(2 / 3), ring3: ring(1),
       spokes: AX.map((x, i) => `M0 0L${pt(i, 1).replace(',', ' ')}`).join(''),
       hiSpoke: st.ax == null ? 'M0 0' : `M0 0L${pt(st.ax, 1).replace(',', ' ')}`,
-      polyA: poly(A), polyB: poly(B),
-      radarCls: st.ver % 2 ? 'rda' : 'rdb',
+      polyA: this.morphRadar(poly(A), poly(B)) || poly(A), polyB: poly(B),
+      vA: poly(A).split(' ').map((q) => ({ x: q.split(',')[0], y: q.split(',')[1] })),
+      vB: poly(B).split(' ').map((q) => ({ x: q.split(',')[0], y: q.split(',')[1] })),
+      radarCls: st.radIn ? 'rda visto' : 'rda',
       radarAria: `Radar: ${AX.map(([l, g, f]) => `${l} ${A[1]} ${f(g(A))}, ${B[1]} ${f(g(B))}`).join('; ')}`,
       axLabels: AX.map(([l], i) => ({
         n: l, l: ((Math.cos(ang(i)) * 145 + 160) / 320 * 100).toFixed(1), t: ((Math.sin(ang(i)) * 145 + 160) / 320 * 100).toFixed(1),
