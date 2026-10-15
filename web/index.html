@@ -33,7 +33,6 @@
       <a href="mapa.html">Mapa</a>
       <a href="analisis.html">Análisis</a>
       <a href="comparar.html">Comparar</a>
-      <a href="index.html#entidades">Entidades</a>
       <a href="metodo.html">Cómo se hizo</a>
     </nav>
   </header>
@@ -313,72 +312,6 @@
       <div class="cmp-board" id="cmp-board"></div>
     </section>
 
-    <section class="entities" id="entidades" aria-labelledby="ent-title">
-      <div class="section-head">
-        <h2 class="decode" id="ent-title">Entidades con obras paralizadas</h2>
-        <p class="section-note">Tener obras paralizadas no prueba una mala gestión actual: muchas vienen de gestiones anteriores.</p>
-      </div>
-      <div class="table-wrap">
-        <table class="ent-table">
-          <thead>
-            <tr><th scope="col">Entidad</th><th scope="col">Nivel</th>
-              <th scope="col" class="num" aria-sort="none"><button type="button" class="sort" data-sort="obras">Obras</button></th>
-              <th scope="col" class="num" aria-sort="descending"><button type="button" class="sort" data-sort="saldo">Falta ejecutar</button></th>
-              <th scope="col" class="num" aria-sort="none"><button type="button" class="sort" data-sort="casi">Con 90%+ de avance</button></th></tr>
-          </thead>
-          <tbody id="ent-body"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="faq" id="faq" aria-labelledby="faq-title">
-      <div class="section-head">
-        <h2 class="decode" id="faq-title">Preguntas frecuentes</h2>
-      </div>
-      <div class="faq-list">
-        <details>
-          <summary>¿Qué es una obra paralizada?</summary>
-          <div><p>Para la Contraloría, es una obra pública que no registra avance físico por seis meses o más en Infobras, el sistema donde las entidades deben reportar el avance de sus obras. No importa si la obra está abandonada, en arbitraje o esperando presupuesto: si no avanza, cuenta.</p></div>
-        </details>
-        <details>
-          <summary>¿Qué diferencia hay entre costo actualizado y lo que falta ejecutar?</summary>
-          <div><p>El costo actualizado es lo que cuesta la obra completa hoy, con sus adicionales y ampliaciones. Lo que falta ejecutar es la parte de ese costo que todavía no se ha gastado: lo mínimo que haría falta para terminarla, sin contar lo que pueda deteriorarse mientras está parada.</p></div>
-        </details>
-        <details>
-          <summary>¿Qué es la administración directa?</summary>
-          <div><p>Es cuando la propia entidad (una municipalidad, por ejemplo) construye la obra con su personal y maquinaria, en vez de contratar a una empresa. La otra modalidad común es por contrata, cuando una empresa la gana en un proceso de selección.</p></div>
-        </details>
-        <details>
-          <summary>¿Qué son el CUI y el código Infobras?</summary>
-          <div><p>El CUI (Código Único de Inversiones) identifica el proyecto en Invierte.pe, el sistema del MEF; con él puedes ver su presupuesto y su ejecución en el Seguimiento de Inversiones. El código Infobras identifica la obra en el sistema de la Contraloría, donde están sus fotos y avances reportados.</p></div>
-        </details>
-        <details>
-          <summary>¿Cómo se clasifica el tipo de obra?</summary>
-          <div><p>Con la clasificación que trae la propia base de la Contraloría (tipo de obra en tres niveles; aquí se usa el segundo). Solo si una obra viene sin tipo se adivina por palabras del nombre: "educativo" o "colegio" es educación, "agua potable" es saneamiento, y así.</p></div>
-        </details>
-        <details>
-          <summary>¿Por qué no dice desde cuándo está paralizada cada obra?</summary>
-          <div><p>Porque la base de junio de 2026 no trae la fecha de paralización. Lo que sí trae es el año en que empezó la obra, y eso es lo que se usa para medir el tiempo: una obra que empezó en 2012 y sigue sin terminarse lleva más de una década pendiente, aunque no se sepa el mes exacto en que se detuvo.</p></div>
-        </details>
-        <details>
-          <summary>¿Qué es el PIM y por qué importa?</summary>
-          <div><p>El Presupuesto Institucional Modificado es la plata que una entidad tiene asignada para un proyecto en el año. Una obra paralizada sin PIM no tiene con qué reactivarse ese año, por mucho que se quiera. La lista priorizada es otra cosa: es la relación de obras que el Estado eligió para reactivar primero, aprobada por resolución.</p></div>
-        </details>
-        <details>
-          <summary>¿Qué es un servicio de control?</summary>
-          <div><p>Es cualquier revisión que hace la Contraloría o el órgano de control de la entidad (OCI): control concurrente mientras la obra avanza, visitas, orientaciones de oficio, auditorías. Cada uno termina en un informe, y la mayoría está publicado. En la pestaña <a href="#control">Servicios de control</a> los puedes buscar por obra, lugar, tipo o año.</p></div>
-        </details>
-        <details>
-          <summary>¿Cada cuánto se actualiza?</summary>
-          <div><p>La Contraloría publica un informe cada trimestre. Un proceso automático revisa gob.pe cada lunes; cuando aparece un archivo nuevo, lo procesa, valida y publica sin intervención manual.</p></div>
-        </details>
-        <details>
-          <summary>¿Que una obra esté paralizada significa que hubo corrupción?</summary>
-          <div><p>No. Las causas más comunes son falta de presupuesto, problemas con el contratista o deficiencias en el expediente técnico. Esta página muestra los datos oficiales; no acusa a ninguna persona ni entidad.</p></div>
-        </details>
-      </div>
-    </section>
-
     <section class="pipe" id="metodo" aria-labelledby="metodo-title">
       <div class="pipe-head">
         <h2 id="metodo-title" class="decode">Cómo se construye este mapa</h2>
@@ -529,8 +462,6 @@
     <a href="#causas" data-sec="causas"><span>Causas</span></a>
     <a href="#records" data-sec="records"><span>Récords</span></a>
     <a href="#comparar" data-sec="comparar"><span>Comparar</span></a>
-    <a href="#entidades" data-sec="entidades"><span>Entidades</span></a>
-    <a href="#faq" data-sec="faq"><span>Preguntas</span></a>
     <a href="#metodo" data-sec="metodo"><span>Cómo se hizo</span></a>
   </nav>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
@@ -612,6 +543,7 @@
       document.addEventListener('DOMContentLoaded', porHash);
     })();
   </script>
+  <script src="js/ayuda.js" defer></script>
   <script src="app.js" type="module"></script>
 </body>
 </html>

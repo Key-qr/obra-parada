@@ -21,7 +21,6 @@ const state = {
   gob: "", causal: "", sector: "", tipo: "", pim: "", mitad: false,
   tlMetric: "obras",
   sel: null,          // { nivel, ubigeo }
-  entSort: "saldo",
   tresD: false,
   listLimit: PAGE,
 };
@@ -437,7 +436,6 @@ function render() {
   renderZone(scope);
   renderCausas(scope);
   renderCasi(scope);
-  renderEntidades(scope);
   renderTipos(scope, H);
   renderTimeline(scope, H);
   renderGob(scope, H);
@@ -525,22 +523,6 @@ function renderCasi(scope) {
   document.getElementById("casi-list").innerHTML = casi.length
     ? casi.map((o) => obraItem(o)).join("")
     : `<li class="empty-note">Ninguna obra con 90% o más de avance en esta selección.</li>`;
-}
-
-function renderEntidades(scope) {
-  const m = new Map();
-  for (const o of scope) {
-    if (!o.entidad) continue;
-    const a = m.get(o.entidad) || { nivel: o.nivel, dep: o.dep, obras: 0, saldo: 0, casi: 0 };
-    a.obras++; a.saldo += o.saldo || 0; if ((o.avance ?? 0) >= 90) a.casi++;
-    m.set(o.entidad, a);
-  }
-  const k = state.entSort;
-  const rows = [...m.entries()].sort((a, b) => b[1][k] - a[1][k] || b[1].saldo - a[1].saldo).slice(0, 15);
-  document.getElementById("ent-body").innerHTML = rows.length ? rows.map(([k, a]) => `
-    <tr data-entidad="${esc(k)}"><td>${esc(titulo(k))}<small>${esc(a.dep || "")}</small></td><td>${esc(a.nivel)}</td>
-    <td class="num">${nf.format(a.obras)}</td><td class="num">${soles(a.saldo)}</td><td class="num">${nf.format(a.casi)}</td></tr>`).join("")
-    : `<tr><td colspan="5" class="empty-note">Sin entidades con estos filtros.</td></tr>`;
 }
 
 // ---------- detalle de obra ----------
@@ -688,7 +670,6 @@ function initControls() {
     select(nivel, id);
   });
   initZoneActions();
-  initSort();
   init3D();
 }
 
@@ -844,7 +825,7 @@ function initHovers() {
     if (b) pulseZone(OBRAS[Number(b.dataset.i)]);
   });
 
-  // Causas y entidades: al pasar el cursor sale una tarjeta con un mini mapa
+  // Causas: al pasar el cursor sale una tarjeta con un mini mapa
   // de dónde están esas obras, y el mapa grande deja encendidas solo sus zonas.
   const groupCard = (field, v, el, pt) => {
     if (!fine) return;
@@ -918,7 +899,6 @@ function initHovers() {
     const r = e.target.closest("[data-causal]");
     if (r && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); filtrarCausa(r); }
   });
-  hoverDim("#ent-body", "data-entidad", "entidad");
 }
 
 // ---------- portada ----------
@@ -1084,7 +1064,7 @@ function initTicker() {
 function initSideNav() {
   const links = [...document.querySelectorAll("#side-nav a")];
   const targets = { top: document.querySelector(".story") };
-  for (const id of ["mapa", "tipos", "causas", "records", "comparar", "entidades", "faq", "metodo"]) targets[id] = document.getElementById(id);
+  for (const id of ["mapa", "tipos", "causas", "records", "comparar", "metodo"]) targets[id] = document.getElementById(id);
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) {
       if (!e.isIntersecting) continue;
@@ -1139,19 +1119,6 @@ function selectFromHash() {
     select(m[1], m[2]);
     setTimeout(() => document.getElementById("mapa").scrollIntoView(), 50);
   }
-}
-
-// ---------- ordenar entidades ----------
-function initSort() {
-  document.querySelector(".ent-table thead").addEventListener("click", (e) => {
-    const b = e.target.closest(".sort");
-    if (!b) return;
-    state.entSort = b.dataset.sort;
-    document.querySelectorAll(".ent-table th[aria-sort]").forEach((th) => th.setAttribute("aria-sort", th.querySelector(".sort").dataset.sort === state.entSort ? "descending" : "none"));
-    const body = document.getElementById("ent-body");
-    renderEntidades(inSelection(filtered()));
-    body.classList.remove("sorting"); void body.offsetWidth; body.classList.add("sorting");
-  });
 }
 
 // ---------- mapa 3D ----------
@@ -1298,7 +1265,7 @@ function verControles(id) {
     initSideNav();
     buildInMap();
     decodeOnView("h2.decode");
-    revealOnView(".bars, .obra-list.compact, .ent-table, .zone-stats, .timeline, .gob, .rec-grid, .tipo-grid, .mod-table");
+    revealOnView(".bars, .obra-list.compact, .zone-stats, .timeline, .gob, .rec-grid, .tipo-grid, .mod-table");
     bindTipos(H);
     renderRecords(OBRAS, H);
     initCompare(OBRAS, H);

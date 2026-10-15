@@ -42,13 +42,13 @@ El dato es público, pero viene en un PDF de 70+ páginas y dos Excel anexos que
 
 ## Las páginas
 
-Siete páginas con un solo menú, el mismo en todas: Obras paralizadas · Servicios de control · Simulador · Mapa · Análisis · Comparar · Entidades · Cómo se hizo. Todas leen los mismos datos y funcionan sin servidor.
+Siete páginas con un solo menú, el mismo en todas: Obras paralizadas · Servicios de control · Simulador · Mapa · Análisis · Comparar · Cómo se hizo. Las entidades y las preguntas frecuentes no van en el menú: están en el botón **?** de la esquina inferior derecha, que abre una ventanita en cualquier página. Todas leen los mismos datos y funcionan sin servidor.
 
 ### 1 · Explorador (la portada)
 
 <p align="center"><img src="docs/img/explorador.png" width="760" alt="Explorador con MapLibre a nivel de distrito"></p>
 
-Lo primero que se abre: una historia con scroll donde los puntos se reordenan por avance, causa y año, y que termina en la cinta de obras. Al buscar tu distrito, o con los botones y el menú, se abre el resto: el mapa con MapLibre a nivel de **distrito**, los filtros, la ficha de cada obra y las entidades. Su menú es el de todo el sitio.
+Lo primero que se abre: una historia con scroll donde los puntos se reordenan por avance, causa y año, y que termina en la cinta de obras. Al buscar tu distrito, o con los botones y el menú, se abre el resto: el mapa con MapLibre a nivel de **distrito**, los filtros, la ficha de cada obra. Su menú es el de todo el sitio.
 
 <details>
 <summary><b>Todo lo que tiene el explorador</b></summary>
@@ -59,13 +59,12 @@ Lo primero que se abre: una historia con scroll donde los puntos se reordenan po
 - **Ficha de cada obra** con entidad, ubicación, costo, avance, año de inicio, causa, tipo, presupuesto del año (PIM), si está en la lista priorizada (con enlace a la resolución), informe de estado situacional, código Infobras, CUI y cuántos servicios de control tuvo, con un botón que lleva a sus informes.
 - **Servicios de control (pestaña aparte):** los 4,386 servicios del Anexo N.° 02 por tipo de control, tipo de acción, año y órgano que lo hizo; las obras más revisadas; las obras con más dinero pendiente que nunca tuvieron un control; y un buscador de informes por texto, departamento, tipo y año, con enlace al PDF en el sistema de la Contraloría.
 - **"A un paso de terminar":** obras con 90%+ de avance, las más baratas de destrabar.
-- **Ranking de entidades** por dinero pendiente.
 - **Qué se dejó de construir:** los tipos de obra de la clasificación oficial (transporte terrestre, saneamiento, educación, atención médica, riego…). Cada tipo muestra cuántas obras hay, cuánto falta y su avance mediano; es también un filtro del mapa.
 - **Récords:** la obra con más dinero pendiente, la más antigua, la que se paró casi terminada, la que tuvo más servicios de control, la entidad y el distrito con más obras, el departamento con más dinero parado.
 - **Cuándo empezaron:** obras (o dinero) por año de inicio.
 - **Quién las ejecuta:** porcentaje de obras frente a porcentaje de dinero por nivel de gobierno, y una tabla por modalidad (administración directa, contrata, núcleo ejecutor, obras por impuestos).
 - **Comparador de departamentos:** dos departamentos dibujados como el Perú hecho de puntos, lado a lado en obras, dinero, avance, antigüedad, presupuesto, servicios de control, causa y tipo principal.
-- **Preguntas frecuentes:** qué es una obra paralizada, costo actualizado frente a saldo, administración directa, CUI e Infobras, tipo de obra, por qué no hay fecha de paralización, PIM y lista priorizada, servicios de control.
+- **Botón de ayuda (?)** en todas las páginas, con dos pestañas. *Preguntas frecuentes:* qué es una obra paralizada, costo actualizado frente a saldo, administración directa, CUI e Infobras, tipo de obra, por qué no hay fecha de paralización, PIM y lista priorizada, servicios de control. *Entidades:* las de todo el país con un buscador, ordenables por dinero pendiente, número de obras u obras casi terminadas.
 
 Y se mueve con lo que haces:
 
@@ -75,8 +74,7 @@ Y se mueve con lo que haces:
 - **Cinta de obras** con las de más dinero pendiente: corre sola, acelera con el scroll y se detiene con el cursor. Clic abre la ficha.
 - **Mapa en 3D:** la altura de cada zona es lo que falta ejecutar (o el número de obras), con cámara inclinada y rotación.
 - **Copiar enlace** a la zona seleccionada (queda en la URL, `#zona=distrito/080309`) y **Descargar CSV** con las obras de la zona y filtros actuales.
-- **Tabla de entidades ordenable** por obras, dinero pendiente u obras casi terminadas.
-- Al pasar el cursor por una zona del mapa, una obra de la lista, una causa o una entidad salen tarjetas con el detalle (las de causa y entidad traen un mini mapa). Clic en una causa filtra el mapa.
+- Al pasar el cursor por una zona del mapa, una obra de la lista o una causa salen tarjetas con el detalle (las de causa traen un mini mapa). Clic en una causa filtra el mapa.
 - Navegación lateral que marca en qué sección estás, títulos que se decodifican al aparecer, contadores animados y el mapa coroplético que se "construye" zona por zona.
 - En "Cómo se construye este mapa", una terminal escribe la salida real de la última carga del pipeline mientras haces scroll.
 - Todo respeta `prefers-reduced-motion`: con esa preferencia activa, la página muestra el estado final sin animar.

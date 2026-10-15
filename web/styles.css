@@ -203,7 +203,7 @@ body[data-view="control"] .sec-nav, body[data-view="control"] .side-nav { displa
 #q-list .empty { color: var(--gris); cursor: default; }
 
 /* ---------- secciones ---------- */
-.map-section, .entities, .method { max-width: var(--wrap); margin: 0 auto; padding: var(--s7) var(--s5); }
+.map-section, .method { max-width: var(--wrap); margin: 0 auto; padding: var(--s7) var(--s5); }
 .section-head { margin-bottom: var(--s5); }
 .section-head h2 { margin-bottom: var(--s2); }
 .section-note { color: var(--gris); margin: 0; }
@@ -290,13 +290,7 @@ body[data-view="control"] .sec-nav, body[data-view="control"] .side-nav { displa
 .bar-val { font: 600 16px var(--f-cond); font-variant-numeric: tabular-nums; min-width: 5.5em; text-align: right; }
 .obra-list.compact .o-name { -webkit-line-clamp: 2; }
 
-/* entidades */
 .table-wrap { overflow-x: auto; }
-.ent-table { width: 100%; border-collapse: collapse; font-size: 16px; }
-.ent-table th { text-align: left; font: 600 15px var(--f-cond); color: var(--gris); padding: 8px 10px; border-bottom: 2px solid var(--grafito); }
-.ent-table td { padding: 10px; border-bottom: 1px solid var(--linea); vertical-align: top; }
-.ent-table .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.ent-table td small { display: block; color: var(--gris); font-size: 13px; }
 
 /* método */
 .method h2 { margin-bottom: var(--s5); }
@@ -353,7 +347,7 @@ body[data-view="control"] .sec-nav, body[data-view="control"] .side-nav { displa
   .sec-nav a { flex: 0 0 auto; white-space: nowrap; }
   .view-tabs { width: 100%; }
   .view-tabs a { flex: 1; justify-content: center; padding: 10px 8px; font-size: 16px; }
-  .story, .map-section, .entities, .method { padding-left: var(--s4); padding-right: var(--s4); }
+  .story, .map-section, .method { padding-left: var(--s4); padding-right: var(--s4); }
   .band { padding-left: var(--s4); padding-right: var(--s4); }
   .cartel { padding: var(--s5) var(--s4) var(--s4); }
   .hero-stats { gap: var(--s3) var(--s4); }
@@ -362,9 +356,6 @@ body[data-view="control"] .sec-nav, body[data-view="control"] .side-nav { displa
   .bar-row { grid-template-columns: 1fr auto; }
   .bar-row .bar-track { grid-column: 1 / -1; grid-row: 2; }
   .d-facts { grid-template-columns: 1fr; }
-  .ent-table th:nth-child(2), .ent-table td:nth-child(2),
-  .ent-table th:nth-child(5), .ent-table td:nth-child(5) { display: none; }
-  .ent-table { font-size: 15px; }
   .legend { font-size: 12px; }
 }
 
@@ -425,14 +416,9 @@ body[data-view="control"] .sec-nav, body[data-view="control"] .side-nav { displa
 .bar-row.is-hot .bar-track i { background: var(--ambar-osc); }
 .bars:has(.is-hot) .bar-row:not(.is-hot) { opacity: .45; }
 
-/* tabla de entidades */
-.ent-table tbody tr { transition: background-color .15s, opacity .15s; cursor: default; }
-.ent-table tbody tr.is-hot { background: #fbe7bd; }
-.ent-table tbody:has(.is-hot) tr:not(.is-hot) { opacity: .5; }
-
 /* aparición escalonada de listas y tabla */
-.obra-list.compact li, .ent-table tbody tr, .zone-stats > div { transition: opacity .5s, transform .5s; }
-.obra-list.compact:not(.is-in) li, .ent-table:not(.is-in) tbody tr, .zone-stats:not(.is-in) > div { opacity: 0; transform: translateY(10px); }
+.obra-list.compact li, .zone-stats > div { transition: opacity .5s, transform .5s; }
+.obra-list.compact:not(.is-in) li, .zone-stats:not(.is-in) > div { opacity: 0; transform: translateY(10px); }
 
 /* =====================================================================
    Cómo se construye: terminal que se escribe al hacer scroll
@@ -548,13 +534,6 @@ body[data-view="control"] .sec-nav, body[data-view="control"] .side-nav { displa
 /* acciones de la zona */
 .zone-actions { display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s3); }
 
-/* encabezados ordenables */
-.ent-table th .sort { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
-.ent-table th .sort::after { content: "↕"; font-size: 12px; color: #9aa1a5; }
-.ent-table th[aria-sort="descending"] .sort { color: var(--grafito); }
-.ent-table th[aria-sort="descending"] .sort::after { content: "↓"; color: var(--ambar-osc); }
-.ent-table th .sort:focus-visible { outline: 3px solid var(--ambar); outline-offset: 2px; }
-.ent-table tbody.sorting tr { animation: fila .35s ease-out backwards; }
 @keyframes fila { from { opacity: 0; transform: translateX(-8px); } }
 
 /* mapa 3D */
@@ -566,7 +545,7 @@ body[data-view="control"] .sec-nav, body[data-view="control"] .side-nav { displa
 /* =====================================================================
    Secciones de información
    ===================================================================== */
-.tipos, .records, .compare, .faq { max-width: var(--wrap); margin: 0 auto; padding: var(--s7) var(--s5); }
+.tipos, .records, .compare { max-width: var(--wrap); margin: 0 auto; padding: var(--s7) var(--s5); }
 
 /* tipos de obra */
 .tipo-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--s3); }
@@ -686,21 +665,6 @@ body[data-view="control"] .sec-nav, body[data-view="control"] .side-nav { displa
 .cmp-text { font: 600 17px/1.2 var(--f-cond); text-align: right; }
 .cmp-text.is-b { text-align: left; }
 
-/* preguntas frecuentes */
-.faq-list { max-width: 860px; border-top: 2px solid var(--grafito); }
-.faq details { border-bottom: 1px solid var(--linea); }
-.faq summary {
-  list-style: none; cursor: pointer; padding: var(--s4) 40px var(--s4) 0; position: relative;
-  font: 600 21px/1.2 var(--f-cond); transition: color .15s;
-}
-.faq summary::-webkit-details-marker { display: none; }
-.faq summary::after, .faq summary::before { content: ""; position: absolute; right: 8px; top: 50%; width: 16px; height: 2px; background: var(--grafito); transition: transform .3s; }
-.faq summary::before { transform: rotate(90deg); }
-.faq details[open] summary::before { transform: rotate(0deg); }
-.faq summary:hover { color: var(--cartel); }
-.faq summary:focus-visible { outline: 3px solid var(--ambar); outline-offset: 2px; }
-.faq details > div { padding: 0 0 var(--s4); animation: abrir .35s ease-out; }
-.faq details p { margin: 0; color: #343a3e; }
 @keyframes abrir { from { opacity: 0; transform: translateY(-6px); } }
 
 @media (max-width: 1020px) {
@@ -709,7 +673,7 @@ body[data-view="control"] .sec-nav, body[data-view="control"] .side-nav { displa
   .gob-row { grid-template-columns: 1fr; gap: 6px; }
 }
 @media (max-width: 640px) {
-  .tipos, .records, .compare, .faq { padding-left: var(--s4); padding-right: var(--s4); }
+  .tipos, .records, .compare { padding-left: var(--s4); padding-right: var(--s4); }
   .rec-grid { grid-template-columns: 1fr; }
   .tipo-grid { grid-template-columns: 1fr 1fr; }
   .tipo-n { font-size: 32px; }

@@ -131,7 +131,7 @@ export function renderRecords(obras, h) {
     { k: "La obra con más dinero pendiente", v: h.soles(saldo.saldo), name: saldo.nombre, sub: lugar(saldo), act: `obra:${saldo._i}` },
     { k: "La obra más antigua", v: `Empezó en ${viejo?.ini}`, name: viejo?.nombre, sub: `${lugar(viejo)}. Avance ${viejo?.avance != null ? h.nf1.format(viejo.avance) + "%" : "sin dato"}`, act: `obra:${viejo?._i}` },
     { k: "Se paró casi terminada", v: `${h.nf1.format(casi?.avance)}%`, name: casi?.nombre, sub: `${lugar(casi)}. Le falta ${h.soles(casi?.saldo)}`, act: `obra:${casi?._i}` },
-    { k: "La entidad con más obras paralizadas", v: `${h.nf.format(entN)} obras`, name: h.titulo(ent), sub: "Ver en la tabla de entidades", act: "ent" },
+    { k: "La entidad con más obras paralizadas", v: `${h.nf.format(entN)} obras`, name: h.titulo(ent), sub: "Ver en la lista de entidades", act: "ent" },
     { k: "El distrito con más obras paralizadas", v: `${h.nf.format(distN)} obras`, name: distObra?.dist, sub: [distObra?.prov, distObra?.dep].filter(Boolean).join(", "), act: `zona:distrito:${dist}` },
     ...(masCtrl?.nctrl ? [{ k: "La obra con más servicios de control", v: `${h.nf.format(masCtrl.nctrl)} controles`, name: masCtrl.nombre, sub: `${lugar(masCtrl)}. Ver sus informes`, act: `ctrl:${masCtrl.id}` }] : []),
     ...(masPim?.pim ? [{ k: "La que más presupuesto tiene este año", v: h.soles(masPim.pim), name: masPim.nombre, sub: `${lugar(masPim)}. Le falta ${h.soles(masPim.saldo)}`, act: `obra:${masPim._i}` }] : []),
@@ -151,7 +151,7 @@ export function renderRecords(obras, h) {
     if (!b) return;
     const [kind, a, c] = b.dataset.act.split(":");
     if (kind === "obra") h.openObra(Number(a));
-    else if (kind === "ent") { document.querySelector('[data-sort="obras"]').click(); document.getElementById("entidades").scrollIntoView({ behavior: h.reduced ? "auto" : "smooth" }); }
+    else if (kind === "ent") window.ayuda?.abrir("ent", { orden: "obras" });
     else if (kind === "ctrl") h.verControles(a);
     else if (kind === "zona") { document.getElementById("mapa").scrollIntoView({ behavior: h.reduced ? "auto" : "smooth" }); h.select(a, c); }
   });
