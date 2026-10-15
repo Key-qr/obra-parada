@@ -104,12 +104,12 @@ a{color:#17457a}a:hover{color:#0f3359}
 @keyframes infoB{from{opacity:.2;transform:translateY(6px)}}
 @supports (animation-timeline: view()){
 .rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% cover 28%}
-.rvl{animation:rvl linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
-.rvr{animation:rvr linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+.rvl{animation:rvl ease-out both;animation-timeline:view();animation-range:entry 0% entry 90%}
+.rvr{animation:rvr ease-out both;animation-timeline:view();animation-range:entry 0% entry 90%}
 }
 @keyframes rv{from{opacity:0;transform:translateY(48px)}}
-@keyframes rvl{from{opacity:0;transform:translateX(-120px)}}
-@keyframes rvr{from{opacity:0;transform:translateX(120px)}}
+@keyframes rvl{from{opacity:0;transform:translateX(-80px)}}
+@keyframes rvr{from{opacity:0;transform:translateX(80px)}}
 @media (max-width:760px){.chap{grid-template-columns:56px minmax(0,1fr) 48px}.chap .mini{display:none}.chap .num{font-size:44px}.blab{display:none}}
 @media (max-width:760px){
 header .nav,header nav.sub{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
