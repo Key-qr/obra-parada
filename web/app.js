@@ -339,9 +339,14 @@ function buildInMap() {
 function setLayerVisibility() {
   for (const nivel of Object.keys(NIVELES)) {
     const vis = nivel === state.nivel ? "visible" : "none";
-    ["fill", "line", "sel"].forEach((t) => map.setLayoutProperty(`${nivel}-${t}`, "visibility", vis));
+    // En 3D los bordes y la línea de selección se dibujan a ras del suelo y quedan flotando
+    // desfasados de los bloques: se esconden y la selección se pinta en el bloque mismo.
+    const plano = nivel === state.nivel && !state.tresD ? "visible" : "none";
+    map.setLayoutProperty(`${nivel}-fill`, "visibility", vis);
+    ["line", "sel"].forEach((t) => map.setLayoutProperty(`${nivel}-${t}`, "visibility", plano));
     map.setLayoutProperty(`${nivel}-3d`, "visibility", nivel === state.nivel && state.tresD ? "visible" : "none");
   }
+  map.setLayoutProperty("dep-ref", "visibility", state.tresD ? "none" : "visible");
 }
 
 function paintMap(rows) {
@@ -367,7 +372,10 @@ function paintMap(rows) {
   RAMP.forEach((col, i) => expr.push(i + 1, col));
   expr.push(ZERO);
   map.setPaintProperty(`${nivel}-fill`, "fill-color", expr);
-  map.setPaintProperty(`${nivel}-3d`, "fill-extrusion-color", expr);
+  map.setPaintProperty(`${nivel}-3d`, "fill-extrusion-color", ["case",
+    ["boolean", ["feature-state", "sel"], false], cssVar("--ambar"),
+    ["boolean", ["feature-state", "hover"], false], "#f2c460",
+    expr]);
   renderLegend();
 
   lastSinUbicar = rows.filter((o) => !o[NIVELES[nivel].key]).length;
