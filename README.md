@@ -48,7 +48,7 @@ Siete páginas con un solo menú, el mismo en todas: Obras paralizadas · Servic
 
 <p align="center"><img src="docs/img/explorador.png" width="760" alt="Explorador con MapLibre a nivel de distrito"></p>
 
-Lo primero que se abre. Mapa con MapLibre a nivel de **distrito**: buscas tu distrito, filtras y abres la ficha de cada obra. Su menú es el de todo el sitio.
+Lo primero que se abre: una historia con scroll donde los puntos se reordenan por avance, causa y año, y que termina en la cinta de obras. Al buscar tu distrito, o con los botones y el menú, se abre el resto: el mapa con MapLibre a nivel de **distrito**, los filtros, la ficha de cada obra y las entidades. Su menú es el de todo el sitio.
 
 <details>
 <summary><b>Todo lo que tiene el explorador</b></summary>

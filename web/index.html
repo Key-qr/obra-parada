@@ -124,6 +124,8 @@
       <div class="ticker-track" id="ticker-track"></div>
     </div>
 
+    <!-- Lo que sigue a la cinta no se muestra de entrada: se abre desde el menú, la búsqueda o los botones -->
+    <div id="todo">
     <section class="map-section" id="mapa" aria-labelledby="mapa-title">
       <div class="section-head">
         <h2 class="decode" id="mapa-title">Mapa de obras paralizadas</h2>
@@ -427,6 +429,7 @@
         </div>
       </div>
     </section>
+    </div>
   </main>
 
   <main id="control" class="ctrl" hidden aria-labelledby="ctrl-title">
@@ -566,6 +569,45 @@
 
   <script src="vendor/maplibre-gl.js"></script>
   <script src="vendor/topojson-client.min.js"></script>
+  <script>
+    // La portada termina en la cinta de obras. El resto se abre cuando se pide: un enlace a una
+    // sección de abajo, la búsqueda, una obra o una zona en la dirección.
+    (() => {
+      const todo = () => document.getElementById('todo');
+      const abrir = () => {
+        if (document.body.classList.contains('completo')) return;
+        document.body.classList.add('completo');
+        requestAnimationFrame(() => dispatchEvent(new Event('resize')));
+      };
+      const dentro = (el) => el && todo() && todo().contains(el);
+      const porHash = () => {
+        const h = decodeURIComponent(location.hash.slice(1));
+        if (!h) return;
+        const el = document.getElementById(h);
+        if (dentro(el) && !document.body.classList.contains('completo')) {
+          abrir();
+          // el salto del navegador ocurrió con la sección escondida: se repite ya abierta, y otra vez
+          // mientras el resto termina de cargar y empuja la sección hacia abajo (salvo que la persona ya se mueva)
+          let quieto = true;
+          const mueve = () => { quieto = false; };
+          ['wheel', 'touchstart', 'keydown'].forEach((t) => addEventListener(t, mueve, { once: true, passive: true }));
+          [0, 300, 900, 1800].forEach((ms) => setTimeout(() => { if (quieto) el.scrollIntoView(); }, ms));
+        } else if (h.startsWith('zona=') || h.startsWith('control')) abrir();
+      };
+      // antes de que app.js baje a una sección escondida, se abre
+      const ir = Element.prototype.scrollIntoView;
+      Element.prototype.scrollIntoView = function (...a) {
+        if (dentro(this)) abrir();
+        return ir.apply(this, a);
+      };
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest && e.target.closest('a[href^="#"]');
+        if (a && dentro(document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1))))) abrir();
+      }, true);
+      addEventListener('hashchange', porHash);
+      document.addEventListener('DOMContentLoaded', porHash);
+    })();
+  </script>
   <script src="app.js" type="module"></script>
 </body>
 </html>

@@ -816,3 +816,9 @@ body[data-view="control"] .sec-nav, body[data-view="control"] .side-nav { displa
   .c-form { grid-template-columns: 1fr; }
   .c-item { padding: var(--s3) var(--s4); }
 }
+
+/* La portada termina en la cinta de obras; el resto se abre desde el menú o la búsqueda */
+body:not(.completo) #todo { display: none; }
+body:not(.completo) .side-nav { display: none; }
+body.completo #todo { animation: abreTodo .5s ease-out; }
+@keyframes abreTodo { from { opacity: 0; transform: translateY(16px); } }
