@@ -1,17 +1,19 @@
 // Runtime de las páginas de Obra Parada.
 //
 // Cada página trae dos cosas:
-//   <template id="vista">   el HTML con huecos {{a.b}}, listas <sc-for> y condicionales <sc-if>
+//   <template id="vista">   el HTML con huecos {{a.b}}, listas <template sc-for> y condicionales <template sc-if>
 //   <script type="text/x-dc" id="logica">   class Component extends DCLogic { renderVals() {...} }
 //
-// renderVals() devuelve los valores de los huecos. Cada setState() vuelve a pintar: se arma el
-// árbol nuevo y se compara contra el que está en pantalla nodo por nodo, así los elementos
-// que siguen ahí se reutilizan y las transiciones de CSS funcionan.
+// La plantilla se compila una sola vez. En cada setState() se arma un árbol liviano (objetos, no
+// nodos del DOM) solo con lo que tiene huecos; las partes fijas se reutilizan tal cual. Después se
+// compara contra lo que está en pantalla y se tocan únicamente los atributos y textos que cambiaron,
+// así los elementos se conservan y las transiciones de CSS funcionan.
 (function () {
   'use strict';
 
   const HUECO = /\{\{\s*([^}]+?)\s*\}\}/g;
   const SOLO_HUECO = /^\s*\{\{\s*([^}]+?)\s*\}\}\s*$/;
+  const XHTML = 'http://www.w3.org/1999/xhtml';
   const EVENTOS = {
     onclick: 'click', oninput: 'input', onchange: 'change', onfocus: 'focus',
     onmousemove: 'mousemove', onmouseenter: 'mouseenter', onmouseleave: 'mouseleave',
@@ -32,84 +34,150 @@
   }
 
   // ---- valores ----
-  function buscar(ruta, ambito) {
-    if (ruta === 'true') return true;
-    if (ruta === 'false') return false;
-    if (/^-?\d+(\.\d+)?$/.test(ruta)) return Number(ruta);
-    const partes = ruta.split('.');
-    let v = ambito[partes[0]];
-    for (let i = 1; i < partes.length && v != null; i++) v = v[partes[i]];
+  const RUTAS = new Map();
+  function ruta(r) {
+    let c = RUTAS.get(r);
+    if (c) return c;
+    if (r === 'true') c = { lit: true };
+    else if (r === 'false') c = { lit: false };
+    else if (/^-?\d+(\.\d+)?$/.test(r)) c = { lit: Number(r) };
+    else c = { p: r.split('.') };
+    RUTAS.set(r, c);
+    return c;
+  }
+  function buscar(r, ambito) {
+    if ('lit' in r) return r.lit;
+    const p = r.p;
+    let v = ambito[p[0]];
+    for (let i = 1; i < p.length && v != null; i++) v = v[p[i]];
     return v;
   }
-  const texto = (s, ambito) => s.replace(HUECO, (_, r) => {
-    const v = buscar(r, ambito);
-    return v == null || v === false ? '' : String(v);
-  });
-
-  // ---- construir el árbol nuevo desde la plantilla ----
-  function construir(nodo, ambito, destino) {
-    if (nodo.nodeType === 3) {
-      destino.appendChild(document.createTextNode(nodo.data.indexOf('{{') < 0 ? nodo.data : texto(nodo.data, ambito)));
-      return;
+  // texto con huecos -> ['fijo', {ruta}, 'fijo', ...]; null si no tiene huecos
+  function partes(s) {
+    if (s.indexOf('{{') < 0) return null;
+    const out = [];
+    let ult = 0;
+    s.replace(HUECO, (m, r, pos) => { out.push(s.slice(ult, pos), ruta(r)); ult = pos + m.length; return m; });
+    out.push(s.slice(ult));
+    return out;
+  }
+  function unir(p, ambito) {
+    let s = '';
+    for (let i = 0; i < p.length; i++) {
+      const x = p[i];
+      if (typeof x === 'string') s += x;
+      else { const v = buscar(x, ambito); if (v != null && v !== false) s += v; }
     }
-    if (nodo.nodeType !== 1) return;
+    return s;
+  }
+
+  // ---- compilar la plantilla (una vez) ----
+  // Un nodo compilado sin huecos en todo su subárbol (fijo: true) sirve también como su propio
+  // nodo virtual: no se vuelve a evaluar ni a comparar.
+  function compilar(nodo) {
+    if (nodo.nodeType === 3) {
+      const p = partes(nodo.data);
+      return { k: 't', s: nodo.data, p, fijo: !p };
+    }
+    if (nodo.nodeType !== 1) return null;
     const tag = nodo.localName;
-    // <sc-for>/<sc-if> llegan como <template sc-for> / <template sc-if> para que el parser
-    // no los saque de un <select> o de una tabla
-    const kids = nodo.content ? nodo.content.childNodes : nodo.childNodes;
-    const esFor = tag === 'sc-for' || (tag === 'template' && nodo.hasAttribute('sc-for'));
-    const esIf = tag === 'sc-if' || (tag === 'template' && nodo.hasAttribute('sc-if'));
-    if (esFor) {
-      const lista = buscar((nodo.getAttribute('list').match(SOLO_HUECO) || [])[1] || '', ambito) || [];
-      const como = nodo.getAttribute('as') || 'item';
+    const fuente = nodo.content ? nodo.content.childNodes : nodo.childNodes;
+    const kids = [];
+    for (const h of fuente) { const c = compilar(h); if (c) kids.push(c); }
+    if (tag === 'sc-for' || (tag === 'template' && nodo.hasAttribute('sc-for'))) {
+      return { k: 'for', lista: ruta((nodo.getAttribute('list').match(SOLO_HUECO) || [])[1] || ''), como: nodo.getAttribute('as') || 'item', kids };
+    }
+    if (tag === 'sc-if' || (tag === 'template' && nodo.hasAttribute('sc-if'))) {
+      return { k: 'if', v: ruta((nodo.getAttribute('value').match(SOLO_HUECO) || [])[1] || ''), kids };
+    }
+    const attrs = [], ev = [], fijos = {}, ns = {};
+    let din = false;
+    for (const a of nodo.attributes) {
+      const n = a.name;
+      if (n.startsWith('hint-')) continue;
+      const solo = a.value.match(SOLO_HUECO);
+      if (EVENTOS[n]) { if (solo) { ev.push([EVENTOS[n], ruta(solo[1])]); din = true; } continue; }
+      if (a.namespaceURI) ns[n] = a.namespaceURI;
+      if (solo) { attrs.push({ n, solo: ruta(solo[1]) }); din = true; continue; }
+      const p = partes(a.value);
+      if (p) din = true; else fijos[n] = a.value;
+      attrs.push({ n, v: a.value, p });
+    }
+    const html = nodo.namespaceURI === XHTML;
+    return {
+      k: 'e', tag, ns: nodo.namespaceURI, html, crearComo: html ? tag : nodo.tagName,
+      attrs, ev, kids, atFijos: fijos, attrNs: ns,
+      esValor: tag === 'input' || tag === 'select' || tag === 'textarea',
+      fijo: !din && kids.every((k) => k.fijo),
+    };
+  }
+
+  // ---- armar el árbol virtual ----
+  function armar(c, ambito, out) {
+    if (c.fijo) { out.push(c); return; }
+    if (c.k === 't') { out.push({ k: 't', s: unir(c.p, ambito) }); return; }
+    if (c.k === 'for') {
+      const lista = buscar(c.lista, ambito) || [];
       for (let i = 0; i < lista.length; i++) {
         const sub = Object.create(ambito);
-        sub[como] = lista[i];
-        for (const h of kids) construir(h, sub, destino);
+        sub[c.como] = lista[i];
+        for (const k of c.kids) armar(k, sub, out);
       }
       return;
     }
-    if (esIf) {
-      const v = buscar((nodo.getAttribute('value').match(SOLO_HUECO) || [])[1] || '', ambito);
-      if (v) for (const h of kids) construir(h, ambito, destino);
+    if (c.k === 'if') {
+      if (buscar(c.v, ambito)) for (const k of c.kids) armar(k, ambito, out);
       return;
     }
-    const el = nodo.namespaceURI === 'http://www.w3.org/1999/xhtml'
-      ? document.createElement(tag)
-      : document.createElementNS(nodo.namespaceURI, nodo.tagName);
+    const at = {};
     let valor;
-    for (const a of nodo.attributes) {
-      const nombre = a.name;
-      if (nombre.startsWith('hint-')) continue;
-      const solo = a.value.match(SOLO_HUECO);
-      if (EVENTOS[nombre]) {
-        const fn = solo ? buscar(solo[1], ambito) : null;
-        if (typeof fn === 'function') (el.__ev || (el.__ev = {}))[EVENTOS[nombre]] = fn;
-        continue;
-      }
+    for (const a of c.attrs) {
       let v;
-      if (solo) {
-        v = buscar(solo[1], ambito);
+      if (a.solo) {
+        v = buscar(a.solo, ambito);
         if (v == null) continue;
         if (typeof v === 'boolean') {
-          if (nombre.startsWith('aria-') || nombre.startsWith('data-')) v = String(v);
+          if (a.n.startsWith('aria-') || a.n.startsWith('data-')) v = String(v);
           else if (!v) continue;
           else v = '';
         }
         v = String(v);
-      } else {
-        v = a.value.indexOf('{{') < 0 ? a.value : texto(a.value, ambito);
-      }
-      if (nombre === 'value' && (tag === 'input' || tag === 'select' || tag === 'textarea')) valor = v;
-      if (a.namespaceURI) el.setAttributeNS(a.namespaceURI, nombre, v);
-      else el.setAttribute(nombre, v);
+      } else v = a.p ? unir(a.p, ambito) : a.v;
+      at[a.n] = v;
+      if (a.n === 'value' && c.esValor) valor = v;
     }
-    for (const h of nodo.childNodes) construir(h, ambito, el);
-    if (valor !== undefined) { el.__valor = valor; el.value = valor; }
-    if (el.__ev) enganchar(el);
-    destino.appendChild(el);
+    let ev = null;
+    for (const [tipo, r] of c.ev) {
+      const fn = buscar(r, ambito);
+      if (typeof fn === 'function') (ev || (ev = {}))[tipo] = fn;
+    }
+    const kids = [];
+    for (const k of c.kids) armar(k, ambito, kids);
+    out.push({ k: 'e', c, at, ev, kids, valor });
   }
 
+  // ---- del árbol virtual al DOM ----
+  const compDe = (v) => (v.fijo ? v : v.c);
+  const attrsDe = (v) => (v.fijo ? v.atFijos : v.at);
+  function poner(el, c, n, v) {
+    const ns = c.attrNs[n];
+    if (ns) el.setAttributeNS(ns, n, v); else el.setAttribute(n, v);
+  }
+  function crear(v) {
+    if (v.k === 't') return document.createTextNode(v.s);
+    const c = compDe(v);
+    const el = c.html ? document.createElement(c.crearComo) : document.createElementNS(c.ns, c.crearComo);
+    const at = attrsDe(v);
+    for (const n in at) poner(el, c, n, at[n]);
+    el.__c = c; el.__at = at;
+    for (const k of v.kids) el.appendChild(crear(k));
+    if (!v.fijo) {
+      if (v.valor !== undefined) { el.__valor = v.valor; el.value = v.valor; }
+      el.__ev = v.ev;
+      if (v.ev) enganchar(el);
+    }
+    return el;
+  }
   function enganchar(el) {
     const ya = el.__tipos || (el.__tipos = new Set());
     for (const tipo in el.__ev) {
@@ -121,46 +189,39 @@
       });
     }
   }
-
-  // ---- llevar lo que está en pantalla al árbol nuevo ----
-  function mismo(a, b) {
-    if (a.nodeType !== b.nodeType) return false;
-    if (a.nodeType !== 1) return true;
-    return a.namespaceURI === b.namespaceURI && a.localName === b.localName;
+  function mismo(vivo, v) {
+    if (v.k === 't') return vivo.nodeType === 3;
+    if (vivo.nodeType !== 1 || !vivo.__c) return false;
+    const c = compDe(v);
+    return vivo.__c === c || (vivo.__c.tag === c.tag && vivo.__c.ns === c.ns);
   }
-  function parchar(vivo, nuevo) {
-    if (vivo.nodeType === 3) {
-      if (vivo.data !== nuevo.data) vivo.data = nuevo.data;
-      return;
-    }
-    const va = vivo.attributes, na = nuevo.attributes;
-    for (let i = va.length - 1; i >= 0; i--) {
-      const a = va[i];
-      if (!nuevo.hasAttribute(a.name)) vivo.removeAttribute(a.name);
-    }
-    for (const a of na) {
-      if (vivo.getAttribute(a.name) !== a.value) {
-        if (a.namespaceURI) vivo.setAttributeNS(a.namespaceURI, a.name, a.value);
-        else vivo.setAttribute(a.name, a.value);
-      }
-    }
-    vivo.__ev = nuevo.__ev;
+  function parchar(vivo, v) {
+    if (v.k === 't') { if (vivo.data !== v.s) vivo.data = v.s; return; }
+    if (v.fijo && vivo.__c === v) return; // parte fija ya pintada: no hay nada que revisar
+    const c = compDe(v);
+    const antes = vivo.__at || {}, ahora = attrsDe(v);
+    for (const n in antes) if (!(n in ahora)) vivo.removeAttribute(n);
+    for (const n in ahora) if (antes[n] !== ahora[n]) poner(vivo, c, n, ahora[n]);
+    vivo.__c = c; vivo.__at = ahora;
+    vivo.__ev = v.fijo ? null : v.ev;
     if (vivo.__ev) enganchar(vivo);
-    hijos(vivo, nuevo);
-    if (nuevo.__valor !== undefined) {
-      vivo.__valor = nuevo.__valor;
+    hijos(vivo, v.kids);
+    if (!v.fijo && v.valor !== undefined) {
+      vivo.__valor = v.valor;
       const enfocado = document.activeElement === vivo && vivo.type !== 'range';
-      if (vivo.value !== nuevo.__valor && !enfocado) vivo.value = nuevo.__valor;
+      if (vivo.value !== v.valor && !enfocado) vivo.value = v.valor;
     }
   }
-  function hijos(vivo, nuevo) {
-    const v = Array.from(vivo.childNodes), n = Array.from(nuevo.childNodes);
-    for (let i = 0; i < n.length; i++) {
-      if (i >= v.length) vivo.appendChild(n[i]);
-      else if (mismo(v[i], n[i])) parchar(v[i], n[i]);
-      else vivo.replaceChild(n[i], v[i]);
+  function hijos(vivo, nuevos) {
+    const v = vivo.childNodes;
+    const largo = v.length;
+    for (let i = 0; i < nuevos.length; i++) {
+      if (i >= largo) { vivo.appendChild(crear(nuevos[i])); continue; }
+      const actual = v[i];
+      if (mismo(actual, nuevos[i])) parchar(actual, nuevos[i]);
+      else vivo.replaceChild(crear(nuevos[i]), actual);
     }
-    for (let i = v.length - 1; i >= n.length; i--) vivo.removeChild(v[i]);
+    while (vivo.childNodes.length > nuevos.length) vivo.removeChild(vivo.lastChild);
   }
 
   // ---- montar la página ----
@@ -169,19 +230,17 @@
     const logica = document.getElementById('logica');
     const raiz = document.getElementById('app');
     if (!vista || !logica || !raiz) return;
+    const plantilla = [];
+    for (const h of vista.content.childNodes) { const c = compilar(h); if (c) plantilla.push(c); }
     const Component = new Function('DCLogic', `${logica.textContent}\nreturn Component;`)(DCLogic);
     const c = new Component({});
     let pendiente = false, montado = false;
     const pintar = () => {
       pendiente = false;
       const vals = c.renderVals();
-      const tmp = document.createElement('div');
-      for (const h of vista.content.childNodes) construir(h, vals, tmp);
-      if (!montado) {
-        while (tmp.firstChild) raiz.appendChild(tmp.firstChild);
-      } else {
-        hijos(raiz, tmp);
-      }
+      const arbol = [];
+      for (const n of plantilla) armar(n, vals, arbol);
+      hijos(raiz, arbol);
     };
     c.__pintar = () => {
       if (!montado || pendiente) return;
@@ -190,6 +249,12 @@
     };
     pintar();
     montado = true;
+    // en el celular el menú es una fila que se desliza: se deja a la vista la página actual
+    const actual = document.querySelector('header .nav a.on');
+    const menu = actual && actual.parentElement;
+    if (menu && menu.scrollWidth > menu.clientWidth) {
+      menu.scrollLeft = actual.offsetLeft - menu.offsetLeft - (menu.clientWidth - actual.offsetWidth) / 2;
+    }
     if (typeof c.componentDidMount === 'function') c.componentDidMount();
     window.addEventListener('pagehide', () => {
       if (typeof c.componentWillUnmount === 'function') c.componentWillUnmount();

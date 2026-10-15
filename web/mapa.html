@@ -80,7 +80,10 @@ a{color:#17457a}a:hover{color:#0f3359}
 .blab{position:absolute;transform:translate(-50%,0);font:600 12.5px 'Barlow Condensed',sans-serif;white-space:nowrap;pointer-events:none;transition:left .8s,bottom .8s}
 .race{position:relative;height:850px}
 .rrow{position:absolute;left:0;right:0;height:30px;display:grid;grid-template-columns:9em minmax(0,1fr);gap:10px;align-items:center;transition:top .7s cubic-bezier(.3,1.2,.4,1)}
-.rrow .rb{height:24px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;color:#fff;font:700 14px 'Barlow Condensed',sans-serif;white-space:nowrap;transition:width .7s cubic-bezier(.2,.8,.2,1),background-color .3s;min-width:2px}
+.rrow .rbw{display:flex;align-items:center;gap:6px;min-width:0}
+.rrow .rb{flex:0 0 auto;height:24px;min-width:2px;transition:width .7s cubic-bezier(.2,.8,.2,1),background-color .3s}
+.rrow .rval{font:700 14px 'Barlow Condensed',sans-serif;color:#343a3e;white-space:nowrap}
+@media (max-width:640px){.rrow{grid-template-columns:7em minmax(0,1fr);gap:6px}.rrow>span:first-child{font-size:13px!important}}
 .rplay{width:52px;height:52px;border-radius:50%;border:0;background:#e9a21a;color:#1f2326;display:grid;place-items:center;cursor:pointer;transition:transform .2s}
 .rplay:hover{transform:scale(1.1)}
 .xt{width:100%;border-collapse:collapse;font-size:15px}
@@ -132,6 +135,14 @@ a{color:#17457a}a:hover{color:#0f3359}
 @supports (animation-timeline: view()){.rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% cover 25%}}
 @keyframes rv{from{opacity:0;transform:translateY(40px)}}
 @media (max-width:760px){.rank{grid-template-columns:7em minmax(0,1fr) 5.5em}.tilt.on{transform:rotateX(40deg) translateY(-10px)}}
+@media (max-width:760px){
+header .nav,header nav.sub{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+header .nav{margin-left:0!important;width:100%}
+header .nav::-webkit-scrollbar,header nav.sub::-webkit-scrollbar{display:none}
+header .nav a{flex:0 0 auto;min-height:40px;padding:0 10px;font-size:16px}
+header nav.sub{padding-left:16px!important;padding-right:16px!important}
+header nav.sub a{flex:0 0 auto}
+}
 </style>
 <script src="js/dc.js" defer></script>
 </head>
@@ -227,7 +238,7 @@ a{color:#17457a}a:hover{color:#0f3359}
   <div style="flex: 1 1 520px; min-width: 0; background: #d3d5d2; border: 1.5px solid #b9bdbb; position: relative; overflow: hidden">
     <template sc-if value="{{tour}}" hint-placeholder-val="{{false}}"><div class="prog-tour" aria-hidden="true"></div></template>
     <div class="{{stageCls}}" style="padding: 28px 24px 24px" onPointerDown="{{dragStart}}" onPointerMove="{{dragMove}}" onPointerUp="{{dragEnd}}" onPointerLeave="{{dragEnd}}">
-      <div class="{{tiltCls}}" style="transform: {{tiltT}}">
+      <div id="tilt3d" class="{{tiltCls}}" style="transform: {{tiltT}}">
         <div class="zoom" style="position: relative; width: 100%; max-width: 540px; margin: 0 auto; aspect-ratio: 420 / 615; transform-origin: {{zoomOrigin}}; transform: scale({{zoomScale}})">
           <template sc-if value="{{d3}}" hint-placeholder-val="{{false}}">
             <template sc-for list="{{bars}}" as="b" hint-placeholder-count="25">
@@ -430,7 +441,7 @@ a{color:#17457a}a:hover{color:#0f3359}
       <template sc-for list="{{raceRows}}" as="r" hint-placeholder-count="25">
         <div class="rrow" style="top: {{r.top}}px">
           <span style="text-align: right; font-weight: 600; font-size: 15px">{{r.n}}</span>
-          <span><span class="rb" style="width: {{r.w}}%; background: {{r.c}}">{{r.v}}</span></span>
+          <span class="rbw"><span class="rb" style="width: {{r.w}}%; background: {{r.c}}"></span><span class="rval">{{r.v}}</span></span>
         </div>
       </template>
     </div>
@@ -494,7 +505,7 @@ class Component extends DCLogic {
     }, 700);
     // Giro automático del 3D.
     const spin = () => {
-      if (this.state.tilt && this.state.spin && !this.state.drag) this.setState({ rz: (this.state.rz + 0.25) % 360 });
+      if (this.state.tilt && this.state.spin && !this.state.drag) { this.state.rz = (this.state.rz + 0.25) % 360; this.apply3D(); }
       this.spinRaf = requestAnimationFrame(spin);
     };
     this.spinRaf = requestAnimationFrame(spin);
@@ -504,6 +515,16 @@ class Component extends DCLogic {
       const i = order.indexOf(this.state.sel);
       this.setState({ sel: order[(i + 1) % order.length], obra: null, flip: !this.state.flip });
     }, 2400);
+  }
+  // Giro y arrastre del 3D: se mueve el escenario directo, sin volver a pintar toda la página en
+  // cada cuadro. El estado queda al día para el siguiente render normal.
+  apply3D() {
+    const st = this.state;
+    const t = document.getElementById('tilt3d');
+    if (t) t.style.transform = `rotateX(${st.rx}deg) rotateZ(${st.rz}deg) translateY(-20px)`;
+    document.querySelectorAll('.b3 .lab').forEach((l) => {
+      l.style.transform = l.style.transform.replace(/rotateZ\([^)]*\) rotateX\([^)]*\)/, `rotateZ(${-st.rz}deg) rotateX(${-st.rx}deg)`);
+    });
   }
   componentWillUnmount() { clearInterval(this.timer); clearInterval(this.tlTimer); clearInterval(this.raceTimer); cancelAnimationFrame(this.spinRaf); }
   // Obras (y su saldo) que empezaron hasta cada año, 2007..2026, por departamento.
@@ -694,7 +715,7 @@ class Component extends DCLogic {
     const raceRows = DEP.map((d) => {
       const val = CUMD[d[0]][ri][st.ryi];
       return {
-        n: d[1], top: rank[d[0]] * 34, w: Math.max(0.3, (val / rMax) * 100).toFixed(1),
+        n: d[1], top: rank[d[0]] * 34, w: Math.max(0.3, (val / rMax) * 78).toFixed(1),
         c: d[0] === st.sel ? '#e9a21a' : rank[d[0]] < 3 ? '#123a66' : '#5b84ad',
         v: val ? (st.rm === 'obras' ? nf.format(val) : M(val)) : '',
       };
@@ -769,10 +790,12 @@ class Component extends DCLogic {
         this.setState({ drag: true });
       },
       dragMove: (e) => {
-        if (!st.drag || !this.d0) return;
+        if (!this.state.drag || !this.d0) return;
         const dx = e.clientX - this.d0.x, dy = e.clientY - this.d0.y;
         if (Math.abs(dx) + Math.abs(dy) > 4) this.moved = true;
-        this.setState({ rz: this.d0.rz - dx * 0.4, rx: Math.max(15, Math.min(72, this.d0.rx - dy * 0.3)) });
+        this.state.rz = this.d0.rz - dx * 0.4;
+        this.state.rx = Math.max(15, Math.min(72, this.d0.rx - dy * 0.3));
+        this.apply3D();
       },
       dragEnd: () => {
         if (!st.drag) return;

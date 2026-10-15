@@ -55,6 +55,14 @@ a{color:#f5d38a}a:hover{color:#fff}
 @supports (animation-timeline: view()){.rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% cover 25%}}
 @keyframes rv{from{opacity:0;transform:translateY(40px)}}
 @media (max-width:900px){.term{position:static}.step{min-height:auto;padding:32px 0;opacity:1}.link{display:none}}
+@media (max-width:760px){
+header .nav,header nav.sub{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+header .nav{margin-left:0!important;width:100%}
+header .nav::-webkit-scrollbar,header nav.sub::-webkit-scrollbar{display:none}
+header .nav a{flex:0 0 auto;min-height:40px;padding:0 10px;font-size:16px}
+header nav.sub{padding-left:16px!important;padding-right:16px!important}
+header nav.sub a{flex:0 0 auto}
+}
 </style>
 <script src="js/dc.js" defer></script>
 </head>

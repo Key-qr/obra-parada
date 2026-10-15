@@ -86,6 +86,14 @@ html{scroll-behavior:smooth}
 @keyframes grow{from{transform:scaleX(0)}}
 @keyframes rise{from{transform:scaleY(0)}}
 @media (max-width:760px){.brow{grid-template-columns:minmax(0,1fr) 6em}.brow .track{grid-column:1/-1;grid-row:2}}
+@media (max-width:760px){
+header .nav,header nav.sub{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+header .nav{margin-left:0!important;width:100%}
+header .nav::-webkit-scrollbar,header nav.sub::-webkit-scrollbar{display:none}
+header .nav a{flex:0 0 auto;min-height:40px;padding:0 10px;font-size:16px}
+header nav.sub{padding-left:16px!important;padding-right:16px!important}
+header nav.sub a{flex:0 0 auto}
+}
 </style>
 <script src="js/dc.js" defer></script>
 </head>
