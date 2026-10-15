@@ -257,6 +257,7 @@
     }
     if (typeof c.componentDidMount === 'function') c.componentDidMount();
     cabeceraMovil();
+    menuMas();
     window.addEventListener('pagehide', () => {
       if (typeof c.componentWillUnmount === 'function') c.componentWillUnmount();
     });
@@ -282,6 +283,15 @@
         antes = y;
       });
     }, { passive: true });
+  }
+
+  // El menú "Más" se cierra al hacer clic afuera o con Escape.
+  function menuMas() {
+    const cerrar = (e) => document.querySelectorAll('details.mas[open]').forEach((d) => {
+      if (e.key === 'Escape' || !d.contains(e.target)) d.removeAttribute('open');
+    });
+    document.addEventListener('click', cerrar);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrar(e); });
   }
 
   window.DCLogic = DCLogic;
