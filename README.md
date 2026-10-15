@@ -20,8 +20,8 @@
 </p>
 
 <p align="center">
-  <img src="docs/img/inicio.gif" width="760" alt="Inicio: los puntos se juntan con el scroll y arman un edificio por departamento; con el simulador se pintan de ámbar las obras que se terminarían">
-  <br><sub>Inicio. Con el scroll los puntos se juntan y arman un edificio por departamento (cada punto son 5 obras). Al darle play al presupuesto se pintan de ámbar las que se terminarían.</sub>
+  <img src="docs/img/inicio.gif" width="760" alt="Simulador: los puntos se juntan con el scroll y arman un edificio por departamento; con el simulador se pintan de ámbar las obras que se terminarían">
+  <br><sub>Simulador. Con el scroll los puntos se juntan y arman un edificio por departamento (cada punto son 5 obras). Al darle play al presupuesto se pintan de ámbar las que se terminarían.</sub>
 </p>
 
 | 2,262 | S/ 27.5 mil millones | 286 | 4,386 |
@@ -44,60 +44,11 @@ El dato es público, pero viene en un PDF de 70+ páginas y dos Excel anexos que
 
 El menú navega entre siete páginas. Todas leen los mismos datos y funcionan sin servidor.
 
-### 1 · Inicio
-
-<table>
-<tr>
-<td width="50%"><img src="docs/img/inicio.png" alt="Simulador de presupuesto y la ciudad de las obras"></td>
-<td width="50%"><img src="docs/img/puntos.gif" alt="El Perú hecho de puntos con información al pasar el cursor"></td>
-</tr>
-<tr>
-<td valign="top"><b>Simulador de presupuesto.</b> Mueves el monto o le das play y ves cuántas obras se terminarían empezando por las que menos les falta. Cada departamento es un edificio de puntos; las obras siguientes en terminarse tienen un botón <i>Hasta aquí</i> que mueve el presupuesto lo justo para cubrirlas. Hay buscador por distrito u obra.</td>
-<td valign="top"><b>El Perú en puntos.</b> Cada puntito es un pedazo del país y los grandes son las 60 obras con más dinero pendiente. Al pasar el cursor se ilumina el departamento o la obra, con sus cifras al lado. Se colorea por dinero, obras o controles.</td>
-</tr>
-</table>
-
-### 2 · Mapa
-
-<p align="center"><img src="docs/img/mapa.gif" width="760" alt="Mapa en 3D girando y recorrido automático por departamentos"></p>
-
-Departamentos coloreados por dinero pendiente, obras, controles, presupuesto del año, avance mediano u obras casi terminadas. Filtro por nivel de gobierno, obras grandes como puntos, vista de puntitos, zoom, **3D que se arrastra y gira**, **recorrido automático** y línea de tiempo por año de inicio. El panel compara cada departamento con el promedio del país. Debajo: ranking, burbujas, carrera de barras y tabla.
-
-### 3 · Comparar
-
-<p align="center"><img src="docs/img/comparar.gif" width="760" alt="Obra por obra: los puntos se reordenan entre mapa, avance, causa y año de inicio"></p>
-
-Dos departamentos frente a frente. En **Obra por obra** cada obra es un punto (azul uno, ámbar el otro) que viaja entre el mapa, un histograma de avance, filas por causa y año de inicio. El cursor muestra la obra y el clic abre su ficha. Además: balanza, radar, perfiles, curvas acumuladas y un duelo al azar.
-
-### 4 · Servicios de control
-
-<table>
-<tr>
-<td width="50%"><img src="docs/img/control.gif" alt="Reproductor año por año de los servicios de control"></td>
-<td width="50%"><img src="docs/img/control.png" alt="Panorama de los servicios de control"></td>
-</tr>
-</table>
-
-Los 4,386 servicios del Anexo N.° 02: tipos de control, obras con y sin control, mapa de cuadros, **reproductor año por año**, mapa de calor, un juego de cartas para adivinar, las obras y entidades más revisadas, un informe al azar y un buscador con enlace al PDF en el sistema de la Contraloría.
-
-### 5 · Análisis y 6 · Cómo se hizo
-
-<table>
-<tr>
-<td width="50%"><img src="docs/img/analisis.png" alt="Análisis: adivina la causa que más dinero frena"></td>
-<td width="50%"><img src="docs/img/metodo.png" alt="Cómo se hizo: probador del parser"></td>
-</tr>
-<tr>
-<td valign="top"><b>Análisis.</b> Primero adivinas qué causa frena más dinero y después ves la respuesta. Un control para mover el umbral de avance, tipos de obra, año de inicio, nivel de gobierno y récords en tarjetas que se voltean.</td>
-<td valign="top"><b>Cómo se hizo.</b> El pipeline paso a paso con una terminal que escribe mientras haces scroll, y un <b>probador del parser</b>: escribes una cabecera de Excel y ves qué regla de <code>parse.py</code> la reconoce y a qué campo va.</td>
-</tr>
-</table>
-
-### 7 · Explorador
+### 1 · Explorador (la portada)
 
 <p align="center"><img src="docs/img/explorador.png" width="760" alt="Explorador con MapLibre a nivel de distrito"></p>
 
-La primera versión del sitio, con MapLibre a nivel de **distrito**: buscas tu distrito, filtras y abres la ficha de cada obra.
+Lo primero que se abre. Mapa con MapLibre a nivel de **distrito**: buscas tu distrito, filtras y abres la ficha de cada obra. Arriba, una barra lleva a las demás páginas.
 
 <details>
 <summary><b>Todo lo que tiene el explorador</b></summary>
@@ -131,6 +82,55 @@ Y se mueve con lo que haces:
 - Todo respeta `prefers-reduced-motion`: con esa preferencia activa, la página muestra el estado final sin animar.
 
 </details>
+
+### 2 · Simulador
+
+<table>
+<tr>
+<td width="50%"><img src="docs/img/inicio.png" alt="Simulador de presupuesto y la ciudad de las obras"></td>
+<td width="50%"><img src="docs/img/puntos.gif" alt="El Perú hecho de puntos con información al pasar el cursor"></td>
+</tr>
+<tr>
+<td valign="top"><b>Simulador de presupuesto.</b> Mueves el monto o le das play y ves cuántas obras se terminarían empezando por las que menos les falta. Cada departamento es un edificio de puntos; las obras siguientes en terminarse tienen un botón <i>Hasta aquí</i> que mueve el presupuesto lo justo para cubrirlas. Hay buscador por distrito u obra.</td>
+<td valign="top"><b>El Perú en puntos.</b> Cada puntito es un pedazo del país y los grandes son las 60 obras con más dinero pendiente. Al pasar el cursor se ilumina el departamento o la obra, con sus cifras al lado. Se colorea por dinero, obras o controles.</td>
+</tr>
+</table>
+
+### 3 · Mapa
+
+<p align="center"><img src="docs/img/mapa.gif" width="760" alt="Mapa en 3D girando y recorrido automático por departamentos"></p>
+
+Departamentos coloreados por dinero pendiente, obras, controles, presupuesto del año, avance mediano u obras casi terminadas. Filtro por nivel de gobierno, obras grandes como puntos, vista de puntitos, zoom, **3D que se arrastra y gira**, **recorrido automático** y línea de tiempo por año de inicio. El panel compara cada departamento con el promedio del país. Debajo: ranking, burbujas, carrera de barras y tabla.
+
+### 4 · Comparar
+
+<p align="center"><img src="docs/img/comparar.gif" width="760" alt="Obra por obra: los puntos se reordenan entre mapa, avance, causa y año de inicio"></p>
+
+Dos departamentos frente a frente. En **Obra por obra** cada obra es un punto (azul uno, ámbar el otro) que viaja entre el mapa, un histograma de avance, filas por causa y año de inicio. El cursor muestra la obra y el clic abre su ficha. Además: balanza, radar, perfiles, curvas acumuladas y un duelo al azar.
+
+### 5 · Servicios de control
+
+<table>
+<tr>
+<td width="50%"><img src="docs/img/control.gif" alt="Reproductor año por año de los servicios de control"></td>
+<td width="50%"><img src="docs/img/control.png" alt="Panorama de los servicios de control"></td>
+</tr>
+</table>
+
+Los 4,386 servicios del Anexo N.° 02: tipos de control, obras con y sin control, mapa de cuadros, **reproductor año por año**, mapa de calor, un juego de cartas para adivinar, las obras y entidades más revisadas, un informe al azar y un buscador con enlace al PDF en el sistema de la Contraloría.
+
+### 6 · Análisis y 7 · Cómo se hizo
+
+<table>
+<tr>
+<td width="50%"><img src="docs/img/analisis.png" alt="Análisis: adivina la causa que más dinero frena"></td>
+<td width="50%"><img src="docs/img/metodo.png" alt="Cómo se hizo: probador del parser"></td>
+</tr>
+<tr>
+<td valign="top"><b>Análisis.</b> Primero adivinas qué causa frena más dinero y después ves la respuesta. Un control para mover el umbral de avance, tipos de obra, año de inicio, nivel de gobierno y récords en tarjetas que se voltean.</td>
+<td valign="top"><b>Cómo se hizo.</b> El pipeline paso a paso con una terminal que escribe mientras haces scroll, y un <b>probador del parser</b>: escribes una cabecera de Excel y ves qué regla de <code>parse.py</code> la reconoce y a qué campo va.</td>
+</tr>
+</table>
 
 ## Arquitectura
 
@@ -288,7 +288,7 @@ obra-parada/
 ├── dbt/               modelos, seeds y tests
 ├── scripts/           geodatos, fixture sintético, vendor del front
 ├── tests/             tests del parser (pytest)
-├── web/               sitio estático: seis páginas + explorador.html, js/dc.js, data/
+├── web/               sitio estático: index.html (explorador) + seis páginas, js/dc.js, data/
 ├── docs/              DATA.md y capturas
 └── .github/workflows  ci.yml (tests + pipeline con fixture), pipeline.yml (actualización semanal) y pages.yml (publicación)
 ```

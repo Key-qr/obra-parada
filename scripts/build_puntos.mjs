@@ -1,5 +1,5 @@
 // Arma web/data/obras_por_depto.json: una fila corta por obra, agrupadas por departamento,
-// para las vistas de puntos (Inicio y Comparar). Corre después de `make export`:
+// para las vistas de puntos (Simulador y Comparar). Corre después de `make export`:
 //   node scripts/build_puntos.mjs
 //
 // Fila: [x, y, avance (-1 sin dato), causa 0-5, año de inicio - 2000 (0 sin dato),

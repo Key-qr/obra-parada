@@ -72,7 +72,7 @@ Procedencia de la carga: fecha de corte, publicación, URL, nombre del archivo, 
 
 ## `web/data/obras_por_depto.json`
 
-Lo arma `scripts/build_puntos.mjs` después del export (`make export` lo corre). Una fila corta por obra, agrupadas por ubigeo de departamento y ordenadas de mayor a menor saldo; lo usan las vistas de puntos de Inicio y Comparar.
+Lo arma `scripts/build_puntos.mjs` después del export (`make export` lo corre). Una fila corta por obra, agrupadas por ubigeo de departamento y ordenadas de mayor a menor saldo; lo usan las vistas de puntos del Simulador y Comparar.
 
 | Posición | Campo | Nota |
 |---|---|---|
