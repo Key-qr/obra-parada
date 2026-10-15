@@ -37,7 +37,8 @@ a{color:#17457a}a:hover{color:#0f3359}
 .tg.on{background:#1f2326;color:#fff}
 .tg.on .sw{background:#e9a21a}
 .tg.on .sw::after{transform:translateX(14px)}
-.stage{perspective:1500px;touch-action:none;user-select:none}
+.stage{perspective:1500px;touch-action:pan-y;user-select:none}
+@media (max-width:640px){.stage{padding:14px 8px 8px!important}.mleg{position:static!important;margin:0 10px 12px;display:flex;flex-wrap:wrap;gap:2px 14px}.mleg>p{width:100%}.mleg>div{margin-top:0!important}.mleg>div:last-child{width:100%}.mhint{position:static!important;display:inline-block;margin:0 10px 12px!important;font-size:13px!important}}
 .stage.d3{cursor:grab}
 .stage.d3.drag{cursor:grabbing}
 .tilt{transform-style:preserve-3d;transform-origin:50% 55%}
@@ -273,7 +274,7 @@ header nav.sub a{flex:0 0 auto}
         </div>
       </div>
     </div>
-    <div style="position: absolute; left: 20px; bottom: 20px; background: rgba(244, 245, 243, 0.95); border: 1px solid #b9bdbb; padding: 12px 14px">
+    <div class="mleg" style="position: absolute; left: 20px; bottom: 20px; background: rgba(244, 245, 243, 0.95); border: 1px solid #b9bdbb; padding: 12px 14px">
       <p style="margin: 0 0 8px; font: 600 15px 'Barlow Condensed', sans-serif">{{legendTitle}}</p>
       <template sc-for list="{{legend}}" as="g" hint-placeholder-count="5">
         <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; margin-top: 3px"><span style="width: 22px; height: 12px; background: {{g.c}}"></span>{{g.t}}</div>
@@ -282,7 +283,7 @@ header nav.sub a{flex:0 0 auto}
         <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #b9bdbb"><span style="width: 12px; height: 12px; border-radius: 50%; background: #1f2326"></span>Obra · <span style="width: 12px; height: 12px; border-radius: 50%; background: #e9a21a"></span>al 90%+</div>
       </template>
     </div>
-    <p style="position: absolute; right: 20px; top: 20px; margin: 0; font-size: 14px; color: #5d6468; background: rgba(244, 245, 243, 0.9); padding: 4px 8px">{{mapHint}}</p>
+    <p class="mhint" style="position: absolute; right: 20px; top: 20px; margin: 0; font-size: 14px; color: #5d6468; background: rgba(244, 245, 243, 0.9); padding: 4px 8px">{{mapHint}}</p>
   </div>
 
   <aside style="flex: 1 1 380px; min-width: 0; background: #f4f5f3; border: 1.5px solid #1f2326; padding: 26px" aria-live="polite">

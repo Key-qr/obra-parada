@@ -256,9 +256,32 @@
       menu.scrollLeft = actual.offsetLeft - menu.offsetLeft - (menu.clientWidth - actual.offsetWidth) / 2;
     }
     if (typeof c.componentDidMount === 'function') c.componentDidMount();
+    cabeceraMovil();
     window.addEventListener('pagehide', () => {
       if (typeof c.componentWillUnmount === 'function') c.componentWillUnmount();
     });
+  }
+
+  // En el celular la cabecera (menú y submenú) se esconde al bajar y vuelve al subir un poco,
+  // para que no ocupe pantalla mientras se lee.
+  function cabeceraMovil() {
+    const cab = document.querySelector('header');
+    if (!cab) return;
+    const css = document.createElement('style');
+    css.textContent = '@media (max-width:760px){header{transition:transform .25s ease}header.oculta{transform:translateY(-100%)}}';
+    document.head.appendChild(css);
+    let antes = window.scrollY, pend = false;
+    window.addEventListener('scroll', () => {
+      if (pend) return;
+      pend = true;
+      requestAnimationFrame(() => {
+        pend = false;
+        const y = window.scrollY;
+        if (y > antes + 6 && y > 160) cab.classList.add('oculta');
+        else if (y < antes - 6 || y < 160) cab.classList.remove('oculta');
+        antes = y;
+      });
+    }, { passive: true });
   }
 
   window.DCLogic = DCLogic;

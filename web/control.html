@@ -599,7 +599,7 @@ class Component extends DCLogic {
     // Buscador
     const norm = (s) => String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
     const words = norm(st.q).trim().split(/\s+/).filter(Boolean);
-    const found = INF.filter((x) => (!st.year || x[0] === st.year) && (!st.acc || x[2] === st.acc) && words.every((w) => norm(x.join(' ')).includes(w)));
+    const found = INF.filter((x) => (!st.year || x[0] === st.year) && (!st.acc || x[2] === st.acc) && words.every((w) => norm(x.join(' ')).includes(w))).sort((a, b) => b[0] - a[0]);
     const filtros = [st.year, st.acc, st.q.trim()].filter(Boolean);
     const L = INF[st.lot];
     const labels = { panorama: 'Panorama', sirve: '¿A qué obras llega?', donde: 'Dónde', cuando: 'Cuándo', juego: 'Juego', obras: 'Obras y entidades', azar: 'Al azar', buscar: 'Buscar' };
