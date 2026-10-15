@@ -28,6 +28,12 @@
 |:---:|:---:|:---:|:---:|
 | obras paralizadas (Anexo N.° 01) | por ejecutar | están al 90% o más; terminarlas costaría S/ 2,605 millones | servicios de control a 1,239 obras (Anexo N.° 02) |
 
+## Recorrido en video
+
+Un minuto por las seis páginas: la ciudad que se arma con el scroll, el simulador, el Perú en puntos, el mapa en 3D, Obra por obra en Comparar, el reproductor de controles, el quiz de causas y el probador del parser.
+
+[Ver el video (1 min, MP4)](docs/video/obra-parada-recorrido.mp4)
+
 ## El problema
 
 La Contraloría publica cada trimestre el *Informe de obras paralizadas en el territorio nacional*. Según el último informe, a junio de 2026 hay 2,262 obras paralizadas y el 65% se quedó con más de la mitad del avance físico ([Gestión, ago. 2026](https://gestion.pe/economia/hay-mas-obras-paralizadas-con-esta-caracteristica-que-esperar-ahora-con-el-nino-este-es-el-reto-del-gobierno-de-keiko-fujimori-noticia/)).
