@@ -43,11 +43,11 @@
         <div class="story-text">
           <div class="story-step hero-text is-active" data-mode="geo">
             <h1 id="hero-title">¿Qué obra está parada en tu distrito?</h1>
-            <p class="lede">Cada trimestre la Contraloría publica la lista de obras públicas que llevan seis meses o más sin avance. Aquí la puedes buscar por lugar, ver cuánto se gastó y por qué se detuvo.</p>
+            <p class="lede">Cada trimestre la Contraloría publica la lista de obras públicas que llevan seis meses o más sin avance. Aquí la puedes buscar por lugar o por lo que se estaba construyendo, ver cuánto se gastó y por qué se detuvo.</p>
             <div class="search" role="search">
-              <label for="q">Busca un distrito, provincia o departamento</label>
-              <div class="search-box">
-                <input id="q" type="search" autocomplete="off" placeholder="Ej. Santiago, Cusco" aria-controls="q-list" aria-expanded="false" aria-autocomplete="list" role="combobox">
+              <label for="q">Busca un lugar o una obra</label>
+              <div class="search-box" data-buscador>
+                <input id="q" type="search" autocomplete="off" placeholder="Ej. Huanchaco, puente Iquitos, colegio Cusco" aria-controls="q-list" aria-expanded="false" aria-autocomplete="list" role="combobox">
                 <ul id="q-list" role="listbox" hidden></ul>
               </div>
             </div>
@@ -132,7 +132,15 @@
     <section class="map-section" id="mapa" aria-labelledby="mapa-title">
       <div class="section-head">
         <h2 class="decode" id="mapa-title">Mapa de obras paralizadas</h2>
-        <p class="section-note">Haz clic en una zona para ver sus obras. Los filtros afectan el mapa y todo lo que está debajo.</p>
+        <p class="section-note">Haz clic en una zona para ver sus obras. Al acercarte, cada punto es una obra y salen los nombres de las provincias y distritos. Los filtros afectan el mapa y todo lo que está debajo.</p>
+      </div>
+
+      <div class="search search-map" role="search">
+        <label for="q-mapa">Busca un lugar o una obra</label>
+        <div class="search-box" data-buscador>
+          <input id="q-mapa" type="search" autocomplete="off" placeholder="Ej. calles Trujillo, mercado Belén, código Infobras" aria-controls="q-mapa-list" aria-expanded="false" aria-autocomplete="list" role="combobox">
+          <ul id="q-mapa-list" role="listbox" hidden></ul>
+        </div>
       </div>
 
       <form class="controls" id="controls" aria-label="Filtros">

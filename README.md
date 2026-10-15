@@ -33,7 +33,7 @@
 
 | Datos | Web | Operación |
 |---|---|---|
-| Descarga automática del informe desde gob.pe, parser que aguanta cambios de columnas entre informes, modelos en **dbt + DuckDB** con tests de calidad antes de publicar. | Siete páginas sin framework: **MapLibre** a nivel de distrito con 3D, un runtime propio de ~200 líneas, animaciones atadas al scroll. Probado en celular. | **GitHub Actions** revisa gob.pe cada lunes y publica solo si el archivo cambió. **GitHub Pages** sirve el sitio. Costo: cero. |
+| Descarga automática del informe desde gob.pe, parser que aguanta cambios de columnas entre informes, modelos en **dbt + DuckDB** con tests de calidad antes de publicar. | Siete páginas sin framework: **MapLibre** a nivel de distrito con 3D, buscador de obras con sinónimos, un runtime propio de ~200 líneas, animaciones atadas al scroll. Probado en celular. | **GitHub Actions** revisa gob.pe cada lunes y publica solo si el archivo cambió. **GitHub Pages** sirve el sitio. Costo: cero. |
 
 ## El problema
 
@@ -49,12 +49,17 @@ Un solo menú, el mismo en todas: **Obras paralizadas · Servicios de control ·
 
 <p align="center"><img src="docs/img/explorador.png" width="760" alt="Mapa del explorador a nivel de distrito en 3D: la altura de cada distrito es lo que falta ejecutar"></p>
 
-La portada es la historia de arriba y termina en la cinta de obras. Al buscar tu distrito, al darle a *Explorar el mapa* o desde el menú, se abre el resto: el mapa con MapLibre a nivel de **distrito** (en la captura, en 3D: la altura es lo que falta ejecutar), los filtros y la ficha de cada obra.
+La portada es la historia de arriba y termina en la cinta de obras. Al buscar, al darle a *Explorar el mapa* o desde el menú, se abre el resto: el mapa con MapLibre a nivel de **distrito** (en la captura, en 3D: la altura es lo que falta ejecutar), los filtros y la ficha de cada obra.
+
+**Buscar una obra, no solo un lugar.** Se escribe como habla la gente: *calles Trujillo*, *puente Iquitos*, *colegio Cusco*, *mercado Belén*, o un código Infobras o CUI. Cada palabra se busca con sus equivalentes en los nombres oficiales ("calles" también encuentra *pistas*, *veredas*, *jirones* y *transitabilidad*; "posta" encuentra *puesto de salud*). Si en ese lugar no hay una obra de ese tipo, lo dice y muestra las que sí hay. Al elegir una, el mapa vuela a su distrito, la marca y abre un globo con su nombre. Al acercarse, cada obra es un punto y salen los nombres de las provincias o los distritos que tienen obras, sin encimarse.
+
+<p align="center"><img src="docs/img/buscar.gif" width="760" alt="Búsqueda: La Libertad con los nombres de sus distritos, luego remodelación de calles en Huanchaco y el mercado de Belén en Iquitos"></p>
 
 <details>
 <summary><b>Todo lo que tiene el explorador</b></summary>
 
-- **Buscar un lugar** (distrito, provincia o departamento) y ver sus obras ordenadas por dinero pendiente.
+- **Buscar un lugar o una obra** (por tema, lugar, código Infobras o CUI), en la portada o encima del mapa. Responde mientras escribes, sin servidor: el índice se arma en el navegador.
+- **Obras como puntos** dentro de su distrito y **nombres de lugares** al acercarse, con prioridad para los de la zona elegida.
 - **Mapa coroplético** en tres niveles, coloreado por saldo por ejecutar o por número de obras, en 2D o 3D.
 - **Filtrar** por nivel de gobierno, causa de paralización, tipo de obra, sector, si tiene presupuesto asignado este año y obras con más de 50% de avance. Todo lo de la página se recalcula con los filtros.
 - **Ficha de cada obra** con entidad, ubicación, costo, avance, año de inicio, causa, tipo, presupuesto del año (PIM), si está en la lista priorizada (con enlace a la resolución), informe de estado situacional, código Infobras, CUI y cuántos servicios de control tuvo, con un botón que lleva a sus informes.
@@ -278,6 +283,8 @@ make geo                        # límites del INEI simplificados
 
 **Un runtime propio en vez de React.** Cada página es una plantilla HTML con huecos (`{{valor}}`), listas (`sc-for`) y condicionales (`sc-if`), más una clase con `renderVals()` y `setState()`. `web/js/dc.js` arma el árbol nuevo en cada cambio y lo compara nodo por nodo con el que está en pantalla, así los elementos se reutilizan y las transiciones de CSS (los puntos que viajan, las barras que crecen) funcionan. Son unas 200 líneas, sin dependencias ni paso de build.
 
+**Puntos sin coordenadas.** La base dice en qué distrito está cada obra, no su ubicación exacta. `web/lugares.js` calcula un punto interior de cada distrito (el centroide, o el punto más cercano a él dentro del polígono si el distrito tiene forma de media luna) y reparte las obras de un mismo distrito en una espiral alrededor, sin salirse del borde. Los nombres de lugares son marcadores HTML colocados de la zona con más dinero pendiente a la que menos, saltando los que chocarían.
+
 **Rendimiento en celular.** El giro y el arrastre del mapa 3D cambian el `transform` del escenario directo, sin volver a pintar la página en cada cuadro; con la CPU de un celular simulada (6× más lenta) pasó de 7 a 41 cuadros por segundo. En el explorador, el 3D de MapLibre esconde los bordes de las zonas para que no queden flotando sobre los bloques.
 
 **Animaciones atadas al scroll con CSS.** Los puntos que arman la ciudad, la barra de progreso y las secciones que aparecen usan `animation-timeline: scroll()` / `view()`. En navegadores que no lo soportan la página se ve en su estado final, sin animar.
@@ -305,7 +312,7 @@ obra-parada/
 ├── dbt/               modelos, seeds y tests
 ├── scripts/           geodatos, fixture sintético, vendor del front
 ├── tests/             tests del parser (pytest)
-├── web/               sitio estático: index.html (explorador) + seis páginas, js/dc.js (runtime), js/ayuda.js (botón ?), data/
+├── web/               sitio estático: index.html (explorador) + seis páginas, buscar.js, lugares.js, js/dc.js (runtime), js/ayuda.js (botón ?), data/
 ├── docs/              DATA.md y capturas
 └── .github/workflows  ci.yml (tests + pipeline con fixture), pipeline.yml (actualización semanal) y pages.yml (publicación)
 ```

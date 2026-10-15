@@ -81,7 +81,9 @@
 @keyframes ay-fila { from { opacity: 0; transform: translateY(6px); } }
 
 @media (max-width: 640px) {
-  .ay-btn { right: 14px; bottom: 14px; width: 52px; height: 52px; }
+  .ay-btn { right: 14px; bottom: 14px; width: 52px; height: 52px; transition: transform .2s, opacity .2s; }
+  /* mientras se escribe en un buscador, el botón no tapa la lista de resultados */
+  body:has(input[type=search]:focus) .ay-btn { opacity: 0; pointer-events: none; }
   .ay-panel { right: 10px; left: 10px; bottom: 76px; width: auto; height: min(560px, calc(100dvh - 100px)); }
 }
 @media (prefers-reduced-motion: reduce) {
