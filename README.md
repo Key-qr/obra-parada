@@ -7,6 +7,7 @@
 
 <p align="center">
   <a href="https://key-qr.github.io/obra-parada/"><img src="https://img.shields.io/badge/ver_el_sitio-key--qr.github.io%2Fobra--parada-17457a?style=for-the-badge" alt="Ver el sitio"></a>
+  <a href="docs/video/obra-parada-recorrido.mp4"><img src="https://img.shields.io/badge/video-recorrido_de_1_min-e9a21a?style=for-the-badge" alt="Ver el video"></a>
 </p>
 
 <p align="center">
@@ -20,19 +21,19 @@
 </p>
 
 <p align="center">
-  <img src="docs/img/inicio.gif" width="760" alt="Simulador: los puntos se juntan con el scroll y arman un edificio por departamento; con el simulador se pintan de ámbar las obras que se terminarían">
-  <br><sub>Simulador. Con el scroll los puntos se juntan y arman un edificio por departamento (cada punto son 5 obras). Al darle play al presupuesto se pintan de ámbar las que se terminarían.</sub>
+  <img src="docs/img/portada.gif" width="760" alt="Portada: cada obra es un punto que cae en el mapa del Perú y, con el scroll, se reordena por avance, causa y año de inicio hasta llegar a la cinta de obras">
+  <br><sub>La portada. Cada punto es una obra: caen en el mapa del Perú y con el scroll se reordenan por avance físico, causa de paralización y año de inicio. Termina en la cinta con las obras de más dinero pendiente.</sub>
 </p>
 
 | 2,262 | S/ 27.5 mil millones | 286 | 4,386 |
 |:---:|:---:|:---:|:---:|
 | obras paralizadas (Anexo N.° 01) | por ejecutar | están al 90% o más; terminarlas costaría S/ 2,605 millones | servicios de control a 1,239 obras (Anexo N.° 02) |
 
-## Recorrido en video
+## En corto
 
-Un minuto por las seis páginas: la ciudad que se arma con el scroll, el simulador, el Perú en puntos, el mapa en 3D, Obra por obra en Comparar, el reproductor de controles, el quiz de causas y el probador del parser.
-
-[Ver el video (1 min, MP4)](docs/video/obra-parada-recorrido.mp4)
+| Datos | Web | Operación |
+|---|---|---|
+| Descarga automática del informe desde gob.pe, parser que aguanta cambios de columnas entre informes, modelos en **dbt + DuckDB** con tests de calidad antes de publicar. | Siete páginas sin framework: **MapLibre** a nivel de distrito con 3D, un runtime propio de ~200 líneas, animaciones atadas al scroll. Probado en celular. | **GitHub Actions** revisa gob.pe cada lunes y publica solo si el archivo cambió. **GitHub Pages** sirve el sitio. Costo: cero. |
 
 ## El problema
 
@@ -42,19 +43,19 @@ El dato es público, pero viene en un PDF de 70+ páginas y dos Excel anexos que
 
 ## Las páginas
 
-Siete páginas con un solo menú, el mismo en todas: Obras paralizadas · Servicios de control · Simulador · Mapa · Análisis · Comparar · Cómo se hizo. Las entidades y las preguntas frecuentes no van en el menú: están en el botón **?** de la esquina inferior derecha, que abre una ventanita en cualquier página. Todas leen los mismos datos y funcionan sin servidor.
+Un solo menú, el mismo en todas: **Obras paralizadas · Servicios de control · Simulador · Mapa · Análisis · Comparar · Cómo se hizo**. Todas leen los mismos datos y funcionan sin servidor.
 
 ### 1 · Explorador (la portada)
 
-<p align="center"><img src="docs/img/explorador.png" width="760" alt="Explorador con MapLibre a nivel de distrito"></p>
+<p align="center"><img src="docs/img/explorador.png" width="760" alt="Mapa del explorador a nivel de distrito en 3D: la altura de cada distrito es lo que falta ejecutar"></p>
 
-Lo primero que se abre: una historia con scroll donde los puntos se reordenan por avance, causa y año, y que termina en la cinta de obras. Al buscar tu distrito, o con los botones y el menú, se abre el resto: el mapa con MapLibre a nivel de **distrito**, los filtros, la ficha de cada obra. Su menú es el de todo el sitio.
+La portada es la historia de arriba y termina en la cinta de obras. Al buscar tu distrito, al darle a *Explorar el mapa* o desde el menú, se abre el resto: el mapa con MapLibre a nivel de **distrito** (en la captura, en 3D: la altura es lo que falta ejecutar), los filtros y la ficha de cada obra.
 
 <details>
 <summary><b>Todo lo que tiene el explorador</b></summary>
 
 - **Buscar un lugar** (distrito, provincia o departamento) y ver sus obras ordenadas por dinero pendiente.
-- **Mapa coroplético** en tres niveles, coloreado por saldo por ejecutar o por número de obras.
+- **Mapa coroplético** en tres niveles, coloreado por saldo por ejecutar o por número de obras, en 2D o 3D.
 - **Filtrar** por nivel de gobierno, causa de paralización, tipo de obra, sector, si tiene presupuesto asignado este año y obras con más de 50% de avance. Todo lo de la página se recalcula con los filtros.
 - **Ficha de cada obra** con entidad, ubicación, costo, avance, año de inicio, causa, tipo, presupuesto del año (PIM), si está en la lista priorizada (con enlace a la resolución), informe de estado situacional, código Infobras, CUI y cuántos servicios de control tuvo, con un botón que lleva a sus informes.
 - **Servicios de control (pestaña aparte):** los 4,386 servicios del Anexo N.° 02 por tipo de control, tipo de acción, año y órgano que lo hizo; las obras más revisadas; las obras con más dinero pendiente que nunca tuvieron un control; y un buscador de informes por texto, departamento, tipo y año, con enlace al PDF en el sistema de la Contraloría.
@@ -64,18 +65,16 @@ Lo primero que se abre: una historia con scroll donde los puntos se reordenan po
 - **Cuándo empezaron:** obras (o dinero) por año de inicio.
 - **Quién las ejecuta:** porcentaje de obras frente a porcentaje de dinero por nivel de gobierno, y una tabla por modalidad (administración directa, contrata, núcleo ejecutor, obras por impuestos).
 - **Comparador de departamentos:** dos departamentos dibujados como el Perú hecho de puntos, lado a lado en obras, dinero, avance, antigüedad, presupuesto, servicios de control, causa y tipo principal.
-- **Botón de ayuda (?)** en todas las páginas, con dos pestañas. *Preguntas frecuentes:* qué es una obra paralizada, costo actualizado frente a saldo, administración directa, CUI e Infobras, tipo de obra, por qué no hay fecha de paralización, PIM y lista priorizada, servicios de control. *Entidades:* las de todo el país con un buscador, ordenables por dinero pendiente, número de obras u obras casi terminadas.
 
 Y se mueve con lo que haces:
 
-- **Portada como historia con scroll.** Cada obra es un punto. Al cargar, los puntos caen y se acomodan en el mapa del Perú. Al bajar, los mismos puntos viajan y se reordenan en gráficos: un histograma por avance físico, filas por causa de paralización, un histograma por año de inicio, el mapa marcando las que tienen presupuesto este año y al final las que están al 90% o más. Las cifras de cada paso se calculan de los datos. Con las pestañas Mapa / Avance / Causa / Año de inicio se puede cambiar a mano.
+- **Historia con scroll.** Al cargar, los puntos caen y se acomodan en el mapa del Perú. Al bajar, los mismos puntos viajan y se reordenan: un histograma por avance físico, filas por causa, un histograma por año de inicio, el mapa marcando las que tienen presupuesto este año y al final las que están al 90% o más. Las cifras de cada paso se calculan de los datos. Con las pestañas Mapa / Avance / Causa / Año de inicio se puede cambiar a mano.
 - **Cursor sobre un punto:** sale la obra, su lugar, lo que falta, el avance y la causa; en el mapa se apagan los puntos de otros distritos. Clic abre la ficha.
 - **Una obra al azar** desde la portada o desde la ficha, y **Ver en el mapa** desde la ficha (vuela al distrito de la obra).
 - **Cinta de obras** con las de más dinero pendiente: corre sola, acelera con el scroll y se detiene con el cursor. Clic abre la ficha.
-- **Mapa en 3D:** la altura de cada zona es lo que falta ejecutar (o el número de obras), con cámara inclinada y rotación.
 - **Copiar enlace** a la zona seleccionada (queda en la URL, `#zona=distrito/080309`) y **Descargar CSV** con las obras de la zona y filtros actuales.
 - Al pasar el cursor por una zona del mapa, una obra de la lista o una causa salen tarjetas con el detalle (las de causa traen un mini mapa). Clic en una causa filtra el mapa.
-- Navegación lateral que marca en qué sección estás, títulos que se decodifican al aparecer, contadores animados y el mapa coroplético que se "construye" zona por zona.
+- Navegación lateral que marca en qué sección estás, títulos que se decodifican al aparecer, contadores animados y el mapa que se "construye" zona por zona.
 - En "Cómo se construye este mapa", una terminal escribe la salida real de la última carga del pipeline mientras haces scroll.
 - Todo respeta `prefers-reduced-motion`: con esa preferencia activa, la página muestra el estado final sin animar.
 
@@ -85,26 +84,26 @@ Y se mueve con lo que haces:
 
 <table>
 <tr>
-<td width="50%"><img src="docs/img/inicio.png" alt="Simulador de presupuesto y la ciudad de las obras"></td>
+<td width="50%"><img src="docs/img/simulador.gif" alt="Simulador: los puntos arman un edificio por departamento y con el presupuesto se pintan de ámbar las obras que se terminarían"></td>
 <td width="50%"><img src="docs/img/puntos.gif" alt="El Perú hecho de puntos con información al pasar el cursor"></td>
 </tr>
 <tr>
-<td valign="top"><b>Simulador de presupuesto.</b> Mueves el monto o le das play y ves cuántas obras se terminarían empezando por las que menos les falta. Cada departamento es un edificio de puntos; las obras siguientes en terminarse tienen un botón <i>Hasta aquí</i> que mueve el presupuesto lo justo para cubrirlas. Hay buscador por distrito u obra.</td>
+<td valign="top"><b>Simulador de presupuesto.</b> Con el scroll los puntos se juntan y arman un edificio por departamento. Mueves el monto o le das play y ves cuántas obras se terminarían empezando por las que menos les falta; se pintan de ámbar. Las siguientes en terminarse tienen un botón <i>Hasta aquí</i> que mueve el presupuesto lo justo para cubrirlas.</td>
 <td valign="top"><b>El Perú en puntos.</b> Cada puntito es un pedazo del país y los grandes son las 60 obras con más dinero pendiente. Al pasar el cursor se ilumina el departamento o la obra, con sus cifras al lado. Se colorea por dinero, obras o controles.</td>
 </tr>
 </table>
 
 ### 3 · Mapa
 
-<p align="center"><img src="docs/img/mapa.gif" width="760" alt="Mapa en 3D girando y recorrido automático por departamentos"></p>
+<p align="center"><img src="docs/img/mapa.gif" width="760" alt="Recorrido automático por departamentos y mapa en 3D que se arrastra"></p>
 
-Departamentos coloreados por dinero pendiente, obras, controles, presupuesto del año, avance mediano u obras casi terminadas. Filtro por nivel de gobierno, obras grandes como puntos, vista de puntitos, zoom, **3D que se arrastra y gira**, **recorrido automático** y línea de tiempo por año de inicio. El panel compara cada departamento con el promedio del país. Debajo: ranking, burbujas, carrera de barras y tabla.
+Departamentos coloreados por dinero pendiente, obras, controles, presupuesto del año, avance mediano u obras casi terminadas. Filtro por nivel de gobierno, obras grandes como puntos, vista de puntitos, zoom, **recorrido automático**, **3D que se arrastra y gira** y línea de tiempo por año de inicio. El panel compara cada departamento con el promedio del país. Debajo: ranking, burbujas, carrera de barras y tabla.
 
 ### 4 · Comparar
 
 <p align="center"><img src="docs/img/comparar.gif" width="760" alt="Obra por obra: los puntos se reordenan entre mapa, avance, causa y año de inicio"></p>
 
-Dos departamentos frente a frente. En **Obra por obra** cada obra es un punto (azul uno, ámbar el otro) que viaja entre el mapa, un histograma de avance, filas por causa y año de inicio. El cursor muestra la obra y el clic abre su ficha. Además: balanza, radar, perfiles, curvas acumuladas y un duelo al azar.
+Dos departamentos frente a frente. En **Obra por obra** cada obra es un punto (azul uno, ámbar el otro) que viaja entre el mapa, un histograma de avance, filas por causa y año de inicio. El cursor muestra la obra y el clic abre su ficha. Además: balanza, radar que se transforma al cambiar de departamento, perfiles, curvas acumuladas y un duelo al azar.
 
 ### 5 · Servicios de control
 
@@ -115,20 +114,38 @@ Dos departamentos frente a frente. En **Obra por obra** cada obra es un punto (a
 </tr>
 </table>
 
-Los 4,386 servicios del Anexo N.° 02: tipos de control, obras con y sin control, mapa de cuadros, **reproductor año por año**, mapa de calor, un juego de cartas para adivinar, las obras y entidades más revisadas, un informe al azar y un buscador con enlace al PDF en el sistema de la Contraloría.
+Los 4,386 servicios del Anexo N.° 02: tipos de control, obras con y sin control, mapa de cuadros, **reproductor año por año**, mapa de calor, un juego de cartas para adivinar, las obras y entidades más revisadas, un informe al azar y un **buscador de informes** con enlace al PDF en el sistema de la Contraloría.
 
 ### 6 · Análisis y 7 · Cómo se hizo
 
 <table>
 <tr>
 <td width="50%"><img src="docs/img/analisis.png" alt="Análisis: adivina la causa que más dinero frena"></td>
-<td width="50%"><img src="docs/img/metodo.png" alt="Cómo se hizo: probador del parser"></td>
+<td width="50%"><img src="docs/img/metodo.png" alt="Cómo se hizo: el pipeline paso a paso"></td>
 </tr>
 <tr>
 <td valign="top"><b>Análisis.</b> Primero adivinas qué causa frena más dinero y después ves la respuesta. Un control para mover el umbral de avance, tipos de obra, año de inicio, nivel de gobierno y récords en tarjetas que se voltean.</td>
 <td valign="top"><b>Cómo se hizo.</b> El pipeline paso a paso con una terminal que escribe mientras haces scroll, y un <b>probador del parser</b>: escribes una cabecera de Excel y ves qué regla de <code>parse.py</code> la reconoce y a qué campo va.</td>
 </tr>
 </table>
+
+### En todas las páginas: el botón ?
+
+<p align="center"><img src="docs/img/ayuda.png" width="680" alt="Ventana de ayuda con preguntas frecuentes y el ranking de entidades"></p>
+
+Abajo a la derecha hay un botón **?** que abre una ventana con dos pestañas. **Preguntas frecuentes:** qué es una obra paralizada, costo actualizado frente a saldo, administración directa, CUI e Infobras, tipo de obra, por qué no hay fecha de paralización, PIM y lista priorizada, servicios de control. **Entidades:** todas las del país con buscador, ordenables por dinero pendiente, número de obras u obras casi terminadas. Es un solo archivo (`web/js/ayuda.js`) que cargan las siete páginas.
+
+### En el celular
+
+<p align="center"><img src="docs/img/celular.png" width="680" alt="La portada, el mapa en 3D y la ventana de entidades en un celular"></p>
+
+El menú queda en una fila que se desliza y se esconde al bajar, el mapa deja hacer scroll con el dedo y el 3D gira sin trabarse.
+
+## Recorrido en video
+
+Minuto y medio por el sitio: la portada, el simulador, el Perú en puntos, el recorrido y el 3D del mapa, Obra por obra en Comparar y el reproductor de controles.
+
+[Ver el video (MP4)](docs/video/obra-parada-recorrido.mp4)
 
 ## Arquitectura
 
@@ -261,6 +278,8 @@ make geo                        # límites del INEI simplificados
 
 **Un runtime propio en vez de React.** Cada página es una plantilla HTML con huecos (`{{valor}}`), listas (`sc-for`) y condicionales (`sc-if`), más una clase con `renderVals()` y `setState()`. `web/js/dc.js` arma el árbol nuevo en cada cambio y lo compara nodo por nodo con el que está en pantalla, así los elementos se reutilizan y las transiciones de CSS (los puntos que viajan, las barras que crecen) funcionan. Son unas 200 líneas, sin dependencias ni paso de build.
 
+**Rendimiento en celular.** El giro y el arrastre del mapa 3D cambian el `transform` del escenario directo, sin volver a pintar la página en cada cuadro; con la CPU de un celular simulada (6× más lenta) pasó de 7 a 41 cuadros por segundo. En el explorador, el 3D de MapLibre esconde los bordes de las zonas para que no queden flotando sobre los bloques.
+
 **Animaciones atadas al scroll con CSS.** Los puntos que arman la ciudad, la barra de progreso y las secciones que aparecen usan `animation-timeline: scroll()` / `view()`. En navegadores que no lo soportan la página se ve en su estado final, sin animar.
 
 **Datos sintéticos claramente marcados.** El fixture de pruebas usa entidades "de ejemplo" y obras con el prefijo `[EJEMPLO]`, y la web muestra un aviso cuando `meta.es_muestra` es verdadero. Nunca se mezcla con datos reales.
@@ -272,7 +291,7 @@ make geo                        # límites del INEI simplificados
 - Los límites distritales son los del INEI (2007): 1,834 distritos. Los creados después se ubican a nivel de su provincia. Ocho distritos (entre ellos Santa Anita y La Punta) no tienen polígono en la fuente; se pueden buscar y cuentan en los totales, pero no se pintan en el mapa distrital.
 - Los montos y causas los reportan las propias entidades a Infobras. Pueden tener errores.
 - 756 servicios de control no traen enlace a su informe en la base; se muestran sin botón de PDF.
-- Las seis páginas nuevas traen sus cifras resumidas (por departamento, por causa, por año, los pasos del simulador) escritas en el código con los datos de junio de 2026. El pipeline semanal actualiza `web/data/*.json`, que usan el explorador y las vistas de puntos, pero esas cifras se tienen que regenerar a mano cuando salga un informe nuevo.
+- Las seis páginas que acompañan al explorador traen sus cifras resumidas (por departamento, por causa, por año, los pasos del simulador) escritas en el código con los datos de junio de 2026. El pipeline semanal actualiza `web/data/*.json`, que usan el explorador y las vistas de puntos, pero esas cifras se tienen que regenerar a mano cuando salga un informe nuevo.
 - Una obra paralizada no implica corrupción ni mala gestión de la autoridad actual. La página no acusa a nadie.
 
 ## Estructura
@@ -286,7 +305,7 @@ obra-parada/
 ├── dbt/               modelos, seeds y tests
 ├── scripts/           geodatos, fixture sintético, vendor del front
 ├── tests/             tests del parser (pytest)
-├── web/               sitio estático: index.html (explorador) + seis páginas, js/dc.js, data/
+├── web/               sitio estático: index.html (explorador) + seis páginas, js/dc.js (runtime), js/ayuda.js (botón ?), data/
 ├── docs/              DATA.md y capturas
 └── .github/workflows  ci.yml (tests + pipeline con fixture), pipeline.yml (actualización semanal) y pages.yml (publicación)
 ```
@@ -299,6 +318,10 @@ obra-parada/
 - Límites departamentales, provinciales y distritales: INEI, vía [juaneladio/peru-geojson](https://github.com/juaneladio/peru-geojson).
 
 Detalle de campos en [`docs/DATA.md`](docs/DATA.md).
+
+## Autora
+
+**Keysi Quiñe** · estudiante de Arquitectura de Datos Empresariales (Big Data Developer) en Cibertec · [github.com/Key-qr](https://github.com/Key-qr)
 
 ## Licencia
 
