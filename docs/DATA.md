@@ -70,6 +70,21 @@ Algunas filas traen el servidor interno del SPIC (`http://localhost:puerto/...`)
 
 Procedencia de la carga: fecha de corte, publicación, URL, nombre del archivo, SHA-256, hoja y fila de cabecera usadas, mapeo de columnas, columnas no reconocidas, número de filas y si son datos de muestra.
 
+## `web/data/obras_por_depto.json`
+
+Lo arma `scripts/build_puntos.mjs` después del export (`make export` lo corre). Una fila corta por obra, agrupadas por ubigeo de departamento y ordenadas de mayor a menor saldo; lo usan las vistas de puntos de Inicio y Comparar.
+
+| Posición | Campo | Nota |
+|---|---|---|
+| 0, 1 | x, y | Centro del distrito (o de la provincia o el departamento si no hay distrito) en el plano de 420 px de ancho de los mapas de puntos, con un ruido fijo para separar obras del mismo lugar |
+| 2 | avance | Entero 0-100; -1 sin dato |
+| 3 | causa | 0 incumplimiento de contrato, 1 falta de recursos, 2 arbitraje, 3 expediente técnico, 4 abandono, 5 otra |
+| 4 | inicio | Año de inicio menos 2000; 0 sin dato |
+| 5 | saldo | Falta ejecutar en millones con 4 decimales (S/ 100); 0 sin saldo registrado |
+| 6 | nombre | Recortado a 70 caracteres |
+| 7 | distrito | |
+| 8 | nivel | L local, R regional, N nacional |
+
 ## Geodatos
 
 `web/data/geo/{departamentos,provincias,distritos}.json` en TopoJSON, simplificados con mapshaper. Origen: límites del INEI (2007) publicados en [juaneladio/peru-geojson](https://github.com/juaneladio/peru-geojson). Propiedades: `ubigeo`, `nombre` y los nombres de los niveles superiores.

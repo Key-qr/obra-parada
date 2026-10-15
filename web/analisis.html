@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Obra Parada · Análisis</title>
+<meta name="description" content="Causas de paralización, avance físico, tipos de obra, año de inicio, nivel de gobierno y récords de las obras paralizadas.">
+<meta property="og:title" content="Obra Parada · Análisis">
+<meta property="og:description" content="Causas de paralización, avance físico, tipos de obra, año de inicio, nivel de gobierno y récords de las obras paralizadas.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="vendor/fonts.css" rel="stylesheet">
+<style>
+body{margin:0;background:#e3e4e1;color:#1f2326;font-family:'Barlow',system-ui,sans-serif;overflow-x:clip}
+a{color:#17457a}a:hover{color:#0f3359}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+.prog{position:fixed;top:0;left:0;right:0;height:4px;background:#e9a21a;transform-origin:0 50%;transform:scaleX(0);z-index:60}
+@supports (animation-timeline: scroll()){.prog{animation:prog linear both;animation-timeline:scroll(root)}}
+@keyframes prog{to{transform:scaleX(1)}}
+.brand{display:inline-flex;align-items:center;gap:10px;font:800 24px/1 'Barlow Condensed',sans-serif;color:#1f2326;text-decoration:none}
+.brand:hover{color:#1f2326}
+.nav a{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 14px;font:600 18px/1 'Barlow Condensed',sans-serif;color:#1f2326;text-decoration:none}
+.nav a::after{content:"";position:absolute;left:14px;right:14px;bottom:8px;height:3px;background:#e9a21a;transform:scaleX(0);transform-origin:0 50%;transition:transform .25s ease}
+.nav a:hover::after{transform:scaleX(1)}
+.nav a.on{background:#1f2326;color:#fff}
+.nav a.on::after{display:none}
+.tape{height:14px;background:repeating-linear-gradient(45deg,#e9a21a 0 10px,#1f2326 10px 20px);background-size:28.28px 14px;animation:tape 1.4s linear infinite}
+@keyframes tape{to{background-position:28.28px 0}}
+.sub a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1.5px solid #1f2326;margin:0 0 -1.5px -1.5px;font:600 16px 'Barlow Condensed',sans-serif;color:#1f2326;text-decoration:none;background:#f4f5f3;transition:background-color .2s,color .2s}
+.sub a:hover{background:#fbe7bd}
+.sub a.on{background:#e9a21a;border-color:#1f2326}
+.seg button{min-height:40px;padding:0 14px;font:600 16px 'Barlow Condensed',sans-serif;border:1.5px solid #1f2326;background:#f4f5f3;color:#1f2326;cursor:pointer;margin-left:-1.5px}
+.seg button.on{background:#1f2326;color:#fff}
+.sec{max-width:1280px;margin:0 auto;padding:80px 32px;scroll-margin-top:120px}
+.kick{margin:0 0 8px;font:600 18px 'Barlow Condensed',sans-serif;color:#8a5a00}
+.h2{margin:0;font:800 clamp(36px,4.4vw,60px)/0.98 'Barlow Condensed',sans-serif}
+.brow{display:grid;grid-template-columns:minmax(0,17em) minmax(0,1fr) 7em;gap:16px;align-items:center;padding:8px 10px;transition:background-color .2s,opacity .2s}
+.brow:hover{background:#fbe7bd}
+.bars:hover .brow:not(:hover){opacity:.45}
+.track{height:18px;background:#d3d5d2}
+.track i{display:block;height:100%;background:#17457a;transition:width .8s cubic-bezier(.2,.8,.2,1);transform-origin:0 50%}
+.brow:hover .track i{background:#8a5a00}
+.col{all:unset;box-sizing:border-box;flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;height:100%;cursor:pointer}
+.col i{display:block;background:#17457a;transition:height .7s cubic-bezier(.2,.8,.2,1),background-color .2s;transform-origin:50% 100%}
+.col:hover i,.col:focus-visible i{background:#e9a21a}
+.col.hot i{background:#e9a21a}
+.col:focus-visible{outline:3px solid #e9a21a}
+.tipo{background:#f4f5f3;border:1.5px solid #b9bdbb;padding:20px;display:flex;flex-direction:column;gap:4px;transition:transform .25s cubic-bezier(.2,.8,.2,1.3),border-color .25s,box-shadow .25s}
+.tipo:hover{transform:translateY(-6px) rotate(-.6deg);border-color:#1f2326;box-shadow:0 18px 30px -20px rgba(0,0,0,.5)}
+.tipo .m{height:6px;background:#d3d5d2;margin-top:10px}
+.tipo .m i{display:block;height:100%;background:#17457a;transition:background-color .2s}
+.tipo:hover .m i{background:#e9a21a}
+.rec{background:#f4f5f3;border:1.5px solid #b9bdbb;border-top:6px solid #e9a21a;padding:24px;display:flex;flex-direction:column;gap:8px;transition:transform .25s,box-shadow .25s,border-color .25s}
+.rec:hover{transform:translateY(-6px);border-color:#1f2326;border-top-color:#e9a21a;box-shadow:0 18px 30px -20px rgba(0,0,0,.5)}
+.quiz{background:#1f2326;color:#fff;padding:24px;border-left:6px solid #e9a21a;margin-bottom:28px}
+.opt{min-height:52px;padding:0 18px;border:1.5px solid #5d6468;background:transparent;color:#fff;font:600 18px 'Barlow Condensed',sans-serif;cursor:pointer;text-align:left;transition:transform .15s,border-color .2s,background-color .3s}
+.opt:hover{border-color:#e9a21a;transform:translateY(-2px)}
+.opt.ok{background:#2f7d4f;border-color:#9ee0b0;animation:pop .5s cubic-bezier(.2,.9,.3,1.6)}
+.opt.bad{background:#7a2e22;border-color:#ff9b8a;animation:shake .45s}
+.opt.dim{opacity:.4}
+@keyframes pop{50%{transform:scale(1.08)}}
+@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.veil{position:relative}
+.veil.off .bars-in{filter:blur(7px);opacity:.45;pointer-events:none}
+.veil .bars-in{transition:filter .8s,opacity .8s}
+.range{-webkit-appearance:none;appearance:none;width:100%;height:12px;background:repeating-linear-gradient(45deg,#e9a21a 0 8px,#1f2326 8px 16px);cursor:pointer}
+.range::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:#fff;border:4px solid #17457a;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+.range::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#fff;border:4px solid #17457a}
+.range:focus-visible{outline:3px solid #e9a21a;outline-offset:4px}
+.acol{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.acol i{display:block;transition:background-color .35s,height .6s;transform-origin:50% 100%}
+.flip{display:block;width:100%;perspective:1000px;min-height:230px;cursor:pointer;border:0;padding:0;background:none;text-align:left;font:inherit;color:inherit}
+.flip:focus-visible{outline:3px solid #e9a21a;outline-offset:4px}
+.flip-in{display:block;position:relative;width:100%;height:100%;min-height:230px;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.3,1.4,.4,1)}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.flip:hover .flip-in{box-shadow:0 18px 30px -20px rgba(0,0,0,.5)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:24px;display:flex;flex-direction:column;gap:8px}
+.front{background:#17457a;color:#fff;justify-content:space-between}
+.back{background:#f4f5f3;border:1.5px solid #1f2326;border-top:6px solid #e9a21a;transform:rotateY(180deg)}
+@supports (animation-timeline: view()){
+.rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% cover 25%}
+.grow{animation:grow linear both;animation-timeline:view();animation-range:entry 20% cover 50%}
+.rise{animation:rise linear both;animation-timeline:view();animation-range:entry 10% cover 45%}
+}
+@keyframes rv{from{opacity:0;transform:translateY(48px)}}
+@keyframes grow{from{transform:scaleX(0)}}
+@keyframes rise{from{transform:scaleY(0)}}
+@media (max-width:760px){.brow{grid-template-columns:minmax(0,1fr) 6em}.brow .track{grid-column:1/-1;grid-row:2}}
+</style>
+<script src="js/dc.js" defer></script>
+</head>
+<body>
+<div id="app"></div>
+<noscript><p style="padding: 32px; font: 18px system-ui">Esta página necesita JavaScript. Los datos completos están en <a href="data/obras.json">data/obras.json</a>.</p></noscript>
+<template id="vista">
+<div style="min-height: 100vh">
+<div class="prog" aria-hidden="true"></div>
+<header style="position: sticky; top: 0; z-index: 40; background: rgba(227, 228, 225, 0.93); backdrop-filter: blur(8px); border-bottom: 1.5px solid #1f2326">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 10px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 32px">
+    <a href="index.html" class="brand"><svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="26" height="17" rx="1.5" fill="#17457a"></rect><path d="M9 22v7M23 22v7" stroke="#1f2326" stroke-width="2.2"></path><path d="M8 13h16" stroke="#f4f5f3" stroke-width="2.2"></path></svg>Obra Parada</a>
+    <nav class="nav" aria-label="Secciones" style="display: flex; flex-wrap: wrap; margin-left: auto">
+      <a href="index.html">Inicio</a>
+      <a href="mapa.html">Mapa</a>
+      <a href="analisis.html" class="on" aria-current="page">Análisis</a>
+      <a href="comparar.html">Comparar</a>
+      <a href="control.html">Servicios de control</a>
+      <a href="metodo.html">Cómo se hizo</a>
+      <a href="explorador.html">Explorador</a>
+    </nav>
+  </div>
+  <div style="border-top: 1px solid #b9bdbb">
+    <nav class="sub" aria-label="En esta página" style="max-width: 1280px; margin: 0 auto; padding: 8px 32px 9.5px 33.5px; display: flex; flex-wrap: wrap">
+      <template sc-for list="{{subnav}}" as="s" hint-placeholder-count="6">
+        <a href="{{s.href}}" class="{{s.cls}}">{{s.label}}</a>
+      </template>
+    </nav>
+  </div>
+</header>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 56px 32px 0">
+  <p class="kick">03 · ANÁLISIS</p>
+  <h1 style="margin: 0; font: 800 clamp(48px, 6vw, 84px)/0.92 'Barlow Condensed', sans-serif; max-width: 16ch">Por qué se pararon y qué se dejó de construir</h1>
+</section>
+
+<section class="sec" id="causas">
+  <div style="display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 28px">
+    <div>
+      <p class="kick">La causa</p>
+      <h2 class="h2">{{causaTitle}}</h2>
+    </div>
+    <div class="seg" role="group" aria-label="Medir por" style="display: flex">
+      <button type="button" class="{{cOb}}" onClick="{{cByObras}}">Obras</button>
+      <button type="button" class="{{cSa}}" onClick="{{cBySaldo}}">Falta ejecutar</button>
+    </div>
+  </div>
+  <div class="quiz">
+    <p style="margin: 0 0 4px; font: 600 15px 'Barlow Condensed', sans-serif; color: #e9a21a; letter-spacing: 0.06em">ADIVINA PRIMERO</p>
+    <p style="margin: 0 0 16px; font: 700 26px/1.15 'Barlow Condensed', sans-serif">¿Qué causa tiene más dinero parado?</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 10px">
+      <template sc-for list="{{opts}}" as="o" hint-placeholder-count="4">
+        <button type="button" class="{{o.cls}}" onClick="{{o.pick}}">{{o.l}}</button>
+      </template>
+    </div>
+    <p style="margin: 14px 0 0; min-height: 24px; color: #c9d1d6" aria-live="polite">{{quizMsg}}</p>
+  </div>
+  <div class="{{veilCls}}">
+  <div class="bars rv bars-in">
+    <template sc-for list="{{causas}}" as="c" hint-placeholder-count="12">
+      <div class="brow">
+        <span style="font-size: 16px">{{c.n}}</span>
+        <span class="track" aria-hidden="true"><i class="grow" style="width: {{c.w}}%"></i></span>
+        <span style="text-align: right; font: 700 18px 'Barlow Condensed', sans-serif; font-variant-numeric: tabular-nums">{{c.v}}</span>
+      </div>
+    </template>
+  </div>
+  </div>
+  <p style="margin: 20px 0 0; color: #5d6468; max-width: 70ch">Causa declarada por la entidad ante la Contraloría. Por número de obras gana la falta de recursos (625); por dinero, el incumplimiento de contrato: son menos obras, pero mucho más grandes.</p>
+</section>
+
+<div class="tape" aria-hidden="true"></div>
+
+<section class="sec" id="avance">
+  <p class="kick">El avance</p>
+  <h2 class="h2" style="max-width: 18ch">Mientras más avanzadas, más obras hay paradas</h2>
+  <div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-end; margin-top: 32px">
+    <div style="flex: 1 1 320px; min-width: 0">
+      <label for="umbral" style="display: block; font-weight: 600; margin-bottom: 4px">Obras con al menos este avance</label>
+      <p style="margin: 0 0 14px; font: 800 72px/1 'Barlow Condensed', sans-serif; color: #17457a; font-variant-numeric: tabular-nums">{{thTxt}}</p>
+      <input id="umbral" class="range" type="range" min="0" max="100" step="5" value="{{th}}" onInput="{{onTh}}" aria-valuetext="{{thTxt}}">
+      <div style="display: flex; justify-content: space-between; font-size: 13px; color: #5d6468; margin-top: 6px"><span>0%</span><span>50%</span><span>100%</span></div>
+    </div>
+    <dl style="flex: 1 1 360px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0">
+      <div style="background: #1f2326; color: #fff; padding: 18px"><dt style="font-size: 14px; color: #b9c2c8">Obras</dt><dd style="margin: 4px 0 0; font: 800 48px/1 'Barlow Condensed', sans-serif; color: #e9a21a">{{thN}}</dd></div>
+      <div style="background: #1f2326; color: #fff; padding: 18px"><dt style="font-size: 14px; color: #b9c2c8">Les falta</dt><dd style="margin: 4px 0 0; font: 800 48px/1 'Barlow Condensed', sans-serif">{{thS}}</dd></div>
+      <p style="grid-column: 1 / -1; margin: 0; font: 600 20px/1.25 'Barlow Condensed', sans-serif">{{thLine}}</p>
+    </dl>
+  </div>
+  <div class="rv" style="display: flex; gap: 6px; height: 260px; margin-top: 36px; border-bottom: 2px solid #1f2326">
+    <template sc-for list="{{avance}}" as="a" hint-placeholder-count="10">
+      <div class="acol">
+        <span style="text-align: center; font: 700 16px 'Barlow Condensed', sans-serif; margin-bottom: 6px">{{a.n}}</span>
+        <i class="rise" style="height: {{a.h}}%; background: {{a.bg}}"></i>
+      </div>
+    </template>
+  </div>
+  <div style="display: flex; gap: 6px; margin-top: 8px">
+    <template sc-for list="{{avance}}" as="a" hint-placeholder-count="10">
+      <span style="flex: 1; min-width: 0; text-align: center; font-size: 13px; color: #5d6468">{{a.l}}</span>
+    </template>
+  </div>
+  <p style="margin: 20px 0 0; color: #5d6468; max-width: 70ch">Obras según su avance físico, en tramos de 10%. Las que pasan el umbral se pintan de ámbar.</p>
+</section>
+
+<section class="sec" id="tipos" style="padding-top: 24px">
+  <p class="kick">Qué se dejó de construir</p>
+  <h2 class="h2" style="margin-bottom: 28px">Los diez tipos de obra con más dinero parado</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px">
+    <template sc-for list="{{tipos}}" as="t" hint-placeholder-count="10">
+      <div class="tipo rv">
+        <span style="font: 600 19px/1.1 'Barlow Condensed', sans-serif; min-height: 42px">{{t.n}}</span>
+        <span style="font: 800 44px/1 'Barlow Condensed', sans-serif; color: #17457a">{{t.s}}</span>
+        <span style="font-size: 14px; color: #5d6468">{{t.o}}</span>
+        <span class="m" aria-hidden="true"><i style="width: {{t.a}}%"></i></span>
+        <span style="font-size: 13px; color: #5d6468">Avance mediano {{t.al}}</span>
+      </div>
+    </template>
+  </div>
+</section>
+
+<div class="tape" aria-hidden="true"></div>
+
+<section class="sec" id="tiempo">
+  <div style="display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 12px">
+    <div>
+      <p class="kick">El tiempo</p>
+      <h2 class="h2">Cuándo empezaron</h2>
+    </div>
+    <div class="seg" role="group" aria-label="Medir por" style="display: flex">
+      <button type="button" class="{{tOb}}" onClick="{{tByObras}}">Obras</button>
+      <button type="button" class="{{tSa}}" onClick="{{tBySaldo}}">Falta ejecutar</button>
+    </div>
+  </div>
+  <div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-end">
+    <div style="flex: 3 1 560px; min-width: 0">
+      <div class="rv" style="display: flex; gap: 5px; height: 320px; border-bottom: 2px solid #1f2326" onMouseLeave="{{yLeave}}">
+        <template sc-for list="{{anios}}" as="y" hint-placeholder-count="20">
+          <button type="button" class="{{y.cls}}" onMouseEnter="{{y.enter}}" onFocus="{{y.enter}}" aria-label="{{y.aria}}"><i class="rise" style="height: {{y.h}}%"></i></button>
+        </template>
+      </div>
+      <div style="display: flex; gap: 5px; margin-top: 8px">
+        <template sc-for list="{{anios}}" as="y" hint-placeholder-count="20">
+          <span style="flex: 1; min-width: 0; text-align: center; font-size: 12px; color: #5d6468">{{y.l}}</span>
+        </template>
+      </div>
+    </div>
+    <div style="flex: 1 1 240px; background: #1f2326; color: #fff; padding: 24px; border-left: 6px solid #e9a21a">
+      <p style="margin: 0; font: 800 64px/1 'Barlow Condensed', sans-serif; color: #e9a21a">{{yHot.y}}</p>
+      <p style="margin: 8px 0 0; font: 600 24px/1.15 'Barlow Condensed', sans-serif">{{yHot.o}}</p>
+      <p style="margin: 6px 0 0; color: #c9d1d6">{{yHot.s}}</p>
+      <p style="margin: 16px 0 0; font-size: 14px; color: #b9c2c8">Pasa el cursor por las columnas.</p>
+    </div>
+  </div>
+  <p style="margin: 20px 0 0; color: #5d6468; max-width: 70ch">La mitad empezó en 2020 o antes y 531 obras empezaron hace diez años o más. La base no trae la fecha de paralización, así que se mide por el año de inicio.</p>
+</section>
+
+<section class="sec" id="quien" style="padding-top: 24px">
+  <p class="kick">Quién las ejecuta</p>
+  <h2 class="h2" style="margin-bottom: 28px; max-width: 20ch">Las municipalidades tienen dos de cada tres obras, pero el Gobierno nacional tiene el 58% del dinero</h2>
+  <div style="display: grid; gap: 22px; max-width: 900px">
+    <template sc-for list="{{gob}}" as="g" hint-placeholder-count="3">
+      <div class="rv" style="display: grid; grid-template-columns: minmax(0, 12em) minmax(0, 1fr); gap: 16px; align-items: center">
+        <span style="font: 700 22px 'Barlow Condensed', sans-serif">{{g.n}}</span>
+        <div style="display: grid; gap: 6px">
+          <div style="display: grid; grid-template-columns: 4em minmax(0, 1fr) 4em; gap: 10px; align-items: center; font-size: 14px; color: #5d6468">Obras<span class="track"><i class="grow" style="width: {{g.o}}%"></i></span><b style="text-align: right; color: #1f2326; font: 700 18px 'Barlow Condensed', sans-serif">{{g.ol}}</b></div>
+          <div style="display: grid; grid-template-columns: 4em minmax(0, 1fr) 4em; gap: 10px; align-items: center; font-size: 14px; color: #5d6468">Dinero<span class="track"><i class="grow" style="width: {{g.s}}%; background: #e9a21a"></i></span><b style="text-align: right; color: #1f2326; font: 700 18px 'Barlow Condensed', sans-serif">{{g.sl}}</b></div>
+        </div>
+      </div>
+    </template>
+  </div>
+</section>
+
+<div class="tape" aria-hidden="true"></div>
+
+<section class="sec" id="records">
+  <p class="kick">Los récords</p>
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 28px">
+    <h2 class="h2">Los casos extremos de todo el país</h2>
+    <div style="display: flex; gap: 10px; align-items: center">
+      <span style="font: 700 22px 'Barlow Condensed', sans-serif">{{flipCount}}</span>
+      <button type="button" onClick="{{flipAll}}" style="min-height: 44px; padding: 0 16px; border: 1.5px solid #1f2326; background: #f4f5f3; font: 600 17px 'Barlow Condensed', sans-serif; cursor: pointer">{{flipAllLabel}}</button>
+    </div>
+  </div>
+  <p style="margin: -12px 0 24px; color: #5d6468">Piensa la respuesta y voltea la carta.</p>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 16px">
+    <template sc-for list="{{records}}" as="r" hint-placeholder-count="9">
+      <button type="button" class="{{r.cls}}" onClick="{{r.flip}}" aria-pressed="{{r.pressed}}" aria-label="{{r.aria}}">
+        <span class="flip-in">
+          <span class="face front">
+            <span style="font: 800 64px/1 'Barlow Condensed', sans-serif; color: rgba(255, 255, 255, 0.25)">{{r.i}}</span>
+            <span style="font: 700 26px/1.1 'Barlow Condensed', sans-serif">{{r.k}}</span>
+            <span style="font-size: 14px; color: #c9d6e6">Clic para voltear</span>
+          </span>
+          <span class="face back">
+            <span style="font-size: 14px; color: #5d6468">{{r.k}}</span>
+            <span style="font: 800 40px/1 'Barlow Condensed', sans-serif; color: #17457a">{{r.v}}</span>
+            <span style="font: 600 18px/1.2 'Barlow Condensed', sans-serif">{{r.n}}</span>
+            <span style="font-size: 14px; color: #5d6468">{{r.s}}</span>
+          </span>
+        </span>
+      </button>
+    </template>
+  </div>
+  <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px">
+    <a href="mapa.html" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; background: #17457a; color: #fff; text-decoration: none; font: 600 19px 'Barlow Condensed', sans-serif">Ver en el mapa</a>
+    <a href="comparar.html" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border: 1.5px solid #1f2326; color: #1f2326; text-decoration: none; font: 600 19px 'Barlow Condensed', sans-serif">Comparar departamentos</a>
+  </div>
+</section>
+</div>
+</template>
+<script type="text/x-dc" id="logica">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { cm: 'saldo', tm: 'obras', hotY: 2022, active: 'causas', guess: null, th: 90, flipped: {} };
+  }
+  componentDidMount() {
+    // Marca en el submenú la sección que está en pantalla.
+    this.onScroll = () => {
+      const ids = ['causas', 'avance', 'tipos', 'tiempo', 'quien', 'records'];
+      let cur = ids[0];
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < window.innerHeight * 0.4) cur = id;
+      }
+      if (cur !== this.state.active) this.setState({ active: cur });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this.onScroll); }
+  renderVals() {
+    const CAUSAS = [["Incumplimiento de contrato",592,15452.7],["Deficiencia en el expediente técnico",164,3616.0],["Discrepancias, controversias y arbitraje",185,2704.3],["Falta de recursos financieros y liquidez",625,1393.0],["Abandono de obra",104,968.7],["Disponibilidad de terreno",58,811.3],["Otros",158,604.3],["Falta de permisos, licencias y autorizaciones",48,550.1],["Conflictos sociales",74,388.4],["Incumplimiento del pago de valorizaciones",72,359.1],["Interferencias",30,333.2],["Eventos climáticos",81,293.6]];
+    const TIPOS = [["Otra infraestructura",248,6990.9,48.4],["Transporte terrestre",438,5977.6,50.2],["Saneamiento urbano y rural",444,4034.7,65.3],["Atención médica",58,2732.2,45.1],["Riego",271,1695.1,54.9],["Educación básica",149,1311.2,66.3],["Comunicaciones y telecomunicaciones",12,1191.3,16.4],["Agrario",26,744.5,74.2],["Readaptación social",3,719.6,25.8],["Transporte urbano",167,471.6,61.1]];
+    const ANIOS = [[2007,1,0.1],[2008,4,135.8],[2009,7,7.0],[2010,11,10.4],[2011,29,380.2],[2012,72,149.4],[2013,78,545.4],[2014,110,1971.4],[2015,99,171.6],[2016,120,2248.6],[2017,137,2417.0],[2018,166,3351.8],[2019,158,1762.2],[2020,176,1608.2],[2021,226,1347.2],[2022,368,1927.0],[2023,204,1902.9],[2024,151,6214.5],[2025,94,1175.4],[2026,6,6.1]];
+    const AV = [212,158,169,197,201,227,254,239,265,286];
+    const nf = new Intl.NumberFormat('es-PE');
+    const nf1 = new Intl.NumberFormat('es-PE', { maximumFractionDigits: 1 });
+    const M = (v) => v >= 1000 ? `S/ ${nf1.format(v / 1000)} mil M` : `S/ ${nf.format(Math.round(v))} M`;
+    const cm = this.state.cm, tm = this.state.tm;
+    const cSorted = [...CAUSAS].sort((a, b) => (cm === 'saldo' ? b[2] - a[2] : b[1] - a[1]));
+    const cMax = Math.max(...CAUSAS.map((c) => (cm === 'saldo' ? c[2] : c[1])));
+    const ti = tm === 'saldo' ? 2 : 1;
+    const tMax = Math.max(...ANIOS.map((y) => y[ti]));
+    const hot = ANIOS.find((y) => y[0] === this.state.hotY) || ANIOS[15];
+    const avMax = Math.max(...AV);
+    const labels = { causas: 'Causas', avance: 'Avance', tipos: 'Tipos de obra', tiempo: 'Año de inicio', quien: 'Quién ejecuta', records: 'Récords' };
+    // Obras con avance >= umbral: [umbral, obras, falta ejecutar (M)]
+    const TH = [[0,2208,27313.8],[5,2056,23723.9],[10,1996,22424.8],[15,1921,21197.2],[20,1838,18653.3],[25,1766,18311.0],[30,1669,16851.6],[35,1569,15554.5],[40,1472,14521.5],[45,1363,9167.1],[50,1271,7889.8],[55,1154,6545.9],[60,1044,6038.2],[65,919,5745.2],[70,790,5057.3],[75,669,4297.9],[80,551,3473.5],[85,417,3117.1],[90,286,2605.2],[95,158,716.6],[100,23,310.6]];
+    const th = TH.find((t) => t[0] === this.state.th) || TH[18];
+    const OPTS = ['Falta de recursos financieros y liquidez', 'Incumplimiento de contrato', 'Deficiencia en el expediente técnico', 'Discrepancias, controversias y arbitraje'];
+    const RIGHT = 'Incumplimiento de contrato';
+    const g = this.state.guess;
+    const REC = [
+      { k: 'La obra con más dinero pendiente', v: 'S/ 4.8 mil M', n: 'Reubicación del complejo de adiestramiento canino de la DIRANDRO', s: 'Santa Rosa, Lima' },
+      { k: 'La obra más antigua', v: 'Empezó en 2007', n: 'Canal de irrigación Puka Cruz', s: 'Huayllapampa, Recuay, Áncash. Avance 84.9%' },
+      { k: 'Se paró casi terminada', v: '99.9%', n: 'Agua potable y alcantarillado de Quillabamba', s: 'Santa Ana, La Convención, Cusco. Le falta S/ 28.8 M' },
+      { k: 'La entidad con más obras paralizadas', v: '63 obras', n: 'Provías Descentralizado', s: 'Gobierno nacional' },
+      { k: 'El distrito con más obras paralizadas', v: '47 obras', n: 'Echarate', s: 'La Convención, Cusco' },
+      { k: 'La obra con más servicios de control', v: '102 controles', n: 'Represa y canal Pancán', s: 'Succha, Aija, Áncash' },
+      { k: 'La que más presupuesto tiene este año', v: 'S/ 1.4 mil M', n: 'Reubicación del complejo de adiestramiento canino de la DIRANDRO', s: 'Santa Rosa, Lima' },
+      { k: 'La más cara que nunca tuvo un control', v: 'S/ 1.3 mil M', n: 'Terminal terrestre municipal de Jesús', s: 'Jesús, Huánuco. Avance 94%' },
+      { k: 'El departamento con más dinero parado', v: 'S/ 7.8 mil M', n: 'Lima', s: '171 obras' },
+    ];
+    const fl = this.state.flipped;
+    const nFlip = REC.filter((r, i) => fl[i]).length;
+    return {
+      causaTitle: g ? 'El incumplimiento de contrato frena S/ 15.5 mil millones' : '¿Cuál crees que es?',
+      opts: OPTS.map((o) => ({
+        l: o,
+        cls: !g ? 'opt' : o === RIGHT ? 'opt ok' : o === g ? 'opt bad' : 'opt dim',
+        pick: () => { if (!this.state.guess) this.setState({ guess: o, cm: 'saldo' }); },
+      })),
+      quizMsg: !g ? 'Elige una opción para ver la respuesta.' : g === RIGHT
+        ? '¡Exacto! Son 592 obras y S/ 15.5 mil millones: más de la mitad de todo lo que falta ejecutar.'
+        : `No: "${g.toLowerCase()}" es importante, pero el incumplimiento de contrato frena S/ 15.5 mil millones.`,
+      veilCls: g ? 'veil' : 'veil off',
+      th: this.state.th,
+      onTh: (e) => this.setState({ th: Number(e.target.value) }),
+      thTxt: `${th[0]}%`,
+      thN: nf.format(th[1]),
+      thS: M(th[2]),
+      thLine: `Son el ${nf1.format((th[1] / 2262) * 100)}% de las obras paralizadas y concentran el ${nf1.format((th[2] / 27548) * 100)}% del dinero que falta.`,
+      flipCount: `${nFlip} de ${REC.length}`,
+      flipAllLabel: nFlip === REC.length ? 'Voltear todas de nuevo' : 'Voltear todas',
+      flipAll: () => {
+        const all = nFlip === REC.length;
+        this.setState({ flipped: all ? {} : Object.fromEntries(REC.map((r, i) => [i, true])) });
+      },
+      subnav: Object.keys(labels).map((k) => ({ href: `#${k}`, label: labels[k], cls: k === this.state.active ? 'on' : '' })),
+      cOb: cm === 'obras' ? 'on' : '', cSa: cm === 'saldo' ? 'on' : '',
+      cByObras: () => this.setState({ cm: 'obras' }), cBySaldo: () => this.setState({ cm: 'saldo' }),
+      causas: cSorted.map((c) => ({ n: c[0], w: (((cm === 'saldo' ? c[2] : c[1]) / cMax) * 100).toFixed(1), v: cm === 'saldo' ? M(c[2]) : `${nf.format(c[1])} obras` })),
+      avance: AV.map((n, i) => ({ n: nf.format(n), h: Math.round((n / avMax) * 100), l: i === 9 ? '90-100%' : `${i * 10}-${i * 10 + 10}%`, bg: i * 10 + 10 > this.state.th ? '#e9a21a' : '#17457a' })),
+      tipos: TIPOS.map((t) => ({ n: t[0], s: M(t[2]), o: `${nf.format(t[1])} obras pendientes`, a: t[3], al: `${nf1.format(t[3])}%` })),
+      tOb: tm === 'obras' ? 'on' : '', tSa: tm === 'saldo' ? 'on' : '',
+      tByObras: () => this.setState({ tm: 'obras' }), tBySaldo: () => this.setState({ tm: 'saldo' }),
+      anios: ANIOS.map((y) => ({
+        h: Math.max(1, Math.round((y[ti] / tMax) * 100)), l: `’${String(y[0]).slice(2)}`,
+        cls: y[0] === hot[0] ? 'col hot' : 'col', aria: `${y[0]}: ${y[1]} obras, ${M(y[2])}`,
+        enter: () => this.setState({ hotY: y[0] }),
+      })),
+      yLeave: () => this.setState({ hotY: 2022 }),
+      yHot: { y: hot[0], o: `${nf.format(hot[1])} ${hot[1] === 1 ? 'obra empezó' : 'obras empezaron'} ese año`, s: `${M(hot[2])} siguen pendientes` },
+      gob: [
+        { n: 'Municipalidades', o: 68.2, ol: '68.2%', s: 25, sl: '25%' },
+        { n: 'Gobiernos regionales', o: 14.3, ol: '14.3%', s: 17.3, sl: '17.3%' },
+        { n: 'Gobierno nacional', o: 17.5, ol: '17.5%', s: 57.7, sl: '57.7%' },
+      ],
+      records: REC.map((r, i) => ({
+        ...r, i: String(i + 1).padStart(2, '0'),
+        cls: fl[i] ? 'flip on' : 'flip', pressed: String(Boolean(fl[i])),
+        aria: fl[i] ? `${r.k}: ${r.v}, ${r.n}` : `${r.k}. Voltear para ver la respuesta`,
+        flip: () => this.setState({ flipped: { ...this.state.flipped, [i]: !this.state.flipped[i] } }),
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>

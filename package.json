@@ -3,7 +3,8 @@
   "private": true,
   "description": "Dependencias de la web. Se copian a web/vendor para servir todo desde el mismo dominio (sin CDNs de terceros).",
   "scripts": {
-    "vendor": "node scripts/vendor.mjs"
+    "vendor": "node scripts/vendor.mjs",
+    "puntos": "node scripts/build_puntos.mjs"
   },
   "devDependencies": {
     "@fontsource/barlow": "5.1.0",

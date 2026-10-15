@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Obra Parada · Mapa</title>
+<meta name="description" content="Mapa de las obras paralizadas por departamento: dinero pendiente, obras, controles, 3D, recorrido y carrera de barras.">
+<meta property="og:title" content="Obra Parada · Mapa">
+<meta property="og:description" content="Mapa de las obras paralizadas por departamento: dinero pendiente, obras, controles, 3D, recorrido y carrera de barras.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="vendor/fonts.css" rel="stylesheet">
+<style>
+body{margin:0;background:#e3e4e1;color:#1f2326;font-family:'Barlow',system-ui,sans-serif;overflow-x:clip}
+a{color:#17457a}a:hover{color:#0f3359}
+*{box-sizing:border-box}
+.prog{position:fixed;top:0;left:0;right:0;height:4px;background:#e9a21a;transform-origin:0 50%;transform:scaleX(0);z-index:60}
+@supports (animation-timeline: scroll()){.prog{animation:prog linear both;animation-timeline:scroll(root)}}
+@keyframes prog{to{transform:scaleX(1)}}
+.brand{display:inline-flex;align-items:center;gap:10px;font:800 24px/1 'Barlow Condensed',sans-serif;color:#1f2326;text-decoration:none}
+.brand:hover{color:#1f2326}
+.nav a{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 14px;font:600 18px/1 'Barlow Condensed',sans-serif;color:#1f2326;text-decoration:none}
+.nav a::after{content:"";position:absolute;left:14px;right:14px;bottom:8px;height:3px;background:#e9a21a;transform:scaleX(0);transform-origin:0 50%;transition:transform .25s ease}
+.nav a:hover::after{transform:scaleX(1)}
+.nav a.on{background:#1f2326;color:#fff}
+.nav a.on::after{display:none}
+.tape{height:14px;background:repeating-linear-gradient(45deg,#e9a21a 0 10px,#1f2326 10px 20px);background-size:28.28px 14px;animation:tape 1.4s linear infinite}
+@keyframes tape{to{background-position:28.28px 0}}
+.lbl{display:block;font-size:13px;font-weight:600;color:#5d6468;margin-bottom:6px}
+.seg{display:flex;flex-wrap:wrap}
+.seg button{min-height:44px;padding:0 14px;font:600 16px 'Barlow Condensed',sans-serif;border:1.5px solid #1f2326;background:#f4f5f3;color:#1f2326;cursor:pointer;margin:0 0 -1.5px -1.5px;transition:background-color .2s,color .2s}
+.seg button:hover{background:#e8ebee}
+.seg button.on{background:#1f2326;color:#fff}
+.tg{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 14px;border:1.5px solid #1f2326;background:#f4f5f3;font:600 16px 'Barlow Condensed',sans-serif;color:#1f2326;cursor:pointer;transition:background-color .2s,color .2s}
+.tg:hover{background:#e8ebee}
+.tg .sw{width:30px;height:16px;border-radius:9px;background:#b9bdbb;position:relative;transition:background-color .25s}
+.tg .sw::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#fff;transition:transform .25s cubic-bezier(.2,.9,.3,1.4)}
+.tg.on{background:#1f2326;color:#fff}
+.tg.on .sw{background:#e9a21a}
+.tg.on .sw::after{transform:translateX(14px)}
+.stage{perspective:1500px;touch-action:none;user-select:none}
+.stage.d3{cursor:grab}
+.stage.d3.drag{cursor:grabbing}
+.tilt{transform-style:preserve-3d;transform-origin:50% 55%}
+.tilt.anim{transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.tilt.on .layer{filter:drop-shadow(0 5px 0 #8d9396)}
+.zoom{transform-style:preserve-3d;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.b3{position:absolute;width:0;height:0;transform-style:preserve-3d;pointer-events:none}
+.b3 .f{position:absolute;left:-7px;bottom:0;width:14px;transform-origin:50% 100%;transition:height .8s cubic-bezier(.2,.8,.2,1),background-color .4s}
+.b3 .f1{transform:rotateX(-90deg)}
+.b3 .f2{transform:rotateZ(90deg) rotateX(-90deg);filter:brightness(.72)}
+.b3 .cap{position:absolute;left:-7px;top:-7px;width:14px;height:14px;transition:transform .8s cubic-bezier(.2,.8,.2,1),background-color .4s}
+.b3 .lab{position:absolute;left:0;top:0;white-space:nowrap;background:#1f2326;color:#fff;font:700 15px 'Barlow Condensed',sans-serif;padding:4px 8px;border-left:3px solid #e9a21a;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.b3-in{animation:b3in .7s cubic-bezier(.2,.8,.2,1) backwards}
+.gm{position:absolute;width:1.7%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;transition:transform .25s cubic-bezier(.2,.9,.3,1.6),background-color .45s;animation:gmIn .45s cubic-bezier(.2,.9,.3,1.5) backwards}
+@keyframes gmIn{from{opacity:0;transform:translate(-50%,-50%) scale(0)}}
+.tlbar{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:14px 18px;background:#1f2326;color:#fff;margin-top:12px;animation:baja .35s ease-out}
+@keyframes baja{from{opacity:0;transform:translateY(-8px)}}
+.tlbar input[type=range]{-webkit-appearance:none;appearance:none;flex:1 1 280px;height:10px;background:repeating-linear-gradient(45deg,#e9a21a 0 8px,#3a4044 8px 16px);cursor:pointer}
+.tlbar input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:#fff;border:4px solid #e9a21a}
+.tlbar input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#fff;border:4px solid #e9a21a}
+.tlplay{width:46px;height:46px;border-radius:50%;border:0;background:#e9a21a;color:#1f2326;display:grid;place-items:center;cursor:pointer;transition:transform .2s}
+.tlplay:hover{transform:scale(1.1)}
+.mix{display:flex;height:22px;margin:6px 0 4px}
+.mix span{transition:flex-grow .6s cubic-bezier(.2,.8,.2,1)}
+.tb{display:grid;grid-template-columns:minmax(0,1fr) 2.5em;gap:3px 10px;align-items:center;font-size:13.5px;margin-top:6px}
+.tb .b{grid-column:1/-1;height:6px;background:#d3d5d2}
+.tb .b i{display:block;height:100%;background:#17457a;animation:llena .8s cubic-bezier(.2,.8,.2,1) backwards}
+.vsr{display:grid;grid-template-columns:minmax(0,1fr) 6em;gap:3px 10px;align-items:center}
+.vtrack{grid-column:1/-1;position:relative;height:10px;background:#d3d5d2}
+.vtrack i{display:block;height:100%;animation:llena .8s cubic-bezier(.2,.8,.2,1) backwards}
+.vtrack em{position:absolute;top:-5px;bottom:-5px;width:3px;margin-left:-1.5px;background:#1f2326}
+.sec2{max-width:1280px;margin:0 auto;padding:64px 32px;scroll-margin-top:90px}
+.kick2{margin:0 0 8px;font:600 18px 'Barlow Condensed',sans-serif;color:#8a5a00;letter-spacing:.04em}
+.h2b{margin:0;font:800 clamp(32px,3.8vw,52px)/1 'Barlow Condensed',sans-serif}
+.plot{position:relative;height:460px;background:#f4f5f3;border:1.5px solid #b9bdbb;margin-left:56px;margin-bottom:36px}
+.bub{all:unset;box-sizing:border-box;position:absolute;border-radius:50%;transform:translate(-50%,50%);cursor:pointer;border:2px solid #f4f5f3;transition:left .8s cubic-bezier(.2,.8,.2,1),bottom .8s cubic-bezier(.2,.8,.2,1),width .5s,height .5s,background-color .3s,box-shadow .2s;animation:bubIn .6s cubic-bezier(.2,.9,.3,1.5) backwards}
+.bub:hover,.bub:focus-visible{box-shadow:0 0 0 3px #1f2326;z-index:3}
+.bub.on{box-shadow:0 0 0 3px #e9a21a,0 0 0 6px #1f2326;z-index:4}
+@keyframes bubIn{from{opacity:0;transform:translate(-50%,50%) scale(0)}}
+.blab{position:absolute;transform:translate(-50%,0);font:600 12.5px 'Barlow Condensed',sans-serif;white-space:nowrap;pointer-events:none;transition:left .8s,bottom .8s}
+.race{position:relative;height:850px}
+.rrow{position:absolute;left:0;right:0;height:30px;display:grid;grid-template-columns:9em minmax(0,1fr);gap:10px;align-items:center;transition:top .7s cubic-bezier(.3,1.2,.4,1)}
+.rrow .rb{height:24px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;color:#fff;font:700 14px 'Barlow Condensed',sans-serif;white-space:nowrap;transition:width .7s cubic-bezier(.2,.8,.2,1),background-color .3s;min-width:2px}
+.rplay{width:52px;height:52px;border-radius:50%;border:0;background:#e9a21a;color:#1f2326;display:grid;place-items:center;cursor:pointer;transition:transform .2s}
+.rplay:hover{transform:scale(1.1)}
+.xt{width:100%;border-collapse:collapse;font-size:15px}
+.xt th{text-align:left;padding:0;border-bottom:2px solid #1f2326}
+.xt th button{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;padding:10px 8px;font:600 15px 'Barlow Condensed',sans-serif;color:#5d6468}
+.xt th button:hover,.xt th button.on{color:#1f2326;background:#fbe7bd}
+.xt td{padding:10px 8px;border-bottom:1px solid #b9bdbb;vertical-align:top}
+.xt tbody tr{cursor:pointer;transition:background-color .15s;animation:fila .35s ease-out backwards}
+.xt tbody tr:hover{background:#f4f5f3}
+@keyframes fila{from{opacity:0;transform:translateX(-10px)}}
+.xt .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fchip{min-height:40px;padding:0 14px;border:1.5px solid #1f2326;background:#f4f5f3;font:600 16px 'Barlow Condensed',sans-serif;cursor:pointer;margin-left:-1.5px}
+.fchip.on{background:#1f2326;color:#fff}
+@keyframes b3in{from{opacity:0}}
+.dep{cursor:pointer;pointer-events:visiblePainted;transition:fill .5s ease,opacity .3s;animation:construye .5s ease-out backwards}
+.dep:hover{opacity:.8}
+@keyframes construye{from{opacity:0}}
+.od{position:absolute;border-radius:50%;transform:translate(-50%,-50%);border:1.5px solid #f4f5f3;cursor:pointer;padding:0;animation:cae .5s cubic-bezier(.2,.9,.3,1.4) backwards;transition:transform .2s,box-shadow .2s}
+.od:hover,.od:focus-visible{transform:translate(-50%,-50%) scale(1.5);box-shadow:0 0 0 3px #1f2326;outline:none;z-index:3}
+.od.on{box-shadow:0 0 0 3px #e9a21a,0 0 0 6px #1f2326;z-index:4}
+@keyframes cae{from{opacity:0;transform:translate(-50%,-300%) scale(.3)}}
+.tip{position:fixed;z-index:70;pointer-events:none;background:#1f2326;color:#fff;padding:10px 12px;border-left:4px solid #e9a21a;max-width:280px;font-size:14px;line-height:1.35}
+.panel-a{animation:entraA .45s cubic-bezier(.2,.8,.2,1)}
+.panel-b{animation:entraB .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes entraA{from{opacity:0;transform:translateX(24px)}}
+@keyframes entraB{from{opacity:0;transform:translateX(24px)}}
+.obra{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:12px 6px;border-top:1px solid #b9bdbb;width:100%;transition:background-color .15s,padding .15s}
+.obra:hover{background:#e8ebee;padding-left:12px}
+.obra:focus-visible{outline:3px solid #e9a21a}
+.meter{grid-column:1/-1;height:6px;background:#d3d5d2;position:relative}
+.meter i{position:absolute;inset:0 auto 0 0;background:#17457a;animation:llena .9s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes llena{from{width:0}}
+.cz{display:grid;grid-template-columns:minmax(0,1fr) 3em;gap:4px 10px;align-items:center;font-size:14px}
+.cz .b{grid-column:1/-1;height:8px;background:#d3d5d2}
+.cz .b i{display:block;height:100%;background:#e9a21a;animation:llena .8s cubic-bezier(.2,.8,.2,1) backwards}
+.rank{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:10em minmax(0,1fr) 7em;gap:12px;align-items:center;padding:6px 8px;font-size:15px;transition:background-color .15s}
+.rank:hover{background:#f4f5f3}
+.rank:focus-visible{outline:3px solid #e9a21a}
+.rank.on{background:#fbe7bd}
+.rank .bar{height:14px;background:#d3d5d2}
+.rank .bar i{display:block;height:100%;background:#17457a;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.rank.on .bar i{background:#8a5a00}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;font:600 17px/1 'Barlow Condensed',sans-serif;text-decoration:none;border:1.5px solid #1f2326;color:#1f2326;background:#f4f5f3;cursor:pointer;transition:transform .15s,background-color .15s,color .15s}
+.btn:hover{background:#1f2326;color:#fff;transform:translateY(-2px)}
+.res button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;justify-content:space-between;gap:12px;width:100%;padding:10px 14px;border-top:1px solid #d3d5d2}
+.res button:hover,.res button:focus-visible{background:#fbe7bd}
+.prog-tour{height:3px;background:#e9a21a;transform-origin:0 50%;animation:tour 2.4s linear infinite}
+@keyframes tour{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@supports (animation-timeline: view()){.rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% cover 25%}}
+@keyframes rv{from{opacity:0;transform:translateY(40px)}}
+@media (max-width:760px){.rank{grid-template-columns:7em minmax(0,1fr) 5.5em}.tilt.on{transform:rotateX(40deg) translateY(-10px)}}
+</style>
+<script src="js/dc.js" defer></script>
+</head>
+<body>
+<div id="app"></div>
+<noscript><p style="padding: 32px; font: 18px system-ui">Esta página necesita JavaScript. Los datos completos están en <a href="data/obras.json">data/obras.json</a>.</p></noscript>
+<template id="vista">
+<div style="min-height: 100vh">
+<div class="prog" aria-hidden="true"></div>
+<header style="position: sticky; top: 0; z-index: 40; background: rgba(227, 228, 225, 0.93); backdrop-filter: blur(8px); border-bottom: 1.5px solid #1f2326">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 10px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 32px">
+    <a href="index.html" class="brand"><svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="26" height="17" rx="1.5" fill="#17457a"></rect><path d="M9 22v7M23 22v7" stroke="#1f2326" stroke-width="2.2"></path><path d="M8 13h16" stroke="#f4f5f3" stroke-width="2.2"></path></svg>Obra Parada</a>
+    <nav class="nav" aria-label="Secciones" style="display: flex; flex-wrap: wrap; margin-left: auto">
+      <a href="index.html">Inicio</a>
+      <a href="mapa.html" class="on" aria-current="page">Mapa</a>
+      <a href="analisis.html">Análisis</a>
+      <a href="comparar.html">Comparar</a>
+      <a href="control.html">Servicios de control</a>
+      <a href="metodo.html">Cómo se hizo</a>
+      <a href="explorador.html">Explorador</a>
+    </nav>
+  </div>
+</header>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 44px 32px 20px">
+  <p style="margin: 0 0 8px; font: 600 18px 'Barlow Condensed', sans-serif; color: #8a5a00">02 · EL MAPA</p>
+  <div style="display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 20px">
+    <h1 style="margin: 0; font: 800 clamp(44px, 5.4vw, 76px)/0.95 'Barlow Condensed', sans-serif; max-width: 14ch">Dónde están paradas las obras</h1>
+    <div style="flex: 0 1 380px; min-width: 260px; position: relative">
+      <label for="buscar" class="lbl">Ir a un departamento</label>
+      <input id="buscar" type="search" value="{{q}}" onInput="{{onQ}}" placeholder="Ej. Cusco" autocomplete="off" style="width: 100%; min-height: 48px; padding: 0 14px; font: 500 17px 'Barlow', sans-serif; border: 2px solid #1f2326; background: #fff; border-radius: 0">
+      <template sc-if value="{{hasRes}}" hint-placeholder-val="{{false}}">
+        <div class="res" style="position: absolute; left: 0; right: 0; top: 100%; z-index: 30; background: #fff; border: 2px solid #1f2326; border-top: 0; box-shadow: 0 18px 30px -18px rgba(0, 0, 0, 0.45)">
+          <template sc-for list="{{res}}" as="r" hint-placeholder-count="3">
+            <button type="button" onClick="{{r.pick}}"><span style="font-weight: 600">{{r.name}}</span><span style="color: #5d6468; font-size: 14px">{{r.label}}</span></button>
+          </template>
+        </div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 0 32px 20px">
+  <div style="display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: flex-end; padding: 16px 0; border-top: 2px solid #1f2326; border-bottom: 1px solid #b9bdbb">
+    <div>
+      <span class="lbl">Colorear por</span>
+      <div class="seg" role="group" aria-label="Colorear por">
+        <template sc-for list="{{metrics}}" as="m" hint-placeholder-count="4">
+          <button type="button" class="{{m.cls}}" onClick="{{m.pick}}" aria-pressed="{{m.pressed}}">{{m.label}}</button>
+        </template>
+      </div>
+    </div>
+    <div>
+      <span class="lbl">Nivel de gobierno</span>
+      <div class="seg" role="group" aria-label="Nivel de gobierno">
+        <template sc-for list="{{niveles}}" as="n" hint-placeholder-count="4">
+          <button type="button" class="{{n.cls}}" onClick="{{n.pick}}" aria-pressed="{{n.pressed}}">{{n.label}}</button>
+        </template>
+      </div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px">
+      <button type="button" class="{{tgDots}}" onClick="{{toggleDots}}" aria-pressed="{{dotsOn}}"><span class="sw" aria-hidden="true"></span>Obras como puntos</button>
+      <button type="button" class="{{tgZoom}}" onClick="{{toggleZoom}}" aria-pressed="{{zoomOn}}"><span class="sw" aria-hidden="true"></span>Acercar</button>
+      <button type="button" class="{{tgTilt}}" onClick="{{toggleTilt}}" aria-pressed="{{tiltOn}}"><span class="sw" aria-hidden="true"></span>3D</button>
+      <template sc-if value="{{d3}}" hint-placeholder-val="{{false}}">
+        <button type="button" class="{{tgSpin}}" onClick="{{toggleSpin}}" aria-pressed="{{spinOn}}"><span class="sw" aria-hidden="true"></span>Girar solo</button>
+      </template>
+      <button type="button" class="{{tgTour}}" onClick="{{toggleTour}}" aria-pressed="{{tourOn}}"><span class="sw" aria-hidden="true"></span>Recorrido</button>
+      <button type="button" class="{{tgTl}}" onClick="{{toggleTl}}" aria-pressed="{{tlOn}}"><span class="sw" aria-hidden="true"></span>Línea de tiempo</button>
+    </div>
+    <div>
+      <span class="lbl">Dibujar como</span>
+      <div class="seg" role="group" aria-label="Dibujar como">
+        <button type="button" class="{{stPoly}}" onClick="{{setPoly}}">Departamentos</button>
+        <button type="button" class="{{stDots}}" onClick="{{setDots}}">Puntitos</button>
+      </div>
+    </div>
+  </div>
+  <template sc-if value="{{tl}}" hint-placeholder-val="{{false}}">
+    <div class="tlbar">
+      <button type="button" class="tlplay" onClick="{{tlToggle}}" aria-label="{{tlPlayLabel}}">
+        <template sc-if value="{{tlPlaying}}" hint-placeholder-val="{{false}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect></svg></template>
+        <template sc-if value="{{tlStopped}}" hint-placeholder-val="{{true}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8z"></path></svg></template>
+      </button>
+      <span style="font: 800 40px/1 'Barlow Condensed', sans-serif; color: #e9a21a; min-width: 2.4em; font-variant-numeric: tabular-nums">{{yr}}</span>
+      <input type="range" min="2007" max="2026" step="1" value="{{yr}}" onInput="{{onYr}}" aria-label="Año de inicio hasta el que se cuentan las obras">
+      <span style="font-size: 14px; color: #c9d1d6; flex: 1 1 260px">{{tlNote}}</span>
+    </div>
+  </template>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 8px 32px 56px; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+  <div style="flex: 1 1 520px; min-width: 0; background: #d3d5d2; border: 1.5px solid #b9bdbb; position: relative; overflow: hidden">
+    <template sc-if value="{{tour}}" hint-placeholder-val="{{false}}"><div class="prog-tour" aria-hidden="true"></div></template>
+    <div class="{{stageCls}}" style="padding: 28px 24px 24px" onPointerDown="{{dragStart}}" onPointerMove="{{dragMove}}" onPointerUp="{{dragEnd}}" onPointerLeave="{{dragEnd}}">
+      <div class="{{tiltCls}}" style="transform: {{tiltT}}">
+        <div class="zoom" style="position: relative; width: 100%; max-width: 540px; margin: 0 auto; aspect-ratio: 420 / 615; transform-origin: {{zoomOrigin}}; transform: scale({{zoomScale}})">
+          <template sc-if value="{{d3}}" hint-placeholder-val="{{false}}">
+            <template sc-for list="{{bars}}" as="b" hint-placeholder-count="25">
+              <div class="b3 b3-in" style="left: {{b.l}}%; top: {{b.t}}%; animation-delay: {{b.delay}}ms">
+                <div class="f f1" style="height: {{b.h}}px; background: {{b.c}}"></div>
+                <div class="f f2" style="height: {{b.h}}px; background: {{b.c}}"></div>
+                <div class="cap" style="transform: translateZ({{b.h}}px); background: {{b.cap}}"></div>
+                <template sc-if value="{{b.sel}}" hint-placeholder-val="{{false}}">
+                  <div class="lab" style="transform: translateZ({{b.hl}}px) rotateZ({{b.rz}}deg) rotateX({{b.rx}}deg) translate(-50%, -100%)">{{b.name}} · {{b.v}}</div>
+                </template>
+              </div>
+            </template>
+          </template>
+          <template sc-if value="{{polyOn}}" hint-placeholder-val="{{true}}">
+            <template sc-for list="{{deps}}" as="p" hint-placeholder-count="25">
+              <svg class="layer" viewBox="0 0 420 615" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none">
+                <path class="dep" d="{{p.d}}" fill="{{p.fill}}" stroke="{{p.stroke}}" stroke-width="{{p.sw}}" style="animation-delay: {{p.delay}}ms" onClick="{{p.pick}}" onMouseMove="{{p.move}}" onMouseLeave="{{hideTip}}"></path>
+              </svg>
+            </template>
+          </template>
+          <template sc-if value="{{dotStyle}}" hint-placeholder-val="{{false}}">
+            <template sc-for list="{{gdots}}" as="g" hint-placeholder-count="200">
+              <span class="gm" style="left: {{g.l}}%; top: {{g.t}}%; background: {{g.c}}; transform: translate(-50%, -50%) scale({{g.s}}); animation-delay: {{g.d}}ms"></span>
+            </template>
+            <div style="position: absolute; inset: 0; cursor: pointer" onMouseMove="{{gMove}}" onMouseLeave="{{gLeave}}" onClick="{{gClick}}" aria-hidden="true"></div>
+          </template>
+          <template sc-if value="{{dotsFlat}}" hint-placeholder-val="{{false}}">
+            <template sc-for list="{{dots}}" as="d" hint-placeholder-count="30">
+              <button type="button" class="{{d.cls}}" aria-label="{{d.aria}}" onClick="{{d.pick}}" onMouseMove="{{d.move}}" onMouseLeave="{{hideTip}}" style="left: {{d.l}}%; top: {{d.t}}%; width: {{d.s}}px; height: {{d.s}}px; background: {{d.bg}}; animation-delay: {{d.delay}}ms"></button>
+            </template>
+          </template>
+        </div>
+      </div>
+    </div>
+    <div style="position: absolute; left: 20px; bottom: 20px; background: rgba(244, 245, 243, 0.95); border: 1px solid #b9bdbb; padding: 12px 14px">
+      <p style="margin: 0 0 8px; font: 600 15px 'Barlow Condensed', sans-serif">{{legendTitle}}</p>
+      <template sc-for list="{{legend}}" as="g" hint-placeholder-count="5">
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; margin-top: 3px"><span style="width: 22px; height: 12px; background: {{g.c}}"></span>{{g.t}}</div>
+      </template>
+      <template sc-if value="{{dotsOn}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #b9bdbb"><span style="width: 12px; height: 12px; border-radius: 50%; background: #1f2326"></span>Obra · <span style="width: 12px; height: 12px; border-radius: 50%; background: #e9a21a"></span>al 90%+</div>
+      </template>
+    </div>
+    <p style="position: absolute; right: 20px; top: 20px; margin: 0; font-size: 14px; color: #5d6468; background: rgba(244, 245, 243, 0.9); padding: 4px 8px">{{mapHint}}</p>
+  </div>
+
+  <aside style="flex: 1 1 380px; min-width: 0; background: #f4f5f3; border: 1.5px solid #1f2326; padding: 26px" aria-live="polite">
+    <template sc-if value="{{showObra}}" hint-placeholder-val="{{false}}">
+      <div class="{{panelCls}}">
+        <button type="button" class="btn" onClick="{{backDep}}" style="margin-bottom: 16px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>Volver a {{sel.name}}</button>
+        <div style="background: #17457a; color: #fff; padding: 22px; position: relative">
+          <p style="margin: 0 0 8px; font-size: 13px; color: #c9d6e6">{{obra.nivel}} · {{obra.lugar}}</p>
+          <p style="margin: 0; font: 700 22px/1.15 'Barlow Condensed', sans-serif">{{obra.n}}</p>
+        </div>
+        <dl style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; margin: 20px 0">
+          <div><dt style="font-size: 13px; color: #5d6468">Falta ejecutar</dt><dd style="margin: 0; font: 700 30px/1.1 'Barlow Condensed', sans-serif; color: #17457a">{{obra.s}}</dd></div>
+          <div><dt style="font-size: 13px; color: #5d6468">Avance físico</dt><dd style="margin: 0; font: 700 30px/1.1 'Barlow Condensed', sans-serif">{{obra.a}}</dd></div>
+          <div><dt style="font-size: 13px; color: #5d6468">Servicios de control</dt><dd style="margin: 0; font: 700 30px/1.1 'Barlow Condensed', sans-serif">{{obra.c}}</dd></div>
+          <div><dt style="font-size: 13px; color: #5d6468">Puesto en el país</dt><dd style="margin: 0; font: 700 30px/1.1 'Barlow Condensed', sans-serif">{{obra.rank}}</dd></div>
+        </dl>
+        <div class="meter" style="height: 10px" aria-hidden="true"><i style="width: {{obra.w}}%; background: #e9a21a"></i></div>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px">
+          <a href="control.html" class="btn">Ver sus informes</a>
+        </div>
+      </div>
+    </template>
+    <template sc-if value="{{showDep}}" hint-placeholder-val="{{true}}">
+      <div class="{{panelCls}}">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
+          <p style="margin: 0; font-size: 14px; color: #5d6468">Puesto {{sel.rank}} de 25 · {{nivelTxt}}</p>
+          <div style="display: flex; gap: 6px">
+            <button type="button" class="btn" onClick="{{prev}}" aria-label="Departamento anterior" style="padding: 0 12px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+            <button type="button" class="btn" onClick="{{next}}" aria-label="Departamento siguiente" style="padding: 0 12px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+          </div>
+        </div>
+        <h2 style="margin: 4px 0 18px; font: 800 52px/1 'Barlow Condensed', sans-serif">{{sel.name}}</h2>
+        <dl style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 24px; margin: 0 0 20px">
+          <div><dt style="font-size: 13px; color: #5d6468">Obras paralizadas</dt><dd style="margin: 0; font: 700 30px/1.1 'Barlow Condensed', sans-serif">{{sel.n}}</dd></div>
+          <div><dt style="font-size: 13px; color: #5d6468">Falta ejecutar</dt><dd style="margin: 0; font: 700 30px/1.1 'Barlow Condensed', sans-serif; color: #17457a">{{sel.saldo}}</dd></div>
+          <div><dt style="font-size: 13px; color: #5d6468">Con presupuesto este año</dt><dd style="margin: 0; font: 700 30px/1.1 'Barlow Condensed', sans-serif">{{sel.pim}}</dd></div>
+          <div><dt style="font-size: 13px; color: #5d6468">Servicios de control</dt><dd style="margin: 0; font: 700 30px/1.1 'Barlow Condensed', sans-serif">{{sel.ctrl}}</dd></div>
+          <div><dt style="font-size: 13px; color: #5d6468">Costo actualizado (todos)</dt><dd style="margin: 0; font: 700 24px/1.1 'Barlow Condensed', sans-serif">{{sel.costo}}</dd></div>
+          <div><dt style="font-size: 13px; color: #5d6468">Avance mediano (todos)</dt><dd style="margin: 0; font: 700 24px/1.1 'Barlow Condensed', sans-serif">{{sel.av}}</dd></div>
+        </dl>
+        <h3 style="margin: 0 0 10px; font: 700 20px 'Barlow Condensed', sans-serif">Causas más frecuentes</h3>
+        <div style="display: grid; gap: 10px; margin-bottom: 22px">
+          <template sc-for list="{{sel.causas}}" as="c" hint-placeholder-count="3">
+            <div class="cz"><span>{{c.n}}</span><b style="text-align: right; font: 700 17px 'Barlow Condensed', sans-serif">{{c.v}}</b><span class="b" aria-hidden="true"><i style="width: {{c.w}}%"></i></span></div>
+          </template>
+        </div>
+        <h3 style="margin: 0 0 6px; font: 700 20px 'Barlow Condensed', sans-serif">Frente al promedio del país</h3>
+        <div style="display: grid; gap: 10px; margin-bottom: 22px">
+          <template sc-for list="{{sel.vs}}" as="x" hint-placeholder-count="5">
+            <div class="vsr">
+              <span style="font-size: 14px">{{x.l}}</span>
+              <b style="text-align: right; font: 700 17px 'Barlow Condensed', sans-serif; color: {{x.c}}">{{x.v}}</b>
+              <span class="vtrack" aria-hidden="true"><i style="width: {{x.w}}%; background: {{x.c}}"></i><em style="left: {{x.n}}%"></em></span>
+              <span style="grid-column: 1 / -1; font-size: 12.5px; color: #5d6468">{{x.note}}</span>
+            </div>
+          </template>
+        </div>
+        <h3 style="margin: 0; font: 700 20px 'Barlow Condensed', sans-serif">Quién las ejecuta</h3>
+        <div class="mix" role="img" aria-label="{{sel.mixAria}}">
+          <span style="flex-grow: {{sel.mL}}; flex-basis: 0; background: #17457a"></span>
+          <span style="flex-grow: {{sel.mR}}; flex-basis: 0; background: #5b84ad"></span>
+          <span style="flex-grow: {{sel.mN}}; flex-basis: 0; background: #e9a21a"></span>
+        </div>
+        <p style="margin: 0 0 18px; font-size: 13px; color: #5d6468"><span style="color: #17457a; font-weight: 600">■</span> Municipalidades {{sel.mL}} · <span style="color: #5b84ad; font-weight: 600">■</span> Regionales {{sel.mR}} · <span style="color: #8a5a00; font-weight: 600">■</span> Nacional {{sel.mN}}</p>
+        <h3 style="margin: 0; font: 700 20px 'Barlow Condensed', sans-serif">Qué se paró</h3>
+        <div style="margin-bottom: 20px">
+          <template sc-for list="{{sel.tipos}}" as="t" hint-placeholder-count="6">
+            <div class="tb"><span>{{t.n}}</span><b style="text-align: right; font: 700 15px 'Barlow Condensed', sans-serif">{{t.v}}</b><span class="b" aria-hidden="true"><i style="width: {{t.w}}%"></i></span></div>
+          </template>
+        </div>
+        <h3 style="margin: 0 0 4px; font: 700 20px 'Barlow Condensed', sans-serif">{{topTitle}}</h3>
+        <template sc-for list="{{sel.top}}" as="o" hint-placeholder-count="3">
+          <button type="button" class="obra" onClick="{{o.pick}}">
+            <span style="font-size: 14.5px; line-height: 1.35">{{o.n}}</span>
+            <b style="font: 700 19px 'Barlow Condensed', sans-serif; white-space: nowrap">{{o.s}}</b>
+            <span class="meter" aria-hidden="true"><i style="width: {{o.a}}%"></i></span>
+            <span style="grid-column: 1 / -1; font-size: 13px; color: #5d6468">{{o.meta}}</span>
+          </button>
+        </template>
+        <template sc-if value="{{noTop}}" hint-placeholder-val="{{false}}"><p style="margin: 8px 0 0; font-size: 14px; color: #5d6468">Ninguna de las 90 obras más grandes del país es de este nivel aquí.</p></template>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px">
+          <a href="comparar.html" class="btn">Comparar con otro</a>
+          <a href="control.html" class="btn">Ver sus controles</a>
+        </div>
+      </div>
+    </template>
+  </aside>
+</section>
+
+<template sc-if value="{{tipOn}}" hint-placeholder-val="{{false}}">
+  <div class="tip" style="left: {{tip.x}}px; top: {{tip.y}}px" aria-hidden="true">
+    <b style="display: block; font: 700 17px 'Barlow Condensed', sans-serif">{{tip.t}}</b>
+    <span style="display: block; color: #c9d1d6; margin-top: 2px">{{tip.l1}}</span>
+    <span style="display: block; color: #e9a21a; margin-top: 2px">{{tip.l2}}</span>
+  </div>
+</template>
+
+<div class="tape" aria-hidden="true"></div>
+<section class="rv" style="max-width: 1280px; margin: 0 auto; padding: 56px 32px 96px">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 12px; margin-bottom: 20px">
+    <h2 style="margin: 0; font: 800 clamp(32px, 3.6vw, 48px)/1 'Barlow Condensed', sans-serif">Los 25 departamentos</h2>
+    <p style="margin: 0; color: #5d6468">{{rankNote}}</p>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: 2px 40px">
+    <template sc-for list="{{ranking}}" as="r" hint-placeholder-count="25">
+      <button type="button" class="{{r.cls}}" onClick="{{r.pick}}">
+        <span style="font-weight: 600">{{r.name}}</span>
+        <span class="bar" aria-hidden="true"><i style="width: {{r.w}}%"></i></span>
+        <span style="text-align: right; font: 600 16px 'Barlow Condensed', sans-serif; font-variant-numeric: tabular-nums">{{r.v}}</span>
+      </button>
+    </template>
+  </div>
+</section>
+
+<div class="tape" aria-hidden="true"></div>
+<section class="sec2" id="burbujas">
+  <p class="kick2">CADA DEPARTAMENTO, UNA BURBUJA</p>
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 24px">
+    <h2 class="h2b" style="max-width: 20ch">Muchas obras chicas o pocas obras enormes</h2>
+    <p style="margin: 0; color: #5d6468; max-width: 44ch">Horizontal: número de obras. Vertical: lo que falta ejecutar (escala logarítmica). Tamaño: servicios de control. Clic en una burbuja para verla en el mapa.</p>
+  </div>
+  <div class="plot" onMouseLeave="{{bLeave}}">
+    <template sc-for list="{{yTicks}}" as="t" hint-placeholder-count="4">
+      <span style="position: absolute; left: -54px; bottom: {{t.b}}%; transform: translateY(50%); font-size: 12px; color: #5d6468; width: 48px; text-align: right">{{t.l}}</span>
+      <span style="position: absolute; left: 0; right: 0; bottom: {{t.b}}%; border-top: 1px dashed #d3d5d2"></span>
+    </template>
+    <template sc-for list="{{xTicks}}" as="t" hint-placeholder-count="5">
+      <span style="position: absolute; bottom: -26px; left: {{t.l}}%; transform: translateX(-50%); font-size: 12px; color: #5d6468">{{t.t}}</span>
+    </template>
+    <template sc-for list="{{bubbles}}" as="b" hint-placeholder-count="25">
+      <button type="button" class="{{b.cls}}" style="left: {{b.x}}%; bottom: {{b.y}}%; width: {{b.s}}px; height: {{b.s}}px; background: {{b.c}}; animation-delay: {{b.d}}ms" onClick="{{b.pick}}" onMouseEnter="{{b.hover}}" onFocus="{{b.hover}}" aria-label="{{b.aria}}"></button>
+      <span class="blab" style="left: {{b.x}}%; bottom: calc({{b.y}}% + {{b.r}}px + 2px)">{{b.lab}}</span>
+    </template>
+    <div style="position: absolute; right: 14px; top: 14px; background: #1f2326; color: #fff; padding: 12px 16px; border-left: 4px solid #e9a21a; min-width: 220px; pointer-events: none">
+      <p style="margin: 0; font: 800 24px/1 'Barlow Condensed', sans-serif">{{bInfo.n}}</p>
+      <p style="margin: 6px 0 0; font-size: 14px; color: #c9d1d6">{{bInfo.l}}</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec2" id="carrera" style="padding-top: 24px">
+  <p class="kick2">LA CARRERA</p>
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 20px">
+    <h2 class="h2b">Quién fue acumulando más, año por año</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+      <div style="display: flex" role="group" aria-label="Medir por"><template sc-for list="{{rMetrics}}" as="m" hint-placeholder-count="2"><button type="button" class="{{m.cls}}" onClick="{{m.pick}}">{{m.l}}</button></template></div>
+      <button type="button" class="rplay" onClick="{{raceToggle}}" aria-label="{{raceLabel}}">
+        <template sc-if value="{{racing}}" hint-placeholder-val="{{false}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect></svg></template>
+        <template sc-if value="{{notRacing}}" hint-placeholder-val="{{true}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8z"></path></svg></template>
+      </button>
+    </div>
+  </div>
+  <div style="position: relative">
+    <p aria-live="polite" style="position: absolute; right: 0; bottom: 20px; margin: 0; font: 800 clamp(80px, 12vw, 180px)/1 'Barlow Condensed', sans-serif; color: rgba(31, 35, 38, 0.1); pointer-events: none">{{raceYr}}</p>
+    <div class="race">
+      <template sc-for list="{{raceRows}}" as="r" hint-placeholder-count="25">
+        <div class="rrow" style="top: {{r.top}}px">
+          <span style="text-align: right; font-weight: 600; font-size: 15px">{{r.n}}</span>
+          <span><span class="rb" style="width: {{r.w}}%; background: {{r.c}}">{{r.v}}</span></span>
+        </div>
+      </template>
+    </div>
+  </div>
+  <p style="margin: 12px 0 0; color: #5d6468">Obras paralizadas de hoy acumuladas según el año en que empezaron. En ámbar, el departamento elegido en el mapa.</p>
+</section>
+
+<div class="tape" aria-hidden="true"></div>
+<section class="sec2" id="explorar">
+  <p class="kick2">EXPLORADOR</p>
+  <h2 class="h2b" style="margin-bottom: 18px">Las 90 obras más grandes, en tabla</h2>
+  <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin-bottom: 16px">
+    <label style="flex: 1 1 280px"><span class="lbl">Buscar obra o distrito</span><input type="search" value="{{xq}}" onInput="{{onXq}}" placeholder="Ej. hospital, carretera, Juliaca" style="width: 100%; min-height: 44px; padding: 0 12px; font: 500 16px 'Barlow', sans-serif; border: 2px solid #1f2326; background: #fff; border-radius: 0"></label>
+    <div style="display: flex; flex-wrap: wrap" role="group" aria-label="Filtros">
+      <button type="button" class="{{fDep}}" onClick="{{tDep}}">Solo {{sel.name}}</button>
+      <button type="button" class="{{fCasi}}" onClick="{{tCasi}}">Al 90% o más</button>
+      <button type="button" class="{{fSin}}" onClick="{{tSin}}">Sin control</button>
+    </div>
+  </div>
+  <p style="margin: 0 0 10px; font-weight: 600" role="status">{{xCount}}</p>
+  <div style="overflow-x: auto">
+    <table class="xt" style="min-width: 760px">
+      <thead><tr>
+        <template sc-for list="{{xCols}}" as="c" hint-placeholder-count="6"><th scope="col" aria-sort="{{c.sort}}"><button type="button" class="{{c.cls}}" onClick="{{c.pick}}" style="text-align: {{c.al}}">{{c.l}} {{c.arrow}}</button></th></template>
+      </tr></thead>
+      <tbody>
+        <template sc-for list="{{xRows}}" as="r" hint-placeholder-count="10">
+          <tr onClick="{{r.pick}}" style="animation-delay: {{r.d}}ms">
+            <td style="max-width: 420px">{{r.n}}</td>
+            <td>{{r.dep}}</td>
+            <td>{{r.niv}}</td>
+            <td class="num" style="font: 700 16px 'Barlow Condensed', sans-serif">{{r.s}}</td>
+            <td class="num"><span style="display: inline-block; width: 60px; height: 6px; background: #d3d5d2; vertical-align: middle; margin-right: 6px"><i style="display: block; height: 100%; width: {{r.aw}}%; background: {{r.ac}}"></i></span>{{r.a}}</td>
+            <td class="num">{{r.c}}</td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin: 10px 0 0; font-size: 14px; color: #5d6468">Clic en una fila para abrir su ficha en el panel del mapa.</p>
+</section>
+</div>
+</template>
+<script type="text/x-dc" id="logica">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { metric: 'saldo', nivel: 'T', sel: '15', obra: null, flip: false, dots: true, zoom: false, tilt: false, tour: false, tip: null, q: '', rx: 55, rz: -18, spin: false, drag: false, style: 'poly', tl: false, yr: 2026, tlPlay: false, gh: null, bh: null, rm: 'saldo', ryi: 19, racing: false, xq: '', xs: 's', xd: -1, fdep: false, fcasi: false, fsin: false };
+    this.moved = false;
+  }
+  componentDidMount() {
+    this.raceTimer = setInterval(() => {
+      if (!this.state.racing) return;
+      if (this.state.ryi >= 19) { this.setState({ racing: false }); return; }
+      this.setState({ ryi: this.state.ryi + 1 });
+    }, 900);
+    this.tlTimer = setInterval(() => {
+      if (!this.state.tlPlay) return;
+      if (this.state.yr >= 2026) { this.setState({ tlPlay: false }); return; }
+      this.setState({ yr: this.state.yr + 1 });
+    }, 700);
+    // Giro automático del 3D.
+    const spin = () => {
+      if (this.state.tilt && this.state.spin && !this.state.drag) this.setState({ rz: (this.state.rz + 0.25) % 360 });
+      this.spinRaf = requestAnimationFrame(spin);
+    };
+    this.spinRaf = requestAnimationFrame(spin);
+    this.timer = setInterval(() => {
+      if (!this.state.tour) return;
+      const order = this.order();
+      const i = order.indexOf(this.state.sel);
+      this.setState({ sel: order[(i + 1) % order.length], obra: null, flip: !this.state.flip });
+    }, 2400);
+  }
+  componentWillUnmount() { clearInterval(this.timer); clearInterval(this.tlTimer); clearInterval(this.raceTimer); cancelAnimationFrame(this.spinRaf); }
+  // Obras (y su saldo) que empezaron hasta cada año, 2007..2026, por departamento.
+  CUM() {
+    return {"15":[[0,1,1,1,2,4,8,13,21,29,42,52,61,78,91,121,142,153,166,166],[0.0,99.9,99.9,99.9,100.2,101.1,133.6,139.2,143.1,183.9,377.9,1671.6,1799.2,1891.9,1919.4,2387.1,2492.6,7601.0,7749.2,7749.2]],"21":[[0,1,1,2,3,9,12,25,40,56,81,98,113,143,159,186,203,205,209,211],[0.0,35.8,35.8,35.8,35.8,77.4,81.3,719.0,725.7,731.3,1720.1,1935.2,1942.0,1967.1,1975.6,2221.6,2251.0,2253.6,2260.2,2260.2]],"06":[[0,0,0,0,2,9,17,23,25,32,42,54,64,76,96,105,112,124,133,133],[0.0,0.0,0.0,0.0,0.2,2.7,11.5,849.3,849.4,850.7,885.3,896.0,932.0,1350.5,1428.0,1443.1,1524.1,1620.9,2182.1,2182.1]],"10":[[0,0,0,0,1,6,8,11,11,16,20,26,32,36,52,60,64,68,72,73],[0.0,0.0,0.0,0.0,365.2,380.0,383.5,384.3,384.3,1729.9,1754.5,1780.5,1856.2,1877.3,1917.5,1947.0,2126.6,2136.1,2173.6,2173.6]],"20":[[0,0,1,1,2,7,9,14,15,15,17,25,44,52,67,100,107,112,116,116],[0.0,0.0,1.3,1.3,2.7,26.8,38.6,330.6,331.5,331.5,331.5,608.9,1055.4,1098.0,1177.1,1336.0,1386.0,1554.7,1722.3,1722.3]],"13":[[0,0,1,1,1,2,3,6,7,11,13,17,25,32,37,55,80,86,90,90],[0.0,0.0,0.5,0.5,0.5,1.4,33.1,44.6,45.1,49.6,50.3,124.4,494.0,580.0,588.9,700.6,1345.3,1641.1,1656.7,1656.7]],"04":[[0,0,0,0,0,1,1,2,3,8,13,27,34,46,55,74,89,96,98,98],[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.3,15.4,468.9,494.6,627.4,814.5,884.5,1049.4,1079.1,1114.9,1114.9]],"02":[[1,2,3,5,11,17,24,28,33,36,39,44,49,67,88,132,157,168,174,174],[0.1,0.2,0.5,3.7,9.1,17.3,26.4,59.9,74.6,75.1,83.3,92.5,126.6,494.3,574.4,729.3,894.1,995.6,1008.3,1008.3]],"11":[[0,0,0,1,3,4,8,8,10,11,11,15,16,16,18,24,24,27,27,27],[0.0,0.0,0.0,1.0,2.6,3.0,8.8,8.8,34.7,34.7,34.7,698.8,702.7,702.7,764.9,817.8,817.8,821.4,821.4,821.4]],"08":[[0,0,2,2,9,35,57,88,119,148,169,196,218,246,262,313,337,354,364,366],[0.0,0.0,4.7,4.7,8.0,54.5,67.1,132.0,141.1,151.2,259.1,275.9,297.1,348.9,360.4,550.6,625.5,737.2,781.7,787.7]],"03":[[0,0,0,1,3,5,8,11,12,14,20,27,41,47,60,73,77,81,84,84],[0.0,0.0,0.0,0.0,1.3,4.1,362.5,368.8,369.0,378.2,381.9,455.6,516.6,532.7,556.9,649.2,696.3,697.8,736.9,736.9]],"23":[[0,0,0,0,0,0,0,0,0,1,5,6,6,7,28,32,33,36,40,40],[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.4,364.5,367.9,367.9,570.4,606.7,667.3,667.9,684.2,693.2,693.2]],"16":[[0,1,2,2,2,2,2,4,4,10,11,13,15,17,26,29,30,33,33,33],[0.0,0.0,0.3,0.3,0.3,0.3,0.3,1.9,1.9,557.9,602.2,610.6,611.6,613.6,630.9,638.7,645.4,661.9,661.9,661.9]],"12":[[0,0,0,1,1,2,6,9,15,19,26,31,40,42,51,69,74,79,88,88],[0.0,0.0,0.0,4.1,4.1,4.7,10.8,11.0,20.4,57.6,67.5,99.1,349.7,369.7,385.6,465.6,605.8,611.3,659.1,659.1]],"01":[[0,0,0,0,1,1,1,4,6,7,12,17,18,21,22,28,32,43,47,47],[0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,11.2,32.9,216.3,310.8,313.9,396.6,396.6,408.3,415.2,496.7,511.8,511.8]],"22":[[0,0,0,0,0,0,0,0,4,6,6,8,8,9,13,16,16,18,20,21],[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,20.3,20.6,20.6,46.8,46.8,47.8,433.6,450.3,450.3,490.6,492.2,492.2]],"18":[[0,0,0,1,1,4,9,12,13,16,18,21,23,24,31,36,36,37,37,37],[0.0,0.0,0.0,1.8,1.8,3.5,3.7,7.4,7.4,13.9,298.7,300.1,300.2,301.0,334.4,346.1,346.1,348.9,348.9,348.9]],"25":[[0,0,0,0,0,0,0,1,2,4,5,7,8,8,9,18,25,26,27,27],[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.7,191.6,192.3,227.2,273.6,273.6,273.6,283.2,318.9,323.5,324.6,324.6]],"05":[[0,0,1,2,3,4,7,17,22,28,36,43,53,70,81,104,122,142,148,148],[0.0,0.0,0.0,0.0,0.0,0.3,7.8,60.7,66.3,69.4,82.5,90.9,96.3,114.1,135.6,169.6,252.9,264.6,277.2,277.2]],"19":[[0,0,0,1,2,4,6,8,9,9,11,14,17,20,20,22,24,34,34,34],[0.0,0.0,0.0,0.3,1.5,3.6,10.6,11.7,11.8,11.8,15.9,17.0,176.9,201.6,201.6,207.8,208.8,252.7,252.7,252.7]],"14":[[0,0,0,0,0,1,2,3,8,11,18,25,30,32,40,55,61,69,71,71],[0.0,0.0,0.0,0.0,0.0,0.1,0.2,0.2,3.8,4.5,137.2,145.3,184.2,185.7,202.6,218.3,240.7,262.8,271.9,271.9]],"09":[[0,0,0,2,5,7,10,18,21,32,37,46,52,54,59,72,78,81,85,85],[0.0,0.0,0.0,0.0,0.2,2.2,4.9,7.5,9.6,16.0,17.5,31.6,78.8,79.4,172.8,216.2,237.5,240.5,245.5,245.5]],"17":[[0,0,0,0,0,0,3,6,8,8,12,14,17,17,20,27,30,30,32,32],[0.0,0.0,0.0,0.0,0.0,0.0,5.5,23.8,23.9,23.9,26.5,31.9,33.3,33.3,151.9,170.6,176.0,176.0,176.2,176.2]],"07":[[0,0,0,0,0,0,1,1,2,2,2,3,3,3,4,4,5,6,6,6],[0.0,0.0,0.0,0.0,0.0,0.0,38.1,38.1,38.1,38.1,38.1,38.2,38.2,38.2,39.9,39.9,76.7,110.2,110.2,110.2]],"24":[[0,0,0,0,0,0,0,0,1,2,2,5,5,5,5,7,8,9,10,10],[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,57.2,62.8,62.8,62.9,62.9,62.9,62.9,84.5,85.5,88.5,93.5,93.5]]};
+  }
+  // Perfil por departamento: [tipos de obra (6 más comunes + otros), nivel de gobierno (local, regional, nacional)]
+  PROF() {
+    const P = {"15":[[38,13,15,31,14,4,56],[95,16,60]],"21":[[22,47,2,36,24,11,71],[187,7,19]],"06":[[35,33,8,9,7,10,35],[99,19,19]],"10":[[20,17,9,6,2,4,17],[46,18,11]],"20":[[33,17,9,13,4,24,17],[56,17,44]],"13":[[20,27,15,5,1,5,19],[52,5,35]],"04":[[21,17,9,7,10,6,31],[59,26,16]],"02":[[23,29,57,7,6,22,37],[77,54,50]],"11":[[6,4,3,5,5,0,5],[11,11,6]],"08":[[60,89,47,49,24,20,81],[340,12,18]],"03":[[17,26,10,9,4,2,21],[61,16,12]],"23":[[4,2,20,4,1,1,8],[34,6,0]],"16":[[18,4,0,4,4,0,5],[15,5,15]],"12":[[19,14,6,4,11,6,28],[65,12,11]],"01":[[16,8,3,5,4,6,5],[29,12,6]],"22":[[8,3,1,3,0,0,6],[7,3,11]],"18":[[7,7,8,2,3,0,11],[32,4,2]],"25":[[10,5,1,4,1,2,4],[18,9,0]],"05":[[13,40,24,19,11,4,39],[128,6,16]],"19":[[8,9,3,2,6,2,5],[19,15,1]],"14":[[17,6,7,3,17,8,13],[41,10,20]],"09":[[12,15,13,15,3,9,20],[45,27,15]],"17":[[11,4,1,5,4,2,6],[20,11,2]],"07":[[1,0,0,1,0,1,3],[2,2,2]],"24":[[5,2,0,0,1,0,2],[5,0,5]]};
+    return P;
+  }
+  // Trama de puntos del Perú (celdas de 9 px): tramos "x,y,largo,índice de departamento".
+  GRID() {
+    if (this._grid) return this._grid;
+    const GORD = ["24","20","06","01","16","14","13","22","25","02","10","19","07","15","12","08","17","11","09","03","21","05","04","18","23"];
+    const RUNS = "23,1,1,4;23,2,3,4;23,3,4,4;23,4,4,4;23,5,6,4;22,6,8,4;21,7,10,4;21,8,10,4;20,9,12,4;36,9,1,4;38,9,2,4;18,10,24,4;15,11,27,4;13,12,1,3;14,12,28,4;12,13,2,3;14,13,27,4;4,14,1,0;12,14,3,3;15,14,25,4;3,15,2,0;11,15,4,3;15,15,27,4;2,16,1,1;3,16,1,0;11,16,4,3;15,16,25,4;42,16,1,4;1,17,3,1;5,17,1,1;11,17,4,3;15,17,22,4;1,18,7,1;10,18,1,2;11,18,3,3;14,18,21,4;2,19,7,1;9,19,2,2;11,19,3,3;14,19,19,4;2,20,6,1;8,20,3,2;11,20,3,3;14,20,18,4;3,21,6,1;9,21,2,2;11,21,3,3;14,21,1,7;15,21,17,4;2,22,4,1;6,22,1,5;7,22,1,1;8,22,3,2;11,22,3,3;14,22,3,7;17,22,14,4;2,23,2,1;4,23,5,5;9,23,2,2;11,23,5,3;16,23,3,7;19,23,12,4;3,24,1,1;4,24,4,5;8,24,4,2;12,24,4,3;16,24,6,7;22,24,9,4;5,25,3,5;8,25,5,2;13,25,2,3;15,25,7,7;22,25,9,4;6,26,3,5;9,26,4,2;13,26,1,3;14,26,6,7;20,26,9,4;7,27,1,6;8,27,6,2;14,27,1,6;15,27,5,7;20,27,9,4;7,28,2,6;9,28,5,2;14,28,1,6;15,28,5,7;20,28,6,4;26,28,2,8;8,29,4,6;12,29,1,2;13,29,2,6;15,29,5,7;20,29,6,4;26,29,3,8;9,30,6,6;15,30,6,7;21,30,5,4;26,30,3,8;10,31,3,6;13,31,2,9;15,31,2,6;17,31,4,7;21,31,2,4;23,31,7,8;10,32,3,6;13,32,3,9;16,32,1,10;17,32,3,7;20,32,1,10;21,32,1,4;22,32,8,8;10,33,2,6;12,33,4,9;16,33,5,10;21,33,4,8;25,33,1,10;26,33,5,8;11,34,6,9;17,34,4,10;21,34,3,8;24,34,2,10;26,34,6,8;12,35,5,9;17,35,5,10;22,35,1,8;23,35,3,10;26,35,5,8;12,36,5,9;17,36,8,10;25,36,1,11;26,36,8,8;12,37,5,9;17,37,7,10;24,37,2,11;26,37,9,8;39,37,2,8;13,38,4,9;17,38,5,10;22,38,5,11;27,38,13,8;13,39,4,9;17,39,1,13;18,39,1,10;19,39,1,11;20,39,1,10;21,39,6,11;27,39,12,8;39,39,1,16;14,40,1,13;15,40,1,9;16,40,2,13;18,40,9,11;27,40,11,8;38,40,2,16;14,41,5,13;19,41,2,11;21,41,5,14;26,41,3,8;29,41,1,14;30,41,8,8;38,41,2,16;15,42,4,13;19,42,11,14;30,42,5,8;35,42,10,16;15,43,4,13;19,43,11,14;30,43,4,15;34,43,11,16;16,44,4,13;20,44,10,14;30,44,4,15;34,44,12,16;16,45,1,12;17,45,4,13;21,45,9,14;30,45,4,15;34,45,13,16;17,46,5,13;22,46,2,14;24,46,3,18;27,46,1,14;28,46,1,15;29,46,1,14;30,46,5,15;35,46,12,16;18,47,4,13;22,47,1,14;23,47,4,18;27,47,2,21;29,47,6,15;35,47,13,16;18,48,4,13;22,48,5,18;27,48,2,21;29,48,8,15;37,48,10,16;19,49,2,13;21,49,1,17;22,49,5,18;27,49,3,21;30,49,8,15;38,49,9,16;20,50,2,17;22,50,4,18;26,50,4,21;30,50,11,15;41,50,6,20;20,51,2,17;22,51,3,18;25,51,4,21;29,51,5,19;34,51,7,15;41,51,6,20;20,52,2,17;22,52,3,18;25,52,4,21;29,52,6,19;35,52,5,15;40,52,7,20;20,53,4,17;24,53,1,18;25,53,5,21;30,53,5,19;35,53,5,15;40,53,6,20;20,54,4,17;24,54,6,21;30,54,4,19;34,54,5,15;39,54,7,20;21,55,3,17;24,55,6,21;30,55,4,19;34,55,5,15;39,55,7,20;22,56,3,17;25,56,7,21;32,56,4,22;36,56,3,15;39,56,6,20;23,57,2,17;25,57,2,22;27,57,4,21;31,57,7,22;38,57,1,15;39,57,7,20;24,58,3,22;27,58,1,21;28,58,11,22;39,58,4,20;26,59,13,22;39,59,4,20;28,60,12,22;40,60,1,23;41,60,4,20;30,61,9,22;39,61,2,23;41,61,4,20;32,62,6,22;38,62,4,23;42,62,4,20;34,63,4,22;38,63,3,23;41,63,1,24;42,63,4,20;35,64,3,22;38,64,3,23;41,64,1,24;42,64,3,20;37,65,3,23;40,65,4,24;38,66,1,23;39,66,5,24;39,67,5,24;40,68,3,24";
+    const cells = [], at = {};
+    for (const r of RUNS.split(';')) {
+      const [x, y, n, d] = r.split(',').map(Number);
+      for (let i = 0; i < n; i++) { cells.push([x + i, y, GORD[d]]); at[`${x + i},${y}`] = GORD[d]; }
+    }
+    this._grid = { cells, at };
+    return this._grid;
+  }
+  data() {
+    // [ubigeo, nombre, obras, falta ejecutar (M), costo (M), avance mediano, servicios de control, con PIM, casi terminadas, top 3]
+    const DEP = [["15","Lima",171,7751.9,23878.4,56.5,312,43,32,[["Reubicación de instalaciones del complejo de adiestramiento canino de la DIRANDRO",4780.9,40.7,"Santa Rosa"],["Mejoramiento de la carretera Oyón - Ambo, tramo I: Oyón - desvío Cerro de Pasco",787.2,47.9,"Oyón"],["Construcción de módulos caniles, veterinaria y centro de atención canil",493.6,18.3,"Rímac"]]],["21","Puno",213,2260.5,3306.4,53.5,181,38,12,[["Mejoramiento de los servicios de educación primaria de la I.E. N.° 70710",833.7,18.6,"Kelluyo"],["Drenaje pluvial de la ciudad de Juliaca",628.8,12.0,"Juliaca"],["Mejoramiento de la carretera (PU-135) Checca - Mazocruz",208.8,46.0,"Ilave"]]],["06","Cajamarca",137,2219.4,3654.5,65.0,182,43,16,[["Instalación de banda ancha para la conectividad integral de la región",836.2,0.0,"Los Baños del Inca"],["Servicios de salud del establecimiento Simón Bolívar",282.4,0.3,"Cajamarca"],["Mejoramiento carretera CA-103 Santa Cruz de Succhubamba - Romero Circa",274.2,5.1,"Santa Cruz"]]],["10","Huánuco",75,2173.8,2522.1,53.7,146,29,2,[["Terminal terrestre municipal en la localidad de Jesús",1345.4,94.0,"Jesús"],["Sistema integral de agua potable, alcantarillado y disposición final",365.2,27.6,"Rupa-Rupa"],["Canal de riego Las Mercedes - La Victoria - 07 de Octubre",160.3,10.0,"Monzón"]]],["20","Piura",117,1722.6,3685.3,69.0,353,51,22,[["Instalación de banda ancha para la conectividad integral de la región",289.8,0.0,"Piura"],["Rehabilitación de la carretera Dv. Huancabamba - Buenos Aires",252.5,32.4,"Huancabamba"],["Unidades productivas Chirimoyal y Huascarán",165.1,68.1,"Huarmaca"]]],["13","La Libertad",92,1706.1,3650.3,52.9,400,42,11,[["Protección contra inundaciones en ambas márgenes del río Chicama",499.5,73.0,"Chicama"],["Rehabilitación de la carretera Pallasca - Mollepata - Mollebamba",358.9,30.6,"Mollepata"],["Obra principal del proyecto de servicios de salud",283.9,0.7,"Guadalupe"]]],["04","Arequipa",101,1116.2,2560.6,58.9,245,41,14,[["Ampliación de la frontera agrícola optimizando los recursos hídricos",341.6,79.5,"Salamanca"],["Infraestructura vial paquete 7R Arequipa, tramo 1",86.8,34.7,"Machaguay"],["Saldo de obra de la carretera Viscachani - Callalli - Sibayo",85.0,8.2,"Callalli"]]],["02","Áncash",181,1038.6,2637.7,57.4,432,77,19,[["Infraestructura vial paquete 5R Áncash, tramo 1",208.4,32.9,"Lacabamba"],["Infraestructura vial paquete 3R Áncash",123.1,0.2,"Ocros"],["Protección en riberas del río Lacramarca",97.4,100.0,"Macate"]]],["11","Ica",28,828.9,1397.1,59.5,72,11,5,[["Nuevo establecimiento penitenciario",633.6,25.8,"Santiago"],["Camino departamental de 81 km desde San Juan",43.9,74.4,"Alto Larán"],["Establecimiento de salud de apoyo de Palpa",39.3,37.7,"Palpa"]]],["08","Cusco",370,792.3,2392.4,58.8,371,91,60,[["Carretera Patahuasi - Yauri - Sicuani, tramo Negromayo - Yauri",100.1,90.6,"Espinar"],["Centro asistencial de Calca",73.3,22.6,"Calca"],["Centro de salud de Santa Ana nivel I-4",56.7,7.4,"Santa Ana"]]],["03","Apurímac",89,776.7,1628.6,47.9,150,27,7,[["Servicios de salud del segundo nivel de atención en Andahuaylas",358.3,53.1,"Andahuaylas"],["Camino vecinal Pacobamba - Huironay - Ccerabamba",54.2,27.2,"Pacobamba"],["Agua de riego, sistema de conducción, sector San Jerónimo",40.6,99.2,"San Jerónimo"]]],["23","Tacna",40,693.2,1250.4,54.5,303,20,4,[["Servicios de salud del hospital Hipólito Unanue",347.6,39.8,"Tacna"],["Canal de conducción Vilachaullani - Calachaca - Chuapalca",202.5,4.9,"Tarata"],["Agua para riego, infraestructura complementaria",39.8,13.3,"Ite"]]],["16","Loreto",35,665.6,996.5,64.2,25,14,6,[["Acciones de comando en los puestos de los batallones de selva",336.8,0.9,"Putumayo"],["Diseño y construcción del Gran Mercado de Belén",138.7,55.5,"Belén"],["Escuela técnico superior de la Policía en Iquitos",80.4,61.0,"San Juan Bautista"]]],["12","Junín",88,659.1,1373.4,50.7,125,31,11,[["Hospital de apoyo Manuel Higa Arakaki",207.7,18.6,"Río Negro"],["Carretera departamental JU-108 Palián - Vilcacoto - Acopalca",116.7,36.1,"Huancayo"],["IESTP Santiago Antúnez de Mayolo",37.4,65.2,"Huancayo"]]],["01","Amazonas",47,511.8,1496.8,60.1,171,22,5,[["Continuación del proyecto de irrigación Amojao",84.5,88.6,"Bagua"],["Vía departamental AM-106 Balzapata - Jumbilla - Asunción",76.0,42.5,"Jumbilla"],["Sistema de agua potable y saneamiento mixto",67.4,54.4,"Nieva"]]],["22","San Martín",21,492.2,706.5,47.1,73,13,3,[["Agua y alcantarillado de la ciudad de Tocache",368.1,16.5,"Tocache"],["Establecimiento de salud de Tabalosos",39.7,19.9,"Tabalosos"],["Agua potable y alcantarillado en Villanueva - Pucacaca",21.9,47.1,"Picota"]]],["18","Moquegua",38,349.0,998.6,54.7,90,10,4,[["Red departamental Moquegua - Arequipa, tramo MO-108",281.6,51.3,"Omate"],["Agua para consumo humano y alcantarillado en Omate",16.3,50.6,"Omate"],["Agua potable y disposición de excretas",14.1,35.8,"Moquegua"]]],["25","Ucayali",27,324.6,1122.6,65.0,130,16,3,[["Hospital regional de Pucallpa",190.9,79.8,"Callería"],["Centro de salud Campo Verde",46.4,81.4,"Campoverde"],["Agua potable y alcantarillado de Padre Abad",34.8,83.3,"Padre Abad"]]],["05","Ayacucho",150,277.5,568.1,53.2,154,40,14,[["Agua potable y alcantarillado en Querobamba",41.7,10.9,"Querobamba"],["Redes de media y baja tensión, alimentadores A4001 - A4004",28.1,82.2,"Jesús Nazareno"],["Camino vecinal de 64 km Villatambo - Chuquimarán",16.6,48.1,"Leoncio Prado"]]],["19","Pasco",35,275.8,601.7,44.0,52,15,2,[["Carretera Cerro de Pasco - La Quinua",90.7,44.1,"Yanacancha"],["Centro de salud Fredy Vallejo",50.6,35.8,"Yanahuanca"],["Transitabilidad vehicular y peatonal en AA.HH.",23.0,null,"Yanacancha"]]],["14","Lambayeque",71,271.9,1172.8,59.1,181,29,13,[["Agua y alcantarillado en la nueva ciudad de Olmos",64.6,99.8,"Olmos"],["Vialidad urbana de la nueva ciudad de Olmos",60.9,84.2,"Olmos"],["Agua y alcantarillado en pueblos jóvenes",23.2,78.2,"Pomalca"]]],["09","Huancavelica",87,260.0,556.7,70.8,130,25,18,[["Establecimiento de salud de Castrovirreyna",90.0,4.6,"Castrovirreyna"],["Carretera cruce Salcahuasi - San Antonio - puente Chiquiacc",46.3,70.6,"Salcahuasi"],["Rehabilitación aguas abajo de la presa Tablachaca",29.0,95.8,"Quichuas"]]],["17","Madre de Dios",33,176.3,329.9,56.3,51,14,2,[["Mejoramiento vial del casco urbano de Puerto Maldonado",111.0,14.2,"Tambopata"],["Equipo mecánico del proyecto especial Madre de Dios",16.1,42.8,"Iberia"],["Puesto de salud de Iñapari",9.2,49.1,"Iñapari"]]],["07","Callao",6,110.2,146.1,8.2,26,2,1,[["Instituto superior tecnológico público del Callao",38.1,5.2,"Bellavista"],["Servicios académicos y de investigación de una facultad",36.8,0.0,"Callao"],["Educación superior universitaria en una facultad",33.5,1.5,"Callao"]]],["24","Tumbes",10,93.5,194.8,65.8,31,5,0,[["Instalación de banda ancha para la conectividad integral de la región",57.2,0.0,"Tumbes"],["Rehabilitación del puente Uña de Gato y accesos",20.2,89.5,"Papayal"],["Alcantarillado de la localidad de Bocapán",5.6,34.3,"Zorritos"]]]];
+    // Por nivel de gobierno: [obras, falta ejecutar (M), servicios de control, con PIM]
+    const NIV = {"15":{"L":[95,232.6,110,14],"R":[16,73.8,40,6],"N":[60,7445.4,162,23]},"10":{"L":[46,1833.7,74,14],"R":[18,131.8,44,10],"N":[11,208.4,28,5]},"06":{"L":[99,241.7,103,21],"R":[19,467.5,47,11],"N":[19,1510.3,32,11]},"21":{"L":[187,1586.2,99,26],"R":[7,329.7,28,6],"N":[19,344.6,54,6]},"11":{"L":[11,21.5,8,4],"R":[11,131.3,51,4],"N":[6,676.2,13,3]},"13":{"L":[52,393.9,207,19],"R":[5,14.9,24,4],"N":[35,1297.4,169,19]},"22":{"L":[7,400.5,42,3],"R":[3,41.1,7,3],"N":[11,50.5,24,7]},"03":{"L":[61,149.6,57,16],"R":[16,435.5,39,3],"N":[12,191.6,54,8]},"23":{"L":[34,128.6,197,14],"R":[6,564.7,106,6],"N":[0,0,0,0]},"04":{"L":[59,118.1,58,16],"R":[26,640.4,125,15],"N":[16,357.7,62,10]},"16":{"L":[15,29.5,10,2],"R":[5,57.6,9,4],"N":[15,578.5,6,8]},"20":{"L":[56,222.2,129,21],"R":[17,308.6,81,6],"N":[44,1191.7,143,24]},"18":{"L":[32,58.9,57,7],"R":[4,5.8,3,1],"N":[2,284.4,30,2]},"02":{"L":[77,195.9,106,17],"R":[54,159.3,205,27],"N":[50,683.5,121,33]},"12":{"L":[65,135.8,62,17],"R":[12,382.6,25,7],"N":[11,140.7,38,7]},"25":{"L":[18,58.9,50,9],"R":[9,265.8,80,7],"N":[0,0,0,0]},"17":{"L":[20,17.0,23,7],"R":[11,146.5,25,5],"N":[2,12.8,3,2]},"08":{"L":[340,461.9,291,73],"R":[12,47.4,26,11],"N":[18,283.0,54,7]},"19":{"L":[19,52.8,26,8],"R":[15,219.3,21,6],"N":[1,3.7,5,1]},"09":{"L":[45,26.3,44,8],"R":[27,152.6,38,9],"N":[15,81.2,48,8]},"01":{"L":[29,269.3,105,9],"R":[12,125.9,31,9],"N":[6,116.5,35,4]},"14":{"L":[41,77.2,89,12],"R":[10,14.0,17,5],"N":[20,180.7,75,12]},"24":{"L":[5,11.7,19,2],"R":[0,0,0,0],"N":[5,81.8,12,3]},"05":{"L":[128,160.2,89,28],"R":[6,21.2,15,2],"N":[16,96.1,50,10]},"07":{"L":[2,0.1,3,0],"R":[2,39.8,5,1],"N":[2,70.3,18,1]}};
+    const CAU = {"15":[["Incumplimiento de contrato",55],["Falta de recursos financieros y liquidez",29],["Discrepancias, controversias y arbitraje",17]],"10":[["Falta de recursos financieros y liquidez",21],["Incumplimiento de contrato",15],["Eventos climáticos",11]],"06":[["Falta de recursos financieros y liquidez",39],["Incumplimiento de contrato",34],["Deficiencia en el expediente técnico",11]],"21":[["Falta de recursos financieros y liquidez",127],["Abandono de obra",27],["Incumplimiento de contrato",21]],"11":[["Incumplimiento de contrato",16],["Discrepancias, controversias y arbitraje",3],["Conflictos sociales",3]],"13":[["Incumplimiento de contrato",29],["Discrepancias, controversias y arbitraje",20],["Falta de recursos financieros y liquidez",16]],"22":[["Incumplimiento de contrato",8],["Discrepancias, controversias y arbitraje",3],["Falta de recursos financieros y liquidez",3]],"03":[["Falta de recursos financieros y liquidez",29],["Incumplimiento de contrato",17],["Deficiencia en el expediente técnico",11]],"23":[["Discrepancias, controversias y arbitraje",19],["Incumplimiento de contrato",7],["Otros",3]],"04":[["Incumplimiento de contrato",35],["Discrepancias, controversias y arbitraje",12],["Abandono de obra",11]],"16":[["Incumplimiento de contrato",14],["Falta de recursos financieros y liquidez",6],["Discrepancias, controversias y arbitraje",4]],"20":[["Incumplimiento de contrato",75],["Discrepancias, controversias y arbitraje",16],["Abandono de obra",6]],"18":[["Incumplimiento de contrato",12],["Falta de recursos financieros y liquidez",6],["Otros",6]],"02":[["Incumplimiento de contrato",64],["Deficiencia en el expediente técnico",32],["Disponibilidad de terreno",13]],"12":[["Incumplimiento de contrato",20],["Falta de recursos financieros y liquidez",16],["Discrepancias, controversias y arbitraje",11]],"25":[["Incumplimiento de contrato",11],["Eventos climáticos",5],["Deficiencia en el expediente técnico",4]],"17":[["Falta de recursos financieros y liquidez",13],["Incumplimiento de contrato",9],["Eventos climáticos",5]],"08":[["Falta de recursos financieros y liquidez",136],["Otros",74],["Incumplimiento de contrato",37]],"19":[["Incumplimiento de contrato",15],["Falta de recursos financieros y liquidez",5],["Deficiencia en el expediente técnico",4]],"09":[["Incumplimiento de contrato",29],["Falta de recursos financieros y liquidez",20],["Deficiencia en el expediente técnico",9]],"01":[["Falta de recursos financieros y liquidez",17],["Incumplimiento de contrato",11],["Discrepancias, controversias y arbitraje",5]],"14":[["Incumplimiento de contrato",31],["Falta de recursos financieros y liquidez",8],["Deficiencia en el expediente técnico",7]],"24":[["Incumplimiento de contrato",7],["Conflictos sociales",2],["Incumplimiento del pago de valorizaciones",1]],"05":[["Falta de recursos financieros y liquidez",106],["Incumplimiento de contrato",20],["Deficiencia en el expediente técnico",6]],"07":[["Deficiencia en el expediente técnico",2],["Discrepancias, controversias y arbitraje",2],["Falta de recursos financieros y liquidez",1]]};
+    const CEN = {"01":[111,174],"02":[122,319],"03":[275,473],"04":[288,526],"05":[243,470],"06":[82,210],"07":[139,399],"08":[305,442],"09":[210,435],"10":[178,309],"11":[195,477],"12":[216,387],"13":[101,264],"14":[53,214],"15":[151,390],"16":[232,150],"17":[344,400],"18":[348,564],"19":[199,350],"20":[35,171],"21":[380,513],"22":[153,236],"23":[371,587],"24":[25,128],"25":[260,319]};
+    // Las 90 obras con más dinero pendiente que se pudieron ubicar en su distrito: [x, y, dep, nombre, falta (M), avance, distrito, nivel, controles]
+    const DOTS = [[136,395,"15","Elaboración de expediente técnico y Ejecución de Obra para la reubicación de instalaciones de…",4780.9,40.7,"Santa Rosa","N",5],[151,339,"10","Creacion de los servicios del terminal terrestre municipal en la localidad de jesus- distrito…",1345.4,94,"Jesus","L",0],[99,238,"06","Instalacion de banda ancha para la conectividad integral y desarrollo social de la region caj…",836.2,0,"Los Baños del Inca","N",7],[401,559,"21","Mejoramiento de los servicios de educacion primaria de la institucion educativa n° 70710 cari…",833.7,18.6,"Kelluyo","L",2],[152,356,"15","Mejoramiento de la carretera oyon - ambo- tramo i: oyon - desvio cerro de pasco",787.2,47.9,"Oyon","N",1],[190,483,"11","Instalacion del servicio de readaptacion social en el nuevo establecimiento penitenciario de …",633.6,25.8,"Santiago","N",4],[369,516,"21","Drenaje pluvial de la ciudad de juliaca",628.8,12,"Juliaca","L",8],[78,261,"13","Mejoramiento y ampliacion del servicio de protección contra inundaciones- en ambas margenes d…",499.5,73,"Chicama","N",7],[142,401,"15","Construccion de modulos caniles- veterinaria y centro de atencion canil del departamento poli…",493.6,18.3,"Rimac","N",5],[157,277,"22","Ampliacion y mejoramiento del sistema de agua y alcantarillado de la ciudad de tocache- provi…",368.1,16.5,"Tocache","L",12],[175,307,"10","Ampliacion y mejoramiento del sistema integral de agua potable- alcantarillado y disposicion …",365.2,27.6,"Rupa-rupa","L",0],[112,271,"13","Rehabilitación y mejoramiento de la carretera pallasca-mollepata-mollebamba-santiago de chuco…",358.9,30.6,"Mollepata","N",14],[263,462,"03","Fortalecimiento de la atencion de los servicios de salud en el segundo nivel de atencion- cat…",358.3,53.1,"Andahuaylas","R",3],[367,605,"23","Componente 01 - 02 y 04: mejoramiento de los servicios de salud del hospital hipolito unanue …",347.6,39.8,"Tacna","R",9],[287,518,"04","Mejoramiento y ampliación de la frontera agrícola optimizando los recursos hídricos de la sub…",341.6,79.5,"Salamanca","R",2],[287,74,"16","Mejoramiento del servicio de acciones de comando en los puestos de comando de los batallones …",336.8,0.9,"Putumayo","N",0],[24,168,"20","Instalacion de banda ancha para la conectividad integral y desarrollo social de la region piura",289.8,0,"Piura","N",3],[59,244,"13","Ejecucion de la obra principal del proyecto: mejoramiento y ampliacion de los servicios de sa…",283.9,0.7,"Guadalupe","N",0],[94,236,"06","Mejoramiento y ampliacion de los servicios de salud del establecimiento de salud simon boliva…",282.4,0.3,"Cajamarca","N",0],[345,556,"18","Mejoramiento de la red departamental Moquegua - Arequipa: Tramo MO-108- Cruz de Flores- Distr…",281.6,51.3,"Omate","N",30],[80,222,"06","Mejoramiento carretera ca-103: em. pe-06b (santa cruz de succhubamba) - romero circa - la lag…",274.2,5.1,"Santa Cruz","R",9],[63,172,"20","Rehabilitación y mejoramiento de la carretera emp. pe 1nj (dv. huancabamba) buenos aires sali…",252.5,32.4,"Huancabamba","N",28],[127,377,"15","Mejoramiento de los servicios de control gubernamental para un control efectivo- preventivo y…",236.8,5.3,"Huacho","N",3],[388,545,"21","Mejoramiento de la Carretera (PU-135) Checca - Mazocruz",208.8,46,"Ilave","N",0],[116,277,"02","Mejoramiento y rehabilitacion de la infraestructura vial paquete 5r ancash tramo 1: emp. pe 1…",208.4,32.9,"Lacabamba","N",11],[221,369,"12","Mejoramiento de los servicios de salud del hospital de apoyo manuel higa arakaki- distrito de…",207.7,18.6,"Rio Negro","R",14],[107,224,"06","Ejecución de la obra principal del proyecto: mejoramiento y ampliación de los servicios de sa…",207.7,0,"Celendin","N",0],[385,584,"23","Canal de conduccion vilachaullani - calachaca - chuapalca",202.5,4.9,"Tarata","R",81],[126,370,"15","Creacion del servicio de protección en las riberas del río huaura vulnerable ante peligro de …",198.8,100,"Huaura","N",4],[233,268,"25","Fortalecimiento de los servicios de salud del hospital regional de pucallpa - region ucayali",190.9,79.8,"Calleria","R",56],[153,404,"15","Ampliación y mejoramiento del sistema de agua potable y alcantarillado del esquema de cienegu…",173.2,58.4,"Cieneguilla","N",2],[61,189,"20","Up n° 40 - anexo chirimoyal del caserío la loma- up n° 38b - anexo huascarán del caserío nuev…",165.1,68.1,"Huarmaca","N",0],[165,311,"10","Construcción canal de riego las mercedes - la victoria - 07 de octubre",160.3,10,"Monzon","N",6],[388,546,"21","Mejoramiento de los servicios de salud del hospital de apoyo ilave- provincia de el collao - …",152.5,8.8,"Ilave","R",4],[17,152,"20","Mejoramiento de la calidad de servicio de abastecimiento de agua potable en las localidades d…",150,19.3,"Marcavelica","N",2],[26,160,"20","Mejoramiento del sistema de evacuación- tratamiento y disposición final aguas servidas ciudad…",147.1,69.8,"Sullana","N",25],[268,125,"16","Contrato de Diseño y Construcción del Gran Mercado de Belén- Iquitos.",138.7,55.5,"Belen","N",1],[133,345,"02","Mejoramiento y rehabilitacion de la infraestructura vial paquete 3r ancash: tramo empalme pe1…",123.1,0.2,"Ocros","N",10],[143,408,"15","Sectorización del sistema de agua potable y alcantarillado de la parte lata de chorrillos: ma…",120.5,85.5,"Chorrillos","N",23],[206,402,"12","Mejoramiento de la carretera departamental ju - 108 tramo: palian - vilcacoto - acopalca - ab…",116.7,36.1,"Huancayo","R",3],[363,403,"17","Mejoramiento vial del casco urbano de la ciudad de puerto maldonado- distrito de tambopata- p…",111,14.2,"Tambopata","R",4],[330,499,"08","Rehabilitación y Mejoramiento de la Carretera Patahuasi-Yauri-Sicuani- Tramo: Negromayo-Yauri…",100.1,90.6,"Espinar","N",3],[145,411,"15","Ampliacion y mejoramiento del sistema de agua potable y alcantarillado esquema 7mo- 9no y 10m…",99.9,87.6,"Villa el Salvador","N",1],[106,294,"02","Creacion del servicio de protección en riberas del río lacramarca vulnerables ante peligros d…",97.4,100,"Macate","N",7],[143,399,"15","Ampliación y Mejoramiento del Sistema de Agua Potable y Alcantarillado del Esquema Cerro Las …",93.1,8.7,"Puente Piedra","N",12],[168,439,"15","Creacion del servicio de protección contra inundaciones del río cañete entre el tramo desembo…",93,93.2,"San Vicente de Cañete","N",5],[171,357,"19","Mejoramiento de la carretera tramo cerro de pasco - la quinua - distrito de yanacancha - pasc…",90.7,44.1,"Yanacancha","R",2],[200,439,"09","Mejoramiento de los servicios de salud del establecimiento de salud castrovirreyna del distri…",90,4.6,"Castrovirreyna","R",3],[140,379,"15","Instalacion del interceptor y construccion de la planta de tratamiento de aguas residuales de…",87.9,17.7,"Huaral","L",17],[296,523,"04","Mejoramiento y rehabilitacion de la infraestructura vial paquete 7r arequipa tramo 1: emp. ar…",86.8,34.7,"Machaguay","N",7],[62,188,"20","Mejoramiento de los servicios de salud del establecimiento de salud huarmaca- distrito huarma…",85.8,43.7,"Huarmaca","R",12],[333,521,"04","Ejecucion de saldo de obra para el mejoramiento de la carretera viscachani-callalli sibayo ca…",85,8.2,"Callalli","R",6],[94,185,"01","Continuacion y culminacion del proyecto de irrigacion amojao",84.5,88.6,"Bagua","N",17],[257,135,"16","Ampliacion de los servicios de la escuela tecnico superior iquitos de la policia nacional del…",80.4,61,"San Juan Bautista","N",3],[376,533,"21","Mejoramiento del servicio deportivo- cultural y recreacional en la capital de la region puno-…",77.5,76,"Puno","R",3],[116,197,"01","Mej.vias dep. am-106- tramo: emp. pe-5n (balzapata) - jumbilla - asuncion emp.pe-8b (molinopa…",76,42.5,"Jumbilla","R",14],[55,157,"20","Mejoramiento de los servicios de salud del establecimiento de salud ayabaca de la provincia y…",75.1,36.7,"Ayabaca","R",14],[111,261,"13","Mejoramiento y ampliación de sistema de agua potable y alcantarillado de la ciudad de huamach…",73.3,15.6,"Huamachuco","L",4],[312,444,"08","Mejoramiento del Centro Asistencial Calca de la Red Asistencial Cusco- distrito de Calca prov…",73.3,22.6,"Calca","N",0],[325,550,"04","Mejoramiento de la carretera variante de uchumayo- entre el puente san isidro y la vía de evi…",73,91.4,"Sachaca","R",54],[111,158,"01","Creación- mejoramiento del sistema de agua potable- sistema de saneamiento mixto de las comun…",67.4,54.4,"Nieva","L",3],[95,202,"01","Mejoramiento- instalacion del sistema de agua potable y alcantarillado en lonya grande y sus …",67.2,51.6,"Lonya Grande","L",24],[60,174,"20","Mejoramiento de los servicios de salud del establecimiento de salud jesús guerrero cruz de la…",64.9,54.8,"Huancabamba","R",13],[45,200,"14","Instalacion de los servicios de agua potable y alcantarillado sanitario en la nueva ciudad de…",64.6,99.8,"Olmos","N",2],[262,537,"04","Construcción de un almacén para bienes de ayuda humanitaria en el distrito de atico- provinci…",64.3,9.7,"Atico","N",7],[175,435,"15","Creacion del servicio de protección contra inundaciones y movimiento de masas en las quebrada…",64.3,3,"Lunahuana","N",4],[350,490,"21","Creacion del servicio de laboratorios en biotecnologias para camelidos sudamericanos en el ci…",62.2,38,"Santa Rosa","N",8],[45,198,"14","Instalacion de los servicios de vialidad urbana para la nueva ciudad de olmos- distrito de ol…",60.9,84.2,"Olmos","N",15],[31,119,"24","Instalacion de banda ancha para la conectividad integral y desarrollo social de la region tum…",57.2,0,"Tumbes","N",2],[76,269,"13","Mejoramiento del servicio de agua potable y alcantarillado sanitario de los barrios 01-02-03-…",57.1,67.5,"Florencia de Mora","L",7],[285,432,"08","Mejoramiento y ampliacion de los servicios del centro de salud de santa ana nivel i-4- red de…",56.7,7.4,"Santa Ana","L",13],[95,216,"06","Construccion y mejoramiento de la carretera pe - 3n (bambamarca) - paccha - chimban - pion - …",56.5,43.2,"Chadin","R",14],[93,237,"06","Mejoramiento y ampliacion del servicio de readaptacion social en el establecimiento penitenci…",56.5,0,"Cajamarca","N",0],[271,451,"03","Mejoramiento de camino vecinal pacobamba-huironay-ccerabamba-abra cusqueña- distrito de pacob…",54.2,27.2,"Pacobamba","N",11],[23,167,"20","ITEM: Proyecto de Inversión Pública: MEJORAMIENTO DE LOS SERVICIOS DE SALUD DEL ESTABLECIMIEN…",53,37.3,"Piura","R",15],[138,381,"15","Construcción del módulo de investigación y transferencia de tecnología en ganadería caprina e…",52.3,94.6,"Huaral","N",0],[112,159,"01","Creacion- mejoramiento y ampliacion del sistema de agua potable y saneamineto basico en las c…",50.9,37.9,"Nieva","L",4],[159,354,"19","Mejoramiento del acceso de la poblacion a los servicios del centro de salud fredy vallejo ore…",50.6,35.8,"Yanahuanca","R",3],[97,237,"06","Mejoramiento y ampliacion del servicio de agua potable y saneamiento en la localidad de baños…",50.3,25.1,"Los Baños del Inca","L",5],[152,402,"15","Obras remanentes y complementarias: ampliación y mejoramiento de los sistemas de agua potable…",50.1,31,"Lurigancho","N",9],[326,548,"04","Programa 005 sectorizacion y control de presiones de los circuitos r-22- r-23- r-23a- r-24 y …",50,53.3,"Arequipa","R",0],[150,323,"10","Estudio de preinversión a nivel de perfil: mejoramiento de los servicios de salud del centro …",49.7,53.6,"Pachas","R",6],[33,164,"20","Rehabilitación del servicio de agua para riego del canal tablazo sector partidor- distrito de…",49.2,6.7,"Tambo Grande","N",10],[317,556,"04","Saldo de obra de la inversion: \"ampliación y mejoramiento de la escuela técnico superior pnp-…",48.1,24.7,"La Joya","N",2],[370,517,"21","Construccion del hospital materno infantil del cono sur juliaca",47.8,32.5,"Juliaca","R",8],[308,450,"08","Mejoramiento- Ampliación de los Sistemas de Agua Potable y Alcantarillado en la Localidad de …",47.5,28,"Chinchero","N",9],[116,302,"02","Mejoramiento del sistema de agua potable y alcantarillado sanitario del casco urbano de la ci…",46.9,0,"Caraz","L",2],[217,283,"25","Mejoramiento de los servicios de salud del centro de salud campo verde- del distrito de campo…",46.4,81.4,"Campoverde","R",7],[219,404,"09","Mejoramiento de la carretera cruce salcahuasi - san antonio - puente chiquiacc - cruce huacho…",46.3,70.6,"Salcahuasi","R",5],[186,240,"16","Mejoramiento de trocha carrozable pampa hermosa-inahuaya-provincia de ucayali",44.3,91.1,"Pampa Hermosa","R",2]];
+    return { DEP, NIV, CAU, CEN, DOTS };
+  }
+  val(d, NIV, metric, nivel) {
+    if (this.state.tl && this.state.yr < 2026 && (metric === 'obras' || metric === 'saldo')) {
+      const c = this.CUM()[d[0]];
+      return c[metric === 'obras' ? 0 : 1][this.state.yr - 2007];
+    }
+    // Avance mediano y % casi terminadas solo existen para todos los niveles juntos.
+    if (metric === 'av') return d[5];
+    if (metric === 'casi') return Math.round((d[8] / d[2]) * 1000) / 10;
+    if (nivel === 'T') return { saldo: d[3], obras: d[2], ctrl: d[6], pim: Math.round((d[7] / d[2]) * 100) }[metric];
+    const v = NIV[d[0]][nivel];
+    return { saldo: v[1], obras: v[0], ctrl: v[2], pim: v[0] ? Math.round((v[3] / v[0]) * 100) : 0 }[metric];
+  }
+  order() {
+    const { DEP, NIV } = this.data();
+    return [...DEP].sort((a, b) => this.val(b, NIV, this.state.metric, this.state.nivel) - this.val(a, NIV, this.state.metric, this.state.nivel)).map((d) => d[0]);
+  }
+  renderVals() {
+    const { DEP, NIV, CAU, CEN, DOTS } = this.data();
+    const PATHS = {"01":"M118 233L110 233L106 218L93 203L91 203L87 194L93 180L88 176L87 170L90 159L87 154L92 133L97 126L100 113L105 111L117 99L118 115L123 121L122 126L125 131L124 149L118 157L120 172L118 194L121 199L128 200L136 205L139 210L130 220L125 223L119 222L118 233Z","02":"M133 285L138 297L144 303L150 305L142 323L147 327L150 333L146 338L147 344L141 346L137 353L133 353L130 359L124 359L124 354L118 349L114 355L105 339L103 328L98 322L96 312L89 300L92 294L102 289L106 278L113 274L114 270L122 271L133 285Z","03":"M293 491L283 491L281 494L276 490L260 497L257 495L259 478L248 448L252 444L260 450L277 448L305 461L307 466L306 475L292 487L293 491Z","04":"M207 517L212 509L218 506L230 508L229 513L236 519L261 514L266 515L276 504L275 499L283 491L293 491L294 495L299 497L308 492L318 500L316 505L323 506L328 502L341 516L348 535L347 544L343 546L344 551L334 552L333 560L328 565L332 573L326 579L315 576L294 559L284 557L266 547L247 540L241 534L207 517Z","05":"M231 407L237 412L243 410L249 422L259 432L264 445L269 449L260 450L252 444L248 448L259 478L257 495L260 497L276 490L281 494L275 499L276 504L266 515L261 514L236 519L229 513L230 508L218 506L221 504L220 497L208 490L208 473L217 472L218 460L214 447L220 447L224 441L234 436L233 427L229 417L231 407Z","06":"M66 235L67 230L73 226L67 223L62 213L69 208L68 200L63 199L64 192L68 184L66 174L70 165L78 163L84 154L87 154L90 159L87 170L88 176L93 180L87 194L91 203L93 203L106 218L110 233L119 249L110 257L103 259L89 249L82 248L77 256L75 250L68 243L66 235Z","07":"M137 396L140 398L140 404L137 396Z","08":"M293 491L292 487L306 475L307 466L305 461L277 448L269 449L264 445L259 432L249 422L243 410L257 411L264 406L256 390L261 386L262 381L265 378L275 377L289 382L299 378L301 380L299 388L295 392L300 403L306 404L306 410L310 412L307 419L310 424L315 427L324 425L329 432L337 435L338 443L341 444L347 437L363 442L362 448L357 454L352 457L348 464L349 473L343 482L344 512L341 516L328 502L323 506L316 505L318 500L308 492L299 497L294 495L293 491Z","09":"M208 473L191 463L194 450L187 450L186 439L193 428L191 423L196 423L205 413L208 402L215 404L222 401L228 403L231 407L229 417L233 427L234 436L224 441L220 447L214 447L218 460L217 472L208 473Z","10":"M133 285L139 282L142 286L159 284L166 282L169 294L173 289L172 283L177 278L181 302L187 314L200 311L205 300L212 296L215 289L222 286L225 292L223 295L220 304L223 311L216 325L210 329L197 330L187 336L186 341L179 346L177 351L165 344L153 351L147 344L146 338L150 333L147 327L142 323L150 305L144 303L138 297L133 285Z","11":"M218 506L212 509L207 517L193 500L179 491L177 484L172 481L167 466L170 457L168 446L179 435L183 437L189 434L186 439L187 450L194 450L191 463L208 473L208 490L220 497L221 504L218 506Z","12":"M224 365L230 370L240 368L244 372L251 359L256 363L260 370L262 381L261 386L256 390L264 406L257 411L249 409L237 412L228 403L222 401L215 404L208 402L205 413L196 423L191 423L192 419L189 405L179 401L170 392L161 378L160 371L169 370L167 365L172 367L190 362L199 363L203 358L209 357L224 365Z","13":"M89 300L85 293L86 289L79 282L78 274L62 258L54 240L61 233L66 235L68 243L75 250L77 256L82 248L89 249L103 259L110 257L119 249L110 233L118 233L122 239L123 248L131 269L143 269L147 273L146 278L133 285L122 271L114 270L113 274L106 278L102 289L92 294L89 300Z","14":"M23 213L33 198L40 196L50 188L56 194L57 198L68 200L69 208L62 213L67 223L73 226L67 230L66 235L61 233L54 240L44 225L23 213Z","15":"M147 344L153 351L160 371L161 378L170 392L179 401L189 405L192 419L191 423L193 428L189 434L183 437L179 435L168 446L150 419L149 412L142 408L140 404L140 398L137 396L138 393L133 385L122 378L124 374L122 366L114 355L118 349L124 354L124 359L130 359L133 353L137 353L141 346L147 344Z","16":"M243 252L237 246L225 244L222 250L224 256L222 265L213 270L209 266L203 272L195 273L190 281L184 284L182 289L178 291L177 278L179 276L178 266L173 258L174 253L169 247L172 241L176 236L175 227L182 227L187 229L193 227L193 209L191 200L186 205L176 203L169 206L163 198L158 201L152 200L147 192L136 187L128 186L126 182L120 180L118 157L124 149L125 131L122 126L123 121L118 115L117 99L156 86L175 70L192 49L197 30L203 31L201 23L202 17L197 13L192 5L201 3L204 0L212 6L218 6L219 10L229 16L234 32L241 34L248 40L253 40L260 50L258 55L262 59L269 58L272 62L273 67L270 73L281 80L289 78L299 82L313 76L318 71L327 75L330 79L342 73L372 88L373 91L352 126L359 129L364 126L377 140L373 143L366 138L351 138L344 146L326 148L322 151L318 149L280 172L277 189L271 196L268 205L272 215L269 219L259 223L252 228L250 237L252 241L243 252Z","17":"M363 442L347 437L341 444L338 443L337 435L329 432L324 425L315 427L310 424L307 419L310 412L306 410L306 404L300 403L295 392L299 388L305 372L305 368L318 368L330 366L335 360L336 354L354 337L355 332L355 368L369 370L377 366L390 367L410 399L420 418L413 431L413 435L387 447L362 439L363 442Z","18":"M338 597L331 591L329 582L326 579L332 573L328 565L333 560L334 552L344 551L343 546L347 544L348 535L357 535L362 538L363 549L370 556L375 558L371 567L365 562L361 564L361 572L353 577L351 583L338 597Z","19":"M167 365L169 370L160 371L153 351L165 344L177 351L179 346L186 341L187 336L197 330L210 329L216 325L220 315L226 321L230 337L235 341L234 347L238 355L230 362L224 365L209 357L203 358L199 363L190 362L172 367L167 365Z","20":"M70 165L66 174L68 184L64 192L63 199L57 198L56 194L50 188L40 196L33 198L23 213L8 203L6 196L9 193L15 192L14 184L4 174L8 165L0 156L3 141L10 136L12 139L23 141L28 136L31 149L41 143L51 150L56 148L61 150L64 161L70 165Z","21":"M387 579L374 574L371 567L375 558L370 556L363 549L362 538L357 535L348 535L344 529L345 524L341 516L344 512L343 482L349 473L348 464L352 457L357 454L362 448L362 439L387 447L413 435L414 443L409 457L411 462L409 481L401 488L401 494L397 496L397 501L404 510L398 520L387 512L379 512L377 516L380 521L375 529L379 532L394 536L392 541L401 545L407 542L406 551L409 558L403 560L387 579Z","22":"M177 278L172 283L173 289L169 294L166 282L159 284L142 286L139 282L146 278L147 273L143 269L131 269L123 248L122 239L118 233L119 222L125 223L130 220L139 210L136 205L128 200L121 199L118 194L120 180L126 182L128 186L136 187L147 192L152 200L158 201L163 198L169 206L176 203L186 205L191 200L193 209L193 227L187 229L182 227L175 227L176 236L172 241L169 247L174 253L173 258L178 266L179 276L177 278Z","23":"M387 579L393 582L393 586L386 592L381 592L384 601L377 612L363 615L342 599L338 597L351 583L353 577L361 572L361 564L365 562L374 574L387 579Z","24":"M28 136L23 141L12 139L10 136L19 124L25 121L27 117L34 113L38 119L39 130L28 136Z","25":"M355 332L354 337L336 354L335 360L330 366L305 368L305 372L301 380L299 378L289 382L275 377L265 378L262 381L260 370L251 359L244 372L240 368L230 370L224 365L238 355L234 347L235 341L230 337L226 321L220 315L223 311L220 304L223 295L225 292L222 286L215 289L212 296L205 300L202 304L200 311L187 314L181 302L178 291L182 289L184 284L190 281L195 273L203 272L209 266L213 270L222 265L224 256L222 250L225 244L237 246L252 259L251 264L257 272L258 279L264 283L265 288L270 291L278 302L277 306L269 315L285 315L300 319L301 325L304 328L303 334L330 334L342 328L347 323L356 321L358 325L355 332Z"};
+    const nf = new Intl.NumberFormat('es-PE');
+    const nf1 = new Intl.NumberFormat('es-PE', { maximumFractionDigits: 1 });
+    const M = (v) => v >= 1000 ? `S/ ${nf1.format(v / 1000)} mil M` : v >= 1 ? `S/ ${nf.format(Math.round(v))} M` : v > 0 ? `S/ ${nf.format(Math.round(v * 1000))} mil` : 'S/ 0';
+    const st = this.state;
+    const NIVEL = { T: 'Todos', L: 'Municipalidades', R: 'Gobiernos regionales', N: 'Gobierno nacional' };
+    const METRICS = [
+      { id: 'saldo', label: 'Falta ejecutar', fmt: M },
+      { id: 'obras', label: 'Número de obras', fmt: (v) => `${nf.format(v)} obras` },
+      { id: 'ctrl', label: 'Servicios de control', fmt: (v) => `${nf.format(v)} controles` },
+      { id: 'pim', label: '% con presupuesto', fmt: (v) => `${v}%` },
+      { id: 'av', label: 'Avance mediano', fmt: (v) => `${nf1.format(v)}%` },
+      { id: 'casi', label: '% al 90% o más', fmt: (v) => `${nf1.format(v)}%` },
+    ];
+    const metric = METRICS.find((m) => m.id === st.metric);
+    const v = (d) => this.val(d, NIV, st.metric, st.nivel);
+    const ramp = ['#bccbd9', '#8eaac6', '#5b84ad', '#2f5f92', '#123a66'];
+    const vals = DEP.map(v).filter((x) => x > 0).sort((a, b) => a - b);
+    const cuts = [0.2, 0.4, 0.6, 0.8].map((c) => vals[Math.min(vals.length - 1, Math.floor(c * vals.length))] ?? 0);
+    const color = (x) => (x > 0 ? ramp[cuts.filter((c) => x > c).length] : '#eceeeb');
+    const byU = Object.fromEntries(DEP.map((d) => [d[0], d]));
+    const sel = byU[st.sel];
+    // Clic manual: corta el recorrido automático. Si se estaba arrastrando el 3D, no cuenta como clic.
+    const pick = (u) => () => { if (this.moved) return; this.setState({ sel: u, obra: null, flip: !st.flip, tour: false, q: '' }); };
+    const tipAt = (e, t, l1, l2) => this.setState({ tip: { x: Math.min(e.clientX + 16, window.innerWidth - 300), y: e.clientY + 16, t, l1, l2 } });
+    const deps = Object.keys(PATHS).map((u, i) => ({
+      d: PATHS[u], fill: color(v(byU[u])),
+      stroke: u === st.sel ? '#e9a21a' : '#f4f5f3', sw: u === st.sel ? 4 : 1.2,
+      delay: i * 40, pick: pick(u),
+      move: (e) => tipAt(e, byU[u][1], metric.fmt(v(byU[u])), st.nivel === 'T' ? `${nf.format(byU[u][2])} obras en total` : NIVEL[st.nivel]),
+    }));
+    deps.sort((a, b) => (a.stroke === '#e9a21a') - (b.stroke === '#e9a21a'));
+    const maxS = DOTS[0][4];
+    const dots = DOTS.map((o, i) => ({ o, i })).filter(({ o }) => st.nivel === 'T' || o[7] === st.nivel).map(({ o, i }) => ({
+      l: (o[0] / 420 * 100).toFixed(2), t: (o[1] / 615 * 100).toFixed(2),
+      s: (7 + 22 * Math.sqrt(o[4] / maxS)).toFixed(1),
+      bg: (o[5] ?? 0) >= 90 ? '#e9a21a' : '#1f2326',
+      cls: st.obra === i ? 'od on' : 'od', delay: 200 + i * 12,
+      aria: `${o[3]}, falta ${M(o[4])}`,
+      pick: () => this.setState({ obra: i, sel: o[2], flip: !st.flip, tour: false }),
+      move: (e) => tipAt(e, o[3], `${o[6]} · ${o[5] == null ? 'avance sin dato' : nf1.format(o[5]) + '% de avance'}`, `Falta ${M(o[4])}`),
+    }));
+    const ord = this.order();
+    const rankIdx = ord.indexOf(st.sel);
+    const step = (k) => () => this.setState({ sel: ord[(rankIdx + k + ord.length) % ord.length], obra: null, flip: !st.flip, tour: false });
+    const legend = ramp.map((c, i) => ({ c, t: i === 0 ? `hasta ${metric.fmt(cuts[0])}` : i === 4 ? `más de ${metric.fmt(cuts[3])}` : `hasta ${metric.fmt(cuts[i])}` }));
+    const max = Math.max(...DEP.map(v), 1e-9);
+    const ranking = ord.map((u) => ({
+      name: byU[u][1], w: ((v(byU[u]) / max) * 100).toFixed(1), v: metric.fmt(v(byU[u])),
+      cls: u === st.sel ? 'rank on' : 'rank', pick: pick(u),
+    }));
+    const n = st.nivel === 'T' ? [sel[2], sel[3], sel[6], sel[7]] : (([a, b, c, d]) => [a, b, c, d])(NIV[sel[0]][st.nivel]);
+    const cau = CAU[sel[0]] || [];
+    const cauMax = Math.max(1, ...cau.map((c) => c[1]));
+    const topAll = sel[9].map((o) => {
+      const di = DOTS.findIndex((d) => d[2] === sel[0] && Math.abs(d[4] - o[1]) < 0.15);
+      return { n: o[0], s: M(o[1]), a: o[2] ?? 0, meta: `${o[2] == null ? 'Avance sin dato' : nf1.format(o[2]) + '% de avance'} · ${o[3]}`, pick: di >= 0 ? () => this.setState({ obra: di, flip: !st.flip }) : () => {} };
+    });
+    const topNivel = DOTS.map((d, i) => ({ d, i })).filter(({ d }) => d[2] === sel[0] && d[7] === st.nivel).slice(0, 3)
+      .map(({ d, i }) => ({ n: d[3], s: M(d[4]), a: d[5] ?? 0, meta: `${d[5] == null ? 'Avance sin dato' : nf1.format(d[5]) + '% de avance'} · ${d[6]}`, pick: () => this.setState({ obra: i, flip: !st.flip }) }));
+    const top = st.nivel === 'T' ? topAll : topNivel;
+    const ob = st.obra != null ? DOTS[st.obra] : null;
+    const cen = CEN[st.sel];
+    const qs = st.q.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const res = qs.length < 2 ? [] : DEP.filter((d) => d[1].toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').includes(qs)).slice(0, 6);
+    const tg = (on) => (on ? 'tg on' : 'tg');
+    const vMax = Math.max(...DEP.map(v), 1e-9);
+    const shade = (x) => (x > 0 ? color(x) : '#d3d5d2');
+    const bars = DEP.map((d, i) => {
+      const x = v(d), h = Math.round(6 + 190 * (x / vMax));
+      const c = CEN[d[0]];
+      return {
+        l: (c[0] / 420 * 100).toFixed(2), t: (c[1] / 615 * 100).toFixed(2), h, hl: h + 14,
+        c: d[0] === st.sel ? '#e9a21a' : shade(x), cap: d[0] === st.sel ? '#ffd27a' : '#e3e7ea',
+        sel: d[0] === st.sel, name: d[1], v: metric.fmt(x), rz: -st.rz, rx: -st.rx, delay: i * 30,
+      };
+    });
+    const TIPOS = ['Saneamiento urbano y rural', 'Transporte terrestre', 'Riego', 'Otra infraestructura', 'Transporte urbano', 'Educación básica', 'Otros tipos'];
+    const prof = this.PROF()[st.sel];
+    const tMax = Math.max(...prof[0], 1);
+    const { cells, at } = this.GRID();
+    const gdots = st.style === 'dots' ? cells.map(([x, y, u]) => ({
+      l: (((x - 0.5) * 9) / 420 * 100).toFixed(2), t: (((y - 0.5) * 9) / 615 * 100).toFixed(2),
+      c: u === st.sel ? '#e9a21a' : color(v(byU[u])),
+      s: u === st.gh ? 1.5 : u === st.sel ? 1.25 : 1, d: 100 + y * 12,
+    })) : [];
+    const gAt = (e) => {
+      const r = e.currentTarget.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width) * 420, y = ((e.clientY - r.top) / r.height) * 615;
+      return at[`${Math.round(x / 9 + 0.5)},${Math.round(y / 9 + 0.5)}`];
+    };
+    const tlActive = st.tl && st.yr < 2026;
+
+    // ----- frente al promedio nacional -----
+    const VSDEF = [
+      ['Avance mediano', (d) => d[5], 57.3, (x) => `${nf1.format(x)}%`],
+      ['Falta ejecutar por obra', (d) => d[3] / d[2], 27548 / 2262, (x) => `S/ ${nf1.format(x)} M`],
+      ['Controles por obra', (d) => d[6] / d[2], 4386 / 2262, (x) => nf1.format(x)],
+      ['Con presupuesto este año', (d) => (d[7] / d[2]) * 100, (749 / 2262) * 100, (x) => `${Math.round(x)}%`],
+      ['Al 90% o más', (d) => (d[8] / d[2]) * 100, (286 / 2262) * 100, (x) => `${nf1.format(x)}%`],
+    ];
+    const VS = VSDEF.map(([l, g, nat, f]) => {
+      const x = g(sel), mx = Math.max(...DEP.map(g), nat);
+      const r = x / nat;
+      return {
+        l, v: f(x), w: ((x / mx) * 100).toFixed(1), n: ((nat / mx) * 100).toFixed(1), c: x >= nat ? '#17457a' : '#9aa1a5',
+        note: `País: ${f(nat)} · ${r >= 1.15 ? `${nf1.format(r)} veces el promedio` : r <= 0.87 ? 'por debajo del promedio' : 'cerca del promedio'}`,
+      };
+    });
+
+    // ----- burbujas -----
+    const lx = (o) => 4 + (o / 380) * 92;
+    const lgMin = Math.log10(80), lgMax = Math.log10(9000);
+    const ly = (s) => 4 + ((Math.log10(Math.max(s, 80)) - lgMin) / (lgMax - lgMin)) * 92;
+    const bsz = (c) => 14 + 46 * Math.sqrt(c / 432);
+    const bubbles = DEP.map((d, i) => {
+      const s = bsz(d[6]), on = d[0] === st.sel, hv = d[0] === st.bh;
+      return {
+        x: lx(d[2]).toFixed(2), y: ly(d[3]).toFixed(2), s: s.toFixed(1), r: (s / 2).toFixed(1),
+        c: on ? '#e9a21a' : color(v(d)), cls: on ? 'bub on' : 'bub', d: 200 + i * 40,
+        lab: on || hv || d[2] > 160 || d[3] > 1600 ? d[1] : '',
+        aria: `${d[1]}: ${d[2]} obras, ${M(d[3])}, ${d[6]} controles`,
+        pick: pick(d[0]), hover: () => this.setState({ bh: d[0] }),
+      };
+    });
+    const bd = byU[st.bh || st.sel];
+    const bInfo = { n: bd[1], l: `${nf.format(bd[2])} obras · ${M(bd[3])} · ${nf.format(bd[6])} controles` };
+
+    // ----- carrera de barras -----
+    const CUMD = this.CUM();
+    const ri = st.rm === 'obras' ? 0 : 1;
+    const rv = DEP.map((d) => [d, CUMD[d[0]][ri][st.ryi]]).sort((a, b) => b[1] - a[1]);
+    const rMax = Math.max(rv[0][1], 1e-9);
+    const rank = Object.fromEntries(rv.map(([d], k) => [d[0], k]));
+    const raceRows = DEP.map((d) => {
+      const val = CUMD[d[0]][ri][st.ryi];
+      return {
+        n: d[1], top: rank[d[0]] * 34, w: Math.max(0.3, (val / rMax) * 100).toFixed(1),
+        c: d[0] === st.sel ? '#e9a21a' : rank[d[0]] < 3 ? '#123a66' : '#5b84ad',
+        v: val ? (st.rm === 'obras' ? nf.format(val) : M(val)) : '',
+      };
+    });
+
+    // ----- explorador -----
+    const NIVN = { L: 'Municipal', R: 'Regional', N: 'Nacional' };
+    const qx = st.xq.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    let xr = DOTS.map((d, i) => ({ d, i })).filter(({ d }) =>
+      (!st.fdep || d[2] === st.sel) && (!st.fcasi || (d[5] ?? 0) >= 90) && (!st.fsin || d[8] === 0) &&
+      (!qx || `${d[3]} ${d[6]} ${byU[d[2]][1]}`.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').includes(qx)));
+    const XC = [['n', 'Obra', (r) => r.d[3], 'left'], ['dep', 'Departamento', (r) => byU[r.d[2]][1], 'left'], ['niv', 'Nivel', (r) => r.d[7], 'left'], ['s', 'Falta ejecutar', (r) => r.d[4], 'right'], ['a', 'Avance', (r) => r.d[5] ?? -1, 'right'], ['c', 'Controles', (r) => r.d[8], 'right']];
+    const sk = XC.find((c) => c[0] === st.xs);
+    xr = [...xr].sort((a, b) => { const x = sk[2](a), y = sk[2](b); return (typeof x === 'string' ? x.localeCompare(y, 'es') : x - y) * st.xd; });
+    return {
+      sel2: null,
+      bubbles, bInfo, bLeave: () => this.setState({ bh: null }),
+      yTicks: [100, 300, 1000, 3000].map((s) => ({ b: ly(s).toFixed(1), l: s >= 1000 ? `S/ ${s / 1000} mil M` : `S/ ${s} M` })),
+      xTicks: [0, 100, 200, 300].map((o) => ({ l: lx(o).toFixed(1), t: `${o} obras` })),
+      rMetrics: [['saldo', 'Falta ejecutar'], ['obras', 'Obras']].map(([k, l]) => ({ l, cls: st.rm === k ? 'fchip on' : 'fchip', pick: () => this.setState({ rm: k }) })),
+      raceRows, raceYr: 2007 + st.ryi, racing: st.racing, notRacing: !st.racing,
+      raceLabel: st.racing ? 'Pausar la carrera' : 'Reproducir la carrera',
+      raceToggle: () => this.setState({ racing: !st.racing, ryi: !st.racing && st.ryi >= 19 ? 0 : st.ryi }),
+      xq: st.xq, onXq: (e) => this.setState({ xq: e.target.value }),
+      fDep: st.fdep ? 'fchip on' : 'fchip', fCasi: st.fcasi ? 'fchip on' : 'fchip', fSin: st.fsin ? 'fchip on' : 'fchip',
+      tDep: () => this.setState({ fdep: !st.fdep }), tCasi: () => this.setState({ fcasi: !st.fcasi }), tSin: () => this.setState({ fsin: !st.fsin }),
+      xCount: `${xr.length} ${xr.length === 1 ? 'obra' : 'obras'}${xr.length ? `, suman ${M(xr.reduce((s, r) => s + r.d[4], 0))} por ejecutar` : ''}`,
+      xCols: XC.map(([k, l, , al]) => ({
+        l, al, cls: st.xs === k ? 'on' : '', arrow: st.xs === k ? (st.xd < 0 ? '↓' : '↑') : '',
+        sort: st.xs === k ? (st.xd < 0 ? 'descending' : 'ascending') : 'none',
+        pick: () => this.setState({ xs: k, xd: st.xs === k ? -st.xd : (al === 'right' ? -1 : 1) }),
+      })),
+      xRows: xr.map(({ d, i }, k) => ({
+        n: d[3], dep: byU[d[2]][1], niv: NIVN[d[7]], s: M(d[4]),
+        a: d[5] == null ? 'Sin dato' : `${nf1.format(d[5])}%`, aw: d[5] ?? 0, ac: (d[5] ?? 0) >= 90 ? '#e9a21a' : '#17457a',
+        c: nf.format(d[8]), d: Math.min(k, 15) * 25,
+        pick: () => { this.setState({ obra: i, sel: d[2], flip: !st.flip, tour: false }); window.scrollTo({ top: 0, behavior: 'smooth' }); },
+      })),
+      polyOn: st.style !== 'dots', dotStyle: st.style === 'dots', gdots,
+      stPoly: st.style === 'dots' ? '' : 'on', stDots: st.style === 'dots' ? 'on' : '',
+      setPoly: () => this.setState({ style: 'poly' }),
+      setDots: () => this.setState({ style: 'dots', tilt: false }),
+      gMove: (e) => {
+        const u = gAt(e);
+        if (u !== this.state.gh) this.setState({ gh: u || null });
+        if (u) tipAt(e, byU[u][1], metric.fmt(v(byU[u])), `${nf.format(byU[u][2])} obras en total`);
+        else this.setState({ tip: null });
+      },
+      gLeave: () => this.setState({ gh: null, tip: null }),
+      gClick: (e) => { const u = gAt(e); if (u) pick(u)(); },
+      tl: st.tl, tgTl: tg(st.tl), tlOn: String(st.tl),
+      toggleTl: () => this.setState({ tl: !st.tl, yr: st.tl ? 2026 : 2010, tlPlay: !st.tl, metric: st.metric === 'ctrl' || st.metric === 'pim' ? 'saldo' : st.metric }),
+      yr: st.yr,
+      onYr: (e) => this.setState({ yr: Number(e.target.value), tlPlay: false }),
+      tlPlaying: st.tlPlay, tlStopped: !st.tlPlay,
+      tlPlayLabel: st.tlPlay ? 'Pausar' : 'Reproducir',
+      tlToggle: () => this.setState({ tlPlay: !st.tlPlay, yr: !st.tlPlay && st.yr >= 2026 ? 2007 : st.yr }),
+      tlNote: st.metric === 'ctrl' || st.metric === 'pim'
+        ? 'La línea de tiempo solo aplica a obras y a falta ejecutar.'
+        : `Obras paralizadas que empezaron hasta ${st.yr}${st.nivel !== 'T' ? ' (todos los niveles)' : ''}. ${tlActive ? '' : 'En 2026 se ven todas. '}45 obras sin año de inicio no entran.`,
+      d3: st.tilt,
+      dotsFlat: st.dots && !st.tilt,
+      bars,
+      stageCls: st.tilt ? (st.drag ? 'stage d3 drag' : 'stage d3') : 'stage',
+      tiltT: st.tilt ? `rotateX(${st.rx}deg) rotateZ(${st.rz}deg) translateY(-20px)` : 'none',
+      tgSpin: tg(st.spin), spinOn: String(st.spin),
+      toggleSpin: () => this.setState({ spin: !st.spin }),
+      dragStart: (e) => {
+        if (!st.tilt) return;
+        this.moved = false;
+        this.d0 = { x: e.clientX, y: e.clientY, rx: st.rx, rz: st.rz };
+        this.setState({ drag: true });
+      },
+      dragMove: (e) => {
+        if (!st.drag || !this.d0) return;
+        const dx = e.clientX - this.d0.x, dy = e.clientY - this.d0.y;
+        if (Math.abs(dx) + Math.abs(dy) > 4) this.moved = true;
+        this.setState({ rz: this.d0.rz - dx * 0.4, rx: Math.max(15, Math.min(72, this.d0.rx - dy * 0.3)) });
+      },
+      dragEnd: () => {
+        if (!st.drag) return;
+        this.d0 = null;
+        this.setState({ drag: false });
+        setTimeout(() => { this.moved = false; }, 0);
+      },
+      q: st.q, onQ: (e) => this.setState({ q: e.target.value }),
+      hasRes: qs.length >= 2,
+      res: res.length ? res.map((d) => ({ name: d[1], label: `${nf.format(d[2])} obras`, pick: pick(d[0]) })) : [{ name: 'Sin resultados', label: 'prueba sin tildes', pick: () => {} }],
+      metrics: METRICS.map((m) => ({ label: m.label, cls: m.id === metric.id ? 'on' : '', pressed: String(m.id === metric.id), pick: () => this.setState({ metric: m.id }) })),
+      niveles: Object.keys(NIVEL).map((k) => ({ label: NIVEL[k], cls: k === st.nivel ? 'on' : '', pressed: String(k === st.nivel), pick: () => this.setState({ nivel: k, obra: null }) })),
+      tgDots: tg(st.dots), tgZoom: tg(st.zoom), tgTilt: tg(st.tilt), tgTour: tg(st.tour),
+      dotsOn: st.dots, zoomOn: String(st.zoom), tiltOn: String(st.tilt), tourOn: String(st.tour), tour: st.tour,
+      toggleDots: () => this.setState({ dots: !st.dots }),
+      toggleZoom: () => this.setState({ zoom: !st.zoom }),
+      toggleTilt: () => this.setState({ tilt: !st.tilt }),
+      toggleTour: () => this.setState({ tour: !st.tour, obra: null }),
+      tiltCls: `tilt${st.tilt ? ' on' : ''}${st.drag || st.spin ? '' : ' anim'}`,
+      zoomOrigin: `${(cen[0] / 420 * 100).toFixed(1)}% ${(cen[1] / 615 * 100).toFixed(1)}%`,
+      zoomScale: st.zoom ? (st.sel === '16' ? 1.5 : 2.4) : 1,
+      deps, dots, legend, ranking,
+      legendTitle: `${metric.label}${st.nivel === 'T' ? '' : ' · ' + NIVEL[st.nivel]}`,
+      mapHint: st.tour ? 'Recorriendo de mayor a menor…' : st.tilt ? 'Arrastra para girar · la altura es ' + metric.label.toLowerCase() : st.dots ? 'Clic en un departamento o en una obra' : 'Clic en un departamento',
+      rankNote: `Ordenados por ${metric.label.toLowerCase()}${st.nivel === 'T' ? '' : ', solo ' + NIVEL[st.nivel].toLowerCase()}. Clic para verlo en el mapa.`,
+      tipOn: Boolean(st.tip), tip: st.tip || { x: 0, y: 0, t: '', l1: '', l2: '' },
+      hideTip: () => this.setState({ tip: null }),
+      panelCls: st.flip ? 'panel-a' : 'panel-b',
+      showObra: Boolean(ob), showDep: !ob,
+      backDep: () => this.setState({ obra: null, flip: !st.flip }),
+      obra: ob ? {
+        n: ob[3], lugar: `${ob[6]}, ${byU[ob[2]][1]}`, nivel: NIVEL[ob[7]], s: M(ob[4]),
+        a: ob[5] == null ? 'Sin dato' : `${nf1.format(ob[5])}%`, w: ob[5] ?? 0, c: nf.format(ob[8]), rank: `N.° ${st.obra + 1}`,
+      } : { n: '', lugar: '', nivel: '', s: '', a: '', w: 0, c: '', rank: '' },
+      nivelTxt: st.nivel === 'T' ? `por ${metric.label.toLowerCase()}` : NIVEL[st.nivel],
+      prev: step(-1), next: step(1),
+      topTitle: st.nivel === 'T' ? 'Las tres obras con más dinero pendiente' : `Sus obras grandes · ${NIVEL[st.nivel]}`,
+      noTop: top.length === 0,
+      sel: {
+        name: sel[1], rank: rankIdx + 1, n: nf.format(n[0]), saldo: M(n[1]), ctrl: nf.format(n[2]),
+        pim: n[0] ? `${n[3]} de ${n[0]}` : '—', costo: M(sel[4]), av: `${nf1.format(sel[5])}%`,
+        causas: cau.map((c) => ({ n: c[0], v: nf.format(c[1]), w: ((c[1] / cauMax) * 100).toFixed(0) })),
+        top,
+        mL: prof[1][0], mR: prof[1][1], mN: prof[1][2],
+        mixAria: `Municipalidades ${prof[1][0]}, gobiernos regionales ${prof[1][1]}, gobierno nacional ${prof[1][2]}`,
+        tipos: TIPOS.map((n, i) => ({ n, v: prof[0][i], w: ((prof[0][i] / tMax) * 100).toFixed(0) })).filter((t) => t.v > 0),
+        vs: VS,
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

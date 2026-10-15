@@ -30,6 +30,7 @@ transform:
 
 export:
 	$(PY) -m pipeline.cli export
+	node scripts/build_puntos.mjs
 
 sample:
 	$(PY) scripts/make_fixture.py data/raw/fixture_anexo01.xlsx --control data/raw/fixture_anexo02.xlsx --rows 900

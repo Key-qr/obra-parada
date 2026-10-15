@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Obra Parada · Comparar</title>
+<meta name="description" content="Compara dos departamentos: obras, dinero pendiente, avance, presupuesto, servicios de control y cada obra como un punto.">
+<meta property="og:title" content="Obra Parada · Comparar">
+<meta property="og:description" content="Compara dos departamentos: obras, dinero pendiente, avance, presupuesto, servicios de control y cada obra como un punto.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="vendor/fonts.css" rel="stylesheet">
+<style>
+body{margin:0;background:#e3e4e1;color:#1f2326;font-family:'Barlow',system-ui,sans-serif;overflow-x:clip}
+a{color:#17457a}a:hover{color:#0f3359}
+*{box-sizing:border-box}
+.prog{position:fixed;top:0;left:0;right:0;height:4px;background:#e9a21a;transform-origin:0 50%;transform:scaleX(0);z-index:60}
+@supports (animation-timeline: scroll()){.prog{animation:prog linear both;animation-timeline:scroll(root)}}
+@keyframes prog{to{transform:scaleX(1)}}
+.brand{display:inline-flex;align-items:center;gap:10px;font:800 24px/1 'Barlow Condensed',sans-serif;color:#1f2326;text-decoration:none}
+.brand:hover{color:#1f2326}
+.nav a{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 14px;font:600 18px/1 'Barlow Condensed',sans-serif;color:#1f2326;text-decoration:none}
+.nav a::after{content:"";position:absolute;left:14px;right:14px;bottom:8px;height:3px;background:#e9a21a;transform:scaleX(0);transform-origin:0 50%;transition:transform .25s ease}
+.nav a:hover::after{transform:scaleX(1)}
+.nav a.on{background:#1f2326;color:#fff}
+.nav a.on::after{display:none}
+.tape{height:14px;background:repeating-linear-gradient(45deg,#e9a21a 0 10px,#1f2326 10px 20px);background-size:28.28px 14px;animation:tape 1.4s linear infinite}
+@keyframes tape{to{background-position:28.28px 0}}
+.sel{min-height:52px;width:100%;padding:0 14px;font:700 24px 'Barlow Condensed',sans-serif;border:2px solid #1f2326;background:#fff;color:#1f2326;border-radius:0;cursor:pointer}
+.swap{width:56px;height:56px;border-radius:50%;border:1.5px solid #1f2326;background:#f4f5f3;cursor:pointer;display:grid;place-items:center;transition:transform .45s cubic-bezier(.2,.9,.3,1.4),background-color .2s}
+.swap:hover{background:#e9a21a;transform:rotate(180deg)}
+.dp{transition:fill .6s ease}
+.otabs{display:flex;border:1.5px solid #1f2326;background:#f4f5f3}
+.otabs button{min-height:44px;padding:0 16px;border:0;border-left:1.5px solid #1f2326;background:transparent;font:600 17px 'Barlow Condensed',sans-serif;color:#1f2326;cursor:pointer;transition:background-color .2s,color .2s}
+.otabs button:first-child{border-left:0}
+.otabs button:hover{background:#e8ebee}
+.otabs button.on{background:#1f2326;color:#fff}
+.ostage{position:relative;height:580px;overflow:hidden;background:#e3e4e1;border-top:2px solid #1f2326;border-bottom:1px solid #b9bdbb;cursor:crosshair}
+.obg{position:absolute;width:5px;height:5px;margin:-2.5px 0 0 -2.5px;border-radius:50%;background:#cfd2cf;transition:opacity .6s;pointer-events:none}
+.olab{position:absolute;white-space:nowrap;pointer-events:none;animation:labIn .5s ease-out backwards}
+@keyframes labIn{from{opacity:0}}
+.od{position:absolute;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;transition-property:left,top,transform,box-shadow;transition-duration:.9s,.9s,.2s,.2s;transition-timing-function:cubic-bezier(.3,.7,.2,1)}
+.od.hv{transform:translate(-50%,-50%) scale(2.2);box-shadow:0 0 0 1.5px #1f2326;z-index:5}
+.od.sel{transform:translate(-50%,-50%) scale(2.2);box-shadow:0 0 0 2px #fff,0 0 0 4px #1f2326;z-index:6}
+.otip{position:absolute;z-index:10;width:270px;background:#1f2326;color:#fff;padding:12px 14px;border-left:4px solid #e9a21a;pointer-events:none;animation:labIn .15s ease-out}
+.ofi{position:relative;background:#17457a;color:#fff;padding:26px 30px;margin-top:18px;max-width:760px;animation:cuelga .5s cubic-bezier(.2,.9,.3,1.3)}
+@keyframes cuelga{from{opacity:0;transform:translateY(-14px) rotate(-1deg)}}
+.ofi .bolt{position:absolute;width:9px;height:9px;border-radius:50%;background:#c9d6e6;box-shadow:inset 0 0 0 2px #0f3359}
+.ofr{display:grid;grid-template-columns:10em minmax(0,1fr);gap:14px;padding:10px 0;border-top:1px solid rgba(255,255,255,.18)}
+.ofr dt{font:600 14px 'Barlow Condensed',sans-serif;letter-spacing:.06em;color:#c9d6e6}
+.ofr dd{margin:0;font:600 20px/1.2 'Barlow Condensed',sans-serif}
+@media (max-width:640px){.ofr{grid-template-columns:1fr;gap:2px}.ostage{height:520px}}
+.cd{position:absolute;width:1.7%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);background:#c3c7c4;pointer-events:none;transition:background-color .3s,transform .25s}
+.cd.hv{background:#5d6468;transform:translate(-50%,-50%) scale(1.3)}
+.cd.ona{background:#17457a;transform:translate(-50%,-50%) scale(1.35)}
+.cd.onb{background:#e9a21a;transform:translate(-50%,-50%) scale(1.35)}
+.wa .cd.ona,.wa .cd.onb{animation:olaA .5s cubic-bezier(.2,.9,.3,1.6) backwards}
+.wb .cd.ona,.wb .cd.onb{animation:olaB .5s cubic-bezier(.2,.9,.3,1.6) backwards}
+@keyframes olaA{from{transform:translate(-50%,-50%) scale(0)}}
+@keyframes olaB{from{transform:translate(-50%,-50%) scale(0)}}
+.ax{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 7em 7em;gap:10px;padding:8px 10px;border-top:1px solid #b9bdbb;transition:background-color .15s}
+.ax:hover,.ax.on{background:#fbe7bd}
+.ax:focus-visible{outline:3px solid #e9a21a}
+.rda .rpa,.rda .rpb{animation:radA .7s cubic-bezier(.2,.9,.3,1.3) backwards;transform-origin:0 0}
+.rdb .rpa,.rdb .rpb{animation:radB .7s cubic-bezier(.2,.9,.3,1.3) backwards;transform-origin:0 0}
+.rpb{animation-delay:.12s!important}
+@keyframes radA{from{transform:scale(0)}}
+@keyframes radB{from{transform:scale(0)}}
+.pbar{display:flex;height:46px;gap:2px}
+.pbar span{display:flex;align-items:center;justify-content:center;overflow:hidden;white-space:nowrap;font:700 15px 'Barlow Condensed',sans-serif;cursor:default;transition:flex-grow .7s cubic-bezier(.2,.8,.2,1),filter .2s}
+.pbar span:hover{filter:brightness(1.15)}
+.pfa .pbar span{animation:crece .6s ease-out backwards}
+.pfb .pbar span{animation:crece2 .6s ease-out backwards}
+@keyframes crece{from{flex-grow:0}}
+@keyframes crece2{from{flex-grow:0}}
+.lg{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:14px;padding:4px 6px}
+.lg.on{background:#fbe7bd;font-weight:600}
+.ln{stroke-dasharray:3000;animation:dibuja 1.4s ease-out}
+.ln2{stroke-dasharray:3000;animation:dibuja2 1.4s ease-out}
+@keyframes dibuja{from{stroke-dashoffset:3000}}
+@keyframes dibuja2{from{stroke-dashoffset:3000}}
+.dice{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 20px;background:#1f2326;color:#fff;border:0;font:700 19px 'Barlow Condensed',sans-serif;cursor:pointer;transition:transform .2s}
+.dice:hover{transform:translateY(-2px)}
+.dice svg{transition:transform .5s cubic-bezier(.2,.9,.3,1.4)}
+.dice:hover svg{transform:rotate(200deg)}
+.beam{position:absolute;left:8%;right:8%;top:70px;height:12px;background:#1f2326;transform-origin:50% 50%;transition:transform 1.4s cubic-bezier(.3,1.6,.4,1)}
+.pan{position:absolute;top:6px;width:0;transform-origin:50% 0;display:flex;flex-direction:column;align-items:center;transition:transform 1.4s cubic-bezier(.3,1.6,.4,1)}
+.pan .rope{width:2px;height:48px;background:#5d6468}
+.pan .plate{width:170px;min-height:84px;margin-left:0;padding:10px;text-align:center;border-top:6px solid #1f2326;background:#f4f5f3;box-shadow:0 12px 20px -14px rgba(0,0,0,.5)}
+.vs{font:800 72px/1 'Barlow Condensed',sans-serif;color:#e9a21a;-webkit-text-stroke:2px #1f2326}
+@media (max-width:640px){.beam{left:22%;right:22%}.pan .plate{width:124px;padding:8px 6px}.pan .plate p:last-child{font-size:22px!important}}
+.vs-a{animation:sello .6s cubic-bezier(.2,.9,.3,1.5)}
+.vs-b{animation:sello2 .6s cubic-bezier(.2,.9,.3,1.5)}
+@keyframes sello{from{transform:scale(2.4) rotate(-14deg);opacity:0}}
+@keyframes sello2{from{transform:scale(2.4) rotate(14deg);opacity:0}}
+.mchip{min-height:40px;padding:0 14px;border:1.5px solid #1f2326;background:#f4f5f3;font:600 16px 'Barlow Condensed',sans-serif;cursor:pointer;margin-left:-1.5px}
+.mchip.on{background:#1f2326;color:#fff}
+.row.win-a .va,.row.win-b .vb{text-decoration:underline;text-decoration-color:#e9a21a;text-decoration-thickness:3px;text-underline-offset:5px}
+.map-a{animation:pulsoA .6s ease-out}
+.map-b{animation:pulsoB .6s ease-out}
+@keyframes pulsoA{from{transform:scale(.96);opacity:.4}}
+@keyframes pulsoB{from{transform:scale(.96);opacity:.4}}
+.row{display:grid;grid-template-columns:7em minmax(0,1fr) minmax(8em,12em) minmax(0,1fr) 7em;gap:14px;align-items:center;padding:12px 0;border-top:1px solid #b9bdbb}
+.row:hover{background:#f4f5f3}
+.tl{height:20px;background:#d3d5d2;display:flex;justify-content:flex-end}
+.tr{height:20px;background:#d3d5d2;display:flex}
+.tl i,.tr i{display:block;height:100%;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.tl i{background:#17457a}
+.tr i{background:#e9a21a}
+.win{font:700 20px 'Barlow Condensed',sans-serif;font-variant-numeric:tabular-nums}
+@supports (animation-timeline: view()){.rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% cover 25%}}
+@keyframes rv{from{opacity:0;transform:translateY(40px)}}
+@media (max-width:760px){.row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px 12px}.row .lab{grid-column:1/-1;grid-row:1;text-align:left!important}.row .tl,.row .tr{display:none}}
+</style>
+<script src="js/dc.js" defer></script>
+</head>
+<body>
+<div id="app"></div>
+<noscript><p style="padding: 32px; font: 18px system-ui">Esta página necesita JavaScript. Los datos completos están en <a href="data/obras.json">data/obras.json</a>.</p></noscript>
+<template id="vista">
+<div style="min-height: 100vh">
+<div class="prog" aria-hidden="true"></div>
+<header style="position: sticky; top: 0; z-index: 40; background: rgba(227, 228, 225, 0.93); backdrop-filter: blur(8px); border-bottom: 1.5px solid #1f2326">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 10px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 32px">
+    <a href="index.html" class="brand"><svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="26" height="17" rx="1.5" fill="#17457a"></rect><path d="M9 22v7M23 22v7" stroke="#1f2326" stroke-width="2.2"></path><path d="M8 13h16" stroke="#f4f5f3" stroke-width="2.2"></path></svg>Obra Parada</a>
+    <nav class="nav" aria-label="Secciones" style="display: flex; flex-wrap: wrap; margin-left: auto">
+      <a href="index.html">Inicio</a>
+      <a href="mapa.html">Mapa</a>
+      <a href="analisis.html">Análisis</a>
+      <a href="comparar.html" class="on" aria-current="page">Comparar</a>
+      <a href="control.html">Servicios de control</a>
+      <a href="metodo.html">Cómo se hizo</a>
+      <a href="explorador.html">Explorador</a>
+    </nav>
+  </div>
+</header>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 48px 32px 24px">
+  <p style="margin: 0 0 8px; font: 600 18px 'Barlow Condensed', sans-serif; color: #8a5a00">04 · COMPARAR</p>
+  <h1 style="margin: 0 0 12px; font: 800 clamp(44px, 5.4vw, 76px)/0.95 'Barlow Condensed', sans-serif">Dos departamentos, cara a cara</h1>
+  <p style="margin: 0 0 20px; max-width: 64ch; font-size: 19px; color: #343a3e">{{resumen}}</p>
+  <button type="button" class="dice" onClick="{{random}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="3"></rect><circle cx="8.5" cy="8.5" r="1.3" fill="currentColor"></circle><circle cx="15.5" cy="15.5" r="1.3" fill="currentColor"></circle><circle cx="15.5" cy="8.5" r="1.3" fill="currentColor"></circle><circle cx="8.5" cy="15.5" r="1.3" fill="currentColor"></circle></svg>Duelo al azar</button>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 16px 32px 32px">
+  <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 20px; align-items: end">
+    <label style="display: block"><span style="display: block; font-size: 14px; font-weight: 600; color: #17457a; margin-bottom: 6px">Departamento A</span>
+      <select class="sel" value="{{a}}" onChange="{{setA}}" style="border-color: #17457a">
+        <template sc-for list="{{opts}}" as="o" hint-placeholder-count="25"><option value="{{o.u}}">{{o.n}}</option></template>
+      </select>
+    </label>
+    <button type="button" class="swap" onClick="{{swap}}" aria-label="Intercambiar departamentos"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 7h12l-3-3M17 17H5l3 3"></path></svg></button>
+    <label style="display: block"><span style="display: block; font-size: 14px; font-weight: 600; color: #8a5a00; margin-bottom: 6px">Departamento B</span>
+      <select class="sel" value="{{b}}" onChange="{{setB}}" style="border-color: #8a5a00">
+        <template sc-for list="{{opts}}" as="o" hint-placeholder-count="25"><option value="{{o.u}}">{{o.n}}</option></template>
+      </select>
+    </label>
+  </div>
+
+  <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 24px; margin-top: 32px">
+    <div style="text-align: center">
+      <div class="{{waveA}}" style="position: relative; width: min(100%, 360px); margin: 0 auto; aspect-ratio: 420 / 615; cursor: pointer" onMouseMove="{{moveA}}" onMouseLeave="{{leaveA}}" onClick="{{clickA}}" role="img" aria-label="{{ariaA}}">
+        <template sc-for list="{{dotsA}}" as="g" hint-placeholder-count="200">
+          <span class="{{g.cls}}" style="left: {{g.l}}%; top: {{g.t}}%; animation-delay: {{g.d}}ms"></span>
+        </template>
+      </div>
+      <p style="margin: 12px 0 0; font: 800 40px/1 'Barlow Condensed', sans-serif; color: #17457a">{{nameA}}</p>
+      <p style="margin: 4px 0 0; font-size: 14px; color: #5d6468; min-height: 20px">{{hintA}}</p>
+    </div>
+    <div style="align-self: center; text-align: center" aria-hidden="true"><span class="{{vsCls}}" style="display: inline-block">VS</span></div>
+    <div style="text-align: center">
+      <div class="{{waveB}}" style="position: relative; width: min(100%, 360px); margin: 0 auto; aspect-ratio: 420 / 615; cursor: pointer" onMouseMove="{{moveB}}" onMouseLeave="{{leaveB}}" onClick="{{clickB}}" role="img" aria-label="{{ariaB}}">
+        <template sc-for list="{{dotsB}}" as="g" hint-placeholder-count="200">
+          <span class="{{g.cls}}" style="left: {{g.l}}%; top: {{g.t}}%; animation-delay: {{g.d}}ms"></span>
+        </template>
+      </div>
+      <p style="margin: 12px 0 0; font: 800 40px/1 'Barlow Condensed', sans-serif; color: #8a5a00">{{nameB}}</p>
+      <p style="margin: 4px 0 0; font-size: 14px; color: #5d6468; min-height: 20px">{{hintB}}</p>
+    </div>
+  </div>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 32px 32px 48px">
+  <p style="margin: 0 0 8px; font: 600 18px 'Barlow Condensed', sans-serif; color: #8a5a00">OBRA POR OBRA</p>
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 16px">
+    <div>
+      <h2 style="margin: 0 0 8px; font: 800 clamp(32px, 3.6vw, 48px)/1 'Barlow Condensed', sans-serif">Cada punto es una obra</h2>
+      <p style="margin: 0; color: #5d6468; max-width: 60ch">Cambia de vista y mira cómo los puntos se reordenan. Pasa el cursor por uno para ver la obra; haz clic para abrir su ficha.</p>
+    </div>
+    <div class="otabs" role="tablist" aria-label="Cómo ordenar los puntos">
+      <template sc-for list="{{oModes}}" as="m" hint-placeholder-count="4"><button type="button" role="tab" aria-selected="{{m.sel}}" class="{{m.cls}}" onClick="{{m.pick}}">{{m.l}}</button></template>
+    </div>
+  </div>
+  <div style="display: flex; flex-wrap: wrap; gap: 8px 24px; margin-bottom: 10px; font-size: 14px">
+    <span style="display: inline-flex; align-items: center; gap: 8px"><i style="width: 12px; height: 12px; border-radius: 50%; background: #17457a"></i>{{nameA}} · {{oCountA}}</span>
+    <span style="display: inline-flex; align-items: center; gap: 8px"><i style="width: 12px; height: 12px; border-radius: 50%; background: #e9a21a"></i>{{nameB}} · {{oCountB}}</span>
+    <span style="color: #5d6468">{{oSub}}</span>
+  </div>
+  <div class="ostage" id="ostage" onMouseMove="{{oMove}}" onMouseLeave="{{oLeave}}" onClick="{{oClick}}">
+    <template sc-if value="{{oLoading}}" hint-placeholder-val="{{false}}"><p style="position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: #5d6468; font: 600 20px 'Barlow Condensed', sans-serif">Cargando las obras…</p></template>
+    <template sc-for list="{{oBg}}" as="g" hint-placeholder-count="0">
+      <span class="obg" style="left: calc(50% + {{g.x}}px); top: {{g.y}}px; opacity: {{g.o}}"></span>
+    </template>
+    <template sc-for list="{{oLabels}}" as="l" hint-placeholder-count="6">
+      <span class="olab" style="left: calc({{l.p}}% + {{l.x}}px); top: {{l.y}}px; transform: translateX({{l.tx}}%); font: {{l.f}}; color: {{l.c}}">{{l.t}}</span>
+    </template>
+    <template sc-for list="{{oDots}}" as="d" hint-placeholder-count="120">
+      <span class="{{d.cls}}" style="left: calc({{d.p}}% + {{d.x}}px); top: {{d.y}}px; width: {{d.s}}px; height: {{d.s}}px; background: {{d.c}}; transition-delay: {{d.dl}}ms"></span>
+    </template>
+    <template sc-if value="{{oTipOn}}" hint-placeholder-val="{{false}}">
+      <div class="otip" style="left: calc({{oTip.p}}% + {{oTip.x}}px); top: {{oTip.y}}px; transform: translate({{oTip.tx}}, -50%)">
+        <b style="display: block; font: 700 17px/1.15 'Barlow Condensed', sans-serif">{{oTip.n}}</b>
+        <span style="display: block; color: #b9c2c8; font-size: 13px; margin: 2px 0 8px">{{oTip.l}}</span>
+        <span style="display: flex; justify-content: space-between; gap: 12px; font-size: 14px">Falta ejecutar <strong style="font: 700 18px 'Barlow Condensed', sans-serif">{{oTip.s}}</strong></span>
+        <span style="display: block; height: 4px; background: rgba(255, 255, 255, 0.15); margin: 6px 0 4px"><i style="display: block; height: 100%; width: {{oTip.w}}%; background: #e9a21a"></i></span>
+        <span style="display: block; font-size: 12.5px; color: #c9d1d6">{{oTip.a}}</span>
+      </div>
+    </template>
+  </div>
+  <template sc-if value="{{oFichaOn}}" hint-placeholder-val="{{false}}">
+    <div class="ofi" aria-live="polite">
+      <span class="bolt" style="top: 10px; left: 10px"></span><span class="bolt" style="top: 10px; right: 10px"></span><span class="bolt" style="bottom: 10px; left: 10px"></span><span class="bolt" style="bottom: 10px; right: 10px"></span>
+      <div style="display: flex; justify-content: space-between; gap: 16px; align-items: flex-start">
+        <p style="margin: 0; font-size: 14px; color: #c9d6e6">{{oFicha.k}}</p>
+        <button type="button" onClick="{{oClose}}" aria-label="Cerrar ficha" style="all: unset; cursor: pointer; font-size: 28px; line-height: 1; color: #fff; padding: 0 6px">×</button>
+      </div>
+      <dl style="margin: 10px 0 0; display: grid; gap: 0">
+        <div class="ofr"><dt>OBRA</dt><dd style="font: 800 26px/1.1 'Barlow Condensed', sans-serif">{{oFicha.n}}</dd></div>
+        <div class="ofr"><dt>UBICACIÓN</dt><dd>{{oFicha.l}}</dd></div>
+        <div class="ofr"><dt>FALTA EJECUTAR</dt><dd>{{oFicha.s}}</dd></div>
+        <div class="ofr"><dt>AVANCE FÍSICO</dt><dd>{{oFicha.a}}<span style="display: block; height: 8px; background: rgba(255, 255, 255, 0.25); margin-top: 6px"><i style="display: block; height: 100%; width: {{oFicha.w}}%; background: #e9a21a"></i></span></dd></div>
+        <div class="ofr"><dt>CAUSA</dt><dd>{{oFicha.c}}</dd></div>
+        <div class="ofr"><dt>AÑO DE INICIO</dt><dd>{{oFicha.i}}</dd></div>
+      </dl>
+    </div>
+  </template>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 24px 32px 56px">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px">
+    <h2 style="margin: 0; font: 800 clamp(32px, 3.6vw, 48px)/1 'Barlow Condensed', sans-serif">La balanza</h2>
+    <div style="display: flex" role="group" aria-label="Qué pesar">
+      <template sc-for list="{{bMetrics}}" as="m" hint-placeholder-count="3"><button type="button" class="{{m.cls}}" onClick="{{m.pick}}">{{m.l}}</button></template>
+    </div>
+  </div>
+  <div style="position: relative; height: 290px; max-width: 760px; margin: 24px auto 0" role="img" aria-label="{{balAria}}">
+    <div class="beam" style="transform: rotate({{ang}}deg)">
+      <div class="pan" style="left: 0; transform: rotate({{angNeg}}deg)">
+        <span class="rope"></span>
+        <div class="plate" style="border-top-color: #17457a"><p style="margin: 0; font: 700 18px 'Barlow Condensed', sans-serif; color: #17457a">{{nameA}}</p><p style="margin: 4px 0 0; font: 800 30px/1 'Barlow Condensed', sans-serif">{{balA}}</p></div>
+      </div>
+      <div class="pan" style="left: 100%; transform: rotate({{angNeg}}deg)">
+        <span class="rope"></span>
+        <div class="plate" style="border-top-color: #e9a21a"><p style="margin: 0; font: 700 18px 'Barlow Condensed', sans-serif; color: #8a5a00">{{nameB}}</p><p style="margin: 4px 0 0; font: 800 30px/1 'Barlow Condensed', sans-serif">{{balB}}</p></div>
+      </div>
+    </div>
+    <div style="position: absolute; left: 50%; top: 62px; width: 28px; height: 28px; margin-left: -14px; border-radius: 50%; background: #e9a21a; border: 4px solid #1f2326"></div>
+    <div style="position: absolute; left: 50%; top: 82px; margin-left: -60px; width: 0; height: 0; border-left: 60px solid transparent; border-right: 60px solid transparent; border-bottom: 180px solid #b9bdbb"></div>
+    <div style="position: absolute; left: 50%; bottom: 0; margin-left: -110px; width: 220px; height: 14px; background: #1f2326"></div>
+  </div>
+  <p style="text-align: center; margin: 16px 0 0; font: 600 22px 'Barlow Condensed', sans-serif">{{balLine}}</p>
+</section>
+
+<div class="tape" aria-hidden="true"></div>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 64px 32px 32px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+  <div style="flex: 1 1 420px; min-width: 0">
+    <p style="margin: 0 0 8px; font: 600 18px 'Barlow Condensed', sans-serif; color: #8a5a00">LA HUELLA</p>
+    <h2 style="margin: 0 0 12px; font: 800 clamp(32px, 3.6vw, 48px)/1 'Barlow Condensed', sans-serif">Seis medidas, una forma</h2>
+    <p style="margin: 0 0 20px; color: #5d6468; max-width: 46ch">Cada eje va de cero al departamento más alto del país. Mientras más grande la forma, más pesa el problema ahí. Pasa el cursor por un eje.</p>
+    <div style="display: grid; gap: 6px">
+      <template sc-for list="{{axes}}" as="x" hint-placeholder-count="6">
+        <button type="button" class="{{x.cls}}" onMouseEnter="{{x.hover}}" onFocus="{{x.hover}}" onClick="{{x.hover}}">
+          <span style="font-weight: 600">{{x.l}}</span>
+          <span style="color: #17457a; font: 700 18px 'Barlow Condensed', sans-serif">{{x.a}}</span>
+          <span style="color: #8a5a00; font: 700 18px 'Barlow Condensed', sans-serif">{{x.b}}</span>
+        </button>
+      </template>
+    </div>
+  </div>
+  <div style="flex: 1 1 420px; min-width: 0; max-width: 520px; margin: 0 auto">
+    <div class="{{radarCls}}" style="position: relative; aspect-ratio: 1">
+      <svg viewBox="-160 -160 320 320" style="width: 100%; height: 100%; overflow: visible" role="img" aria-label="{{radarAria}}">
+        <polygon points="{{ring1}}" fill="none" stroke="#b9bdbb" stroke-width="1"></polygon>
+        <polygon points="{{ring2}}" fill="none" stroke="#b9bdbb" stroke-width="1"></polygon>
+        <polygon points="{{ring3}}" fill="#eceeeb" stroke="#1f2326" stroke-width="1.5"></polygon>
+        <path d="{{spokes}}" stroke="#b9bdbb" stroke-width="1"></path>
+        <path d="{{hiSpoke}}" stroke="#e9a21a" stroke-width="3"></path>
+        <polygon class="rpa" points="{{polyA}}" fill="rgba(23, 69, 122, 0.35)" stroke="#17457a" stroke-width="2.5"></polygon>
+        <polygon class="rpb" points="{{polyB}}" fill="rgba(233, 162, 26, 0.35)" stroke="#8a5a00" stroke-width="2.5"></polygon>
+      </svg>
+      <template sc-for list="{{axLabels}}" as="x" hint-placeholder-count="6">
+        <span style="position: absolute; left: {{x.l}}%; top: {{x.t}}%; transform: translate(-50%, -50%); font: 600 14px 'Barlow Condensed', sans-serif; text-align: center; white-space: nowrap; color: {{x.c}}">{{x.n}}</span>
+      </template>
+    </div>
+  </div>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 32px 32px">
+  <p style="margin: 0 0 8px; font: 600 18px 'Barlow Condensed', sans-serif; color: #8a5a00">EL PERFIL</p>
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 20px">
+    <h2 style="margin: 0; font: 800 clamp(32px, 3.6vw, 48px)/1 'Barlow Condensed', sans-serif">¿De qué está hecho su problema?</h2>
+    <div style="display: flex" role="group" aria-label="Perfil">
+      <template sc-for list="{{pTabs}}" as="t" hint-placeholder-count="3"><button type="button" class="{{t.cls}}" onClick="{{t.pick}}">{{t.l}}</button></template>
+    </div>
+  </div>
+  <div class="{{profCls}}">
+    <div style="display: grid; grid-template-columns: 8em minmax(0, 1fr); gap: 10px; align-items: center">
+      <span style="font: 700 20px 'Barlow Condensed', sans-serif; color: #17457a">{{nameA}}</span>
+      <div class="pbar"><template sc-for list="{{profA}}" as="s" hint-placeholder-count="6"><span style="flex-grow: {{s.v}}; background: {{s.c}}; color: {{s.fg}}" onMouseEnter="{{s.hover}}">{{s.t}}</span></template></div>
+      <span style="font: 700 20px 'Barlow Condensed', sans-serif; color: #8a5a00">{{nameB}}</span>
+      <div class="pbar"><template sc-for list="{{profB}}" as="s" hint-placeholder-count="6"><span style="flex-grow: {{s.v}}; background: {{s.c}}; color: {{s.fg}}" onMouseEnter="{{s.hover}}">{{s.t}}</span></template></div>
+    </div>
+  </div>
+  <div style="display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px">
+    <template sc-for list="{{profLegend}}" as="l" hint-placeholder-count="6">
+      <button type="button" class="{{l.cls}}" onMouseEnter="{{l.hover}}" onClick="{{l.hover}}"><i style="width: 14px; height: 14px; background: {{l.c}}; display: inline-block"></i>{{l.n}}</button>
+    </template>
+  </div>
+  <p style="margin: 14px 0 0; font: 600 20px 'Barlow Condensed', sans-serif; min-height: 28px" aria-live="polite">{{profLine}}</p>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 32px 32px 56px">
+  <p style="margin: 0 0 8px; font: 600 18px 'Barlow Condensed', sans-serif; color: #8a5a00">EN EL TIEMPO</p>
+  <h2 style="margin: 0 0 8px; font: 800 clamp(32px, 3.6vw, 48px)/1 'Barlow Condensed', sans-serif">Cómo se fueron acumulando</h2>
+  <p style="margin: 0 0 20px; color: #5d6468">Obras paralizadas de hoy, según el año en que empezaron. Pasa el cursor por el gráfico.</p>
+  <div style="position: relative; height: 300px; background: #f4f5f3; border: 1.5px solid #b9bdbb" onMouseLeave="{{tlLeave}}">
+    <svg viewBox="0 0 1000 300" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%" aria-hidden="true">
+      <path class="{{lineCls}}" d="{{lineA}}" fill="none" stroke="#17457a" stroke-width="4" vector-effect="non-scaling-stroke"></path>
+      <path class="{{lineCls}}" d="{{lineB}}" fill="none" stroke="#e9a21a" stroke-width="4" vector-effect="non-scaling-stroke"></path>
+    </svg>
+    <div style="position: absolute; top: 0; bottom: 0; left: {{hyX}}%; width: 2px; background: #1f2326; opacity: {{hyOp}}; transition: left .15s"></div>
+    <div style="position: absolute; inset: 0; display: flex">
+      <template sc-for list="{{tlCols}}" as="c" hint-placeholder-count="20"><span style="flex: 1" onMouseEnter="{{c.hover}}"></span></template>
+    </div>
+    <div style="position: absolute; left: 16px; top: 14px; background: #1f2326; color: #fff; padding: 10px 14px; border-left: 4px solid #e9a21a; pointer-events: none">
+      <p style="margin: 0; font: 800 26px/1 'Barlow Condensed', sans-serif">{{hy.y}}</p>
+      <p style="margin: 6px 0 0; font-size: 14px"><span style="color: #8eaac6">{{hy.a}}</span> · <span style="color: #e9a21a">{{hy.b}}</span></p>
+    </div>
+  </div>
+  <div style="display: flex; justify-content: space-between; font-size: 13px; color: #5d6468; margin-top: 6px"><span>2007</span><span>2012</span><span>2017</span><span>2022</span><span>2026</span></div>
+</section>
+
+<div class="tape" aria-hidden="true"></div>
+
+<section class="rv" style="max-width: 1280px; margin: 0 auto; padding: 48px 32px 96px">
+  <template sc-for list="{{rows}}" as="r" hint-placeholder-count="7">
+    <div class="{{r.cls}}">
+      <span class="win va" style="text-align: left; color: #17457a">{{r.va}}</span>
+      <span class="tl" aria-hidden="true"><i style="width: {{r.wa}}%"></i></span>
+      <span class="lab" style="text-align: center; font-size: 15px; color: #5d6468">{{r.label}}</span>
+      <span class="tr" aria-hidden="true"><i style="width: {{r.wb}}%"></i></span>
+      <span class="win vb" style="text-align: right; color: #8a5a00">{{r.vb}}</span>
+    </div>
+  </template>
+  <p style="margin: 28px 0 0; color: #5d6468; max-width: 70ch">Las barras se miden contra el mayor de los dos en cada fila. Tener más obras paralizadas no prueba una peor gestión: muchas vienen de gestiones anteriores.</p>
+</section>
+</div>
+</template>
+<script type="text/x-dc" id="logica">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { a: '21', b: '08', fa: false, fb: false, bm: 'saldo', ver: 0, gha: null, ghb: null, ax: null, pt: 0, pseg: null, hy: null, obr: null, om: 'mapa', oh: null, os: null, sw: 1216 };
+  }
+  componentDidMount() {
+    fetch('data/obras_por_depto.json').then((r) => r.json()).then((obr) => this.setState({ obr })).catch(() => this.setState({ obr: {} }));
+    this.measure = () => {
+      const el = document.getElementById('ostage');
+      if (el && Math.abs(el.clientWidth - this.state.sw) > 4) this.setState({ sw: el.clientWidth });
+    };
+    this.measure();
+    window.addEventListener('resize', this.measure);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.measure); }
+  // Posición de cada punto en la vista elegida: { p: % horizontal, x: px desde ahí, y: px desde arriba }.
+  oLayout(sides) {
+    const st = this.state, H = 580;
+    const k = Math.max(0.55, Math.min(1, st.sw / 1216));
+    const step = 7 * k, mode = st.om;
+    const pos = [], labels = [];
+    const CAUS = ['Incumplimiento de contrato', 'Falta de recursos', 'Arbitraje y controversias', 'Expediente técnico deficiente', 'Abandono de obra', 'Otras causas'];
+    const lab = (p, x, y, t, f, c, tx) => labels.push({ p, x: x.toFixed(1), y: y.toFixed(1), t, f: f || "600 14px 'Barlow Condensed', sans-serif", c: c || '#5d6468', tx: tx == null ? -50 : tx });
+    if (mode === 'mapa') {
+      const km = (H - 40) / 615;
+      sides.forEach(({ list }) => list.forEach((o) => pos.push({ p: 50, x: (o[0] - 210) * km, y: 20 + o[1] * km })));
+      return { pos, labels, km };
+    }
+    sides.forEach(({ list, name, color, center }, si) => {
+      lab(center, 0, 14, name, "800 26px 'Barlow Condensed', sans-serif", si ? '#8a5a00' : '#17457a');
+      if (mode === 'avance' || mode === 'anio') {
+        const nb = 20, per = mode === 'avance' ? 3 : 2, colW = per * step + 4 * k;
+        const bins = Array.from({ length: nb }, () => 0);
+        const base = H - 50;
+        list.forEach((o) => {
+          let b;
+          if (mode === 'avance') b = o[2] < 0 ? 0 : Math.min(19, Math.floor(o[2] / 5));
+          else b = Math.max(0, Math.min(19, (o[4] || 21) - 7));
+          const n = bins[b]++;
+          pos.push({ p: center, x: (b - nb / 2) * colW + (n % per) * step + step / 2, y: base - Math.floor(n / per) * step });
+        });
+        const ticks = mode === 'avance' ? [[0, '0%'], [10, '50%'], [19, '95%+']] : [[0, '2007'], [5, '2012'], [10, '2017'], [15, '2022'], [19, '2026']];
+        ticks.forEach(([b, t]) => lab(center, (b - nb / 2) * colW + (per * step) / 2, base + 14, t, "500 12.5px 'Barlow', sans-serif"));
+        lab(center, 0, H - 18, mode === 'avance' ? 'avance físico →' : 'año de inicio →', "500 12.5px 'Barlow', sans-serif", '#8d9396');
+      } else {
+        // causa: filas, alineadas entre los dos lados
+        const perLine = Math.max(20, Math.floor(260 / 7)), left = -130 * k * 2;
+        const counts = sides.map((s) => CAUS.map((c, ci) => s.list.filter((o) => o[3] === ci).length));
+        let y = 60;
+        const rowY = CAUS.map((c, ci) => {
+          const lines = Math.max(1, ...counts.map((cc) => Math.ceil(cc[ci] / perLine)));
+          const yy = y; y += 22 + lines * step + 10 * k; return yy;
+        });
+        const seen = CAUS.map(() => 0);
+        list.forEach((o) => {
+          const ci = o[3], n = seen[ci]++;
+          pos.push({ p: center, x: left + (n % perLine) * step + step / 2, y: rowY[ci] + 22 + Math.floor(n / perLine) * step });
+        });
+        CAUS.forEach((c, ci) => lab(center, left, rowY[ci], `${c} · ${counts[si][ci]}`, null, '#343a3e', 0));
+      }
+    });
+    return { pos, labels, k };
+  }
+  oVals(A, B, nf, nf1, M) {
+    const st = this.state;
+    const obr = st.obr;
+    const MODES = [['mapa', 'Mapa'], ['avance', 'Avance'], ['causa', 'Causa'], ['anio', 'Año de inicio']];
+    const CAUS = ['Incumplimiento de contrato', 'Falta de recursos financieros y liquidez', 'Discrepancias, controversias y arbitraje', 'Deficiencia en el expediente técnico', 'Abandono de obra', 'Otra causa'];
+    const NIV = { L: 'Gobierno local', R: 'Gobierno regional', N: 'Gobierno nacional' };
+    const la = (obr && obr[A[0]]) || [], lb = (obr && obr[B[0]]) || [];
+    const sides = [{ list: la, name: A[1], color: '#17457a', center: 25 }, { list: lb, name: B[1], color: '#e9a21a', center: 75 }];
+    const { pos, labels } = this.oLayout(sides);
+    const all = [...la.map((o) => [o, 'a']), ...lb.map((o) => [o, 'b'])];
+    const sz = Math.max(4, 6 * Math.max(0.55, Math.min(1, st.sw / 1216)));
+    const oDots = all.map(([o, s], i) => ({
+      p: pos[i].p, x: pos[i].x.toFixed(1), y: pos[i].y.toFixed(1), s: sz,
+      c: s === 'a' ? '#17457a' : '#e9a21a',
+      cls: i === st.os ? 'od sel' : i === st.oh ? 'od hv' : 'od', dl: (i % 70) * 7,
+    }));
+    // trama gris del Perú solo en la vista de mapa
+    const km = 540 / 615;
+    const oBg = st.om === 'mapa' ? this.GRID().cells.map(([x, y]) => ({ x: (((x - 0.5) * 9) - 210) * km, y: (20 + ((y - 0.5) * 9) * km).toFixed(1), o: 1 })) : [];
+    const info = (i) => {
+      const [o, s] = all[i];
+      const d = s === 'a' ? A : B;
+      return {
+        n: o[6], l: `${o[7] ? o[7] + ', ' : ''}${d[1]} · ${NIV[o[8]]}`, s: M(o[5]), w: Math.max(0, o[2]),
+        a: `${o[2] < 0 ? 'Avance sin dato' : o[2] + '% construida'} · ${CAUS[o[3]]}`, c: CAUS[o[3]], i: o[4] ? 2000 + o[4] : 'Sin dato',
+        k: `${d[1]} · ${NIV[o[8]]}`,
+      };
+    };
+    const hit = (e) => {
+      const r = e.currentTarget.getBoundingClientRect();
+      const mx = e.clientX - r.left, my = e.clientY - r.top;
+      let best = null, bd = 1e9;
+      pos.forEach((q, i) => {
+        const d = Math.hypot((q.p / 100) * r.width + q.x - mx, q.y - my);
+        if (d < bd) { bd = d; best = i; }
+      });
+      return bd <= 7 ? best : null;
+    };
+    const tip = st.oh != null && all[st.oh] ? (() => {
+      const q = pos[st.oh], t = info(st.oh);
+      const right = q.p > 50 || (q.p === 50 && q.x > 0);
+      return { ...t, p: q.p, x: (q.x + (right ? -14 : 14)).toFixed(1), y: Math.min(520, Math.max(70, q.y)).toFixed(1), tx: right ? '-100%' : '0' };
+    })() : null;
+    const ficha = st.os != null && all[st.os] ? info(st.os) : null;
+    return {
+      oModes: MODES.map(([k, l]) => ({ l, cls: st.om === k ? 'on' : '', sel: String(st.om === k), pick: () => this.setState({ om: k, oh: null }) })),
+      oCountA: `${nf.format(la.length)} obras`, oCountB: `${nf.format(lb.length)} obras`,
+      oSub: { mapa: 'Ubicadas en su distrito.', avance: 'Agrupadas por avance físico, de 5 en 5 %.', causa: 'Una fila por causa, de más a menos dinero pendiente.', anio: 'Según el año en que empezaron.' }[st.om],
+      oLoading: !obr, oBg, oLabels: labels, oDots,
+      oMove: (e) => { const i = hit(e); if (i !== this.state.oh) this.setState({ oh: i }); },
+      oLeave: () => this.setState({ oh: null }),
+      oClick: (e) => { const i = hit(e); this.setState({ os: i }); },
+      oTipOn: Boolean(tip), oTip: tip || { p: 0, x: 0, y: 0, tx: '0', n: '', l: '', s: '', w: 0, a: '' },
+      oFichaOn: Boolean(ficha), oFicha: ficha || { k: '', n: '', l: '', s: '', a: '', w: 0, c: '', i: '' },
+      oClose: () => this.setState({ os: null }),
+    };
+  }
+  GRID() {
+    if (this._grid) return this._grid;
+    const GORD = ["24","20","06","01","16","14","13","22","25","02","10","19","07","15","12","08","17","11","09","03","21","05","04","18","23"];
+    const RUNS = "23,1,1,4;23,2,3,4;23,3,4,4;23,4,4,4;23,5,6,4;22,6,8,4;21,7,10,4;21,8,10,4;20,9,12,4;36,9,1,4;38,9,2,4;18,10,24,4;15,11,27,4;13,12,1,3;14,12,28,4;12,13,2,3;14,13,27,4;4,14,1,0;12,14,3,3;15,14,25,4;3,15,2,0;11,15,4,3;15,15,27,4;2,16,1,1;3,16,1,0;11,16,4,3;15,16,25,4;42,16,1,4;1,17,3,1;5,17,1,1;11,17,4,3;15,17,22,4;1,18,7,1;10,18,1,2;11,18,3,3;14,18,21,4;2,19,7,1;9,19,2,2;11,19,3,3;14,19,19,4;2,20,6,1;8,20,3,2;11,20,3,3;14,20,18,4;3,21,6,1;9,21,2,2;11,21,3,3;14,21,1,7;15,21,17,4;2,22,4,1;6,22,1,5;7,22,1,1;8,22,3,2;11,22,3,3;14,22,3,7;17,22,14,4;2,23,2,1;4,23,5,5;9,23,2,2;11,23,5,3;16,23,3,7;19,23,12,4;3,24,1,1;4,24,4,5;8,24,4,2;12,24,4,3;16,24,6,7;22,24,9,4;5,25,3,5;8,25,5,2;13,25,2,3;15,25,7,7;22,25,9,4;6,26,3,5;9,26,4,2;13,26,1,3;14,26,6,7;20,26,9,4;7,27,1,6;8,27,6,2;14,27,1,6;15,27,5,7;20,27,9,4;7,28,2,6;9,28,5,2;14,28,1,6;15,28,5,7;20,28,6,4;26,28,2,8;8,29,4,6;12,29,1,2;13,29,2,6;15,29,5,7;20,29,6,4;26,29,3,8;9,30,6,6;15,30,6,7;21,30,5,4;26,30,3,8;10,31,3,6;13,31,2,9;15,31,2,6;17,31,4,7;21,31,2,4;23,31,7,8;10,32,3,6;13,32,3,9;16,32,1,10;17,32,3,7;20,32,1,10;21,32,1,4;22,32,8,8;10,33,2,6;12,33,4,9;16,33,5,10;21,33,4,8;25,33,1,10;26,33,5,8;11,34,6,9;17,34,4,10;21,34,3,8;24,34,2,10;26,34,6,8;12,35,5,9;17,35,5,10;22,35,1,8;23,35,3,10;26,35,5,8;12,36,5,9;17,36,8,10;25,36,1,11;26,36,8,8;12,37,5,9;17,37,7,10;24,37,2,11;26,37,9,8;39,37,2,8;13,38,4,9;17,38,5,10;22,38,5,11;27,38,13,8;13,39,4,9;17,39,1,13;18,39,1,10;19,39,1,11;20,39,1,10;21,39,6,11;27,39,12,8;39,39,1,16;14,40,1,13;15,40,1,9;16,40,2,13;18,40,9,11;27,40,11,8;38,40,2,16;14,41,5,13;19,41,2,11;21,41,5,14;26,41,3,8;29,41,1,14;30,41,8,8;38,41,2,16;15,42,4,13;19,42,11,14;30,42,5,8;35,42,10,16;15,43,4,13;19,43,11,14;30,43,4,15;34,43,11,16;16,44,4,13;20,44,10,14;30,44,4,15;34,44,12,16;16,45,1,12;17,45,4,13;21,45,9,14;30,45,4,15;34,45,13,16;17,46,5,13;22,46,2,14;24,46,3,18;27,46,1,14;28,46,1,15;29,46,1,14;30,46,5,15;35,46,12,16;18,47,4,13;22,47,1,14;23,47,4,18;27,47,2,21;29,47,6,15;35,47,13,16;18,48,4,13;22,48,5,18;27,48,2,21;29,48,8,15;37,48,10,16;19,49,2,13;21,49,1,17;22,49,5,18;27,49,3,21;30,49,8,15;38,49,9,16;20,50,2,17;22,50,4,18;26,50,4,21;30,50,11,15;41,50,6,20;20,51,2,17;22,51,3,18;25,51,4,21;29,51,5,19;34,51,7,15;41,51,6,20;20,52,2,17;22,52,3,18;25,52,4,21;29,52,6,19;35,52,5,15;40,52,7,20;20,53,4,17;24,53,1,18;25,53,5,21;30,53,5,19;35,53,5,15;40,53,6,20;20,54,4,17;24,54,6,21;30,54,4,19;34,54,5,15;39,54,7,20;21,55,3,17;24,55,6,21;30,55,4,19;34,55,5,15;39,55,7,20;22,56,3,17;25,56,7,21;32,56,4,22;36,56,3,15;39,56,6,20;23,57,2,17;25,57,2,22;27,57,4,21;31,57,7,22;38,57,1,15;39,57,7,20;24,58,3,22;27,58,1,21;28,58,11,22;39,58,4,20;26,59,13,22;39,59,4,20;28,60,12,22;40,60,1,23;41,60,4,20;30,61,9,22;39,61,2,23;41,61,4,20;32,62,6,22;38,62,4,23;42,62,4,20;34,63,4,22;38,63,3,23;41,63,1,24;42,63,4,20;35,64,3,22;38,64,3,23;41,64,1,24;42,64,3,20;37,65,3,23;40,65,4,24;38,66,1,23;39,66,5,24;39,67,5,24;40,68,3,24";
+    const cells = [], at = {}, cen = {};
+    for (const r of RUNS.split(';')) {
+      const [x, y, n, d] = r.split(',').map(Number);
+      for (let i = 0; i < n; i++) {
+        const u = GORD[d];
+        cells.push([x + i, y, u]); at[`${x + i},${y}`] = u;
+        const c = cen[u] || (cen[u] = [0, 0, 0]); c[0] += x + i; c[1] += y; c[2] += 1;
+      }
+    }
+    for (const u in cen) cen[u] = [cen[u][0] / cen[u][2], cen[u][1] / cen[u][2]];
+    this._grid = { cells, at, cen };
+    return this._grid;
+  }
+  EXTRA() {
+    // Obras paralizadas que empezaron hasta cada año (2007..2026)
+    const CUM = {"15":[0,1,1,1,2,4,8,13,21,29,42,52,61,78,91,121,142,153,166,166],"21":[0,1,1,2,3,9,12,25,40,56,81,98,113,143,159,186,203,205,209,211],"06":[0,0,0,0,2,9,17,23,25,32,42,54,64,76,96,105,112,124,133,133],"10":[0,0,0,0,1,6,8,11,11,16,20,26,32,36,52,60,64,68,72,73],"20":[0,0,1,1,2,7,9,14,15,15,17,25,44,52,67,100,107,112,116,116],"13":[0,0,1,1,1,2,3,6,7,11,13,17,25,32,37,55,80,86,90,90],"04":[0,0,0,0,0,1,1,2,3,8,13,27,34,46,55,74,89,96,98,98],"02":[1,2,3,5,11,17,24,28,33,36,39,44,49,67,88,132,157,168,174,174],"11":[0,0,0,1,3,4,8,8,10,11,11,15,16,16,18,24,24,27,27,27],"08":[0,0,2,2,9,35,57,88,119,148,169,196,218,246,262,313,337,354,364,366],"03":[0,0,0,1,3,5,8,11,12,14,20,27,41,47,60,73,77,81,84,84],"23":[0,0,0,0,0,0,0,0,0,1,5,6,6,7,28,32,33,36,40,40],"16":[0,1,2,2,2,2,2,4,4,10,11,13,15,17,26,29,30,33,33,33],"12":[0,0,0,1,1,2,6,9,15,19,26,31,40,42,51,69,74,79,88,88],"01":[0,0,0,0,1,1,1,4,6,7,12,17,18,21,22,28,32,43,47,47],"22":[0,0,0,0,0,0,0,0,4,6,6,8,8,9,13,16,16,18,20,21],"18":[0,0,0,1,1,4,9,12,13,16,18,21,23,24,31,36,36,37,37,37],"25":[0,0,0,0,0,0,0,1,2,4,5,7,8,8,9,18,25,26,27,27],"05":[0,0,1,2,3,4,7,17,22,28,36,43,53,70,81,104,122,142,148,148],"19":[0,0,0,1,2,4,6,8,9,9,11,14,17,20,20,22,24,34,34,34],"14":[0,0,0,0,0,1,2,3,8,11,18,25,30,32,40,55,61,69,71,71],"09":[0,0,0,2,5,7,10,18,21,32,37,46,52,54,59,72,78,81,85,85],"17":[0,0,0,0,0,0,3,6,8,8,12,14,17,17,20,27,30,30,32,32],"07":[0,0,0,0,0,0,1,1,2,2,2,3,3,3,4,4,5,6,6,6],"24":[0,0,0,0,0,0,0,0,1,2,2,5,5,5,5,7,8,9,10,10]};
+    // [causas (5 + otras), tipos de obra (6 + otros), nivel (local, regional, nacional)]
+    const PROF = {"15":[[55,29,17,16,8,46],[38,13,15,31,14,4,56],[95,16,60]],"21":[[21,127,4,5,27,29],[22,47,2,36,24,11,71],[187,7,19]],"06":[[34,39,10,11,8,35],[35,33,8,9,7,10,35],[99,19,19]],"10":[[15,21,4,7,1,27],[20,17,9,6,2,4,17],[46,18,11]],"20":[[75,3,16,5,6,12],[33,17,9,13,4,24,17],[56,17,44]],"13":[[29,16,20,6,4,17],[20,27,15,5,1,5,19],[52,5,35]],"04":[[35,10,12,9,11,24],[21,17,9,7,10,6,31],[59,26,16]],"02":[[64,9,11,32,5,60],[23,29,57,7,6,22,37],[77,54,50]],"11":[[16,2,3,1,1,5],[6,4,3,5,5,0,5],[11,11,6]],"08":[[37,136,22,15,15,145],[60,89,47,49,24,20,81],[340,12,18]],"03":[[17,29,3,11,0,29],[17,26,10,9,4,2,21],[61,16,12]],"23":[[7,2,19,0,0,12],[4,2,20,4,1,1,8],[34,6,0]],"16":[[14,6,4,2,4,5],[18,4,0,4,4,0,5],[15,5,15]],"12":[[20,16,11,7,2,32],[19,14,6,4,11,6,28],[65,12,11]],"01":[[11,17,5,2,1,11],[16,8,3,5,4,6,5],[29,12,6]],"22":[[8,3,3,2,1,4],[8,3,1,3,0,0,6],[7,3,11]],"18":[[12,6,1,0,2,17],[7,7,8,2,3,0,11],[32,4,2]],"25":[[11,1,0,4,0,11],[10,5,1,4,1,2,4],[18,9,0]],"05":[[20,106,5,6,1,12],[13,40,24,19,11,4,39],[128,6,16]],"19":[[15,5,0,4,0,11],[8,9,3,2,6,2,5],[19,15,1]],"14":[[31,8,7,7,4,14],[17,6,7,3,17,8,13],[41,10,20]],"09":[[29,20,4,9,3,22],[12,15,13,15,3,9,20],[45,27,15]],"17":[[9,13,2,1,0,8],[11,4,1,5,4,2,6],[20,11,2]],"07":[[0,1,2,2,0,1],[1,0,0,1,0,1,3],[2,2,2]],"24":[[7,0,0,0,0,3],[5,2,0,0,1,0,2],[5,0,5]]};
+    return { CUM, PROF };
+  }
+  extraVals(A, B, DEP, M, nf, nf1) {
+    const st = this.state;
+    const { cells, at, cen } = this.GRID();
+    const { CUM, PROF } = this.EXTRA();
+    const byU = Object.fromEntries(DEP.map((d) => [d[0], d]));
+
+    // ----- los dos mapas de puntos -----
+    const dots = (u, gh, on) => {
+      const c = cen[u];
+      return cells.map(([x, y, k]) => ({
+        l: (((x - 0.5) * 9) / 420 * 100).toFixed(2), t: (((y - 0.5) * 9) / 615 * 100).toFixed(2),
+        cls: k === u ? `cd ${on}` : k === gh ? 'cd hv' : 'cd',
+        d: k === u ? Math.round(Math.hypot(x - c[0], y - c[1]) * 45) : 0,
+      }));
+    };
+    const pos = (e) => {
+      const r = e.currentTarget.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width) * 420, y = ((e.clientY - r.top) / r.height) * 615;
+      return at[`${Math.round(x / 9 + 0.5)},${Math.round(y / 9 + 0.5)}`] || null;
+    };
+    const hint = (gh, sel) => (gh && gh !== sel ? `${byU[gh][1]}: ${nf.format(byU[gh][2])} obras · clic para elegirlo` : 'Pasa el cursor y haz clic para cambiar');
+
+    // ----- radar -----
+    const AX = [
+      ['Obras', (d) => d[2], (v) => nf.format(v)],
+      ['Falta ejecutar', (d) => d[3], M],
+      ['Costo', (d) => d[4], M],
+      ['Avance mediano', (d) => d[5], (v) => `${nf1.format(v)}%`],
+      ['Controles por obra', (d) => d[6] / d[2], (v) => nf1.format(v)],
+      ['% con presupuesto', (d) => (d[7] / d[2]) * 100, (v) => `${Math.round(v)}%`],
+    ];
+    const R = 120;
+    const ang = (i) => ((-90 + i * 60) * Math.PI) / 180;
+    const pt = (i, k) => `${(Math.cos(ang(i)) * R * k).toFixed(1)},${(Math.sin(ang(i)) * R * k).toFixed(1)}`;
+    const maxes = AX.map(([, g]) => Math.max(...DEP.map(g)));
+    const poly = (d) => AX.map(([, g], i) => pt(i, Math.max(0.03, g(d) / maxes[i]))).join(' ');
+    const ring = (k) => AX.map((x, i) => pt(i, k)).join(' ');
+
+    // ----- perfil -----
+    const PT = [
+      ['Causas', 0, ['Incumplimiento de contrato', 'Falta de recursos', 'Arbitraje', 'Expediente técnico', 'Abandono de obra', 'Otras causas']],
+      ['Tipo de obra', 1, ['Saneamiento', 'Transporte terrestre', 'Riego', 'Otra infraestructura', 'Transporte urbano', 'Educación básica', 'Otros tipos']],
+      ['Quién ejecuta', 2, ['Municipalidades', 'Gobiernos regionales', 'Gobierno nacional']],
+    ];
+    const PAL = ['#17457a', '#5b84ad', '#8eaac6', '#e9a21a', '#8a5a00', '#5d6468', '#b9bdbb'];
+    const FG = ['#fff', '#fff', '#1f2326', '#1f2326', '#fff', '#fff', '#1f2326'];
+    const [, pi, cats] = PT[st.pt];
+    const seg = (u) => {
+      const arr = PROF[u][pi], tot = arr.reduce((s, v) => s + v, 0) || 1;
+      return arr.map((v, i) => ({
+        v, c: PAL[i], fg: FG[i], t: v / tot >= 0.09 ? `${Math.round((v / tot) * 100)}%` : '',
+        hover: () => this.setState({ pseg: i }),
+      }));
+    };
+    const share = (u, i) => { const arr = PROF[u][pi]; const tot = arr.reduce((s, v) => s + v, 0) || 1; return [arr[i], Math.round((arr[i] / tot) * 100)]; };
+    const ps = st.pseg != null && st.pseg < cats.length ? st.pseg : 0;
+    const [aN, aP] = share(A[0], ps), [bN, bP] = share(B[0], ps);
+
+    // ----- línea de tiempo -----
+    const ca = CUM[A[0]], cb = CUM[B[0]];
+    const tMax = Math.max(...ca, ...cb, 1);
+    const line = (arr) => arr.map((v, i) => `${i ? 'L' : 'M'}${((i / 19) * 1000).toFixed(1)} ${(290 - (v / tMax) * 260).toFixed(1)}`).join(' ');
+    const hy = st.hy == null ? 19 : st.hy;
+
+    return {
+      waveA: st.fa ? 'wa' : 'wb', waveB: st.fb ? 'wa' : 'wb',
+      dotsA: dots(A[0], st.gha, 'ona'), dotsB: dots(B[0], st.ghb, 'onb'),
+      ariaA: `${A[1]} resaltado en el mapa del Perú`, ariaB: `${B[1]} resaltado en el mapa del Perú`,
+      moveA: (e) => { const u = pos(e); if (u !== this.state.gha) this.setState({ gha: u }); },
+      moveB: (e) => { const u = pos(e); if (u !== this.state.ghb) this.setState({ ghb: u }); },
+      leaveA: () => this.setState({ gha: null }), leaveB: () => this.setState({ ghb: null }),
+      clickA: (e) => { const u = pos(e); if (u && u !== this.state.a && u !== this.state.b) this.setState({ a: u, fa: !this.state.fa, ver: this.state.ver + 1 }); },
+      clickB: (e) => { const u = pos(e); if (u && u !== this.state.b && u !== this.state.a) this.setState({ b: u, fb: !this.state.fb, ver: this.state.ver + 1 }); },
+      hintA: hint(st.gha, A[0]), hintB: hint(st.ghb, B[0]),
+      axes: AX.map(([l, g, f], i) => ({ l, a: f(g(A)), b: f(g(B)), cls: st.ax === i ? 'ax on' : 'ax', hover: () => this.setState({ ax: i }) })),
+      ring1: ring(1 / 3), ring2: ring(2 / 3), ring3: ring(1),
+      spokes: AX.map((x, i) => `M0 0L${pt(i, 1).replace(',', ' ')}`).join(''),
+      hiSpoke: st.ax == null ? 'M0 0' : `M0 0L${pt(st.ax, 1).replace(',', ' ')}`,
+      polyA: poly(A), polyB: poly(B),
+      radarCls: st.ver % 2 ? 'rda' : 'rdb',
+      radarAria: `Radar: ${AX.map(([l, g, f]) => `${l} ${A[1]} ${f(g(A))}, ${B[1]} ${f(g(B))}`).join('; ')}`,
+      axLabels: AX.map(([l], i) => ({
+        n: l, l: ((Math.cos(ang(i)) * 145 + 160) / 320 * 100).toFixed(1), t: ((Math.sin(ang(i)) * 145 + 160) / 320 * 100).toFixed(1),
+        c: st.ax === i ? '#8a5a00' : '#343a3e',
+      })),
+      pTabs: PT.map(([l], i) => ({ l, cls: i === st.pt ? 'mchip on' : 'mchip', pick: () => this.setState({ pt: i, pseg: 0, ver: this.state.ver + 1 }) })),
+      profCls: st.ver % 2 ? 'pfa' : 'pfb',
+      profA: seg(A[0]), profB: seg(B[0]),
+      profLegend: cats.map((n, i) => ({ n, c: PAL[i], cls: i === ps ? 'lg on' : 'lg', hover: () => this.setState({ pseg: i }) })),
+      profLine: `${cats[ps]}: ${A[1]} ${aP}% (${nf.format(aN)} obras) · ${B[1]} ${bP}% (${nf.format(bN)} obras)`,
+      lineA: line(ca), lineB: line(cb), lineCls: st.ver % 2 ? 'ln' : 'ln2',
+      tlCols: ca.map((v, i) => ({ hover: () => this.setState({ hy: i }) })),
+      tlLeave: () => this.setState({ hy: null }),
+      hyX: ((hy / 19) * 100).toFixed(1), hyOp: st.hy == null ? 0 : 1,
+      hy: { y: st.hy == null ? 'Hasta 2026' : `Hasta ${2007 + hy}`, a: `${A[1]} ${nf.format(ca[hy])}`, b: `${B[1]} ${nf.format(cb[hy])}` },
+    };
+  }
+  renderVals() {
+    // [ubigeo, nombre, obras, falta ejecutar (M), costo (M), avance mediano, servicios de control, con PIM, casi terminadas]
+    const DEP = [["15","Lima",171,7751.9,23878.4,56.5,312,43,32],["21","Puno",213,2260.5,3306.4,53.5,181,38,12],["06","Cajamarca",137,2219.4,3654.5,65.0,182,43,16],["10","Huánuco",75,2173.8,2522.1,53.7,146,29,2],["20","Piura",117,1722.6,3685.3,69.0,353,51,22],["13","La Libertad",92,1706.1,3650.3,52.9,400,42,11],["04","Arequipa",101,1116.2,2560.6,58.9,245,41,14],["02","Áncash",181,1038.6,2637.7,57.4,432,77,19],["11","Ica",28,828.9,1397.1,59.5,72,11,5],["08","Cusco",370,792.3,2392.4,58.8,371,91,60],["03","Apurímac",89,776.7,1628.6,47.9,150,27,7],["23","Tacna",40,693.2,1250.4,54.5,303,20,4],["16","Loreto",35,665.6,996.5,64.2,25,14,6],["12","Junín",88,659.1,1373.4,50.7,125,31,11],["01","Amazonas",47,511.8,1496.8,60.1,171,22,5],["22","San Martín",21,492.2,706.5,47.1,73,13,3],["18","Moquegua",38,349.0,998.6,54.7,90,10,4],["25","Ucayali",27,324.6,1122.6,65.0,130,16,3],["05","Ayacucho",150,277.5,568.1,53.2,154,40,14],["19","Pasco",35,275.8,601.7,44.0,52,15,2],["14","Lambayeque",71,271.9,1172.8,59.1,181,29,13],["09","Huancavelica",87,260.0,556.7,70.8,130,25,18],["17","Madre de Dios",33,176.3,329.9,56.3,51,14,2],["07","Callao",6,110.2,146.1,8.2,26,2,1],["24","Tumbes",10,93.5,194.8,65.8,31,5,0]];
+    const PATHS = {"01":"M118 233L110 233L106 218L93 203L91 203L87 194L93 180L88 176L87 170L90 159L87 154L92 133L97 126L100 113L105 111L117 99L118 115L123 121L122 126L125 131L124 149L118 157L120 172L118 194L121 199L128 200L136 205L139 210L130 220L125 223L119 222L118 233Z","02":"M133 285L138 297L144 303L150 305L142 323L147 327L150 333L146 338L147 344L141 346L137 353L133 353L130 359L124 359L124 354L118 349L114 355L105 339L103 328L98 322L96 312L89 300L92 294L102 289L106 278L113 274L114 270L122 271L133 285Z","03":"M293 491L283 491L281 494L276 490L260 497L257 495L259 478L248 448L252 444L260 450L277 448L305 461L307 466L306 475L292 487L293 491Z","04":"M207 517L212 509L218 506L230 508L229 513L236 519L261 514L266 515L276 504L275 499L283 491L293 491L294 495L299 497L308 492L318 500L316 505L323 506L328 502L341 516L348 535L347 544L343 546L344 551L334 552L333 560L328 565L332 573L326 579L315 576L294 559L284 557L266 547L247 540L241 534L207 517Z","05":"M231 407L237 412L243 410L249 422L259 432L264 445L269 449L260 450L252 444L248 448L259 478L257 495L260 497L276 490L281 494L275 499L276 504L266 515L261 514L236 519L229 513L230 508L218 506L221 504L220 497L208 490L208 473L217 472L218 460L214 447L220 447L224 441L234 436L233 427L229 417L231 407Z","06":"M66 235L67 230L73 226L67 223L62 213L69 208L68 200L63 199L64 192L68 184L66 174L70 165L78 163L84 154L87 154L90 159L87 170L88 176L93 180L87 194L91 203L93 203L106 218L110 233L119 249L110 257L103 259L89 249L82 248L77 256L75 250L68 243L66 235Z","07":"M137 396L140 398L140 404L137 396Z","08":"M293 491L292 487L306 475L307 466L305 461L277 448L269 449L264 445L259 432L249 422L243 410L257 411L264 406L256 390L261 386L262 381L265 378L275 377L289 382L299 378L301 380L299 388L295 392L300 403L306 404L306 410L310 412L307 419L310 424L315 427L324 425L329 432L337 435L338 443L341 444L347 437L363 442L362 448L357 454L352 457L348 464L349 473L343 482L344 512L341 516L328 502L323 506L316 505L318 500L308 492L299 497L294 495L293 491Z","09":"M208 473L191 463L194 450L187 450L186 439L193 428L191 423L196 423L205 413L208 402L215 404L222 401L228 403L231 407L229 417L233 427L234 436L224 441L220 447L214 447L218 460L217 472L208 473Z","10":"M133 285L139 282L142 286L159 284L166 282L169 294L173 289L172 283L177 278L181 302L187 314L200 311L205 300L212 296L215 289L222 286L225 292L223 295L220 304L223 311L216 325L210 329L197 330L187 336L186 341L179 346L177 351L165 344L153 351L147 344L146 338L150 333L147 327L142 323L150 305L144 303L138 297L133 285Z","11":"M218 506L212 509L207 517L193 500L179 491L177 484L172 481L167 466L170 457L168 446L179 435L183 437L189 434L186 439L187 450L194 450L191 463L208 473L208 490L220 497L221 504L218 506Z","12":"M224 365L230 370L240 368L244 372L251 359L256 363L260 370L262 381L261 386L256 390L264 406L257 411L249 409L237 412L228 403L222 401L215 404L208 402L205 413L196 423L191 423L192 419L189 405L179 401L170 392L161 378L160 371L169 370L167 365L172 367L190 362L199 363L203 358L209 357L224 365Z","13":"M89 300L85 293L86 289L79 282L78 274L62 258L54 240L61 233L66 235L68 243L75 250L77 256L82 248L89 249L103 259L110 257L119 249L110 233L118 233L122 239L123 248L131 269L143 269L147 273L146 278L133 285L122 271L114 270L113 274L106 278L102 289L92 294L89 300Z","14":"M23 213L33 198L40 196L50 188L56 194L57 198L68 200L69 208L62 213L67 223L73 226L67 230L66 235L61 233L54 240L44 225L23 213Z","15":"M147 344L153 351L160 371L161 378L170 392L179 401L189 405L192 419L191 423L193 428L189 434L183 437L179 435L168 446L150 419L149 412L142 408L140 404L140 398L137 396L138 393L133 385L122 378L124 374L122 366L114 355L118 349L124 354L124 359L130 359L133 353L137 353L141 346L147 344Z","16":"M243 252L237 246L225 244L222 250L224 256L222 265L213 270L209 266L203 272L195 273L190 281L184 284L182 289L178 291L177 278L179 276L178 266L173 258L174 253L169 247L172 241L176 236L175 227L182 227L187 229L193 227L193 209L191 200L186 205L176 203L169 206L163 198L158 201L152 200L147 192L136 187L128 186L126 182L120 180L118 157L124 149L125 131L122 126L123 121L118 115L117 99L156 86L175 70L192 49L197 30L203 31L201 23L202 17L197 13L192 5L201 3L204 0L212 6L218 6L219 10L229 16L234 32L241 34L248 40L253 40L260 50L258 55L262 59L269 58L272 62L273 67L270 73L281 80L289 78L299 82L313 76L318 71L327 75L330 79L342 73L372 88L373 91L352 126L359 129L364 126L377 140L373 143L366 138L351 138L344 146L326 148L322 151L318 149L280 172L277 189L271 196L268 205L272 215L269 219L259 223L252 228L250 237L252 241L243 252Z","17":"M363 442L347 437L341 444L338 443L337 435L329 432L324 425L315 427L310 424L307 419L310 412L306 410L306 404L300 403L295 392L299 388L305 372L305 368L318 368L330 366L335 360L336 354L354 337L355 332L355 368L369 370L377 366L390 367L410 399L420 418L413 431L413 435L387 447L362 439L363 442Z","18":"M338 597L331 591L329 582L326 579L332 573L328 565L333 560L334 552L344 551L343 546L347 544L348 535L357 535L362 538L363 549L370 556L375 558L371 567L365 562L361 564L361 572L353 577L351 583L338 597Z","19":"M167 365L169 370L160 371L153 351L165 344L177 351L179 346L186 341L187 336L197 330L210 329L216 325L220 315L226 321L230 337L235 341L234 347L238 355L230 362L224 365L209 357L203 358L199 363L190 362L172 367L167 365Z","20":"M70 165L66 174L68 184L64 192L63 199L57 198L56 194L50 188L40 196L33 198L23 213L8 203L6 196L9 193L15 192L14 184L4 174L8 165L0 156L3 141L10 136L12 139L23 141L28 136L31 149L41 143L51 150L56 148L61 150L64 161L70 165Z","21":"M387 579L374 574L371 567L375 558L370 556L363 549L362 538L357 535L348 535L344 529L345 524L341 516L344 512L343 482L349 473L348 464L352 457L357 454L362 448L362 439L387 447L413 435L414 443L409 457L411 462L409 481L401 488L401 494L397 496L397 501L404 510L398 520L387 512L379 512L377 516L380 521L375 529L379 532L394 536L392 541L401 545L407 542L406 551L409 558L403 560L387 579Z","22":"M177 278L172 283L173 289L169 294L166 282L159 284L142 286L139 282L146 278L147 273L143 269L131 269L123 248L122 239L118 233L119 222L125 223L130 220L139 210L136 205L128 200L121 199L118 194L120 180L126 182L128 186L136 187L147 192L152 200L158 201L163 198L169 206L176 203L186 205L191 200L193 209L193 227L187 229L182 227L175 227L176 236L172 241L169 247L174 253L173 258L178 266L179 276L177 278Z","23":"M387 579L393 582L393 586L386 592L381 592L384 601L377 612L363 615L342 599L338 597L351 583L353 577L361 572L361 564L365 562L374 574L387 579Z","24":"M28 136L23 141L12 139L10 136L19 124L25 121L27 117L34 113L38 119L39 130L28 136Z","25":"M355 332L354 337L336 354L335 360L330 366L305 368L305 372L301 380L299 378L289 382L275 377L265 378L262 381L260 370L251 359L244 372L240 368L230 370L224 365L238 355L234 347L235 341L230 337L226 321L220 315L223 311L220 304L223 295L225 292L222 286L215 289L212 296L205 300L202 304L200 311L187 314L181 302L178 291L182 289L184 284L190 281L195 273L203 272L209 266L213 270L222 265L224 256L222 250L225 244L237 246L252 259L251 264L257 272L258 279L264 283L265 288L270 291L278 302L277 306L269 315L285 315L300 319L301 325L304 328L303 334L330 334L342 328L347 323L356 321L358 325L355 332Z"};
+    const nf = new Intl.NumberFormat('es-PE');
+    const nf1 = new Intl.NumberFormat('es-PE', { maximumFractionDigits: 1 });
+    const M = (v) => v >= 1000 ? `S/ ${nf1.format(v / 1000)} mil M` : `S/ ${nf.format(Math.round(v))} M`;
+    const byU = Object.fromEntries(DEP.map((d) => [d[0], d]));
+    const A = byU[this.state.a], B = byU[this.state.b];
+    const map = (u, c) => Object.keys(PATHS).map((k) => ({ d: PATHS[k], fill: k === u ? c : '#c3c7c4' }));
+    const METR = [
+      ['Obras paralizadas', (d) => d[2], (v) => nf.format(v)],
+      ['Falta ejecutar', (d) => d[3], M],
+      ['Costo actualizado', (d) => d[4], M],
+      ['Avance mediano', (d) => d[5], (v) => `${nf1.format(v)}%`],
+      ['Con presupuesto este año', (d) => Math.round((d[7] / d[2]) * 100), (v) => `${v}%`],
+      ['Servicios de control', (d) => d[6], (v) => nf.format(v)],
+      ['Al 90% o más', (d) => d[8], (v) => nf.format(v)],
+    ];
+    const rows = METR.map(([label, get, fmt]) => {
+      const va = get(A), vb = get(B), mx = Math.max(va, vb, 1e-9);
+      return { label, va: fmt(va), vb: fmt(vb), wa: ((va / mx) * 100).toFixed(1), wb: ((vb / mx) * 100).toFixed(1), cls: va > vb ? 'row win-a' : vb > va ? 'row win-b' : 'row' };
+    });
+    const BM = { saldo: ['Falta ejecutar', (d) => d[3], M], obras: ['Obras', (d) => d[2], (x) => nf.format(x)], ctrl: ['Controles', (d) => d[6], (x) => nf.format(x)] };
+    const [bLabel, bGet, bFmt] = BM[this.state.bm];
+    const ba = bGet(A), bb = bGet(B);
+    // Más peso, más baja ese lado: ángulo positivo baja el plato derecho (B).
+    const ang = Math.max(-18, Math.min(18, ((bb - ba) / Math.max(ba + bb, 1e-9)) * 26));
+    const pesado = ba === bb ? null : ba > bb ? A : B;
+    const ratio = A[3] >= B[3] ? A[3] / Math.max(B[3], 0.1) : B[3] / Math.max(A[3], 0.1);
+    const mayor = A[3] >= B[3] ? A : B, menor = mayor === A ? B : A;
+    const resumen = A[0] === B[0]
+      ? 'Elige dos departamentos distintos.'
+      : `${mayor[1]} tiene ${ratio >= 1.95 ? nf1.format(ratio) + ' veces' : 'más'} el dinero parado de ${menor[1]} (${M(mayor[3])} frente a ${M(menor[3])}), con ${nf.format(mayor[2])} obras frente a ${nf.format(menor[2])}.`;
+    return {
+      opts: DEP.map((d) => ({ u: d[0], n: d[1] })).sort((x, y) => x.n.localeCompare(y.n, 'es')),
+      a: this.state.a, b: this.state.b,
+      setA: (e) => this.setState({ a: e.target.value, fa: !this.state.fa, ver: this.state.ver + 1 }),
+      setB: (e) => this.setState({ b: e.target.value, fb: !this.state.fb, ver: this.state.ver + 1 }),
+      swap: () => this.setState({ a: this.state.b, b: this.state.a, fa: !this.state.fa, fb: !this.state.fb, ver: this.state.ver + 1 }),
+      ...this.extraVals(A, B, DEP, M, nf, nf1),
+      ...this.oVals(A, B, nf, nf1, M),
+      animA: this.state.fa ? 'map-a' : 'map-b', animB: this.state.fb ? 'map-a' : 'map-b',
+      mapA: map(A[0], '#17457a'), mapB: map(B[0], '#e9a21a'),
+      nameA: A[1], nameB: B[1], rows, resumen,
+      vsCls: this.state.ver % 2 ? 'vs vs-a' : 'vs vs-b',
+      random: () => {
+        const ids = DEP.map((d) => d[0]);
+        const a = ids[Math.floor(Math.random() * ids.length)];
+        let b = a;
+        while (b === a) b = ids[Math.floor(Math.random() * ids.length)];
+        this.setState({ a, b, fa: !this.state.fa, fb: !this.state.fb, ver: this.state.ver + 1 });
+      },
+      bMetrics: Object.keys(BM).map((k) => ({ l: BM[k][0], cls: k === this.state.bm ? 'mchip on' : 'mchip', pick: () => this.setState({ bm: k }) })),
+      ang: ang.toFixed(1), angNeg: (-ang).toFixed(1),
+      balA: bFmt(ba), balB: bFmt(bb),
+      balAria: `Balanza de ${bLabel.toLowerCase()}: ${A[1]} ${bFmt(ba)}, ${B[1]} ${bFmt(bb)}`,
+      balLine: pesado ? `Pesa más ${pesado[1]} en ${bLabel.toLowerCase()}` : 'Están empatados',
+    };
+  }
+}
+</script>
+</body>
+</html>

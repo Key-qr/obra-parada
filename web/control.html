@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Obra Parada · Servicios de control</title>
+<meta name="description" content="Los 4,386 servicios de control de la Contraloría a las obras paralizadas: tipos, años, órganos, obras más revisadas e informes.">
+<meta property="og:title" content="Obra Parada · Servicios de control">
+<meta property="og:description" content="Los 4,386 servicios de control de la Contraloría a las obras paralizadas: tipos, años, órganos, obras más revisadas e informes.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="vendor/fonts.css" rel="stylesheet">
+<style>
+body{margin:0;background:#e3e4e1;color:#1f2326;font-family:'Barlow',system-ui,sans-serif;overflow-x:clip}
+a{color:#17457a}a:hover{color:#0f3359}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+.prog{position:fixed;top:0;left:0;right:0;height:4px;background:#e9a21a;transform-origin:0 50%;transform:scaleX(0);z-index:60}
+@supports (animation-timeline: scroll()){.prog{animation:prog linear both;animation-timeline:scroll(root)}}
+@keyframes prog{to{transform:scaleX(1)}}
+.brand{display:inline-flex;align-items:center;gap:10px;font:800 24px/1 'Barlow Condensed',sans-serif;color:#1f2326;text-decoration:none}
+.brand:hover{color:#1f2326}
+.nav a{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 14px;font:600 18px/1 'Barlow Condensed',sans-serif;color:#1f2326;text-decoration:none}
+.nav a::after{content:"";position:absolute;left:14px;right:14px;bottom:8px;height:3px;background:#e9a21a;transform:scaleX(0);transform-origin:0 50%;transition:transform .25s ease}
+.nav a:hover::after{transform:scaleX(1)}
+.nav a.on{background:#1f2326;color:#fff}
+.nav a.on::after{display:none}
+.sub a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1.5px solid #1f2326;margin:0 0 -1.5px -1.5px;font:600 16px 'Barlow Condensed',sans-serif;color:#1f2326;text-decoration:none;background:#f4f5f3;transition:background-color .2s}
+.sub a:hover{background:#fbe7bd}
+.sub a.on{background:#e9a21a}
+.tape{height:14px;background:repeating-linear-gradient(45deg,#e9a21a 0 10px,#1f2326 10px 20px);background-size:28.28px 14px;animation:tape 1.4s linear infinite}
+@keyframes tape{to{background-position:28.28px 0}}
+.sec{max-width:1280px;margin:0 auto;padding:72px 32px;scroll-margin-top:120px}
+.kick{margin:0 0 8px;font:600 18px 'Barlow Condensed',sans-serif;color:#8a5a00;letter-spacing:.04em}
+.h2{margin:0;font:800 clamp(34px,4.2vw,58px)/0.98 'Barlow Condensed',sans-serif}
+.note{color:#5d6468;max-width:70ch}
+.stat dt{font-size:14px;color:#b9c2c8}
+.stat dd{margin:4px 0 0;font:800 clamp(40px,4.4vw,64px)/1 'Barlow Condensed',sans-serif;font-variant-numeric:tabular-nums}
+.big{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:60px;padding:0 28px 0 10px;border:0;border-radius:32px;background:#1f2326;color:#fff;font:700 21px 'Barlow Condensed',sans-serif;cursor:pointer;box-shadow:0 10px 22px -12px rgba(0,0,0,.6);transition:transform .2s,box-shadow .2s,background-color .2s}
+.big:hover{transform:translateY(-3px);box-shadow:0 16px 28px -14px rgba(0,0,0,.6);background:#17457a}
+.big:active{transform:translateY(0)}
+.big .ic{width:44px;height:44px;border-radius:50%;background:#e9a21a;color:#1f2326;display:grid;place-items:center;transition:transform .5s cubic-bezier(.2,.9,.3,1.4)}
+.big:hover .ic{transform:rotate(180deg)}
+.big.amber{background:#e9a21a;color:#1f2326}
+.big.amber .ic{background:#1f2326;color:#e9a21a}
+.big.amber:hover{background:#ffd27a}
+.seg button,.chip{min-height:44px;padding:0 16px;border:1.5px solid #1f2326;background:#f4f5f3;font:600 17px 'Barlow Condensed',sans-serif;cursor:pointer;color:#1f2326;margin-left:-1.5px;transition:background-color .2s,color .2s}
+.seg button:hover,.chip:hover{background:#e8ebee}
+.seg button.on,.chip.on{background:#1f2326;color:#fff}
+.stack{display:flex;height:60px;border:2px solid #1f2326}
+.stack span{display:flex;align-items:center;padding:0 12px;font:600 17px 'Barlow Condensed',sans-serif;white-space:nowrap;overflow:hidden;transition:flex-grow .4s}
+.stack span:hover{flex-grow:1.6!important}
+.brow{display:grid;grid-template-columns:minmax(0,18em) minmax(0,1fr) 5em;gap:14px;align-items:center;padding:7px 8px;transition:background-color .15s}
+.brow:hover{background:#fbe7bd}
+.track{height:16px;background:#d3d5d2}
+.track i{display:block;height:100%;background:#17457a;transform-origin:0 50%;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.yc{all:unset;box-sizing:border-box;flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;height:100%;cursor:pointer;text-align:center}
+.yc i{display:block;background:#17457a;transition:background-color .25s,opacity .25s;transform-origin:50% 100%}
+.yc:hover i{background:#5b84ad}
+.yc.on i,.yc.lit i{background:#e9a21a}
+.yc.dim i{opacity:.2}
+.yc:focus-visible{outline:3px solid #e9a21a}
+.yc b{font:700 14px 'Barlow Condensed',sans-serif;margin-bottom:4px;opacity:0;transition:opacity .2s}
+.yc:hover b,.yc.on b,.yc.lit b{opacity:1}
+.mir{display:grid;grid-template-columns:6em minmax(0,1fr) minmax(9em,13em) minmax(0,1fr) 6em;gap:12px;align-items:center;padding:12px 0;border-top:1px solid #b9bdbb}
+.mir:hover{background:#f4f5f3}
+.ml{height:22px;background:#d3d5d2;display:flex;justify-content:flex-end}
+.mr{height:22px;background:#d3d5d2;display:flex}
+.ml i,.mr i{display:block;height:100%;transform-origin:100% 50%;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.ml i{background:#17457a}
+.mr i{background:#9aa1a5;transform-origin:0 50%}
+.szc{all:unset;box-sizing:border-box;cursor:pointer;flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;height:100%;text-align:center;padding:0 4px}
+.szc i{display:block;background:#17457a;transition:background-color .2s}
+.szc:hover i,.szc.on i{background:#e9a21a}
+.szc:focus-visible{outline:3px solid #e9a21a}
+.tile{position:relative;aspect-ratio:1;border:0;padding:0;cursor:pointer;color:#fff;font:inherit;transition:transform .25s cubic-bezier(.2,.9,.3,1.4),box-shadow .25s,background-color .5s}
+.tile:hover,.tile:focus-visible{transform:translateY(-4px) scale(1.07);box-shadow:0 12px 20px -10px rgba(0,0,0,.5);z-index:2;outline:none}
+.tile.sel{box-shadow:0 0 0 3px #e9a21a,0 0 0 6px #1f2326;z-index:3}
+.tile .ab{position:absolute;left:6px;top:5px;font:800 15px/1 'Barlow Condensed',sans-serif}
+.tile .vv{position:absolute;right:6px;bottom:5px;font:700 13px/1 'Barlow Condensed',sans-serif}
+.cell{all:unset;box-sizing:border-box;cursor:pointer;height:44px;display:grid;place-items:center;font:700 13px 'Barlow Condensed',sans-serif;transition:transform .15s,box-shadow .15s}
+.cell:hover,.cell:focus-visible,.cell.on{transform:scale(1.12);box-shadow:0 0 0 2px #1f2326;position:relative;z-index:2}
+.gapc{all:unset;box-sizing:border-box;cursor:pointer;flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;height:100%;text-align:center}
+.gapc i{display:block;background:#5b84ad;transition:background-color .2s}
+.gapc.neg i{background:#b9bdbb}
+.gapc.med i{background:#17457a}
+.gapc:hover i,.gapc.on i{background:#e9a21a}
+.game{background:#1f2326;color:#fff;padding:32px;border-left:6px solid #e9a21a}
+.gopt{all:unset;box-sizing:border-box;cursor:pointer;flex:1 1 260px;min-height:170px;padding:22px;border:2px solid #5d6468;display:flex;flex-direction:column;justify-content:space-between;gap:10px;transition:transform .2s,border-color .2s,background-color .3s}
+.gopt:hover,.gopt:focus-visible{transform:translateY(-4px);border-color:#e9a21a}
+.gopt.ok{background:#2f7d4f;border-color:#9ee0b0;animation:pop .5s cubic-bezier(.2,.9,.3,1.6)}
+.gopt.bad{background:#7a2e22;border-color:#ff9b8a;animation:shake .45s}
+.gopt.mute{opacity:.6}
+@keyframes pop{50%{transform:scale(1.05)}}
+@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.streak{display:inline-flex;gap:6px}
+.streak i{width:14px;height:14px;border-radius:50%;background:#3a4044;transition:background-color .3s,transform .3s}
+.streak i.on{background:#e9a21a;transform:scale(1.2)}
+.lot{perspective:1400px;max-width:820px;margin:0 auto}
+.lot-in{position:relative;min-height:360px;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.3,1.3,.4,1)}
+.lot.on .lot-in{transform:rotateY(180deg)}
+.lot.spin .lot-in{animation:baraja .6s ease-in-out}
+@keyframes baraja{50%{transform:rotateY(90deg) scale(.92)}}
+.lf{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:36px;display:flex;flex-direction:column;gap:12px}
+.lf.front{background:repeating-linear-gradient(45deg,#17457a 0 18px,#123a66 18px 36px);color:#fff;align-items:center;justify-content:center;text-align:center}
+.lf.back{background:#f4f5f3;border:2px solid #1f2326;border-top:8px solid #e9a21a;transform:rotateY(180deg)}
+.card{background:#f4f5f3;border:1.5px solid #b9bdbb;border-top:5px solid #17457a;padding:20px 22px;display:flex;flex-direction:column;gap:8px;animation:entra .4s cubic-bezier(.2,.8,.2,1) backwards;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);border-color:#1f2326;border-top-color:#e9a21a}
+@keyframes entra{from{opacity:0;transform:translateY(16px)}}
+.pdf{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 18px;background:#17457a;color:#fff;text-decoration:none;font:600 18px 'Barlow Condensed',sans-serif;align-self:flex-start;transition:background-color .2s}
+.pdf:hover{background:#0f3359;color:#fff}
+.li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:14px 4px;border-top:1px solid #b9bdbb;transition:background-color .15s,padding .15s}
+.li:hover{background:#f4f5f3;padding-left:12px}
+.insight{background:#fbe7bd;border-left:5px solid #e9a21a;padding:16px 20px;font:600 20px/1.3 'Barlow Condensed',sans-serif;margin-top:24px}
+@supports (animation-timeline: view()){
+.rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% cover 25%}
+.grow{animation:grow linear both;animation-timeline:view();animation-range:entry 20% cover 50%}
+.rise{animation:rise linear both;animation-timeline:view();animation-range:entry 10% cover 45%}
+}
+@keyframes rv{from{opacity:0;transform:translateY(40px)}}
+@keyframes grow{from{transform:scaleX(0)}}
+@keyframes rise{from{transform:scaleY(0)}}
+@media (max-width:760px){.brow{grid-template-columns:minmax(0,1fr) 4em}.brow .track{grid-column:1/-1;grid-row:2}.mir{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.mir .lab{grid-column:1/-1;grid-row:1}.mir .ml,.mir .mr{display:none}.tile .vv{display:none}.big{width:100%}}
+</style>
+<script src="js/dc.js" defer></script>
+</head>
+<body>
+<div id="app"></div>
+<noscript><p style="padding: 32px; font: 18px system-ui">Esta página necesita JavaScript. Los datos completos están en <a href="data/obras.json">data/obras.json</a>.</p></noscript>
+<template id="vista">
+<div style="min-height: 100vh">
+<div class="prog" aria-hidden="true"></div>
+<header style="position: sticky; top: 0; z-index: 40; background: rgba(227, 228, 225, 0.93); backdrop-filter: blur(8px); border-bottom: 1.5px solid #1f2326">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 10px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 32px">
+    <a href="index.html" class="brand"><svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="26" height="17" rx="1.5" fill="#17457a"></rect><path d="M9 22v7M23 22v7" stroke="#1f2326" stroke-width="2.2"></path><path d="M8 13h16" stroke="#f4f5f3" stroke-width="2.2"></path></svg>Obra Parada</a>
+    <nav class="nav" aria-label="Secciones" style="display: flex; flex-wrap: wrap; margin-left: auto">
+      <a href="index.html">Inicio</a>
+      <a href="mapa.html">Mapa</a>
+      <a href="analisis.html">Análisis</a>
+      <a href="comparar.html">Comparar</a>
+      <a href="control.html" class="on" aria-current="page">Servicios de control</a>
+      <a href="metodo.html">Cómo se hizo</a>
+      <a href="explorador.html">Explorador</a>
+    </nav>
+  </div>
+  <div style="border-top: 1px solid #b9bdbb">
+    <nav class="sub" aria-label="En esta página" style="max-width: 1280px; margin: 0 auto; padding: 8px 32px 9.5px 33.5px; display: flex; flex-wrap: wrap">
+      <template sc-for list="{{subnav}}" as="s" hint-placeholder-count="7"><a href="{{s.href}}" class="{{s.cls}}">{{s.label}}</a></template>
+    </nav>
+  </div>
+</header>
+
+<section style="background: #1f2326; color: #fff">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 64px 32px 56px; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-end">
+    <div style="flex: 1 1 480px; min-width: 0">
+      <p style="margin: 0 0 10px; font: 600 18px 'Barlow Condensed', sans-serif; color: #e9a21a">05 · ANEXO N.° 02</p>
+      <h1 style="margin: 0 0 18px; font: 800 clamp(44px, 5.6vw, 80px)/0.95 'Barlow Condensed', sans-serif">Lo que la Contraloría revisó en estas obras</h1>
+      <p style="margin: 0; max-width: 56ch; font-size: 19px; color: #c9d1d6">Cada servicio de control es una visita, un control concurrente, una orientación o una auditoría a una obra de la lista. Aquí puedes ver a cuáles llegó, cuándo, dónde y quién lo hizo.</p>
+    </div>
+    <dl class="stat" style="flex: 1 1 420px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 32px; margin: 0">
+      <div><dt>Servicios de control</dt><dd style="color: #e9a21a">{{c1}}</dd></div>
+      <div><dt>Obras revisadas</dt><dd>{{c2}}</dd></div>
+      <div><dt>Obras sin ningún control</dt><dd>{{c3}}</dd></div>
+      <div><dt>Con informe en PDF</dt><dd>{{c4}}</dd></div>
+    </dl>
+  </div>
+</section>
+<div class="tape" aria-hidden="true"></div>
+
+<section class="sec" id="panorama">
+  <p class="kick">PANORAMA</p>
+  <h2 class="h2 rv" style="margin-bottom: 20px">El 95% es control simultáneo: mientras la obra avanza</h2>
+  <div class="stack rv" role="img" aria-label="Control simultáneo 4,165; posterior 150; previo 71">
+    <span style="flex-grow: 4165; flex-basis: 0; background: #17457a; color: #fff">Simultáneo · 4,165</span>
+    <span style="flex-grow: 380; flex-basis: 0; background: #e9a21a">Posterior · 150</span>
+    <span style="flex-grow: 280; flex-basis: 0; background: #f4f5f3">Previo · 71</span>
+  </div>
+  <p style="margin: 10px 0 40px; font-size: 14px; color: #5d6468">Posterior y previo se dibujan un poco más anchos de lo que les toca para que se puedan leer.</p>
+  <div style="display: flex; flex-wrap: wrap; gap: 48px">
+    <div style="flex: 1 1 500px; min-width: 0">
+      <h3 style="margin: 0 0 14px; font: 700 28px 'Barlow Condensed', sans-serif">Tipo de acción</h3>
+      <div class="rv">
+        <template sc-for list="{{acciones}}" as="a" hint-placeholder-count="6">
+          <div class="brow"><span style="font-size: 15px">{{a.n}}</span><span class="track" aria-hidden="true"><i class="grow" style="width: {{a.w}}%"></i></span><span style="text-align: right; font: 700 17px 'Barlow Condensed', sans-serif">{{a.v}}</span></div>
+        </template>
+      </div>
+    </div>
+    <div style="flex: 1 1 300px; min-width: 0">
+      <h3 style="margin: 0 0 14px; font: 700 28px 'Barlow Condensed', sans-serif">Cuántos controles tuvo cada obra</h3>
+      <div class="rv" style="display: flex; gap: 6px; height: 200px; border-bottom: 2px solid #1f2326">
+        <template sc-for list="{{hist}}" as="h" hint-placeholder-count="7">
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: flex-end; text-align: center"><b style="font: 700 14px 'Barlow Condensed', sans-serif; margin-bottom: 4px">{{h.n}}</b><i class="rise" style="display: block; height: {{h.h}}%; background: {{h.c}}"></i></div>
+        </template>
+      </div>
+      <div style="display: flex; gap: 6px; margin-top: 6px"><template sc-for list="{{hist}}" as="h" hint-placeholder-count="7"><span style="flex: 1; min-width: 0; text-align: center; font-size: 12px; color: #5d6468">{{h.l}}</span></template></div>
+      <p style="margin: 12px 0 0; font-size: 14px; color: #5d6468">Ninguno, uno, dos… hasta más de 20. 22 obras tuvieron más de 20 servicios de control.</p>
+    </div>
+  </div>
+</section>
+
+<div class="tape" aria-hidden="true"></div>
+
+<section class="sec" id="sirve">
+  <p class="kick">¿A QUÉ OBRAS LLEGA EL CONTROL?</p>
+  <h2 class="h2" style="margin-bottom: 12px; max-width: 22ch">Las revisadas son más grandes y están más avanzadas</h2>
+  <p class="note" style="margin: 0 0 24px">1,239 obras con al menos un servicio de control (azul) frente a 1,023 sin ninguno (gris). Es una relación, no prueba que el control cause el avance.</p>
+  <div class="rv">
+    <div class="mir" style="border-top: 0; padding-bottom: 4px"><b style="color: #17457a; font: 700 18px 'Barlow Condensed', sans-serif">Con control</b><span></span><span></span><span></span><b style="text-align: right; color: #5d6468; font: 700 18px 'Barlow Condensed', sans-serif">Sin control</b></div>
+    <template sc-for list="{{mirror}}" as="m" hint-placeholder-count="6">
+      <div class="mir">
+        <span style="font: 700 22px 'Barlow Condensed', sans-serif; color: #17457a">{{m.a}}</span>
+        <span class="ml" aria-hidden="true"><i style="width: {{m.wa}}%"></i></span>
+        <span class="lab" style="text-align: center; font-size: 15px; color: #5d6468">{{m.l}}</span>
+        <span class="mr" aria-hidden="true"><i style="width: {{m.wb}}%"></i></span>
+        <span style="text-align: right; font: 700 22px 'Barlow Condensed', sans-serif; color: #5d6468">{{m.b}}</span>
+      </div>
+    </template>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 48px; margin-top: 56px">
+    <div style="flex: 1 1 460px; min-width: 0">
+      <h3 style="margin: 0 0 6px; font: 700 28px 'Barlow Condensed', sans-serif">Mientras más falta, más se revisa</h3>
+      <p class="note" style="margin: 0 0 14px">% de obras con al menos un control, según lo que les falta ejecutar. Clic en una columna.</p>
+      <div class="rv" style="display: flex; gap: 10px; height: 240px; border-bottom: 2px solid #1f2326">
+        <template sc-for list="{{sizes}}" as="s" hint-placeholder-count="5">
+          <button type="button" class="{{s.cls}}" onClick="{{s.pick}}" aria-label="{{s.aria}}"><b style="font: 700 17px 'Barlow Condensed', sans-serif; margin-bottom: 4px">{{s.p}}</b><i class="rise" style="height: {{s.h}}%"></i></button>
+        </template>
+      </div>
+      <div style="display: flex; gap: 10px; margin-top: 6px"><template sc-for list="{{sizes}}" as="s" hint-placeholder-count="5"><span style="flex: 1; min-width: 0; text-align: center; font-size: 13px; color: #5d6468">{{s.l}}</span></template></div>
+      <div class="insight">{{sizeLine}}</div>
+    </div>
+    <div style="flex: 1 1 460px; min-width: 0">
+      <h3 style="margin: 0 0 6px; font: 700 28px 'Barlow Condensed', sans-serif">Según la causa de paralización</h3>
+      <p class="note" style="margin: 0 0 14px">% de obras de cada causa que tuvieron al menos un control.</p>
+      <div class="rv">
+        <template sc-for list="{{causas}}" as="c" hint-placeholder-count="10">
+          <div class="brow"><span style="font-size: 14.5px">{{c.n}}</span><span class="track" aria-hidden="true"><i class="grow" style="width: {{c.w}}%; background: {{c.bg}}"></i></span><span style="text-align: right; font: 700 17px 'Barlow Condensed', sans-serif">{{c.v}}</span></div>
+        </template>
+      </div>
+      <p class="note" style="margin: 12px 0 0; font-size: 14px">Las obras en arbitraje son las más revisadas (74%); las paradas por falta de plata, de las menos (44%).</p>
+    </div>
+  </div>
+</section>
+
+<div class="tape" aria-hidden="true"></div>
+
+<section class="sec" id="donde">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 28px">
+    <div><p class="kick">DÓNDE</p><h2 class="h2">El mapa del control</h2></div>
+    <div class="seg" role="group" aria-label="Medir por" style="display: flex; flex-wrap: wrap">
+      <template sc-for list="{{dMetrics}}" as="m" hint-placeholder-count="3"><button type="button" class="{{m.cls}}" onClick="{{m.pick}}">{{m.l}}</button></template>
+    </div>
+  </div>
+  <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
+    <div style="flex: 1 1 380px; min-width: 0; max-width: 460px">
+      <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px">
+        <template sc-for list="{{tiles}}" as="t" hint-placeholder-count="40">
+          <template sc-if value="{{t.empty}}" hint-placeholder-val="{{false}}"><span aria-hidden="true"></span></template>
+          <template sc-if value="{{t.real}}" hint-placeholder-val="{{true}}">
+            <button type="button" class="{{t.cls}}" style="background: {{t.bg}}; color: {{t.fg}}; transition-delay: {{t.delay}}ms" onClick="{{t.pick}}" onMouseEnter="{{t.pick}}" aria-label="{{t.aria}}"><span class="ab">{{t.ab}}</span><span class="vv">{{t.v}}</span></button>
+          </template>
+        </template>
+      </div>
+      <p style="margin: 10px 0 0; font-size: 13.5px; color: #5d6468">Cada cuadro es un departamento, puesto más o menos donde está. Más oscuro, más alto.</p>
+    </div>
+    <div style="flex: 1 1 380px; min-width: 0">
+      <div style="background: #f4f5f3; border: 1.5px solid #1f2326; padding: 24px" aria-live="polite">
+        <p style="margin: 0; font-size: 14px; color: #5d6468">Puesto {{dsel.rank}} de 25 en {{dsel.metric}}</p>
+        <p style="margin: 4px 0 16px; font: 800 48px/1 'Barlow Condensed', sans-serif">{{dsel.name}}</p>
+        <dl style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0">
+          <div><dt style="font-size: 13px; color: #5d6468">Servicios</dt><dd style="margin: 0; font: 700 30px 'Barlow Condensed', sans-serif">{{dsel.sv}}</dd></div>
+          <div><dt style="font-size: 13px; color: #5d6468">Por obra</dt><dd style="margin: 0; font: 700 30px 'Barlow Condensed', sans-serif">{{dsel.po}}</dd></div>
+          <div><dt style="font-size: 13px; color: #5d6468">Obras revisadas</dt><dd style="margin: 0; font: 700 30px 'Barlow Condensed', sans-serif">{{dsel.pr}}</dd></div>
+        </dl>
+        <div style="height: 12px; background: #d3d5d2; margin-top: 16px" aria-hidden="true"><div style="height: 100%; width: {{dsel.w}}%; background: #e9a21a; transition: width .6s"></div></div>
+        <p style="margin: 6px 0 0; font-size: 14px; color: #5d6468">{{dsel.line}}</p>
+      </div>
+      <h3 style="margin: 28px 0 8px; font: 700 22px 'Barlow Condensed', sans-serif">Los cinco primeros</h3>
+      <template sc-for list="{{dTop}}" as="r" hint-placeholder-count="5">
+        <div class="li"><span style="font-weight: 600">{{r.n}}</span><b style="font: 800 22px 'Barlow Condensed', sans-serif; color: #17457a">{{r.v}}</b></div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<div class="tape" aria-hidden="true"></div>
+
+<section class="sec" id="cuando">
+  <p class="kick">CUÁNDO</p>
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 12px">
+    <h2 class="h2">Año por año</h2>
+    <button type="button" class="big amber" onClick="{{playYears}}"><span class="ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"></path></svg></span>Reproducir año por año</button>
+  </div>
+  <p style="margin: 0 0 4px; font: 800 48px/1 'Barlow Condensed', sans-serif; color: #17457a; font-variant-numeric: tabular-nums">{{cumTxt}}</p>
+  <p class="note" style="margin: 0 0 16px">{{cumNote}}</p>
+  <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 14px">
+    <div class="seg" role="group" aria-label="Ver" style="display: flex">
+      <button type="button" class="{{oTot}}" onClick="{{showTot}}">Total</button>
+      <button type="button" class="{{oOrg}}" onClick="{{showOrg}}">Quién lo hizo</button>
+    </div>
+    <template sc-if value="{{orgView}}" hint-placeholder-val="{{false}}">
+      <span style="display: inline-flex; gap: 16px; font-size: 14px"><span style="display: inline-flex; align-items: center; gap: 6px"><i style="width: 14px; height: 14px; background: #17457a"></i>OCI de la entidad</span><span style="display: inline-flex; align-items: center; gap: 6px"><i style="width: 14px; height: 14px; background: #e9a21a"></i>Contraloría directamente</span></span>
+    </template>
+  </div>
+  <div class="rv" style="display: flex; gap: 8px; height: 280px; border-bottom: 2px solid #1f2326">
+    <template sc-for list="{{years}}" as="y" hint-placeholder-count="12">
+      <button type="button" class="{{y.cls}}" onClick="{{y.pick}}" aria-pressed="{{y.pressed}}" aria-label="{{y.aria}}">
+        <b>{{y.n}}</b>
+        <template sc-if value="{{y.org}}" hint-placeholder-val="{{false}}"><i style="height: {{y.hb}}%; background: #e9a21a"></i><i style="height: {{y.ha}}%; background: #17457a"></i></template>
+        <template sc-if value="{{y.tot}}" hint-placeholder-val="{{true}}"><i class="rise" style="height: {{y.h}}%"></i></template>
+      </button>
+    </template>
+  </div>
+  <div style="display: flex; gap: 8px; margin-top: 8px"><template sc-for list="{{years}}" as="y" hint-placeholder-count="12"><span style="flex: 1; min-width: 0; text-align: center; font-size: 12px; color: #5d6468">{{y.l}}</span></template></div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 48px; margin-top: 64px">
+    <div style="flex: 1 1 520px; min-width: 0">
+      <h3 style="margin: 0 0 6px; font: 700 28px 'Barlow Condensed', sans-serif">Qué tipo de control, cada año</h3>
+      <p class="note" style="margin: 0 0 14px">Pasa el cursor por los cuadros.</p>
+      <div style="overflow-x: auto">
+        <div style="min-width: 620px; display: grid; grid-template-columns: 10em repeat(12, minmax(0, 1fr)); gap: 3px; align-items: center">
+          <span></span>
+          <template sc-for list="{{yearLbl}}" as="y" hint-placeholder-count="12"><span style="text-align: center; font-size: 12px; color: #5d6468">{{y.l}}</span></template>
+          <template sc-for list="{{matrix}}" as="r" hint-placeholder-count="5">
+            <span style="font-size: 13.5px; line-height: 1.15; padding-right: 8px">{{r.n}}</span>
+            <template sc-for list="{{r.cells}}" as="c" hint-placeholder-count="12">
+              <button type="button" class="{{c.cls}}" style="background: {{c.bg}}; color: {{c.fg}}" onMouseEnter="{{c.hover}}" onFocus="{{c.hover}}" aria-label="{{c.aria}}">{{c.t}}</button>
+            </template>
+          </template>
+        </div>
+      </div>
+      <p style="margin: 12px 0 0; font: 600 19px 'Barlow Condensed', sans-serif; min-height: 26px" aria-live="polite">{{cellTxt}}</p>
+    </div>
+    <div style="flex: 1 1 400px; min-width: 0">
+      <h3 style="margin: 0 0 6px; font: 700 28px 'Barlow Condensed', sans-serif">¿Cuánto tarda en llegar?</h3>
+      <p class="note" style="margin: 0 0 14px">Años entre el inicio de la obra y el control. Clic en una columna.</p>
+      <div class="rv" style="display: flex; gap: 4px; height: 220px; border-bottom: 2px solid #1f2326">
+        <template sc-for list="{{gaps}}" as="g" hint-placeholder-count="18">
+          <button type="button" class="{{g.cls}}" onClick="{{g.pick}}" aria-label="{{g.aria}}"><i class="rise" style="height: {{g.h}}%"></i></button>
+        </template>
+      </div>
+      <div style="display: flex; gap: 4px; margin-top: 6px"><template sc-for list="{{gaps}}" as="g" hint-placeholder-count="18"><span style="flex: 1; min-width: 0; text-align: center; font-size: 11px; color: #5d6468">{{g.l}}</span></template></div>
+      <div class="insight">{{gapLine}}</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="juego" style="padding-top: 24px">
+  <div class="game">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 8px">
+      <p style="margin: 0; font: 600 16px 'Barlow Condensed', sans-serif; color: #e9a21a; letter-spacing: 0.06em">JUEGO · ¿MÁS O MENOS?</p>
+      <div style="display: flex; align-items: center; gap: 12px"><span class="streak" aria-hidden="true"><template sc-for list="{{streak}}" as="s" hint-placeholder-count="5"><i class="{{s.cls}}"></i></template></span><span style="font: 700 18px 'Barlow Condensed', sans-serif">Racha {{gStreak}} · Récord {{gBest}}</span></div>
+    </div>
+    <p style="margin: 0 0 20px; font: 700 clamp(26px, 3vw, 36px)/1.1 'Barlow Condensed', sans-serif">¿Cuál tuvo más servicios de control por cada obra paralizada?</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 16px">
+      <template sc-for list="{{gOpts}}" as="o" hint-placeholder-count="2">
+        <button type="button" class="{{o.cls}}" onClick="{{o.pick}}">
+          <span style="font: 800 44px/1 'Barlow Condensed', sans-serif">{{o.name}}</span>
+          <span style="font: 600 18px 'Barlow Condensed', sans-serif; color: #c9d1d6">{{o.reveal}}</span>
+        </button>
+      </template>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-top: 22px">
+      <p style="margin: 0; font: 600 20px 'Barlow Condensed', sans-serif; min-height: 26px" aria-live="polite">{{gMsg}}</p>
+      <button type="button" class="big amber" onClick="{{gNext}}"><span class="ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>{{gNextLabel}}</button>
+    </div>
+  </div>
+</section>
+
+<div class="tape" aria-hidden="true"></div>
+
+<section class="sec" id="obras">
+  <div style="display: flex; flex-wrap: wrap; gap: 48px">
+    <div class="rv" style="flex: 1 1 480px; min-width: 0">
+      <h2 style="margin: 0 0 6px; font: 800 36px/1 'Barlow Condensed', sans-serif">Las más revisadas</h2>
+      <p class="note" style="margin: 0 0 12px">Número de servicios de control por obra.</p>
+      <template sc-for list="{{masRev}}" as="o" hint-placeholder-count="5">
+        <div class="li"><span style="font-size: 15px">{{o.n}}</span><b style="font: 800 26px 'Barlow Condensed', sans-serif; color: #17457a">{{o.c}}</b><span style="grid-column: 1 / -1; font-size: 13px; color: #5d6468">{{o.m}}</span></div>
+      </template>
+    </div>
+    <div class="rv" style="flex: 1 1 480px; min-width: 0">
+      <h2 style="margin: 0 0 6px; font: 800 36px/1 'Barlow Condensed', sans-serif">Mucho dinero, ningún control</h2>
+      <p class="note" style="margin: 0 0 12px">Las obras con más saldo pendiente que nunca tuvieron un servicio de control.</p>
+      <template sc-for list="{{sinCtrl}}" as="o" hint-placeholder-count="5">
+        <div class="li"><span style="font-size: 15px">{{o.n}}</span><b style="font: 800 26px 'Barlow Condensed', sans-serif; color: #8a5a00">{{o.c}}</b><span style="grid-column: 1 / -1; font-size: 13px; color: #5d6468">{{o.m}}</span></div>
+      </template>
+    </div>
+  </div>
+  <div class="rv" style="margin-top: 48px">
+    <h2 style="margin: 0 0 6px; font: 800 36px/1 'Barlow Condensed', sans-serif">Las entidades más auditadas</h2>
+    <template sc-for list="{{entidades}}" as="e" hint-placeholder-count="6">
+      <div class="brow"><span style="font-size: 15px">{{e.n}}</span><span class="track" aria-hidden="true"><i class="grow" style="width: {{e.w}}%"></i></span><span style="text-align: right; font: 700 17px 'Barlow Condensed', sans-serif">{{e.v}}</span></div>
+    </template>
+  </div>
+</section>
+
+<section class="sec" id="azar" style="padding-top: 24px">
+  <h2 class="h2 rv" style="text-align: center; margin-bottom: 8px">Saca un informe al azar</h2>
+  <p style="margin: 0 auto 28px; text-align: center; color: #5d6468; max-width: 52ch">Cada carta es un servicio de control real, con su PDF. Baraja y voltea.</p>
+  <div class="{{lotCls}}">
+    <div class="lot-in">
+      <div class="lf front">
+        <svg width="72" height="72" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="26" height="17" rx="1.5" fill="#f4f5f3"></rect><path d="M9 22v7M23 22v7" stroke="#e9a21a" stroke-width="2.2"></path><path d="M8 13h16" stroke="#17457a" stroke-width="2.2"></path></svg>
+        <p style="margin: 0; font: 800 44px/1 'Barlow Condensed', sans-serif">Informe de control</p>
+        <p style="margin: 0; color: #c9d6e6">Contraloría General de la República</p>
+      </div>
+      <div class="lf back">
+        <p style="margin: 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 14px; color: #5d6468"><span style="background: #1f2326; color: #fff; padding: 3px 8px; font: 700 16px 'Barlow Condensed', sans-serif">{{lot.anio}}</span>{{lot.tipo}} · <span style="color: #8a5a00; font-weight: 600">{{lot.acc}}</span></p>
+        <p style="margin: 0; font: 700 28px/1.15 'Barlow Condensed', sans-serif">{{lot.t}}</p>
+        <p style="margin: 0; font-size: 14px; color: #5d6468">Informe {{lot.num}} · {{lot.org}}</p>
+        <p style="margin: 0; padding: 10px 12px; background: #e3e4e1; border-left: 3px solid #17457a">{{lot.obra}} <span style="color: #5d6468">· {{lot.dep}}</span></p>
+        <a class="pdf" href="{{lot.url}}" target="_blank" rel="noopener" style="margin-top: auto">Abrir el informe (PDF)</a>
+      </div>
+    </div>
+  </div>
+  <div style="display: flex; justify-content: center; margin-top: 28px">
+    <button type="button" class="big" onClick="{{shuffle}}"><span class="ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path></svg></span>{{shuffleLabel}}</button>
+  </div>
+</section>
+
+<section id="buscar" style="background: #d3d5d2; border-top: 1.5px solid #b9bdbb; scroll-margin-top: 120px">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 64px 32px 96px">
+    <h2 style="margin: 0 0 6px; font: 800 clamp(36px, 4vw, 56px)/1 'Barlow Condensed', sans-serif">Buscar informes</h2>
+    <p class="note" style="margin: 0 0 24px">Una muestra de la base. Busca por obra, departamento, número de informe o título; el año también filtra.</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin-bottom: 16px">
+      <label style="flex: 1 1 320px"><span style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px">Buscar</span>
+        <input type="search" value="{{q}}" onInput="{{onQ}}" placeholder="Ej. hospital, Ucayali, 2024-OCI" style="width: 100%; min-height: 48px; padding: 0 14px; font: 500 17px 'Barlow', sans-serif; border: 2px solid #1f2326; background: #fff; border-radius: 0">
+      </label>
+      <div style="display: flex; flex-wrap: wrap" role="group" aria-label="Tipo de acción">
+        <template sc-for list="{{accChips}}" as="c" hint-placeholder-count="3"><button type="button" class="{{c.cls}}" onClick="{{c.pick}}">{{c.l}}</button></template>
+      </div>
+    </div>
+    <p style="margin: 0 0 16px; font-weight: 600" role="status">{{countTxt}}</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr)); gap: 16px">
+      <template sc-for list="{{found}}" as="f" hint-placeholder-count="6">
+        <article class="card" style="animation-delay: {{f.delay}}ms">
+          <p style="margin: 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13.5px; color: #5d6468"><span style="background: #1f2326; color: #fff; padding: 3px 7px; font: 700 15px 'Barlow Condensed', sans-serif">{{f.anio}}</span>{{f.tipo}} · <span style="color: #8a5a00; font-weight: 600">{{f.acc}}</span></p>
+          <h3 style="margin: 0; font: 600 19px/1.2 'Barlow Condensed', sans-serif">{{f.t}}</h3>
+          <p style="margin: 0; font-size: 13.5px; color: #5d6468">Informe {{f.num}} · {{f.org}}</p>
+          <p style="margin: 0; padding: 8px 10px; background: #e3e4e1; border-left: 3px solid #17457a; font-size: 14px">{{f.obra}}<span style="display: block; font-size: 12.5px; color: #5d6468">{{f.dep}}</span></p>
+          <a class="pdf" href="{{f.url}}" target="_blank" rel="noopener">Informe (PDF)</a>
+        </article>
+      </template>
+    </div>
+  </div>
+</section>
+</div>
+</template>
+<script type="text/x-dc" id="logica">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      t: 0, q: '', year: null, acc: '', py: null, lot: 0, lotOn: false, lotSpin: false, active: 'panorama',
+      size: 3, dm: 'po', dsel: '23', org: false, cell: null, gap: 1,
+      g: [ '23', '08' ], gPick: null, gStreak: 0, gBest: 0,
+    };
+  }
+  componentDidMount() {
+    const start = performance.now();
+    const step = (now) => {
+      const t = Math.min(1, (now - start) / 1400);
+      this.setState({ t });
+      if (t < 1) this.raf = requestAnimationFrame(step);
+    };
+    this.raf = requestAnimationFrame(step);
+    this.onScroll = () => {
+      let cur = 'panorama';
+      for (const id of ['panorama', 'sirve', 'donde', 'cuando', 'juego', 'obras', 'azar', 'buscar']) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < window.innerHeight * 0.4) cur = id;
+      }
+      if (cur !== this.state.active) this.setState({ active: cur });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.newRound();
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); clearInterval(this.yt); window.removeEventListener('scroll', this.onScroll); }
+  // [ubigeo, nombre, abreviatura, columna, fila, servicios, obras, obras revisadas]
+  DEPS() {
+    return [["24","Tumbes","TUM",0,0,31,10,8],["20","Piura","PIU",0,1,353,117,73],["06","Cajamarca","CAJ",1,1,182,137,73],["01","Amazonas","AMA",2,1,171,47,32],["16","Loreto","LOR",3,1,25,35,12],["14","Lambayeque","LAM",0,2,181,71,41],["13","La Libertad","LIB",1,2,400,92,66],["22","San Martín","SMA",2,2,73,21,13],["25","Ucayali","UCA",3,2,130,27,18],["02","Áncash","ANC",1,3,432,181,104],["10","Huánuco","HUC",2,3,146,75,46],["19","Pasco","PAS",3,3,52,35,24],["07","Callao","CAL",0,4,26,6,6],["15","Lima","LIM",1,4,312,171,92],["12","Junín","JUN",2,4,125,88,56],["08","Cusco","CUS",3,4,371,370,154],["17","Madre de Dios","MDD",4,4,51,33,23],["11","Ica","ICA",1,5,72,28,19],["09","Huancavelica","HVC",2,5,130,87,55],["03","Apurímac","APU",3,5,150,89,56],["21","Puno","PUN",4,5,181,213,83],["05","Ayacucho","AYA",2,6,154,150,71],["04","Arequipa","ARE",3,6,245,101,62],["18","Moquegua","MOQ",4,6,90,38,15],["23","Tacna","TAC",4,7,303,40,37]];
+  }
+  newRound() {
+    const D = this.DEPS().filter((d) => d[6] >= 10);
+    const ratio = (d) => d[5] / d[6];
+    let a, b;
+    do {
+      a = D[Math.floor(Math.random() * D.length)];
+      b = D[Math.floor(Math.random() * D.length)];
+    } while (a === b || Math.abs(ratio(a) - ratio(b)) < 0.15);
+    this.setState({ g: [a[0], b[0]], gPick: null });
+  }
+  playYears() {
+    clearInterval(this.yt);
+    this.setState({ py: 2015, year: null });
+    this.yt = setInterval(() => {
+      const n = this.state.py + 1;
+      if (n > 2026) { clearInterval(this.yt); setTimeout(() => this.setState({ py: null }), 1800); return; }
+      this.setState({ py: n });
+    }, 550);
+  }
+  shuffle(total) {
+    if (this.state.lotOn) {
+      this.setState({ lotOn: false });
+      setTimeout(() => this.shuffle(total), 500);
+      return;
+    }
+    let k = this.state.lot;
+    while (k === this.state.lot) k = Math.floor(Math.random() * total);
+    this.setState({ lotSpin: true });
+    setTimeout(() => this.setState({ lot: k, lotSpin: false, lotOn: true }), 600);
+  }
+  renderVals() {
+    const SPIC = 'http://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=';
+    const ACC = [["Control concurrente",2054],["Orientación de oficio",1650],["Visita de control",260],["Acción simultánea",111],["Control preventivo a obras paralizadas",89],["Auditoría de cumplimiento",72]];
+    const YEARS = [[2015,16,12,4],[2016,14,10,4],[2017,381,158,223],[2018,386,314,72],[2019,452,79,373],[2020,168,88,80],[2021,643,171,472],[2022,292,215,77],[2023,461,366,95],[2024,964,810,154],[2025,453,337,116],[2026,156,98,58]];
+    const MAT_N = ['Control concurrente', 'Orientación de oficio', 'Visita de control', 'Acción simultánea', 'Control preventivo a obras paralizadas'];
+    const MAT = [[0,0,0,16,130,92,217,204,356,630,323,86],[0,0,327,249,290,23,380,28,41,264,31,17],[5,2,17,31,19,24,18,21,35,42,33,13],[0,6,29,73,3,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,54,35]];
+    const GAP = [[-3,145],[-2,126],[-1,201],[0,732],[1,1113],[2,633],[3,366],[4,331],[5,190],[6,149],[7,102],[8,89],[9,57],[10,39],[11,39],[12,26],[13,10],[15,2]];
+    const HIST = [[1023,'0'],[562,'1'],[248,'2'],[226,'3-5'],[135,'6-10'],[46,'11-20'],[22,'21+']];
+    const SIZES = [['Menos de S/ 1 M',1298,45.5],['S/ 1-5 M',545,59.6],['S/ 5-20 M',267,72.3],['S/ 20-100 M',110,88.2],['Más de S/ 100 M',42,81.0]];
+    const CAUS = [["Discrepancias, controversias y arbitraje",74.1],["Disponibilidad de terreno",65.5],["Incumplimiento de contrato",65.4],["Deficiencia en el expediente técnico",60.4],["Incumplimiento del pago de valorizaciones",56.9],["Falta de permisos y licencias",52.1],["Eventos climáticos",50.6],["Conflictos sociales",50.0],["Abandono de obra",48.1],["Falta de recursos financieros y liquidez",43.7],["Desabastecimiento de materiales",36.9]];
+    const ENT = [["Ministerio de Vivienda, Construcción y Saneamiento",207],["Provías Descentralizado",166],["Ministerio de Transportes y Comunicaciones",166],["Gobierno Regional Arequipa",117],["Provías Nacional",114],["Gobierno Regional Áncash",83]];
+    const INF = [
+      [2024,"Control simultáneo","Visita de control","Liquidación de obra y ejecución de laudos arbitrales del Consorcio Libertadores","008-2024-OCI/0052-SVC","Ministerio de Desarrollo Agrario y Riego","Construcción de represa y sistema de riego Tantar","Ayacucho","2024CSI005200008"],
+      [2021,"Control simultáneo","Control concurrente","Ejecución de la obra Mejoramiento colectores quebradas Saphy, Av. Sol, Tullumayu y Av. Ejército","009-2021-OCI/0385-SCC","Municipalidad Provincial del Cusco","Mejoramiento colectores quebradas Saphy, Av. Sol, Tullumayo y Av. Ejército","Cusco","2021CSI038500044"],
+      [2025,"Control simultáneo","Control concurrente","Mejoramiento del sistema de agua potable y alcantarillado del centro poblado Boquerón","005-2025-OCI/2684-SCC","Municipalidad Provincial de Padre Abad","Agua potable y alcantarillado del centro poblado Boquerón","Ucayali","2025CSI268400010"],
+      [2023,"Control simultáneo","Control concurrente","Hito de control N.° 13: ejecución de obra, valorización N.° 48","011-2023-OCI/5303-SCC","Ministerio de Vivienda, Construcción y Saneamiento","Sectorización del sistema de agua potable y alcantarillado de la parte alta de Chorrillos","Lima","2023CSI530300011"],
+      [2018,"Control simultáneo","Visita de control","Verificación a la ejecución del servicio de supervisión","002-2018-OCI/3472-VC","EPSEL S.A.","Plan maestro de saneamiento, agua potable y tratamiento de aguas residuales","Lambayeque","2018CSI347200002"],
+      [2021,"Control simultáneo","Control concurrente","Proyecto Fortalecimiento de los servicios de salud del Hospital Regional de Pucallpa","001-2021-CG/MPROY-SCC","Subgerencia de Control de Megaproyectos","Hospital Regional de Pucallpa","Ucayali","2021CSIL33400010"],
+      [2018,"Control simultáneo","Visita de control","A la ejecución de la obra Soterrado de la línea 33 kV Chilina - Challapampa","003-2018-OCI/5183-VC","Sociedad Eléctrica del Sur Oeste (SEAL)","Soterrado de la línea de 33 kV Chilina - Challapampa","Arequipa","2019CSI518300021"],
+      [2019,"Control simultáneo","Visita de control","Visita de control a la obra Mejoramiento del servicio de agua del sistema de riego Querco - Quichua","005-2019-OCI/5747-SVC","Gerencia Sub Regional de Huaytará","Sistema de riego Querco - Quichua","Huancavelica","2019CSI574700006"],
+      [2026,"Control simultáneo","Control concurrente","Elaboración del expediente técnico del saldo de obra del puente Tingo María - Castillo Grande","008-2026-OCI/5339-SCC","Gobierno Regional Huánuco","Construcción del puente Tingo María - Castillo Grande","Huánuco","2026CSI533900008"],
+    ];
+    const DEPS = this.DEPS();
+    const st = this.state;
+    const nf = new Intl.NumberFormat('es-PE');
+    const nf1 = new Intl.NumberFormat('es-PE', { maximumFractionDigits: 1 });
+    const t = 1 - Math.pow(1 - st.t, 3);
+    const n = (v) => nf.format(Math.round(v * t));
+
+    // Mapa del control
+    const DM = {
+      sv: ['Servicios', (d) => d[5], (v) => nf.format(v)],
+      po: ['Controles por obra', (d) => d[5] / d[6], (v) => nf1.format(v)],
+      pr: ['% de obras revisadas', (d) => (d[7] / d[6]) * 100, (v) => `${Math.round(v)}%`],
+    };
+    const [dLabel, dGet, dFmt] = DM[st.dm];
+    const dvals = DEPS.map(dGet);
+    const dMax = Math.max(...dvals), dMin = Math.min(...dvals);
+    const shade = (v) => {
+      const k = (v - dMin) / (dMax - dMin || 1);
+      const c0 = [188, 203, 217], c1 = [18, 58, 102];
+      return `rgb(${c0.map((x, i) => Math.round(x + (c1[i] - x) * k)).join(',')})`;
+    };
+    const order = [...DEPS].sort((a, b) => dGet(b) - dGet(a));
+    const grid = [];
+    for (let r = 0; r < 8; r++) for (let c = 0; c < 5; c++) grid.push(DEPS.findIndex((d) => d[3] === c && d[4] === r));
+    const tiles = grid.map((k) => {
+      if (k < 0) return { empty: true, real: false };
+      const d = DEPS[k], v = dGet(d), dark = (v - dMin) / (dMax - dMin || 1) > 0.45;
+      return {
+        empty: false, real: true, ab: d[2], v: dFmt(v), bg: shade(v), fg: dark ? '#fff' : '#1f2326', delay: (d[4] * 5 + d[3]) * 20,
+        cls: st.dsel === d[0] ? 'tile sel' : 'tile', aria: `${d[1]}: ${dFmt(v)} ${dLabel.toLowerCase()}`,
+        pick: () => this.setState({ dsel: d[0] }),
+      };
+    });
+    const ds = DEPS.find((d) => d[0] === st.dsel);
+
+    // Juego
+    const ga = DEPS.find((d) => d[0] === st.g[0]), gb = DEPS.find((d) => d[0] === st.g[1]);
+    const r = (d) => d[5] / d[6];
+    const winner = r(ga) > r(gb) ? ga[0] : gb[0];
+    const choose = (id) => () => {
+      if (this.state.gPick) return;
+      const ok = id === winner;
+      const s = ok ? this.state.gStreak + 1 : 0;
+      this.setState({ gPick: id, gStreak: s, gBest: Math.max(this.state.gBest, s) });
+    };
+
+    // Año por año y matriz
+    const py = st.py;
+    const cum = YEARS.filter((y) => !py || y[0] <= py).reduce((s, y) => s + y[1], 0);
+    const yMax = Math.max(...YEARS.map((y) => y[1]));
+    const matMax = Math.max(...MAT.flat());
+    const cell = st.cell;
+    const gMax = Math.max(...GAP.map((g) => g[1]));
+    const gSel = GAP.find((g) => g[0] === st.gap) || GAP[4];
+    const sz = SIZES[st.size];
+    const sMax = Math.max(...SIZES.map((s) => s[2]));
+
+    // Buscador
+    const norm = (s) => String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const words = norm(st.q).trim().split(/\s+/).filter(Boolean);
+    const found = INF.filter((x) => (!st.year || x[0] === st.year) && (!st.acc || x[2] === st.acc) && words.every((w) => norm(x.join(' ')).includes(w)));
+    const filtros = [st.year, st.acc, st.q.trim()].filter(Boolean);
+    const L = INF[st.lot];
+    const labels = { panorama: 'Panorama', sirve: '¿A qué obras llega?', donde: 'Dónde', cuando: 'Cuándo', juego: 'Juego', obras: 'Obras y entidades', azar: 'Al azar', buscar: 'Buscar' };
+    const accMax = ACC[0][1];
+    const hMax = HIST[0][0];
+    const MIR = [
+      ['Avance mediano', 59.8, 54.4, (v) => `${nf1.format(v)}%`],
+      ['Costo mediano', 5.15, 1.3, (v) => `S/ ${nf1.format(v)} M`],
+      ['Lo que les falta (mediana)', 1.14, 0.37, (v) => `S/ ${nf1.format(v)} M`],
+      ['Al 90% o más', 13.4, 11.7, (v) => `${nf1.format(v)}%`],
+      ['Con presupuesto este año', 39.6, 25.2, (v) => `${nf1.format(v)}%`],
+      ['En la lista priorizada', 9.2, 5.0, (v) => `${nf1.format(v)}%`],
+    ];
+    return {
+      subnav: Object.keys(labels).map((k) => ({ href: `#${k}`, label: labels[k], cls: k === st.active ? 'on' : '' })),
+      c1: n(4386), c2: n(1239), c3: n(1023), c4: n(3630),
+      acciones: ACC.map((a) => ({ n: a[0], w: ((a[1] / accMax) * 100).toFixed(1), v: nf.format(a[1]) })),
+      hist: HIST.map((h, i) => ({ n: nf.format(h[0]), l: h[1], h: Math.max(2, Math.round((h[0] / hMax) * 100)), c: i === 0 ? '#9aa1a5' : '#17457a' })),
+      mirror: MIR.map(([l, a, b, f]) => { const m = Math.max(a, b); return { l, a: f(a), b: f(b), wa: ((a / m) * 100).toFixed(1), wb: ((b / m) * 100).toFixed(1) }; }),
+      sizes: SIZES.map((s, i) => ({
+        l: s[0], p: `${nf1.format(s[2])}%`, h: Math.round((s[2] / sMax) * 100),
+        cls: i === st.size ? 'szc on' : 'szc', aria: `${s[0]}: ${nf1.format(s[2])}% de ${nf.format(s[1])} obras revisadas`,
+        pick: () => this.setState({ size: i }),
+      })),
+      sizeLine: `${sz[0]}: ${nf.format(sz[1])} obras, ${nf1.format(sz[2])}% tuvo al menos un control. ${st.size === 0 ? 'Las chicas son la mayoría y menos de la mitad fue revisada.' : st.size >= 3 ? 'En las grandes, casi todas pasan por control.' : 'A más dinero en juego, más control.'}`,
+      causas: CAUS.map((c) => ({ n: c[0], v: `${nf1.format(c[1])}%`, w: c[1].toFixed(1), bg: c[1] >= 60 ? '#17457a' : c[1] < 45 ? '#9aa1a5' : '#5b84ad' })),
+      dMetrics: Object.keys(DM).map((k) => ({ l: DM[k][0], cls: k === st.dm ? 'on' : '', pick: () => this.setState({ dm: k }) })),
+      tiles,
+      dsel: {
+        name: ds[1], rank: order.indexOf(ds) + 1, metric: dLabel.toLowerCase(), sv: nf.format(ds[5]),
+        po: nf1.format(ds[5] / ds[6]), pr: `${Math.round((ds[7] / ds[6]) * 100)}%`, w: Math.round((ds[7] / ds[6]) * 100),
+        line: `${ds[7]} de sus ${ds[6]} obras paralizadas tuvieron al menos un servicio de control.`,
+      },
+      dTop: order.slice(0, 5).map((d) => ({ n: d[1], v: dFmt(dGet(d)) })),
+      playYears: () => this.playYears(),
+      cumTxt: py ? `${py}: ${nf.format(cum)} servicios` : `${nf.format(cum)} servicios`,
+      cumNote: py ? 'Acumulados desde 2015.' : 'Clic en un año para filtrar los informes del buscador.',
+      oTot: st.org ? '' : 'on', oOrg: st.org ? 'on' : '', orgView: st.org,
+      showTot: () => this.setState({ org: false }), showOrg: () => this.setState({ org: true }),
+      years: YEARS.map((y) => ({
+        n: st.org ? `${Math.round((y[2] / y[1]) * 100)}% OCI` : nf.format(y[1]),
+        h: Math.max(2, Math.round((y[1] / yMax) * 100)),
+        ha: Math.max(1, Math.round((y[2] / yMax) * 100)), hb: Math.round((y[3] / yMax) * 100),
+        org: st.org, tot: !st.org, l: `’${String(y[0]).slice(2)}`,
+        cls: py ? (y[0] < py ? 'yc' : y[0] === py ? 'yc lit' : 'yc dim') : (y[0] === st.year ? 'yc on' : 'yc'),
+        pressed: String(y[0] === st.year), aria: `${y[0]}: ${nf.format(y[1])} servicios; ${y[2]} del OCI y ${y[3]} de la Contraloría`,
+        pick: () => this.setState({ year: st.year === y[0] ? null : y[0] }),
+      })),
+      yearLbl: YEARS.map((y) => ({ l: `’${String(y[0]).slice(2)}` })),
+      matrix: MAT.map((row, i) => ({
+        n: MAT_N[i],
+        cells: row.map((v, j) => {
+          const k = v / matMax, on = cell && cell[0] === i && cell[1] === j;
+          return {
+            t: v ? nf.format(v) : '', bg: v ? `rgba(23, 69, 122, ${(0.12 + 0.88 * Math.sqrt(k)).toFixed(2)})` : '#eceeeb',
+            fg: k > 0.25 ? '#fff' : '#1f2326', cls: on ? 'cell on' : 'cell',
+            aria: `${MAT_N[i]} en ${YEARS[j][0]}: ${v}`, hover: () => this.setState({ cell: [i, j] }),
+          };
+        }),
+      })),
+      cellTxt: cell ? `${MAT_N[cell[0]]} en ${YEARS[cell[1]][0]}: ${nf.format(MAT[cell[0]][cell[1]])} servicios` : 'El control concurrente despega en 2019, justo cuando la acción simultánea deja de usarse.',
+      gaps: GAP.map((g) => ({
+        h: Math.max(2, Math.round((g[1] / gMax) * 100)),
+        l: g[0] === -3 ? '≤-3' : g[0] === 15 ? '15+' : String(g[0]),
+        cls: `gapc${g[0] < 0 ? ' neg' : ''}${g[0] === 1 ? ' med' : ''}${g[0] === st.gap ? ' on' : ''}`,
+        aria: `${g[0]} años: ${nf.format(g[1])} servicios`, pick: () => this.setState({ gap: g[0] }),
+      })),
+      gapLine: gSel[0] < 0
+        ? `${nf.format(gSel[1])} servicios son de ${Math.abs(gSel[0])}${gSel[0] === -3 ? ' o más' : ''} año${gSel[0] === -1 ? '' : 's'} antes del año de inicio registrado: controles previos o fechas que no cuadran en la fuente.`
+        : `${nf.format(gSel[1])} servicios llegaron ${gSel[0] === 0 ? 'el mismo año en que empezó la obra' : `${gSel[0]}${gSel[0] === 15 ? ' o más' : ''} año${gSel[0] === 1 ? '' : 's'} después del inicio`}. La mediana es 1 año.`,
+      streak: [0, 1, 2, 3, 4].map((i) => ({ cls: i < st.gStreak ? 'on' : '' })),
+      gStreak: st.gStreak, gBest: st.gBest,
+      gOpts: [ga, gb].map((d) => ({
+        name: d[1],
+        reveal: st.gPick ? `${nf1.format(r(d))} controles por obra · ${d[5]} servicios en ${d[6]} obras` : 'Clic para elegir',
+        cls: !st.gPick ? 'gopt' : d[0] === winner ? 'gopt ok' : d[0] === st.gPick ? 'gopt bad' : 'gopt mute',
+        pick: choose(d[0]),
+      })),
+      gMsg: !st.gPick ? 'Elige uno.' : st.gPick === winner ? '¡Bien! Sigue la racha.' : 'No. La racha vuelve a cero.',
+      gNext: () => this.newRound(),
+      gNextLabel: st.gPick ? 'Siguiente pareja' : 'Saltar',
+      masRev: [
+        ["Reconstrucción y ampliación de represa y canal Pancán", 102, "Áncash · falta S/ 350 mil"],
+        ["Canal de conducción Vilachaullani - Calachaca - Chuapalca", 81, "Tacna · falta S/ 202.5 M"],
+        ["Energía eléctrica por sistema convencional en la comunidad de Jaccas", 63, "Cusco · falta S/ 39 mil"],
+        ["Servicios de salud del Hospital Regional de Pucallpa", 56, "Ucayali · falta S/ 190.9 M"],
+        ["Carretera variante de Uchumayo", 54, "Arequipa · falta S/ 73 M"],
+      ].map((o) => ({ n: o[0], c: o[1], m: o[2] })),
+      sinCtrl: [
+        ["Terminal terrestre municipal en la localidad de Jesús", "S/ 1.3 mil M", "Huánuco · 94% de avance"],
+        ["Sistema integral de agua potable y alcantarillado", "S/ 365.2 M", "Huánuco · 27.6% de avance"],
+        ["Acciones de comando en los puestos de los batallones de selva", "S/ 336.8 M", "Loreto · 0.9% de avance"],
+        ["Obra principal del proyecto de servicios de salud", "S/ 283.9 M", "La Libertad · 0.7% de avance"],
+        ["Establecimiento de salud Simón Bolívar", "S/ 282.4 M", "Cajamarca · 0.3% de avance"],
+      ].map((o) => ({ n: o[0], c: o[1], m: o[2] })),
+      entidades: ENT.map((e) => ({ n: e[0], v: nf.format(e[1]), w: ((e[1] / ENT[0][1]) * 100).toFixed(1) })),
+      lotCls: `lot${st.lotOn ? ' on' : ''}${st.lotSpin ? ' spin' : ''}`,
+      lot: { anio: L[0], tipo: L[1], acc: L[2], t: L[3], num: L[4], org: L[5], obra: L[6], dep: L[7], url: `${SPIC}${L[8]}&TIPOARCHIVO=ADJUNTO` },
+      shuffle: () => this.shuffle(INF.length),
+      shuffleLabel: st.lotOn ? 'Sacar otra carta' : 'Barajar y voltear',
+      q: st.q, onQ: (e) => this.setState({ q: e.target.value }),
+      accChips: [['', 'Todas'], ['Control concurrente', 'Concurrente'], ['Visita de control', 'Visitas']].map(([v, l]) => ({ l, cls: st.acc === v ? 'chip on' : 'chip', pick: () => this.setState({ acc: v }) })),
+      countTxt: found.length ? `${found.length} ${found.length === 1 ? 'informe' : 'informes'}${filtros.length ? ` con: ${filtros.join(' · ')}` : ''}` : 'Ningún informe con estos filtros. Prueba con otro año o sin texto.',
+      found: found.map((x, i) => ({ anio: x[0], tipo: x[1], acc: x[2], t: x[3], num: x[4], org: x[5], obra: x[6], dep: x[7], url: `${SPIC}${x[8]}&TIPOARCHIVO=ADJUNTO`, delay: i * 50 })),
+    };
+  }
+}
+</script>
+</body>
+</html>

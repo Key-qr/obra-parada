@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Obra Parada · Cómo se hizo</title>
+<meta name="description" content="Cómo se construye Obra Parada: descarga del informe, parser de Excel, dbt con DuckDB y exportación a una web estática.">
+<meta property="og:title" content="Obra Parada · Cómo se hizo">
+<meta property="og:description" content="Cómo se construye Obra Parada: descarga del informe, parser de Excel, dbt con DuckDB y exportación a una web estática.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="vendor/fonts.css" rel="stylesheet">
+<style>
+body{margin:0;background:#0b2440;color:#fff;font-family:'Barlow',system-ui,sans-serif}
+a{color:#f5d38a}a:hover{color:#fff}
+*{box-sizing:border-box}
+.prog{position:fixed;top:0;left:0;right:0;height:4px;background:#e9a21a;transform-origin:0 50%;transform:scaleX(0);z-index:60}
+@supports (animation-timeline: scroll()){.prog{animation:prog linear both;animation-timeline:scroll(root)}}
+@keyframes prog{to{transform:scaleX(1)}}
+.brand{display:inline-flex;align-items:center;gap:10px;font:800 24px/1 'Barlow Condensed',sans-serif;color:#1f2326;text-decoration:none}
+.brand:hover{color:#1f2326}
+.nav a{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 14px;font:600 18px/1 'Barlow Condensed',sans-serif;color:#1f2326;text-decoration:none}
+.nav a::after{content:"";position:absolute;left:14px;right:14px;bottom:8px;height:3px;background:#e9a21a;transform:scaleX(0);transform-origin:0 50%;transition:transform .25s ease}
+.nav a:hover::after{transform:scaleX(1)}
+.nav a.on{background:#1f2326;color:#fff}
+.nav a.on::after{display:none}
+.tape{height:14px;background:repeating-linear-gradient(45deg,#e9a21a 0 10px,#1f2326 10px 20px);background-size:28.28px 14px;animation:tape 1.4s linear infinite}
+@keyframes tape{to{background-position:28.28px 0}}
+.node{flex:1 1 150px;min-width:0;border:1.5px solid #2c5684;background:#0f3359;padding:16px;text-align:center;transition:border-color .3s,background-color .3s,transform .3s}
+.node.on{border-color:#e9a21a;background:#17457a;transform:translateY(-4px)}
+.node.done{border-color:#9ee0b0}
+.link{flex:0 0 40px;align-self:center;height:3px;background:repeating-linear-gradient(90deg,#5b84ad 0 8px,transparent 8px 14px);background-size:14px 3px;animation:fluye .6s linear infinite}
+@keyframes fluye{to{background-position:14px 0}}
+.step{min-height:70vh;padding:10vh 0;opacity:.35;transition:opacity .4s}
+.step.on{opacity:1}
+.step button{all:unset;cursor:pointer}
+.step button:focus-visible{outline:3px solid #e9a21a}
+.n{font:800 72px/1 'Barlow Condensed',sans-serif;color:transparent;-webkit-text-stroke:1.5px #5b84ad;transition:color .4s,-webkit-text-stroke-color .4s}
+.step.on .n{color:#e9a21a;-webkit-text-stroke-color:#e9a21a}
+.term{position:sticky;top:120px;background:#061a2f;border:1px solid #2c5684;box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+.tl{white-space:pre-wrap;word-break:break-word}
+.cur{display:inline-block;width:9px;height:17px;background:#e9a21a;vertical-align:-3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.pg-in{width:100%;min-height:56px;padding:0 16px;font:500 18px 'JetBrains Mono',ui-monospace,monospace;border:2px solid #e9a21a;background:#061a2f;color:#fff;border-radius:0}
+.ex{min-height:38px;padding:0 12px;border:1px solid #2c5684;background:#0f3359;color:#d5e0ea;font:500 13px 'JetBrains Mono',ui-monospace,monospace;cursor:pointer;transition:border-color .2s,background-color .2s}
+.ex:hover{border-color:#e9a21a;background:#17457a}
+.pstep{flex:1 1 200px;min-width:0;border:1.5px solid #2c5684;background:#0f3359;padding:16px;opacity:.25;transform:translateY(10px);transition:opacity .35s,transform .35s,border-color .35s}
+.pstep.on{opacity:1;transform:none}
+.pstep.hit{border-color:#9ee0b0}
+.pstep.miss{border-color:#ff9b8a}
+.parrow{flex:0 0 28px;align-self:center;height:3px;background:#2c5684;position:relative;overflow:hidden}
+.parrow i{position:absolute;inset:0;background:#e9a21a;transform:scaleX(0);transform-origin:0 50%;transition:transform .25s}
+.parrow.on i{transform:scaleX(1)}
+.dec{border-top:2px solid #2c5684;padding-top:16px;transition:border-color .3s}
+.dec:hover{border-color:#e9a21a}
+@supports (animation-timeline: view()){.rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% cover 25%}}
+@keyframes rv{from{opacity:0;transform:translateY(40px)}}
+@media (max-width:900px){.term{position:static}.step{min-height:auto;padding:32px 0;opacity:1}.link{display:none}}
+</style>
+<script src="js/dc.js" defer></script>
+</head>
+<body>
+<div id="app"></div>
+<noscript><p style="padding: 32px; font: 18px system-ui">Esta página necesita JavaScript. Los datos completos están en <a href="data/obras.json">data/obras.json</a>.</p></noscript>
+<template id="vista">
+<div style="min-height: 100vh">
+<div class="prog" aria-hidden="true"></div>
+<header style="position: sticky; top: 0; z-index: 40; background: rgba(227, 228, 225, 0.95); backdrop-filter: blur(8px); border-bottom: 1.5px solid #1f2326">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 10px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 32px">
+    <a href="index.html" class="brand"><svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="26" height="17" rx="1.5" fill="#17457a"></rect><path d="M9 22v7M23 22v7" stroke="#1f2326" stroke-width="2.2"></path><path d="M8 13h16" stroke="#f4f5f3" stroke-width="2.2"></path></svg>Obra Parada</a>
+    <nav class="nav" aria-label="Secciones" style="display: flex; flex-wrap: wrap; margin-left: auto">
+      <a href="index.html">Inicio</a>
+      <a href="mapa.html">Mapa</a>
+      <a href="analisis.html">Análisis</a>
+      <a href="comparar.html">Comparar</a>
+      <a href="control.html">Servicios de control</a>
+      <a href="metodo.html" class="on" aria-current="page">Cómo se hizo</a>
+      <a href="explorador.html">Explorador</a>
+    </nav>
+  </div>
+</header>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 64px 32px 32px">
+  <p style="margin: 0 0 8px; font: 600 18px 'Barlow Condensed', sans-serif; color: #e9a21a">06 · CÓMO SE HIZO</p>
+  <h1 style="margin: 0 0 16px; font: 800 clamp(44px, 5.6vw, 80px)/0.95 'Barlow Condensed', sans-serif; max-width: 16ch">De dos Excel de la Contraloría a esta página</h1>
+  <p style="margin: 0; max-width: 60ch; font-size: 19px; color: #b7c6d6">Sin servidores ni pagos. Baja y la terminal escribe la salida real de la última carga, paso por paso.</p>
+  <div style="display: flex; flex-wrap: wrap; gap: 10px 0; margin-top: 40px">
+    <template sc-for list="{{nodes}}" as="d" hint-placeholder-count="4">
+      <div style="display: contents">
+        <div class="{{d.cls}}"><p style="margin: 0; font: 700 22px 'Barlow Condensed', sans-serif">{{d.t}}</p><p style="margin: 4px 0 0; font-size: 13.5px; color: #b7c6d6">{{d.s}}</p></div>
+        <template sc-if value="{{d.link}}" hint-placeholder-val="{{true}}"><span class="link" aria-hidden="true"></span></template>
+      </div>
+    </template>
+  </div>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 0 32px 64px; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start">
+  <ol style="flex: 1 1 380px; min-width: 0; list-style: none; margin: 0; padding: 0">
+    <template sc-for list="{{steps}}" as="s" hint-placeholder-count="4">
+      <li class="{{s.cls}}" id="{{s.id}}">
+        <button type="button" onClick="{{s.pick}}" aria-label="{{s.aria}}"><span class="n">{{s.n}}</span></button>
+        <h2 style="margin: 12px 0 12px; font: 700 34px/1 'Barlow Condensed', sans-serif">{{s.t}}</h2>
+        <p style="margin: 0; font-size: 18px; color: #c9d6e6; max-width: 46ch">{{s.p}}</p>
+      </li>
+    </template>
+  </ol>
+  <div style="flex: 1.2 1 480px; min-width: 0" class="term">
+    <div style="display: flex; align-items: center; gap: 6px; padding: 10px 12px; border-bottom: 1px solid #2c5684">
+      <span style="width: 10px; height: 10px; border-radius: 50%; background: #3d6896"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #3d6896"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #3d6896"></span>
+      <span style="margin-left: 8px; font-size: 13px; color: #9fb5cc">obra-parada: {{termTitle}}</span>
+    </div>
+    <div style="padding: 18px 20px; min-height: 380px; font: 400 14px/1.7 'JetBrains Mono', ui-monospace, monospace" aria-live="polite">
+      <template sc-for list="{{lines}}" as="l" hint-placeholder-count="6">
+        <div class="tl" style="color: {{l.c}}">{{l.t}}</div>
+      </template>
+      <span class="cur" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 24px 32px 80px">
+  <p style="margin: 0 0 8px; font: 600 18px 'Barlow Condensed', sans-serif; color: #e9a21a">PRUÉBALO</p>
+  <h2 style="margin: 0 0 10px; font: 800 clamp(34px, 4vw, 54px)/1 'Barlow Condensed', sans-serif">Escribe una cabecera de Excel y mira cómo la lee el parser</h2>
+  <p style="margin: 0 0 22px; color: #b7c6d6; max-width: 64ch">Son las reglas de la lista de obras en <code style="font-family: 'JetBrains Mono', monospace; color: #f5d38a">pipeline/parse.py</code>, en el mismo orden de prioridad. En el Excel real, además, cada columna se usa una sola vez.</p>
+  <label for="cab" style="display: block; font-size: 14px; color: #9fb5cc; margin-bottom: 6px">Cabecera</label>
+  <input id="cab" class="pg-in" type="text" value="{{hq}}" onInput="{{onH}}" autocomplete="off" spellcheck="false">
+  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 28px">
+    <template sc-for list="{{examples}}" as="x" hint-placeholder-count="6"><button type="button" class="ex" onClick="{{x.pick}}">{{x.l}}</button></template>
+  </div>
+  <div style="display: flex; flex-wrap: wrap; gap: 10px 0" aria-live="polite">
+    <div class="{{ps1}}"><p style="margin: 0 0 6px; font-size: 13px; color: #9fb5cc">1 · Lo que viene en el Excel</p><p style="margin: 0; font: 500 15px 'JetBrains Mono', monospace; word-break: break-word">{{p1}}</p></div>
+    <span class="{{pa1}}" aria-hidden="true"><i></i></span>
+    <div class="{{ps2}}"><p style="margin: 0 0 6px; font-size: 13px; color: #9fb5cc">2 · Normalizado</p><p style="margin: 0; font: 500 15px 'JetBrains Mono', monospace; color: #f5d38a; word-break: break-word">{{p2}}</p></div>
+    <span class="{{pa2}}" aria-hidden="true"><i></i></span>
+    <div class="{{ps3}}"><p style="margin: 0 0 6px; font-size: 13px; color: #9fb5cc">3 · Regla que calza</p><p style="margin: 0; font: 500 15px 'JetBrains Mono', monospace; word-break: break-word">{{p3}}</p></div>
+    <span class="{{pa3}}" aria-hidden="true"><i></i></span>
+    <div class="{{ps4}}"><p style="margin: 0 0 6px; font-size: 13px; color: #9fb5cc">4 · Campo en la base</p><p style="margin: 0; font: 800 24px 'Barlow Condensed', sans-serif; color: {{p4c}}">{{p4}}</p></div>
+  </div>
+</section>
+
+<div class="tape" aria-hidden="true"></div>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 72px 32px 96px">
+  <h2 class="rv" style="margin: 0 0 32px; font: 800 clamp(34px, 4vw, 54px)/1 'Barlow Condensed', sans-serif">Decisiones técnicas</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 32px">
+    <div class="dec rv"><h3 style="margin: 0 0 8px; font: 700 24px 'Barlow Condensed', sans-serif; color: #e9a21a">DuckDB y no Postgres</h3><p style="margin: 0; color: #c9d6e6">Son miles de filas, no millones. Un archivo DuckDB corre en el runner de GitHub sin servicios y dbt funciona igual que contra un warehouse grande.</p></div>
+    <div class="dec rv"><h3 style="margin: 0 0 8px; font: 700 24px 'Barlow Condensed', sans-serif; color: #e9a21a">JSON estático y no una API</h3><p style="margin: 0; color: #c9d6e6">El dato cambia cada tres meses. Generar JSON en el pipeline y servirlo desde un CDN es más barato, más rápido y no hay nada que mantener en producción.</p></div>
+    <div class="dec rv"><h3 style="margin: 0 0 8px; font: 700 24px 'Barlow Condensed', sans-serif; color: #e9a21a">Un parser que no asume columnas</h3><p style="margin: 0; color: #c9d6e6">El Excel cambia entre informes. Busca la fila de cabecera y reconoce cada columna por su nombre; si trae dos costos, toma el actualizado de Invierte.pe.</p></div>
+    <div class="dec rv"><h3 style="margin: 0 0 8px; font: 700 24px 'Barlow Condensed', sans-serif; color: #e9a21a">Tests antes de publicar</h3><p style="margin: 0; color: #c9d6e6">Avance entre 0 y 100, saldo menor que el costo, totales que cuadran y cada control ligado a una obra. Si algo falla, no se publica.</p></div>
+    <div class="dec rv"><h3 style="margin: 0 0 8px; font: 700 24px 'Barlow Condensed', sans-serif; color: #e9a21a">Año de inicio, no fecha de paralización</h3><p style="margin: 0; color: #c9d6e6">La base de junio de 2026 no trae cuándo se paró cada obra. Se usa el año en que empezó y se dice así, en vez de inventar un tiempo parada.</p></div>
+    <div class="dec rv"><h3 style="margin: 0 0 8px; font: 700 24px 'Barlow Condensed', sans-serif; color: #e9a21a">Cada lunes, solo</h3><p style="margin: 0; color: #c9d6e6">GitHub Actions revisa gob.pe. Si el archivo cambió (otro SHA-256), corre todo el pipeline, commitea los JSON y Netlify publica.</p></div>
+  </div>
+  <p class="rv" style="margin: 48px 0 0; color: #9fb5cc">Código en <a href="https://github.com/Key-qr/obra-parada">github.com/Key-qr/obra-parada</a> · Licencia MIT</p>
+</section>
+</div>
+</template>
+<script type="text/x-dc" id="logica">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { step: 0, chars: 0, hq: 'COSTO ACTUALIZADO\n(Según INVIERTE S/)'.replace('\n', ' '), ps: 4 };
+  }
+  setHeader(v) {
+    (this.pt || []).forEach(clearTimeout);
+    this.setState({ hq: v, ps: 1 });
+    this.pt = [2, 3, 4].map((k) => setTimeout(() => this.setState({ ps: k }), (k - 1) * 260));
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => {
+      const total = this.script()[this.state.step].reduce((s, l) => s + l.t.length + 1, 0);
+      if (this.state.chars < total) this.setState({ chars: Math.min(total, this.state.chars + 3) });
+    }, 16);
+    this.onScroll = () => {
+      let cur = 0;
+      for (let i = 0; i < 4; i++) {
+        const el = document.getElementById(`paso-${i}`);
+        if (el && el.getBoundingClientRect().top < window.innerHeight * 0.5) cur = i;
+      }
+      if (cur !== this.state.step) this.setState({ step: cur, chars: 0 });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+  }
+  componentWillUnmount() { clearInterval(this.timer); window.removeEventListener('scroll', this.onScroll); (this.pt || []).forEach(clearTimeout); }
+  script() {
+    const C = '#ffffff', D = '#7f9ab5', O = '#9ee0b0', Y = '#f5d38a', L = '#d5e0ea';
+    return [
+      [
+        { t: '$ python -m pipeline.cli ingest', c: C },
+        { t: 'buscando "obras paralizadas en el territorio nacional" en gob.pe', c: D },
+        { t: 'corte del informe: 2026-06', c: L },
+        { t: 'descargado anexo01_2026-06.xlsx  (lista de obras)', c: O },
+        { t: 'descargado anexo02_2026-06.xlsx  (servicios de control)', c: O },
+        { t: 'sha256 aee166f5f8647222…  archivo nuevo', c: D },
+      ],
+      [
+        { t: '$ parse_excel("anexo01_2026-06.xlsx")', c: C },
+        { t: 'hoja "Data", cabecera en la fila 1', c: L },
+        { t: '  "DESCRIPCION OBRA"         -> nombre_obra', c: Y },
+        { t: '  "COSTO ACTUALIZADO"        -> costo_actualizado', c: Y },
+        { t: '  "SALDO DE LA INVERSIÓN"    -> saldo_por_ejecutar', c: Y },
+        { t: '  "AÑO INICIO OBRA"          -> anio_inicio', c: Y },
+        { t: '  "PIM 2026"                 -> pim_anual', c: Y },
+        { t: '2,262 obras -> data/staging/obras.parquet', c: O },
+        { t: '$ parse_control("anexo02_2026-06.xlsx")', c: C },
+        { t: '4,386 servicios -> data/staging/control.parquet', c: O },
+      ],
+      [
+        { t: '$ dbt build --vars \'{fecha_corte: "2026-06-30"}\'', c: C },
+        { t: 'seeds: 2 (ubigeo INEI, departamentos)', c: D },
+        { t: '  OK  stg_obras        0.32s', c: O },
+        { t: '  OK  stg_control      0.27s', c: O },
+        { t: '  OK  int_obras_geo    0.04s', c: O },
+        { t: '  OK  fct_obras        0.16s', c: O },
+        { t: '  OK  fct_control      0.18s', c: O },
+        { t: '  OK  agg_resumen      0.04s', c: O },
+        { t: 'Done. PASS=33 WARN=0 ERROR=0', c: O },
+        { t: 'ubicadas en su distrito: 2,192 de 2,262', c: L },
+      ],
+      [
+        { t: '$ python -m pipeline.cli export', c: C },
+        { t: 'web/data/obras.json    2,262 filas   1,310 KB', c: O },
+        { t: 'web/data/control.json  4,386 filas   1,773 KB', c: O },
+        { t: 'web/data/meta.json     procedencia y hash', c: O },
+        { t: '$ git commit -m "datos: corte 2026-06" && git push', c: C },
+        { t: 'netlify: deploy publicado', c: O },
+      ],
+    ];
+  }
+  renderVals() {
+    const S = [
+      ['Descarga', 'Cada lunes un workflow de GitHub Actions busca en gob.pe el último informe y descarga sus dos bases: el Anexo N.° 01 (obras) y el N.° 02 (servicios de control). Si el SHA-256 no cambió, se detiene ahí.', 'ingest'],
+      ['Lectura del Excel', 'El parser busca la fila que parece cabecera y reconoce cada columna por su nombre, aunque venga con tildes, abreviada o en otro orden. Limpia montos, porcentajes y caracteres rotos.', 'parse'],
+      ['Limpieza y validación', 'dbt sobre DuckDB tipa los datos, ubica cada obra en su distrito con el ubigeo del INEI (incluso con nombres mal escritos) y corre 33 tests. Si uno falla, no se publica.', 'dbt build'],
+      ['Publicación', 'Los modelos finales se exportan a JSON y se commitean. Netlify publica el sitio estático y el navegador hace todos los filtros.', 'export'],
+    ];
+    const step = this.state.step;
+    let left = this.state.chars;
+    const lines = [];
+    for (const l of this.script()[step]) {
+      if (left <= 0) break;
+      lines.push({ t: l.t.slice(0, left), c: l.c });
+      left -= l.t.length + 1;
+    }
+    const NODES = [['gob.pe', 'Anexos 01 y 02'], ['Python', 'fetch · parse'], ['dbt + DuckDB', '33 tests'], ['Web', 'JSON + Netlify']];
+    // Las reglas del esquema OBRAS de pipeline/parse.py, en su mismo orden de prioridad.
+    const RULES = [
+      ['saldo_por_ejecutar', [/saldo de (la )?inversion/, /saldo por ejecutar/, /^saldo/]],
+      ['monto_ejecutado', [/(monto|inversion|costo) ejecutad/, /devengado/, /valorizado acumulado/, /monto valorizado/]],
+      ['costo_actualizado', [/costo actualizado/, /monto actualizado/, /costo total/, /monto de inversion/, /costo de (la )?obra/, /monto contratado/]],
+      ['codigo_infobras', [/\bcodigo\b.*\binfobras\b/, /\binfobras\b/, /^cod obra$/, /^codigo de obra$/]],
+      ['cui', [/\bcui\b/, /codigo unico/, /\bcodigo de inversion\b/]],
+      ['fecha_paralizacion', [/fecha de paralizacion/, /fecha paraliz/, /paralizada desde/]],
+      ['fecha_inicio', [/fecha de inicio/, /fecha inicio/]],
+      ['anio_inicio', [/ano (de )?inicio/, /anio (de )?inicio/]],
+      ['plazo_dias', [/plazo de ejecucion/, /^plazo/]],
+      ['tipo_obra_2', [/^tipo de obra nivel 2$/]],
+      ['tipo_obra_3', [/^tipo de obra nivel 3$/]],
+      ['tipo_obra_1', [/^tipo de obra$/]],
+      ['pim_anual', [/^pim( \d{4})?$/]],
+      ['tiene_pim', [/^tiene pim/]],
+      ['en_inventario_mef', [/^esta en el inventario/, /inventario obras paralizadas/]],
+      ['tiene_informe_situacional', [/informe de estado situacional/]],
+      ['url_informe_situacional', [/^url informe$/, /url informe situacional/]],
+      ['en_lista_priorizada', [/^dentro de la lista priorizada/, /^en (la )?lista priorizada/]],
+      ['url_resolucion_priorizada', [/^url resolucion/]],
+      ['nivel_gobierno', [/nivel de gobierno/, /^nivel$/, /nivel gob/]],
+      ['modalidad_ejecucion', [/modalidad/, /tipo de ejecucion/]],
+      ['causal_paralizacion', [/causal/, /causa/, /motivo/]],
+      ['evento_asociado', [/^evento/, /evento/]],
+      ['avance_fisico', [/^avance fisico/, /avance fisico/, /avance real/, /^(porcentaje de |% )?avance( %)?$/]],
+      ['ubigeo', [/\bubigeo\b/]],
+      ['departamento', [/^departamento$/, /^dpto$/, /^region$/, /departamento/]],
+      ['provincia', [/^provincia$/, /provincia/]],
+      ['distrito', [/^distrito$/, /distrito/]],
+      ['nombre_obra', [/^descripcion (de (la )?)?obra$/, /nombre de (la )?obra/, /^obra$/, /descripcion (de (la )?)?obra/, /nombre de (la )?inversion/, /^nombre$/]],
+      ['entidad', [/^entidad$/, /^entidad (publica|ejecutora|responsable)/, /unidad ejecutora/, /^ue$/]],
+      ['sector', [/^sector$/, /\bsector\b/]],
+    ];
+    const raw = this.state.hq;
+    const nrm = raw.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    let hit = null;
+    for (const [field, pats] of RULES) {
+      const p = pats.find((re) => re.test(nrm));
+      if (p) { hit = [field, p]; break; }
+    }
+    const ps = this.state.ps;
+    const cls = (i) => `pstep${ps >= i ? ' on' : ''}${i >= 3 && ps >= i ? (hit ? ' hit' : ' miss') : ''}`;
+    const EX = ['COSTO ACTUALIZADO (Según INVIERTE S/)', 'SALDO DE LA INVERSIÓN', '% Avance Físico', 'Avance financiero', 'AÑO INICIO OBRA', 'Causal u origen de la paralización', 'PIM 2026', 'DESCRIPCION OBRA'];
+    return {
+      hq: raw,
+      onH: (e) => this.setHeader(e.target.value),
+      examples: EX.map((l) => ({ l, pick: () => this.setHeader(l) })),
+      ps1: cls(1), ps2: cls(2), ps3: cls(3), ps4: cls(4),
+      pa1: ps >= 2 ? 'parrow on' : 'parrow', pa2: ps >= 3 ? 'parrow on' : 'parrow', pa3: ps >= 4 ? 'parrow on' : 'parrow',
+      p1: raw || '(vacío)',
+      p2: nrm || '(vacío)',
+      p3: hit ? String(hit[1]) : 'ninguna regla calza',
+      p4: hit ? hit[0] : 'sin mapear',
+      p4c: hit ? '#9ee0b0' : '#ff9b8a',
+      nodes: NODES.map((n, i) => ({ t: n[0], s: n[1], cls: i === step ? 'node on' : i < step ? 'node done' : 'node', link: i < 3 })),
+      steps: S.map((s, i) => ({
+        id: `paso-${i}`, n: String(i + 1).padStart(2, '0'), t: s[0], p: s[1],
+        cls: i === step ? 'step on' : 'step', aria: `Paso ${i + 1}: ${s[0]}`,
+        pick: () => this.setState({ step: i, chars: 0 }),
+      })),
+      lines: lines.length ? lines : [{ t: ' ', c: '#fff' }],
+      termTitle: S[step][2],
+    };
+  }
+}
+</script>
+</body>
+</html>

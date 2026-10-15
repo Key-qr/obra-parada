@@ -56,6 +56,16 @@ jobs:
         if: steps.diff.outputs.cambio == 'si'
         run: make transform
 
+      - uses: actions/setup-node@v4
+        if: steps.diff.outputs.cambio == 'si'
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Dependencias de Node (topojson para los mapas de puntos)
+        if: steps.diff.outputs.cambio == 'si'
+        run: npm ci
+
       - name: Exportar JSON para la web
         if: steps.diff.outputs.cambio == 'si'
         run: make export
