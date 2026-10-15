@@ -4,14 +4,14 @@ Sitio interactivo sobre las obras públicas paralizadas en el Perú: dónde est�
 
 Usa las dos bases del informe de la Contraloría a junio de 2026: **2,262 obras paralizadas** (Anexo N.° 01) con S/ 62.8 mil millones de costo actualizado y S/ 27.5 mil millones por ejecutar, y **4,386 servicios de control** hechos a 1,239 de ellas (Anexo N.° 02).
 
-**Demo:** _pendiente de publicar en Netlify_
+**Demo:** https://key-qr.github.io/obra-parada/
 
 ![CI](https://github.com/Key-qr/obra-parada/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
 ![dbt](https://img.shields.io/badge/dbt-1.12-FF694B?logo=dbt&logoColor=white)
 ![DuckDB](https://img.shields.io/badge/DuckDB-1.5-FFF000?logo=duckdb&logoColor=black)
 ![MapLibre](https://img.shields.io/badge/MapLibre_GL-4.7-396CB2)
-![Netlify](https://img.shields.io/badge/Netlify-sitio_estático-00C7B7?logo=netlify&logoColor=white)
+![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-sitio_estático-222222?logo=github&logoColor=white)
 
 ![Inicio](docs/img/inicio.png)
 
@@ -86,11 +86,11 @@ flowchart LR
     G --> T["web/data/geo/*.json<br/>TopoJSON"]
     E --> W["Sitio estático<br/>MapLibre + JS"]
     T --> W
-    W --> N["Netlify"]
+    W --> N["GitHub Pages"]
     GH["GitHub Actions<br/>cada lunes"] -.->|"si cambió el SHA-256"| A
 ```
 
-Todo corre gratis: GitHub Actions para el pipeline, el repo como almacenamiento de los JSON y Netlify para servir el sitio. No hay base de datos en línea ni backend.
+Todo corre gratis: GitHub Actions para el pipeline, el repo como almacenamiento de los JSON y GitHub Pages para servir el sitio. No hay base de datos en línea ni backend.
 
 | Capa | Herramienta | Por qué |
 |---|---|---|
@@ -101,7 +101,7 @@ Todo corre gratis: GitHub Actions para el pipeline, el repo como almacenamiento 
 | Geodatos | mapshaper, TopoJSON | Los 1,834 distritos pasan de 1.8 MB a 450 KB |
 | Front | JS sin framework, MapLibre GL en el explorador | Un runtime propio de ~200 líneas para las páginas (`web/js/dc.js`); animaciones con CSS y scroll, sin librerías |
 | Orquestación | GitHub Actions | Cron semanal + disparo manual |
-| Hosting | Netlify | Deploy automático en cada push |
+| Hosting | GitHub Pages | Se publica en cada push a `web/` y después de cada carga del pipeline (`pages.yml`). El repo también trae `netlify.toml` por si se prefiere Netlify |
 
 ## Pipeline de datos
 
@@ -213,7 +213,7 @@ obra-parada/
 ├── tests/             tests del parser (pytest)
 ├── web/               sitio estático: seis páginas + explorador.html, js/dc.js, data/
 ├── docs/              DATA.md y capturas
-└── .github/workflows  ci.yml (tests + pipeline con fixture) y pipeline.yml (actualización semanal)
+└── .github/workflows  ci.yml (tests + pipeline con fixture), pipeline.yml (actualización semanal) y pages.yml (publicación)
 ```
 
 ## Fuentes

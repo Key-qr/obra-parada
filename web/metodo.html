@@ -147,7 +147,7 @@ a{color:#f5d38a}a:hover{color:#fff}
     <div class="dec rv"><h3 style="margin: 0 0 8px; font: 700 24px 'Barlow Condensed', sans-serif; color: #e9a21a">Un parser que no asume columnas</h3><p style="margin: 0; color: #c9d6e6">El Excel cambia entre informes. Busca la fila de cabecera y reconoce cada columna por su nombre; si trae dos costos, toma el actualizado de Invierte.pe.</p></div>
     <div class="dec rv"><h3 style="margin: 0 0 8px; font: 700 24px 'Barlow Condensed', sans-serif; color: #e9a21a">Tests antes de publicar</h3><p style="margin: 0; color: #c9d6e6">Avance entre 0 y 100, saldo menor que el costo, totales que cuadran y cada control ligado a una obra. Si algo falla, no se publica.</p></div>
     <div class="dec rv"><h3 style="margin: 0 0 8px; font: 700 24px 'Barlow Condensed', sans-serif; color: #e9a21a">Año de inicio, no fecha de paralización</h3><p style="margin: 0; color: #c9d6e6">La base de junio de 2026 no trae cuándo se paró cada obra. Se usa el año en que empezó y se dice así, en vez de inventar un tiempo parada.</p></div>
-    <div class="dec rv"><h3 style="margin: 0 0 8px; font: 700 24px 'Barlow Condensed', sans-serif; color: #e9a21a">Cada lunes, solo</h3><p style="margin: 0; color: #c9d6e6">GitHub Actions revisa gob.pe. Si el archivo cambió (otro SHA-256), corre todo el pipeline, commitea los JSON y Netlify publica.</p></div>
+    <div class="dec rv"><h3 style="margin: 0 0 8px; font: 700 24px 'Barlow Condensed', sans-serif; color: #e9a21a">Cada lunes, solo</h3><p style="margin: 0; color: #c9d6e6">GitHub Actions revisa gob.pe. Si el archivo cambió (otro SHA-256), corre todo el pipeline, commitea los JSON y GitHub Pages publica.</p></div>
   </div>
   <p class="rv" style="margin: 48px 0 0; color: #9fb5cc">Código en <a href="https://github.com/Key-qr/obra-parada">github.com/Key-qr/obra-parada</a> · Licencia MIT</p>
 </section>
@@ -221,7 +221,7 @@ class Component extends DCLogic {
         { t: 'web/data/control.json  4,386 filas   1,773 KB', c: O },
         { t: 'web/data/meta.json     procedencia y hash', c: O },
         { t: '$ git commit -m "datos: corte 2026-06" && git push', c: C },
-        { t: 'netlify: deploy publicado', c: O },
+        { t: 'pages: deploy publicado', c: O },
       ],
     ];
   }
@@ -230,7 +230,7 @@ class Component extends DCLogic {
       ['Descarga', 'Cada lunes un workflow de GitHub Actions busca en gob.pe el último informe y descarga sus dos bases: el Anexo N.° 01 (obras) y el N.° 02 (servicios de control). Si el SHA-256 no cambió, se detiene ahí.', 'ingest'],
       ['Lectura del Excel', 'El parser busca la fila que parece cabecera y reconoce cada columna por su nombre, aunque venga con tildes, abreviada o en otro orden. Limpia montos, porcentajes y caracteres rotos.', 'parse'],
       ['Limpieza y validación', 'dbt sobre DuckDB tipa los datos, ubica cada obra en su distrito con el ubigeo del INEI (incluso con nombres mal escritos) y corre 33 tests. Si uno falla, no se publica.', 'dbt build'],
-      ['Publicación', 'Los modelos finales se exportan a JSON y se commitean. Netlify publica el sitio estático y el navegador hace todos los filtros.', 'export'],
+      ['Publicación', 'Los modelos finales se exportan a JSON y se commitean. GitHub Pages publica el sitio estático y el navegador hace todos los filtros.', 'export'],
     ];
     const step = this.state.step;
     let left = this.state.chars;
@@ -240,7 +240,7 @@ class Component extends DCLogic {
       lines.push({ t: l.t.slice(0, left), c: l.c });
       left -= l.t.length + 1;
     }
-    const NODES = [['gob.pe', 'Anexos 01 y 02'], ['Python', 'fetch · parse'], ['dbt + DuckDB', '33 tests'], ['Web', 'JSON + Netlify']];
+    const NODES = [['gob.pe', 'Anexos 01 y 02'], ['Python', 'fetch · parse'], ['dbt + DuckDB', '33 tests'], ['Web', 'JSON + Pages']];
     // Las reglas del esquema OBRAS de pipeline/parse.py, en su mismo orden de prioridad.
     const RULES = [
       ['saldo_por_ejecutar', [/saldo de (la )?inversion/, /saldo por ejecutar/, /^saldo/]],

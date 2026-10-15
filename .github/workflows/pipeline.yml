@@ -1,6 +1,6 @@
 # Revisa cada semana si la Contraloría publicó un informe nuevo de obras paralizadas.
 # Si el Excel cambió (otro SHA-256), corre el pipeline completo y commitea web/data.
-# Netlify despliega solo al ver el commit.
+# Al terminar, el workflow pages publica el sitio con los datos nuevos.
 name: pipeline
 
 on:

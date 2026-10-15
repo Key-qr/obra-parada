@@ -1,6 +1,6 @@
 """Exporta los marts de dbt (DuckDB) a JSON estático para la web.
 
-La web es 100% estática (Netlify, sin backend ni base de datos en línea):
+La web es 100% estática (GitHub Pages, sin backend ni base de datos en línea):
 todo lo que muestra sale de estos archivos.
 
 - obras.json    tabla de hechos en formato columnar compacto (cols + rows)

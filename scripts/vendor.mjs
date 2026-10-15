@@ -1,4 +1,4 @@
-// Copia las dependencias del front a web/vendor (se versionan para que Netlify sirva el sitio tal cual).
+// Copia las dependencias del front a web/vendor (se versionan para que GitHub Pages sirva el sitio tal cual).
 import { cpSync, mkdirSync, writeFileSync, readdirSync } from "node:fs";
 
 const out = "web/vendor";

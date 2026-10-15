@@ -1208,7 +1208,7 @@ function pipelineLines(meta, resumen) {
       { t: "web/data/resumen.json  cifras de portada", c: "ok" },
       { t: "web/data/meta.json     procedencia y hash", c: "ok" },
       { t: `$ git commit -m "datos: corte ${corte}" && git push`, c: "cmd" },
-      { t: "netlify: deploy publicado", c: "ok" },
+      { t: "pages: deploy publicado", c: "ok" },
     ],
   ];
 }
