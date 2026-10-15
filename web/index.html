@@ -16,33 +16,22 @@
   <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
 
   <header class="site-head">
-    <a class="brand" href="index.html" aria-label="Obra Parada, inicio">
+    <a class="brand" href="index.html" aria-label="Obra Parada, ir a la portada">
       <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="26" height="17" rx="1.5"/><path d="M9 22v7M23 22v7"/><path d="M8 13h16" class="brand-bar"/></svg>
       Obra Parada
     </a>
     <nav class="view-tabs" aria-label="Bases de datos">
-      <a href="#" data-view="obras" aria-current="page">Obras paralizadas</a>
-      <a href="#control" data-view="control" class="needs-control">Servicios de control <b data-k="servicios">…</b></a>
+      <a href="index.html" class="on" aria-current="page">Obras paralizadas</a>
+      <a href="control.html">Servicios de control <b>4,386</b></a>
     </nav>
-    <nav class="sec-nav" aria-label="Secciones">
-      <a href="#mapa">Mapa</a>
-      <a href="#tipos">Qué se paró</a>
-      <a href="#causas">Causas</a>
-      <a href="#comparar">Comparar</a>
-      <a href="#entidades">Entidades</a>
-      <a href="#metodo">Cómo se hizo</a>
+    <nav class="sec-nav" aria-label="Páginas">
+      <a href="simulador.html">Simulador</a>
+      <a href="mapa.html">Mapa</a>
+      <a href="analisis.html">Análisis</a>
+      <a href="comparar.html">Comparar</a>
+      <a href="index.html#entidades">Entidades</a>
+      <a href="metodo.html">Cómo se hizo</a>
     </nav>
-    <details class="mas">
-      <summary>Más páginas<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg></summary>
-      <div class="mas-menu">
-        <a href="simulador.html"><b>Simulador</b><span>Cuántas obras se terminan con cada presupuesto</span></a>
-        <a href="mapa.html"><b>Mapa por departamento</b><span>3D, recorrido y carrera de barras</span></a>
-        <a href="analisis.html"><b>Análisis</b><span>Causas, avance, tipos de obra y récords</span></a>
-        <a href="comparar.html"><b>Comparar departamentos</b><span>Dos departamentos frente a frente</span></a>
-        <a href="control.html"><b>Servicios de control</b><span>Los 4,386 controles, año por año</span></a>
-        <a href="metodo.html"><b>Cómo se hizo</b><span>El pipeline y el probador del parser</span></a>
-      </div>
-    </details>
   </header>
 
   <main id="top">
@@ -578,12 +567,5 @@
   <script src="vendor/maplibre-gl.js"></script>
   <script src="vendor/topojson-client.min.js"></script>
   <script src="app.js" type="module"></script>
-  <script>
-    (() => {
-      const cerrar = (e) => document.querySelectorAll('details.mas[open]').forEach((d) => { if (!e || e.key === 'Escape' || !d.contains(e.target)) d.removeAttribute('open'); });
-      document.addEventListener('click', cerrar);
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrar(e); });
-    })();
-  </script>
 </body>
 </html>

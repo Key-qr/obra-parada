@@ -42,13 +42,13 @@ El dato es público, pero viene en un PDF de 70+ páginas y dos Excel anexos que
 
 ## Las páginas
 
-Siete páginas con el mismo menú: el del Explorador, más un botón que abre las demás. Todas leen los mismos datos y funcionan sin servidor.
+Siete páginas con un solo menú, el mismo en todas: Obras paralizadas · Servicios de control · Simulador · Mapa · Análisis · Comparar · Entidades · Cómo se hizo. Todas leen los mismos datos y funcionan sin servidor.
 
 ### 1 · Explorador (la portada)
 
 <p align="center"><img src="docs/img/explorador.png" width="760" alt="Explorador con MapLibre a nivel de distrito"></p>
 
-Lo primero que se abre. Mapa con MapLibre a nivel de **distrito**: buscas tu distrito, filtras y abres la ficha de cada obra. Su menú es el de todo el sitio: el botón **Más páginas** lleva a las otras seis.
+Lo primero que se abre. Mapa con MapLibre a nivel de **distrito**: buscas tu distrito, filtras y abres la ficha de cada obra. Su menú es el de todo el sitio.
 
 <details>
 <summary><b>Todo lo que tiene el explorador</b></summary>

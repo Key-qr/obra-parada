@@ -141,28 +141,12 @@ header nav.sub a{flex:0 0 auto}
   .view-tabs { width: 100%; }
   .view-tabs a { flex: 1; justify-content: center; padding: 10px 8px; font-size: 16px; }
 }
-.mas { position: relative; flex: 0 0 auto; }
-.mas summary { list-style: none; display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 14px; border: 1.5px solid #1f2326; background: #f4f5f3; font: 600 17px/1 "Barlow Condensed", "Arial Narrow", sans-serif; color: #1f2326; cursor: pointer; user-select: none; white-space: nowrap; }
-.mas summary::-webkit-details-marker { display: none; }
-.mas summary svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; transition: transform .2s; }
-.mas[open] summary svg { transform: rotate(180deg); }
-.mas summary:hover { background: #e8ebee; }
-.mas.aqui summary { background: #1f2326; color: #fff; }
-.mas summary:focus-visible { outline: 3px solid #e9a21a; outline-offset: 2px; }
-.mas-menu { position: absolute; right: 0; top: calc(100% + 6px); z-index: 80; width: 300px; max-width: calc(100vw - 32px); background: #f4f5f3; border: 1.5px solid #1f2326; box-shadow: 0 18px 30px -16px rgba(0, 0, 0, .45); padding: 6px; animation: masIn .16s ease-out; }
-@keyframes masIn { from { opacity: 0; transform: translateY(-4px); } }
-.mas-menu a { display: block; padding: 9px 12px; text-decoration: none; color: #1f2326; border-left: 4px solid transparent; }
-.mas-menu a b { display: block; font: 700 18px/1.1 "Barlow Condensed", "Arial Narrow", sans-serif; }
-.mas-menu a span { display: block; margin-top: 2px; font: 400 13.5px/1.3 "Barlow", system-ui, sans-serif; color: #5d6468; }
-.mas-menu a:hover { background: #e8ebee; border-left-color: #e9a21a; }
-.mas-menu a.on { background: #fbe7bd; border-left-color: #e9a21a; }
-.site-head .sec-nav { gap: 20px; }
-@media (min-width: 641px) and (max-width: 1280px) {
-  .site-head { flex-wrap: wrap; row-gap: 12px; }
-  .site-head .mas { order: 3; margin-left: auto; }
-  .site-head .sec-nav { order: 4; flex-basis: 100%; margin-left: 0; }
+.view-tabs a.on { background: #1f2326; color: #fff; }
+.sec-nav a.on { color: #17457a; text-decoration: underline; text-decoration-color: #e9a21a; text-decoration-thickness: 3px; text-underline-offset: 6px; }
+@media (min-width: 641px) and (max-width: 1180px) {
+  .site-head { flex-wrap: wrap; row-gap: 12px; column-gap: 24px; justify-content: flex-start; }
+  .site-head .sec-nav { flex-basis: 100%; margin-left: 0; }
 }
-@media (max-width: 640px) { .site-head { position: relative; } .site-head .mas { position: absolute; right: 16px; top: 14px; } .mas summary { min-height: 34px; padding: 0 10px; font-size: 15px; } }
 </style>
 <script src="js/dc.js" defer></script>
 </head>
@@ -181,28 +165,16 @@ header nav.sub a{flex:0 0 auto}
     </a>
     <nav class="view-tabs" aria-label="Bases de datos">
       <a href="index.html">Obras paralizadas</a>
-      <a href="index.html#control">Servicios de control <b>4,386</b></a>
+      <a href="control.html">Servicios de control <b>4,386</b></a>
     </nav>
-    <nav class="sec-nav" aria-label="Secciones del explorador">
-      <a href="index.html#mapa">Mapa</a>
-      <a href="index.html#tipos">Qué se paró</a>
-      <a href="index.html#causas">Causas</a>
-      <a href="index.html#comparar">Comparar</a>
+    <nav class="sec-nav" aria-label="Páginas">
+      <a href="simulador.html" class="on" aria-current="page">Simulador</a>
+      <a href="mapa.html">Mapa</a>
+      <a href="analisis.html">Análisis</a>
+      <a href="comparar.html">Comparar</a>
       <a href="index.html#entidades">Entidades</a>
-      <a href="index.html#metodo">Cómo se hizo</a>
+      <a href="metodo.html">Cómo se hizo</a>
     </nav>
-    <details class="mas aqui">
-      <summary>Simulador<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg></summary>
-      <div class="mas-menu">
-        <a href="index.html"><b>Explorador</b><span>La portada: busca tu distrito obra por obra</span></a>
-        <a href="simulador.html" class="on" aria-current="page"><b>Simulador</b><span>Cuántas obras se terminan con cada presupuesto</span></a>
-        <a href="mapa.html"><b>Mapa por departamento</b><span>3D, recorrido y carrera de barras</span></a>
-        <a href="analisis.html"><b>Análisis</b><span>Causas, avance, tipos de obra y récords</span></a>
-        <a href="comparar.html"><b>Comparar departamentos</b><span>Dos departamentos frente a frente</span></a>
-        <a href="control.html"><b>Servicios de control</b><span>Los 4,386 controles, año por año</span></a>
-        <a href="metodo.html"><b>Cómo se hizo</b><span>El pipeline y el probador del parser</span></a>
-      </div>
-    </details>
   </div>
 </header>
 
